@@ -10,24 +10,34 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
-    
-    
     var gameBoardView = UIView()
+    var gridPoints = [Indexes: CGPoint]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
         setupView()
         
-        print("loaded")
+        gridPoints = GridPoints(frame: gameBoardView.frame, height: 5, width: 5).getGrid()
+        
+        for point in gridPoints {
+            
+            let pointX = point.value.x
+            let pointY = point.value.y
+            
+            let frameWidth = view.frame.width / 10 * 1
+            let frameHeight = view.frame.width / 10 * 1
+            let frame = CGRect(x: pointX, y: pointY, width: frameWidth, height: frameHeight)
+            let dotView = UIView(frame: frame)
+            
+            dotView.frame = frame
+            dotView.backgroundColor = .black
+            view.addSubview(dotView)
+        }
     }
 
-    
-    
     func setupView() {
         
         let frameWidth = view.frame.width / 10 * 9
@@ -38,7 +48,6 @@ class ViewController: UIViewController {
         gameBoardView.frame = frame
         gameBoardView.backgroundColor = .red
         view.addSubview(gameBoardView)
-        
     }
 }
 
