@@ -23,8 +23,36 @@ class ViewController: UIViewController {
         gridPoints = GridPoints(frame: gameBoardView.frame, height: 10, width: 5).getGrid()
         
         gridForVisual()
+        
+        
+        addGamePiece()
+        
     }
 
+    func addGamePiece() {
+        
+        //TODO: Up to this. Make the game show the green piece
+        
+        
+        
+        let dotWidth = gameBoardView.frame.width / 100 * 15
+        let dotHeight = gameBoardView.frame.width / 100 * 15
+        let point = gridPoints[Indexes(x: 1, y: 1)]
+//        let pointY = point.value.y
+        let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
+        let dotView = UIView(frame: frame)
+        dotView.frame = frame
+        dotView.center = point ?? CGPoint(x: 100, y: 100)
+        dotView.backgroundColor = .green
+        gameBoardView.addSubview(dotView)
+        
+        
+        
+        
+    }
+    
+    
+    
     
     func gridForVisual() {
         
