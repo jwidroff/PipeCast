@@ -20,24 +20,31 @@ class ViewController: UIViewController {
         
         setupView()
         
-        gridPoints = GridPoints(frame: gameBoardView.frame, height: 5, width: 5).getGrid()
+        gridPoints = GridPoints(frame: gameBoardView.frame, height: 10, width: 5).getGrid()
+        
+        gridForVisual()
+    }
+
+    
+    func gridForVisual() {
         
         for point in gridPoints {
             
+            let dotWidth = gameBoardView.frame.width / 100 * 10
+            let dotHeight = gameBoardView.frame.width / 100 * 10
             let pointX = point.value.x
             let pointY = point.value.y
-            
-            let frameWidth = view.frame.width / 10 * 1
-            let frameHeight = view.frame.width / 10 * 1
-            let frame = CGRect(x: pointX, y: pointY, width: frameWidth, height: frameHeight)
+            let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
             let dotView = UIView(frame: frame)
-            
             dotView.frame = frame
+            dotView.center = point.value
             dotView.backgroundColor = .black
-            view.addSubview(dotView)
+            gameBoardView.addSubview(dotView)
         }
+        
     }
-
+    
+    
     func setupView() {
         
         let frameWidth = view.frame.width / 10 * 9

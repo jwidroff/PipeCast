@@ -11,7 +11,7 @@ import UIKit
 
 class GridPoints {
     
-    var frame = CGRect()
+    var gameFrame = CGRect()
     var height = CGFloat()
     var width = CGFloat()
     var xIndex = Int()
@@ -25,15 +25,16 @@ class GridPoints {
 
         self.height = CGFloat(height)
         self.width = CGFloat(width)
-        self.frame = frame
+        self.gameFrame = frame
     }
     
     func getGrid() -> [Indexes: CGPoint]{
-        
-        let heightDistance = frame.height / height
-        let widthDistance = frame.width / width
-        var point:CGFloat = heightDistance / 2
 
+        let heightDistance = (gameFrame.height / height)
+        let widthDistance = (gameFrame.width / width)
+        var point:CGFloat = (heightDistance / 2)
+
+        
         //Get the CGFloat for each height and add to array
         for _ in 0..<Int(height) {
             
@@ -43,7 +44,7 @@ class GridPoints {
         
         
         //Get the CGFloat for each width and add to array
-        point = widthDistance / 2
+        point = (widthDistance / 2)
         
         for _ in 0..<Int(width) {
             
