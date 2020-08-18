@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     var gameBoardView = UIView()
     var gridPoints = [Indexes: CGPoint]()
-    
+    var dotView = UIView()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,35 +25,72 @@ class ViewController: UIViewController {
         
         gridForVisual()
         
-        
         addGamePiece()
+        
+        addGestureRecognizer(view: gameBoardView)
         
     }
 
     func addGamePiece() {
         
         //TODO: Up to this. Make the game show the green piece
-        
-        
-        
+
         let dotWidth = gameBoardView.frame.width / 100 * 15
         let dotHeight = gameBoardView.frame.width / 100 * 15
         let point = gridPoints[Indexes(x: 1, y: 1)]
-//        let pointY = point.value.y
         let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
-        let dotView = UIView(frame: frame)
+        dotView = UIView(frame: frame)
         dotView.frame = frame
         dotView.center = point ?? CGPoint(x: 100, y: 100)
         dotView.backgroundColor = .green
         gameBoardView.addSubview(dotView)
-        
-        
-        
-        
     }
     
+    func addGestureRecognizer(view: UIView) {
+        
+        var upSwipe = UISwipeGestureRecognizer()
+        var downSwipe = UISwipeGestureRecognizer()
+        var rightSwipe = UISwipeGestureRecognizer()
+        var leftSwipe = UISwipeGestureRecognizer()
+        upSwipe = UISwipeGestureRecognizer(target: self, action: #selector( handleSwipe(sender:)))
+        upSwipe.direction = .up
+        view.addGestureRecognizer(upSwipe)
+        
+        downSwipe = UISwipeGestureRecognizer(target: self, action: #selector( handleSwipe(sender:)))
+        downSwipe.direction = .down
+        view.addGestureRecognizer(downSwipe)
+        
+        rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector( handleSwipe(sender:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
+        
+        leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector( handleSwipe(sender:)))
+        leftSwipe.direction = .left
+        view.addGestureRecognizer(leftSwipe)
+    }
     
-    
+    @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
+        
+        print("HandleSwipe called")
+
+        switch sender.direction {
+            
+        case .up:
+            dotView.center = gridPoints[Indexes(x: 2, y: 2)]!
+        case .down:
+            dotView.center = gridPoints[Indexes(x: 1, y: 2)]!
+
+        case .right:
+            dotView.center = gridPoints[Indexes(x: 2, y: 1)]!
+
+        case .left:
+            dotView.center = gridPoints[Indexes(x: 1, y: 1)]!
+
+        default:
+            break
+        }
+
+    }
     
     func gridForVisual() {
         
