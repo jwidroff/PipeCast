@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
     func addGamePiece() {
         
-        //TODO: Up to this. Make the game show the green piece
+        //TODO: Up to this. Fill in the Pieces other properties
 
         let dotWidth = gameBoardView.frame.width / 100 * 15
         let dotHeight = gameBoardView.frame.width / 100 * 15
@@ -74,15 +74,15 @@ class ViewController: UIViewController {
         switch sender.direction {
             
         case .up:
-            dotView.view.center = gridPoints[Indexes(x: 2, y: 2)]!
+            dotView.view.center = gridPoints[Indexes(x: 0, y: 0)]!
         case .down:
-            dotView.view.center = gridPoints[Indexes(x: 1, y: 2)]!
+            dotView.view.center = gridPoints[Indexes(x: 4, y: 1)]!
 
         case .right:
-            dotView.view.center = gridPoints[Indexes(x: 2, y: 1)]!
+            dotView.view.center = gridPoints[Indexes(x: 1, y: 4)]!
 
         case .left:
-            dotView.view.center = gridPoints[Indexes(x: 1, y: 1)]!
+            dotView.view.center = gridPoints[Indexes(x: 1, y: 7)]!
 
         default:
             break
@@ -93,6 +93,8 @@ class ViewController: UIViewController {
     func gridForVisual() {
         
         for point in gridPoints {
+            
+            print(point)
             
             let dotWidth = gameBoardView.frame.width / 100 * 10
             let dotHeight = gameBoardView.frame.width / 100 * 10

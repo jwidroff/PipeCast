@@ -75,7 +75,7 @@ class GridPoints {
                 
                 let floatingPoint = CGPoint(x: horizontalSet.1, y: verticalSet.1)
                 
-                dictionary[Indexes(x: verticalSet.0, y: horizontalSet.0)] = floatingPoint
+                dictionary[Indexes(x: horizontalSet.0, y: verticalSet.0)] = floatingPoint
             }
         }
         return dictionary
