@@ -20,6 +20,9 @@ class GridPoints {
     var heightPoints = [CGFloat]()
     var widthPoints = [CGFloat]()
 
+    init() {
+        
+    }
     init(frame: CGRect, height: Int, width: Int) {
 
         self.height = CGFloat(height)

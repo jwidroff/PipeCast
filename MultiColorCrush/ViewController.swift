@@ -10,24 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var gameBoardView = UIView()
+    var board = Board()
     var gridPoints = [Indexes: CGPoint]()
     var dotView = Piece()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
         
         setupView()
         
-        gridPoints = GridPoints(frame: gameBoardView.frame, height: 10, width: 5).getGrid()
+        
+        board.grid = GridPoints(frame: board.view.frame, height: 10, width: 5).getGrid()
         
         gridForVisual()
         
         addGamePiece()
         
-        addGestureRecognizer(view: gameBoardView)
+        addGestureRecognizer(view: board.view)
         
     }
 
@@ -35,15 +37,15 @@ class ViewController: UIViewController {
         
         //TODO: Up to this. Fill in the Pieces other properties
 
-        let dotWidth = gameBoardView.frame.width / 100 * 15
-        let dotHeight = gameBoardView.frame.width / 100 * 15
-        let point = gridPoints[Indexes(x: 1, y: 1)]
+        let dotWidth = board.view.frame.width / 100 * 15
+        let dotHeight = board.view.frame.width / 100 * 15
+        let point = board.grid[Indexes(x: 1, y: 1)]
         let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
         dotView.view = UIView(frame: frame)
         dotView.view.frame = frame
         dotView.view.center = point ?? CGPoint(x: 100, y: 100)
         dotView.view.backgroundColor = .green
-        gameBoardView.addSubview(dotView.view)
+        board.view.addSubview(dotView.view)
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -74,16 +76,13 @@ class ViewController: UIViewController {
         switch sender.direction {
             
         case .up:
-            dotView.view.center = gridPoints[Indexes(x: 0, y: 0)]!
+            dotView.view.center = board.grid[Indexes(x: 0, y: 0)]!
         case .down:
-            dotView.view.center = gridPoints[Indexes(x: 4, y: 1)]!
-
+            dotView.view.center = board.grid[Indexes(x: 4, y: 1)]!
         case .right:
-            dotView.view.center = gridPoints[Indexes(x: 1, y: 4)]!
-
+            dotView.view.center = board.grid[Indexes(x: 1, y: 4)]!
         case .left:
-            dotView.view.center = gridPoints[Indexes(x: 1, y: 7)]!
-
+            dotView.view.center = board.grid[Indexes(x: 1, y: 7)]!
         default:
             break
         }
@@ -92,12 +91,12 @@ class ViewController: UIViewController {
     
     func gridForVisual() {
         
-        for point in gridPoints {
+        for point in board.grid {
             
             print(point)
             
-            let dotWidth = gameBoardView.frame.width / 100 * 10
-            let dotHeight = gameBoardView.frame.width / 100 * 10
+            let dotWidth = board.view.frame.width / 100 * 10
+            let dotHeight = board.view.frame.width / 100 * 10
             let pointX = point.value.x
             let pointY = point.value.y
             let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
@@ -105,7 +104,7 @@ class ViewController: UIViewController {
             dotView.frame = frame
             dotView.center = point.value
             dotView.backgroundColor = .black
-            gameBoardView.addSubview(dotView)
+            board.view.addSubview(dotView)
         }
         
     }
@@ -117,9 +116,9 @@ class ViewController: UIViewController {
         let frameX = (view.frame.width - frameWidth) / 2
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
-        gameBoardView.frame = frame
-        gameBoardView.backgroundColor = .red
-        view.addSubview(gameBoardView)
+        board.view.frame = frame
+        board.view.backgroundColor = .red
+        view.addSubview(board.view)
     }
 }
 

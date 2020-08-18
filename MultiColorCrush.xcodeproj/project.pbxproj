@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA28284324EC10980022AD9E /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28284224EC10980022AD9E /* Board.swift */; };
 		BA2B36F224E188B300274DF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B36F124E188B300274DF4 /* AppDelegate.swift */; };
 		BA2B36F424E188B300274DF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B36F324E188B300274DF4 /* SceneDelegate.swift */; };
 		BA2B36F624E188B300274DF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B36F524E188B300274DF4 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA28284224EC10980022AD9E /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		BA2B36EE24E188B300274DF4 /* MultiColorCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiColorCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA2B36F124E188B300274DF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA2B36F324E188B300274DF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				BA2B36F324E188B300274DF4 /* SceneDelegate.swift */,
 				BA2B36F524E188B300274DF4 /* ViewController.swift */,
 				BA348F6924EB529C001EFEF2 /* Piece.swift */,
+				BA28284224EC10980022AD9E /* Board.swift */,
 				BA2B370524E214AC00274DF4 /* GridPoints.swift */,
 				BA2B36F724E188B300274DF4 /* Main.storyboard */,
 				BA2B36FA24E188BD00274DF4 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 			files = (
 				BA2B36F624E188B300274DF4 /* ViewController.swift in Sources */,
 				BA2B36F224E188B300274DF4 /* AppDelegate.swift in Sources */,
+				BA28284324EC10980022AD9E /* Board.swift in Sources */,
 				BA348F6A24EB529C001EFEF2 /* Piece.swift in Sources */,
 				BA2B370624E214AC00274DF4 /* GridPoints.swift in Sources */,
 				BA2B36F424E188B300274DF4 /* SceneDelegate.swift in Sources */,
