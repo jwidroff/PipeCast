@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     var gameBoardView = UIView()
     var gridPoints = [Indexes: CGPoint]()
-    var dotView = UIView()
+    var dotView = Piece()
 
     
     override func viewDidLoad() {
@@ -39,11 +39,11 @@ class ViewController: UIViewController {
         let dotHeight = gameBoardView.frame.width / 100 * 15
         let point = gridPoints[Indexes(x: 1, y: 1)]
         let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
-        dotView = UIView(frame: frame)
-        dotView.frame = frame
-        dotView.center = point ?? CGPoint(x: 100, y: 100)
-        dotView.backgroundColor = .green
-        gameBoardView.addSubview(dotView)
+        dotView.view = UIView(frame: frame)
+        dotView.view.frame = frame
+        dotView.view.center = point ?? CGPoint(x: 100, y: 100)
+        dotView.view.backgroundColor = .green
+        gameBoardView.addSubview(dotView.view)
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -71,20 +71,18 @@ class ViewController: UIViewController {
     
     @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
         
-        print("HandleSwipe called")
-
         switch sender.direction {
             
         case .up:
-            dotView.center = gridPoints[Indexes(x: 2, y: 2)]!
+            dotView.view.center = gridPoints[Indexes(x: 2, y: 2)]!
         case .down:
-            dotView.center = gridPoints[Indexes(x: 1, y: 2)]!
+            dotView.view.center = gridPoints[Indexes(x: 1, y: 2)]!
 
         case .right:
-            dotView.center = gridPoints[Indexes(x: 2, y: 1)]!
+            dotView.view.center = gridPoints[Indexes(x: 2, y: 1)]!
 
         case .left:
-            dotView.center = gridPoints[Indexes(x: 1, y: 1)]!
+            dotView.view.center = gridPoints[Indexes(x: 1, y: 1)]!
 
         default:
             break
@@ -109,7 +107,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
     
     func setupView() {
         

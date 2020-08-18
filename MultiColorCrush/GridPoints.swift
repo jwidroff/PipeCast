@@ -21,7 +21,6 @@ class GridPoints {
     var widthPoints = [CGFloat]()
 
     init(frame: CGRect, height: Int, width: Int) {
-        
 
         self.height = CGFloat(height)
         self.width = CGFloat(width)
@@ -34,14 +33,12 @@ class GridPoints {
         let widthDistance = (gameFrame.width / width)
         var point:CGFloat = (heightDistance / 2)
 
-        
         //Get the CGFloat for each height and add to array
         for _ in 0..<Int(height) {
             
             heightPoints.append(point)
             point += heightDistance
         }
-        
         
         //Get the CGFloat for each width and add to array
         point = (widthDistance / 2)
@@ -76,12 +73,8 @@ class GridPoints {
             
             for horizontalSet in widthArray {
                 
-                let index = Indexes(x: verticalSet.0, y: horizontalSet.0)
                 let floatingPoint = CGPoint(x: horizontalSet.1, y: verticalSet.1)
                 
-                print("index \(index)")
-                print("floatingPoint \(floatingPoint)")
-
                 dictionary[Indexes(x: verticalSet.0, y: horizontalSet.0)] = floatingPoint
             }
         }
@@ -90,8 +83,8 @@ class GridPoints {
 }
 
 struct Indexes {
-    var x: Int
-    var y: Int
+    var x: Int?
+    var y: Int?
 }
 
 extension Indexes: Hashable {
