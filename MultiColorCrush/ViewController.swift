@@ -18,10 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         setupView()
-        
         
         board.grid = GridPoints(frame: board.view.frame, height: 10, width: 5).getGrid()
         
