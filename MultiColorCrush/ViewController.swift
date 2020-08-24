@@ -11,20 +11,20 @@ import UIKit
 class ViewController: UIViewController {
 
     var board = Board()
-    var gridPoints = [Indexes: CGPoint]()
     var dotView = Piece()
+    var model = Model()
+    var pieces = [Piece]()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
-        
-        board.grid = GridPoints(frame: board.view.frame, height: 10, width: 5).getGrid()
+        model.delegate = self
+
+        model.setUpGame()
         
         gridForVisual()
         
-        addGamePiece()
+//        addGamePiece()
         
         addGestureRecognizer(view: board.view)
         
@@ -89,9 +89,7 @@ class ViewController: UIViewController {
     func gridForVisual() {
         
         for point in board.grid {
-            
-            print(point)
-            
+                        
             let dotWidth = board.view.frame.width / 100 * 10
             let dotHeight = board.view.frame.width / 100 * 10
             let pointX = point.value.x
@@ -105,17 +103,51 @@ class ViewController: UIViewController {
         }
         
     }
+
+}
+
+
+extension ViewController: ModelDelegate {
     
-    func setupView() {
+    func setUpPiecesView(pieces: [Piece]) {
+        
+        
+        //UP TO HERE - FIX THIS. THE PEICES INDEXES ARE PROBABLY NOT THE CORRECT TYPE
+        
+        
+        for piece in pieces {
+            
+            let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            piece.view = UIView(frame: frame)
+            piece.view.backgroundColor = .red
+            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
+            
+            
+            //UP TO HERE. ADD PIECES TO THE VC's PROPERTY
+            self.pieces.append(piece)
+            board.view.addSubview(piece.view)
+
+            
+            print("Set up pieces delegate called")
+        }
+    }
+    
+//    func getGrid(grid: [Indexes : CGPoint]) {
+//
+//        board.grid = grid
+//
+//    }
+    
+    func setUpBoard(board: Board) {
         
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
-        board.view.frame = frame
-        board.view.backgroundColor = .red
-        view.addSubview(board.view)
+        self.board = board
+        self.board.view.frame = frame
+        self.board.view.backgroundColor = .blue
+        view.addSubview(self.board.view)
     }
 }
-

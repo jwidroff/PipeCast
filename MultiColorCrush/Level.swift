@@ -13,10 +13,13 @@ import UIKit
 class Level {
     
     var number = Int()
-    var grid = [Indexes: CGPoint]() //Work on this make it the correct type
+    var boardHeight = Int()
+    var boardWidth = Int()
     var pieceLocations = [Indexes]()
     
-    
+    init(){
+        
+    }
     
     
 }

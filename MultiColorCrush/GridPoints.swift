@@ -31,7 +31,7 @@ class GridPoints {
     }
     
     func getGrid() -> [Indexes: CGPoint]{
-
+        
         let heightDistance = (gameFrame.height / height)
         let widthDistance = (gameFrame.width / width)
         var point:CGFloat = (heightDistance / 2)
@@ -81,6 +81,7 @@ class GridPoints {
                 dictionary[Indexes(x: horizontalSet.0, y: verticalSet.0)] = floatingPoint
             }
         }
+                
         return dictionary
     }
 }

@@ -14,7 +14,7 @@ class Board {
     
     var grid = [Indexes: CGPoint]()
     var view = UIView()
-    
+//    var pieces = [Piece]()
     
     
     
