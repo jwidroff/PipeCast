@@ -12,7 +12,6 @@ import UIKit
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
-//    func getGrid(grid: [Indexes: CGPoint])
     func setUpPiecesView(pieces: [Piece])
 }
 
@@ -40,13 +39,10 @@ class Model {
         getBoard()
         
         getPieces()
-        
-//        delegate?.getGrid(grid: board.grid)
     }
     
     func getLevel() {
         
-        //Make this useful
         level.number = 1
         level.boardHeight = 8
         level.boardWidth = 4
@@ -58,8 +54,6 @@ class Model {
     
     func getBoard() {
         
-//        print("gameview \(gameView.frame)")
-//
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
@@ -83,20 +77,14 @@ class Model {
     
     func movePiece(direction: UISwipeGestureRecognizer.Direction) {
         
-        
-        //TODO: Update this for all directions
-        
         for piece in pieces {
             
             switch direction {
+                
             case .up:
                 
-                //Find the piece
-                
                 piece.indexes.y = piece.indexes.y! - 1
-                
-//                pieces.append(piece)
-                
+                                
             case .down:
                 
                 piece.indexes.y = piece.indexes.y! + 1
@@ -107,20 +95,12 @@ class Model {
                 
             case .right:
                 
-                
                 piece.indexes.x = piece.indexes.x! + 1
 
-                
             default:
                 break
             }
-            
-            
-            
         }
-        
         delegate?.setUpPiecesView(pieces: pieces)
-
-        
     }
 }

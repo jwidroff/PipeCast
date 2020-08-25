@@ -74,21 +74,15 @@ class ViewController: UIViewController {
         switch sender.direction {
             
         case .up:
-//            dotView.view.center = board.grid[Indexes(x: 0, y: 0)]!
-            
             model.movePiece(direction: sender.direction)
             
         case .down:
-//            dotView.view.center = board.grid[Indexes(x: 0, y: 1)]!
-            
             model.movePiece(direction: sender.direction)
 
         case .right:
-//            dotView.view.center = board.grid[Indexes(x: 1, y: 1)]!
             model.movePiece(direction: sender.direction)
 
         case .left:
-//            dotView.view.center = board.grid[Indexes(x: 1, y: 0)]!
             model.movePiece(direction: sender.direction)
 
         default:
@@ -115,20 +109,11 @@ extension ViewController: ModelDelegate {
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
-            
         }
     }
     
-//    func getGrid(grid: [Indexes : CGPoint]) {
-//
-//        board.grid = grid
-//
-//    }
-    
     func setUpBoard(board: Board) {
-        
-        print(board.grid)
-        
+                
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
@@ -138,7 +123,6 @@ extension ViewController: ModelDelegate {
         self.board.view.frame = frame
         self.board.view.backgroundColor = .blue
         view.addSubview(self.board.view)
-        
         
         for point in self.board.grid {
                         
@@ -167,6 +151,5 @@ extension ViewController: ModelDelegate {
             dotView.backgroundColor = .green
             self.board.view.addSubview(dotView)
         }
-        
     }
 }

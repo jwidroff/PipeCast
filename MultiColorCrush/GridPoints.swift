@@ -23,6 +23,7 @@ class GridPoints {
     init() {
         
     }
+    
     init(frame: CGRect, height: Int, width: Int) {
 
         self.height = CGFloat(height)
