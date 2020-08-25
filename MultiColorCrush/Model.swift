@@ -80,4 +80,33 @@ class Model {
         }
         delegate?.setUpPiecesView(pieces: pieces)
     }
+    
+    func movePiece(direction: UISwipeGestureRecognizer.Direction) {
+        
+        
+        //TODO: Update this for all directions
+        
+        for piece in pieces {
+            
+            switch direction {
+            case .up:
+                
+                //Find the piece
+                
+                piece.indexes.y = piece.indexes.y! - 1
+                
+//                pieces.append(piece)
+                
+            default:
+                break
+            }
+            
+            
+            
+        }
+        
+        delegate?.setUpPiecesView(pieces: pieces)
+
+        
+    }
 }

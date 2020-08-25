@@ -68,10 +68,16 @@ class ViewController: UIViewController {
     
     @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
         
+        
+        print("pieces\(pieces)")
+        
         switch sender.direction {
             
         case .up:
             dotView.view.center = board.grid[Indexes(x: 0, y: 0)]!
+            
+            model.movePiece(direction: sender.direction)
+            
         case .down:
             dotView.view.center = board.grid[Indexes(x: 0, y: 1)]!
         case .right:
@@ -81,9 +87,7 @@ class ViewController: UIViewController {
         default:
             break
         }
-
     }
-
 }
 
 
@@ -91,26 +95,20 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView(pieces: [Piece]) {
         
+        for piece in self.pieces {
+            
+            piece.view.removeFromSuperview()
+        }
         
-        //UP TO HERE - FIX THIS. THE PEICES ARE BEING ADDED UNDER THE DOTS. MAybe use insert
-
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
             piece.view = UIView(frame: frame)
             piece.view.backgroundColor = .red
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
-            
-            
-            //UP TO HERE. ADD PIECES TO THE VC's PROPERTY
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
             
-//            board.view.insertSubview(piece.view, at: -1)
-//            piece.view.center = board.view.center
-
-            
-            print("Set up pieces delegate called")
         }
     }
     
