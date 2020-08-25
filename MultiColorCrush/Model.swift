@@ -23,9 +23,14 @@ class Model {
     var pieces = [Piece]()
     var level = Level()
     var delegate: ModelDelegate?
+    var view = UIView()
     
     init(){
         
+    }
+    
+    init(view: UIView){
+        self.view = view
     }
     
     func setUpGame() {
@@ -53,8 +58,15 @@ class Model {
     
     func getBoard() {
         
+//        print("gameview \(gameView.frame)")
+//
+        let frameWidth = view.frame.width / 10 * 9
+        let frameHeight = view.frame.height / 10 * 9
+        let frameX = (view.frame.width - frameWidth) / 2
+        let frameY = (view.frame.height - frameHeight) / 2
+        let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
+        board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
         delegate?.setUpBoard(board: board)
-        board.grid = GridPoints(frame: board.view.frame, height: level.boardHeight, width: level.boardWidth).getGrid()
     }
     
     func getPieces() {
