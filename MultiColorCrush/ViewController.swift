@@ -74,16 +74,23 @@ class ViewController: UIViewController {
         switch sender.direction {
             
         case .up:
-            dotView.view.center = board.grid[Indexes(x: 0, y: 0)]!
+//            dotView.view.center = board.grid[Indexes(x: 0, y: 0)]!
             
             model.movePiece(direction: sender.direction)
             
         case .down:
-            dotView.view.center = board.grid[Indexes(x: 0, y: 1)]!
+//            dotView.view.center = board.grid[Indexes(x: 0, y: 1)]!
+            
+            model.movePiece(direction: sender.direction)
+
         case .right:
-            dotView.view.center = board.grid[Indexes(x: 1, y: 1)]!
+//            dotView.view.center = board.grid[Indexes(x: 1, y: 1)]!
+            model.movePiece(direction: sender.direction)
+
         case .left:
-            dotView.view.center = board.grid[Indexes(x: 1, y: 0)]!
+//            dotView.view.center = board.grid[Indexes(x: 1, y: 0)]!
+            model.movePiece(direction: sender.direction)
+
         default:
             break
         }

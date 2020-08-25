@@ -97,6 +97,20 @@ class Model {
                 
 //                pieces.append(piece)
                 
+            case .down:
+                
+                piece.indexes.y = piece.indexes.y! + 1
+                
+            case .left:
+                
+                piece.indexes.x = piece.indexes.x! - 1
+                
+            case .right:
+                
+                
+                piece.indexes.x = piece.indexes.x! + 1
+
+                
             default:
                 break
             }
