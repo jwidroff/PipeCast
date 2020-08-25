@@ -14,7 +14,7 @@ class Piece {
     
     var indexes = Indexes()
     var shape = String()
-    var view = UIView()
+    var view = ShapeView()
     var center = CGPoint()
     
     init(){

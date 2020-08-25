@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         let dotHeight = board.view.frame.width / 100 * 15
         let point = board.grid[Indexes(x: 1, y: 1)]
         let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
-        dotView.view = UIView(frame: frame)
+        dotView.view = ShapeView(frame: frame, color: UIColor.cyan.cgColor)
         dotView.view.frame = frame
         dotView.view.center = point ?? CGPoint(x: 100, y: 100)
         dotView.view.backgroundColor = .green
@@ -67,9 +67,6 @@ class ViewController: UIViewController {
     }
     
     @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
-        
-        
-        print("pieces\(pieces)")
         
         switch sender.direction {
             
@@ -104,7 +101,7 @@ extension ViewController: ModelDelegate {
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-            piece.view = UIView(frame: frame)
+            piece.view = ShapeView(frame: frame, color: UIColor.cyan.cgColor)
             piece.view.backgroundColor = .red
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
             self.pieces.append(piece)

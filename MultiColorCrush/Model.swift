@@ -101,6 +101,10 @@ class Model {
                 break
             }
         }
+        
+        print(pieces.map({$0.indexes}))
+        
+        //TODO: This should be changed to its own 'move' delegate
         delegate?.setUpPiecesView(pieces: pieces)
     }
 }
