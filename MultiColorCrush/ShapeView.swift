@@ -1,3 +1,4 @@
+
 //
 //  Shape.swift
 //  MultiColorCrush
@@ -12,28 +13,28 @@ import UIKit
 
 
 class ShapeView : UIView {
-    
+
 //    var name = Int()
 //    var view = UIView()
-    
+
     var color: CGColor?
-        
+
         override init(frame: CGRect) {
             super.init(frame: frame)
         }
-        
+
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
         }
-        
+
         init(frame: CGRect, color: CGColor) {
             self.color  = color
             super.init(frame: frame)
             self.backgroundColor = UIColor.clear
         }
-        
+
         override func draw(_ rect: CGRect) {
-            
+
             guard let context = UIGraphicsGetCurrentContext() else { return }
             let width = frame.width / 4 * 2
             let height = frame.height / 4 * 2
@@ -55,9 +56,9 @@ class ShapeView : UIView {
             context.clear(holeRect)
 
         }
-    
-    
-    
-    
-    
+
+
+
+
+
 }
