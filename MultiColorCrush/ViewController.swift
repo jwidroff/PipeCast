@@ -31,16 +31,18 @@ class ViewController: UIViewController {
     func addGamePiece() {
         
         //TODO: Up to this. Fill in the Pieces other properties
-
-        let dotWidth = board.view.frame.width / 100 * 15
-        let dotHeight = board.view.frame.width / 100 * 15
+        
+        let piece = Piece()
+        let pieceWidth = board.view.frame.width / 100 * 15
+        let pieceHeight = board.view.frame.width / 100 * 15
         let point = board.grid[Indexes(x: 1, y: 1)]
-        let frame = CGRect(x: 0, y: 0, width: dotWidth, height: dotHeight)
-        dotView.view = ShapeView(frame: frame, color: UIColor.cyan.cgColor)
-        dotView.view.frame = frame
-        dotView.view.center = point ?? CGPoint(x: 100, y: 100)
-        dotView.view.backgroundColor = .green
-        board.view.addSubview(dotView.view)
+        let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+        piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "circle")
+        piece.view.frame = frame
+        piece.view.center = point ?? CGPoint(x: 100, y: 100)
+        piece.view.backgroundColor = .green
+        pieces.append(piece)
+        board.view.addSubview(piece.view)
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -101,8 +103,7 @@ extension ViewController: ModelDelegate {
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-            piece.view = ShapeView(frame: frame, color: UIColor.cyan.cgColor)
-            piece.view.backgroundColor = .red
+            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "circle")
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
@@ -132,7 +133,7 @@ extension ViewController: ModelDelegate {
             let dotView = UIView(frame: frame)
             dotView.frame = frame
             dotView.center = point.value
-            dotView.backgroundColor = .black
+//            dotView.backgroundColor = .black
             self.board.view.addSubview(dotView)
         }
         for point in self.board.grid {

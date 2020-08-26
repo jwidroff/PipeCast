@@ -26,8 +26,8 @@ class ShapeView : UIView {
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
         }
-
-        init(frame: CGRect, color: CGColor) {
+    
+        init(frame: CGRect, color: CGColor, shape: String) {
             self.color  = color
             super.init(frame: frame)
             self.backgroundColor = UIColor.clear
