@@ -33,8 +33,8 @@ class ViewController: UIViewController {
         //TODO: Up to this. Fill in the Pieces other properties
         
         let piece = Piece()
-        let pieceWidth = board.view.frame.width / 100 * 15
-        let pieceHeight = board.view.frame.width / 100 * 15
+        let pieceWidth = board.view.frame.width / 100 * 25
+        let pieceHeight = board.view.frame.width / 100 * 25
         let point = board.grid[Indexes(x: 1, y: 1)]
         let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
         piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
@@ -93,6 +93,27 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
     
+    
+    func movePieces(pieces: [Piece]) {
+        
+        for piece in self.pieces {
+            
+            piece.view.removeFromSuperview()
+        }
+        
+        for piece in pieces {
+            
+            let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
+            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
+            self.pieces.append(piece)
+            board.view.addSubview(piece.view)
+        }
+        
+        
+        
+    }
+    
     func setUpPiecesView(pieces: [Piece]) {
         
         for piece in self.pieces {
@@ -102,9 +123,9 @@ extension ViewController: ModelDelegate {
         
         for piece in pieces {
             
-            let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
             piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
-            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
+            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
         }

@@ -13,6 +13,7 @@ import UIKit
 protocol ModelDelegate {
     func setUpBoard(board: Board)
     func setUpPiecesView(pieces: [Piece])
+    func movePieces(pieces: [Piece])
 }
 
 
@@ -82,20 +83,30 @@ class Model {
             switch direction {
                 
             case .up:
-                
-                piece.indexes.y = piece.indexes.y! - 1
-                                
+                if piece.indexes.y != 0 {
+                    piece.indexes.y = piece.indexes.y! - 1
+                }
             case .down:
-                
-                piece.indexes.y = piece.indexes.y! + 1
+                if piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+                    print("int1 \(int1), int2 \(int2)")
+                    return int1 < int2
+                }) {
+                    piece.indexes.y = piece.indexes.y! + 1
+                }
                 
             case .left:
-                
-                piece.indexes.x = piece.indexes.x! - 1
-                
+                if piece.indexes.x != 0 {
+
+                    piece.indexes.x = piece.indexes.x! - 1
+                }
             case .right:
                 
-                piece.indexes.x = piece.indexes.x! + 1
+                if piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
+                    print("int1 \(int1), int2 \(int2)")
+                    return int1 < int2
+                }) {
+                    piece.indexes.x = piece.indexes.x! + 1
+                }
 
             default:
                 break
@@ -104,7 +115,6 @@ class Model {
         
         print(pieces.map({$0.indexes}))
         
-        //TODO: This should be changed to its own 'move' delegate
-        delegate?.setUpPiecesView(pieces: pieces)
+        delegate?.movePieces(pieces: pieces)
     }
 }
