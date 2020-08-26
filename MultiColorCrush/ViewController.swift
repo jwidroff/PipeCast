@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         let pieceHeight = board.view.frame.width / 100 * 15
         let point = board.grid[Indexes(x: 1, y: 1)]
         let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-        piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "triangle")
+        piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
         piece.view.frame = frame
         piece.view.center = point ?? CGPoint(x: 100, y: 100)
         piece.view.backgroundColor = .green
@@ -103,7 +103,7 @@ extension ViewController: ModelDelegate {
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "triangle")
+            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? 0, y: board.grid[piece.indexes]?.y ?? 0)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
@@ -119,23 +119,23 @@ extension ViewController: ModelDelegate {
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         self.board = board
         self.board.view.frame = frame
-        self.board.view.backgroundColor = .blue
+        self.board.view.backgroundColor = .black
         view.addSubview(self.board.view)
         
-        for point in self.board.grid {
-                        
-            let dotWidth = self.board.view.frame.width / 100 * 10
-            let dotHeight = self.board.view.frame.width / 100 * 10
-            let pointX = point.value.x
-            
-            let pointY = point.value.y
-            let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
-            let dotView = UIView(frame: frame)
-            dotView.frame = frame
-            dotView.center = point.value
-//            dotView.backgroundColor = .black
-            self.board.view.addSubview(dotView)
-        }
+//        for point in self.board.grid {
+//                        
+//            let dotWidth = self.board.view.frame.width / 100 * 10
+//            let dotHeight = self.board.view.frame.width / 100 * 10
+//            let pointX = point.value.x
+//            
+//            let pointY = point.value.y
+//            let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
+//            let dotView = UIView(frame: frame)
+//            dotView.frame = frame
+//            dotView.center = point.value
+////            dotView.backgroundColor = .black
+//            self.board.view.addSubview(dotView)
+//        }
         for point in self.board.grid {
                         
             let dotWidth = self.board.view.frame.width / 100 * 20
@@ -146,7 +146,7 @@ extension ViewController: ModelDelegate {
             let dotView = UIView(frame: frame)
             dotView.frame = frame
             dotView.center = point.value
-            dotView.backgroundColor = .green
+            dotView.backgroundColor = .red
             self.board.view.addSubview(dotView)
         }
     }
