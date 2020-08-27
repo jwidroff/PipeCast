@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
+//TODO: Have the pieces stop when theres another piece there
+//TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
+//TODO: Sort through other pieces and check if anything is blocking for all other directions.
+//TODO: Create walls
+
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
     func setUpPiecesView(pieces: [Piece])
     func movePieces(pieces: [Piece])
 }
-
 
 class Model {
     
@@ -93,13 +97,8 @@ class Model {
         
         switch direction {
             
-            
-            
-            
         case .up:
-            
-            //TODO: Sort the pieces
-            
+                        
             for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
                 
                 piece1.indexes.y! < piece2.indexes.y!
@@ -120,7 +119,10 @@ class Model {
 
                 
                 if piece.indexes.y != 0 {
-                    piece.indexes.y = piece.indexes.y! - 1
+                    
+                    if !spaceIsBlocked {
+                        piece.indexes.y = piece.indexes.y! - 1
+                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
