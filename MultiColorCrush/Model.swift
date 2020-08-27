@@ -47,7 +47,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        let pieceLocationIndex1 = Indexes(x: 2, y: 3)
+        let pieceLocationIndex1 = Indexes(x: 3, y: 3)
         let pieceLocationIndex2 = Indexes(x: 3, y: 7)
         level.pieceLocations.append(pieceLocationIndex1)
         level.pieceLocations.append(pieceLocationIndex2)
@@ -76,18 +76,18 @@ class Model {
         delegate?.setUpPiecesView(pieces: pieces)
     }
     
-//    func isPieceInDesiredSpace(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
-//        
-//        var bool = Bool()
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        return bool
-//    }
+    func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
+
+        var bool = false
+        
+        if pieces.contains(where: { (piece) -> Bool in
+            piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+        }){
+            bool = true
+            
+        }
+        return bool
+    }
     
     func movePiece(direction: UISwipeGestureRecognizer.Direction) {
         
@@ -98,7 +98,26 @@ class Model {
             
         case .up:
             
-            for piece in pieces {
+            //TODO: Sort the pieces
+            
+            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
+                
+                piece1.indexes.y! < piece2.indexes.y!
+                
+                
+            }) {
+                
+//                Check to make sure there's no piece there already
+//                If there is, what kind of piece is it?
+//                Check to make sure there isnt a wall there
+//                Check to make sure there isnt a block there
+                
+                
+                
+                let spaceIsBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
+                
+                print("spaceIsBlocked \(spaceIsBlocked)")
+
                 
                 if piece.indexes.y != 0 {
                     piece.indexes.y = piece.indexes.y! - 1
