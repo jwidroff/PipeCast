@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var dotView = Piece()
     var model = Model()
     var pieces = [Piece]()
+    var squareViews = [ShapeView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,25 +94,14 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
     
-    
     func movePieces(pieces: [Piece]) {
-        
-        for piece in self.pieces {
-            
-            piece.view.removeFromSuperview()
-        }
         
         for piece in pieces {
             
-            let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
-            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
-            self.pieces.append(piece)
-            board.view.addSubview(piece.view)
+            UIView.animate(withDuration: 1.0) {
+                piece.view.center = self.board.grid[piece.indexes]!
+            }
         }
-        
-        
-        
     }
     
     func setUpPiecesView(pieces: [Piece]) {
@@ -124,7 +114,7 @@ extension ViewController: ModelDelegate {
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
+            piece.view = ShapeView(frame: frame, color: UIColor.red.cgColor, shape: "cross")
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
@@ -142,33 +132,19 @@ extension ViewController: ModelDelegate {
         self.board.view.frame = frame
         self.board.view.backgroundColor = .black
         view.addSubview(self.board.view)
-        
-//        for point in self.board.grid {
-//                        
-//            let dotWidth = self.board.view.frame.width / 100 * 10
-//            let dotHeight = self.board.view.frame.width / 100 * 10
-//            let pointX = point.value.x
-//            
-//            let pointY = point.value.y
-//            let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
-//            let dotView = UIView(frame: frame)
-//            dotView.frame = frame
-//            dotView.center = point.value
-////            dotView.backgroundColor = .black
-//            self.board.view.addSubview(dotView)
-//        }
+
         for point in self.board.grid {
                         
-            let dotWidth = self.board.view.frame.width / 100 * 20
-            let dotHeight = self.board.view.frame.width / 100 * 20
+            let spaceWidth = self.board.view.frame.width / 100 * 25
+            let spaceHeight = self.board.view.frame.width / 100 * 25
             let pointX = point.value.x
             let pointY = point.value.y
-            let frame = CGRect(x: pointX, y: pointY, width: dotWidth, height: dotHeight)
-            let dotView = UIView(frame: frame)
-            dotView.frame = frame
-            dotView.center = point.value
-            dotView.backgroundColor = .red
-            self.board.view.addSubview(dotView)
+            let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
+            let spaceView = ShapeView(frame: frame, color: UIColor.blue.cgColor, shape: "square")
+            spaceView.frame = frame
+            spaceView.center = point.value
+            spaceView.backgroundColor = .clear
+            self.board.view.addSubview(spaceView)// as UIView)
         }
     }
 }

@@ -45,7 +45,7 @@ class Model {
     func getLevel() {
         
         level.number = 1
-        level.boardHeight = 8
+        level.boardHeight = 9
         level.boardWidth = 4
         let pieceLocationIndex1 = Indexes(x: 2, y: 3)
         let pieceLocationIndex2 = Indexes(x: 3, y: 7)
