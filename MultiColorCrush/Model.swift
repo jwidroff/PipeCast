@@ -65,7 +65,7 @@ class Model {
     }
     
     func setPieces() {
-
+        
         for location in level.pieceLocations {
             
             let piece = Piece()
@@ -76,30 +76,60 @@ class Model {
         delegate?.setUpPiecesView(pieces: pieces)
     }
     
+//    func isPieceInDesiredSpace(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
+//        
+//        var bool = Bool()
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        return bool
+//    }
+    
     func movePiece(direction: UISwipeGestureRecognizer.Direction) {
         
-        for piece in pieces {
+        switch direction {
             
-            switch direction {
+            
+            
+            
+        case .up:
+            
+            for piece in pieces {
                 
-            case .up:
                 if piece.indexes.y != 0 {
                     piece.indexes.y = piece.indexes.y! - 1
                 }
-            case .down:
+            }
+            delegate?.movePieces(pieces: pieces)
+
+        case .down:
+            for piece in pieces {
+                
                 if piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
                     print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
                 }) {
                     piece.indexes.y = piece.indexes.y! + 1
                 }
-                
-            case .left:
-                if piece.indexes.x != 0 {
+            }
+            delegate?.movePieces(pieces: pieces)
 
+        case .left:
+            for piece in pieces {
+                
+                if piece.indexes.x != 0 {
+                    
                     piece.indexes.x = piece.indexes.x! - 1
                 }
-            case .right:
+            }
+            delegate?.movePieces(pieces: pieces)
+
+        case .right:
+            for piece in pieces {
                 
                 if piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
                     print("int1 \(int1), int2 \(int2)")
@@ -107,14 +137,72 @@ class Model {
                 }) {
                     piece.indexes.x = piece.indexes.x! + 1
                 }
-
-            default:
-                break
             }
+            delegate?.movePieces(pieces: pieces)
+
+        default:
+            break
         }
         
-        print(pieces.map({$0.indexes}))
         
-        delegate?.movePieces(pieces: pieces)
+        
+//
+//
+//        for piece in pieces {
+//
+//            switch direction {
+//
+//            case .up:
+//
+//                //Check to make sure there's no piece there already
+//                    //If there is, what kind of piece is it?
+//                //Check to make sure there isnt a wall there
+//                //Check to make sure there isnt a block there
+//
+//
+//
+//
+//
+//
+//
+//                if piece.indexes.y != 0 {
+//                    piece.indexes.y = piece.indexes.y! - 1
+//                }
+//            case .down:
+//                if piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+//                    print("int1 \(int1), int2 \(int2)")
+//                    return int1 < int2
+//                }) {
+//                    piece.indexes.y = piece.indexes.y! + 1
+//                }
+//
+//            case .left:
+//                if piece.indexes.x != 0 {
+//
+//                    piece.indexes.x = piece.indexes.x! - 1
+//                }
+//            case .right:
+//
+//                if piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
+//                    print("int1 \(int1), int2 \(int2)")
+//                    return int1 < int2
+//                }) {
+//                    piece.indexes.x = piece.indexes.x! + 1
+//                }
+//
+//            default:
+//                break
+//            }
+//        }
+//
+//        print(pieces.map({$0.indexes}))
+//
+//        delegate?.movePieces(pieces: pieces)
     }
+    
+    
+    
+    
+    
+    
 }

@@ -87,7 +87,7 @@ extension ViewController: ModelDelegate {
         
         for piece in pieces {
             
-            let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             piece.view = ShapeView(frame: frame, color: UIColor.red.cgColor, shape: piece.shape)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             self.pieces.append(piece)
