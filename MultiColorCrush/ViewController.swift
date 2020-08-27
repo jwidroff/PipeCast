@@ -14,36 +14,15 @@ class ViewController: UIViewController {
     var dotView = Piece()
     var model = Model()
     var pieces = [Piece]()
-    var squareViews = [ShapeView]()
+    var spaceViews = [ShapeView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         model = Model(view: self.view)
-
         model.delegate = self
-
         model.setUpGame()
-                        
         addGestureRecognizer(view: board.view)
-        
-    }
-
-    func addGamePiece() {
-        
-        //TODO: Up to this. Fill in the Pieces other properties
-        
-        let piece = Piece()
-        let pieceWidth = board.view.frame.width / 100 * 25
-        let pieceHeight = board.view.frame.width / 100 * 25
-        let point = board.grid[Indexes(x: 1, y: 1)]
-        let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-        piece.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "cross")
-        piece.view.frame = frame
-        piece.view.center = point ?? CGPoint(x: 100, y: 100)
-        piece.view.backgroundColor = .green
-        pieces.append(piece)
-        board.view.addSubview(piece.view)
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -98,7 +77,7 @@ extension ViewController: ModelDelegate {
         
         for piece in pieces {
             
-            UIView.animate(withDuration: 1.0) {
+            UIView.animate(withDuration: 0.25) {
                 piece.view.center = self.board.grid[piece.indexes]!
             }
         }
@@ -106,15 +85,10 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView(pieces: [Piece]) {
         
-        for piece in self.pieces {
-            
-            piece.view.removeFromSuperview()
-        }
-        
         for piece in pieces {
             
             let frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            piece.view = ShapeView(frame: frame, color: UIColor.red.cgColor, shape: "cross")
+            piece.view = ShapeView(frame: frame, color: UIColor.red.cgColor, shape: piece.shape)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
@@ -144,7 +118,8 @@ extension ViewController: ModelDelegate {
             spaceView.frame = frame
             spaceView.center = point.value
             spaceView.backgroundColor = .clear
-            self.board.view.addSubview(spaceView)// as UIView)
+            spaceViews.append(spaceView)
+            self.board.view.addSubview(spaceView)
         }
     }
 }

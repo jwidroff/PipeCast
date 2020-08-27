@@ -35,14 +35,14 @@ class Model {
     
     func setUpGame() {
         
-        getLevel()
+        setLevel()
         
-        getBoard()
+        setBoard()
         
-        getPieces()
+        setPieces()
     }
     
-    func getLevel() {
+    func setLevel() {
         
         level.number = 1
         level.boardHeight = 9
@@ -53,7 +53,7 @@ class Model {
         level.pieceLocations.append(pieceLocationIndex2)
     }
     
-    func getBoard() {
+    func setBoard() {
         
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
@@ -64,13 +64,13 @@ class Model {
         delegate?.setUpBoard(board: board)
     }
     
-    func getPieces() {
+    func setPieces() {
 
         for location in level.pieceLocations {
             
             let piece = Piece()
             piece.indexes = location
-            piece.shape = "Square"
+            piece.shape = "cross"
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
