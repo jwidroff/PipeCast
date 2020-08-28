@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-//TODO: Have the pieces stop when theres another piece there
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
-//TODO: Sort through other pieces and check if anything is blocking for all other directions.
 //TODO: Create walls
+//TODO: Give pieces opacity
+//TODO: Make like-pieces combine
 
 
 protocol ModelDelegate {
@@ -55,7 +55,6 @@ class Model {
         level.pieceLocations.append(pieceLocationIndex1)
         level.pieceLocations.append(pieceLocationIndex2)
         level.pieceLocations.append(pieceLocationIndex3)
-
     }
     
     func setBoard() {
@@ -76,6 +75,7 @@ class Model {
             let piece = Piece()
             piece.indexes = location
             piece.shape = "cross"
+            piece.color = UIColor.blue
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
@@ -119,12 +119,26 @@ class Model {
         return bool
     }
     
-    func movePiece(direction: UISwipeGestureRecognizer.Direction) {
+    func getPieceInfo(index: Indexes) -> Piece {
         
-//        Check to make sure there's no piece there already
-//        If there is, what kind of piece is it?
-//        Check to make sure there isnt a wall there
-//        Check to make sure there isnt a block there
+        var piece = Piece()
+        
+        for pieceX in pieces {
+            
+            if pieceX.indexes == index {
+                
+                piece = pieceX
+                
+            }
+            
+            
+        }
+        
+        
+        return piece
+    }
+    
+    func movePiece(direction: UISwipeGestureRecognizer.Direction) {
         
         switch direction {
             
@@ -138,6 +152,14 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.y = piece.indexes.y! - 1
+                    } else {
+                        
+                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1))
+                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+                            
+                            piece.indexes.y = piece.indexes.y! - 1
+
+                        }
                     }
                 }
             }

@@ -16,6 +16,7 @@ class Piece {
     var shape = String()
     var view = ShapeView()
     var center = CGPoint()
+    var color = UIColor()
     
     init(){
         
