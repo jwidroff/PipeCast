@@ -81,15 +81,38 @@ class Model {
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
-
-        var bool = false
         
-        if pieces.contains(where: { (piece) -> Bool in
-            piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-        }){
-            bool = true
+        var bool = true
+
+
+        switch direction {
+        case .up:
             
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }){
+                bool = false
+                
+            }
+            
+        case .down:
+            
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }){
+                bool = false
+                
+            }
+            
+            
+        default:
+            break
         }
+        
+        
+        
+        
+        
         return bool
     }
     
@@ -113,14 +136,15 @@ class Model {
                 
                 
                 
-                let spaceIsBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
+                let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
                 
-                print("spaceIsBlocked \(spaceIsBlocked)")
+                print("spaceIsBlocked \(spaceIsntBlocked)")
 
+                let notAtWall = piece.indexes.y != 0
                 
-                if piece.indexes.y != 0 {
+                if notAtWall {
                     
-                    if !spaceIsBlocked {
+                    if spaceIsntBlocked {
                         piece.indexes.y = piece.indexes.y! - 1
                     }
                 }
@@ -128,13 +152,25 @@ class Model {
             delegate?.movePieces(pieces: pieces)
 
         case .down:
-            for piece in pieces {
+            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
                 
-                if piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+                piece1.indexes.y! > piece2.indexes.y!
+                
+                
+            }) {
+                
+                let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
+                
+                let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
                     print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
-                }) {
-                    piece.indexes.y = piece.indexes.y! + 1
+                })
+                
+                if notAtWall {
+                    
+                    if spaceIsntBlocked{
+                        piece.indexes.y = piece.indexes.y! + 1
+                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
