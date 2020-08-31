@@ -15,7 +15,8 @@ class Level {
     var number = Int()
     var boardHeight = Int()
     var boardWidth = Int()
-    var pieceLocations = [Indexes]()
+    var pieceLocations = [Indexes?]()
+    var numberOfPieces = Int()
     
     init(){
         

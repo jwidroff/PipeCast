@@ -13,6 +13,8 @@ import UIKit
 //TODO: Create walls
 //TODO: Give pieces opacity
 //TODO: Make like-pieces combine
+//TODO: Make sure new pieces arent added to the same space
+//TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
 
 
 protocol ModelDelegate {
@@ -46,15 +48,19 @@ class Model {
     
     func setLevel() {
         
-        let pieceLocationIndex1 = Indexes(x: 3, y: 7)
-        let pieceLocationIndex2 = Indexes(x: 1, y: 7)
-        let pieceLocationIndex3 = Indexes(x: 1, y: 4)
+//        let pieceLocationIndex1 = Indexes(x: 3, y: 7)
+//        let pieceLocationIndex2 = Indexes(x: 1, y: 7)
+//        let pieceLocationIndex3 = Indexes(x: 1, y: 4)
+//        level.pieceLocations.append(pieceLocationIndex1)
+//        level.pieceLocations.append(pieceLocationIndex2)
+//        level.pieceLocations.append(pieceLocationIndex3)
+        
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.pieceLocations.append(pieceLocationIndex1)
-        level.pieceLocations.append(pieceLocationIndex2)
-        level.pieceLocations.append(pieceLocationIndex3)
+        level.numberOfPieces = 6
+        
+        
     }
     
     func setBoard() {
@@ -70,13 +76,17 @@ class Model {
     
     func setPieces() {
         
-        for location in level.pieceLocations {
+        let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
+        
+        
+        
+        for _ in 0..<level.numberOfPieces {
             
             let piece = Piece()
-            piece.indexes = location
-            piece.shape = "star"
+            piece.indexes = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+            piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
             piece.color = UIColor.red
-            piece.opacity = 2
+            piece.opacity = 4
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
@@ -129,13 +139,8 @@ class Model {
             if pieceX.indexes == index {
                 
                 piece = pieceX
-                
             }
-            
-            
         }
-        
-        
         return piece
     }
     
