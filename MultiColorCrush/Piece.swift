@@ -17,6 +17,7 @@ class Piece {
     var view = ShapeView()
     var center = CGPoint()
     var color = UIColor()
+    var opacity = Int()
     
     init(){
         

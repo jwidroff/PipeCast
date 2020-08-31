@@ -90,6 +90,24 @@ extension ViewController: ModelDelegate {
             let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
+            piece.view.layer.opacity = Float(piece.opacity) / Float(4)
+            
+            
+            
+//            piece.view.layer.borderColor = UIColor.white.cgColor
+//            piece.view.layer.borderWidth = 1.0
+            
+
+            
+//            piece.view.layer.shadowOpacity = 1
+//            piece.view.layer.shadowPath = CGPath(rect: piece.view.bounds, transform: nil)
+//            piece.view.layer.shadowColor = UIColor.white.cgColor
+//            piece.view.layer.shadowOffset = CGSize(width: 1, height: 1)
+//            piece.view.layer.shadowRadius = 5
+            
+            
+            
+            
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
         }

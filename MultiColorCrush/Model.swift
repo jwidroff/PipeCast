@@ -74,8 +74,9 @@ class Model {
             
             let piece = Piece()
             piece.indexes = location
-            piece.shape = "cross"
-            piece.color = UIColor.blue
+            piece.shape = "star"
+            piece.color = UIColor.red
+            piece.opacity = 2
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
