@@ -180,6 +180,14 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked{
                         piece.indexes.y = piece.indexes.y! + 1
+                    } else {
+                        
+                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1))
+                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+                            
+                            piece.indexes.y = piece.indexes.y! + 1
+
+                        }
                     }
                 }
             }
@@ -194,6 +202,14 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! - 1
+                    } else {
+                        
+                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y))
+                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+                            
+                            piece.indexes.x = piece.indexes.x! - 1
+
+                        }
                     }
                 }
             }
@@ -211,6 +227,14 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! + 1
+                    } else {
+                        
+                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y))
+                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+                            
+                            piece.indexes.x = piece.indexes.x! + 1
+
+                        }
                     }
                 }
             }
