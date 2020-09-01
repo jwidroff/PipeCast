@@ -144,7 +144,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
-            let wallView = UIView(frame: frame)
+            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "octigon")
             
             wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
 

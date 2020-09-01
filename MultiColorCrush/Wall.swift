@@ -13,7 +13,7 @@ class Wall {
     
     var indexes = Indexes()
 //    var shape = String()
-    var view = UIView()
+    var view = ShapeView()
     var center = CGPoint()
 //    var color = UIColor()
     var opacity = Int()
