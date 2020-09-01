@@ -58,7 +58,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 6
+        level.numberOfPieces = 25
         
         
     }
@@ -78,19 +78,35 @@ class Model {
         
         let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
         let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
-        
-        
-        
+
         for _ in 0..<level.numberOfPieces {
             
             let piece = Piece()
-            piece.indexes = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+            setPieceIndex(piece: piece)
+//            piece.indexes = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
             piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
             piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-            piece.opacity = Int(arc4random_uniform(UInt32(10))) + 1
+            piece.opacity = Int(arc4random_uniform(UInt32(3))) + 1
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
+    }
+    
+    func setPieceIndex(piece: Piece) {
+        
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        
+        if pieces.contains(where: { (pieceX) -> Bool in
+            
+            pieceX.indexes == index
+        }){
+            
+            setPieceIndex(piece: piece)
+            
+        } else {
+            
+            piece.indexes = index
+        }
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
