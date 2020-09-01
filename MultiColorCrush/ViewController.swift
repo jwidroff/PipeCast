@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var dotView = Piece()
     var model = Model()
     var pieces = [Piece]()
-    var spaceViews = [ShapeView]()
+    var spaceViews = [UIView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,15 +127,23 @@ extension ViewController: ModelDelegate {
 
         for point in self.board.grid {
                         
-            let spaceWidth = self.board.view.frame.width / 100 * 25
-            let spaceHeight = self.board.view.frame.width / 100 * 25
+            let spaceWidth = self.board.view.frame.width / 100 * 20
+            let spaceHeight = self.board.view.frame.width / 100 * 20
             let pointX = point.value.x
             let pointY = point.value.y
             let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
-            let spaceView = ShapeView(frame: frame, color: UIColor.blue.cgColor, shape: "square")
+//            let spaceView = ShapeView(frame: frame, color: UIColor.blue.cgColor, shape: "square")
+//            spaceView.backgroundColor = .clear
+
+            let spaceView = UIView(frame: frame)
             spaceView.frame = frame
             spaceView.center = point.value
-            spaceView.backgroundColor = .clear
+            spaceView.backgroundColor = .gray
+            spaceView.layer.borderColor = UIColor.white.cgColor
+            spaceView.layer.borderWidth = 2.0
+            
+            
+            
             spaceViews.append(spaceView)
             self.board.view.addSubview(spaceView)
         }

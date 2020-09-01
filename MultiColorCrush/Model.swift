@@ -77,6 +77,7 @@ class Model {
     func setPieces() {
         
         let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
+        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
         
         
         
@@ -85,8 +86,8 @@ class Model {
             let piece = Piece()
             piece.indexes = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
             piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
-            piece.color = UIColor.red
-            piece.opacity = 4
+            piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            piece.opacity = Int(arc4random_uniform(UInt32(10))) + 1
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
