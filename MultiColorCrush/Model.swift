@@ -11,9 +11,6 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Create walls
-//TODO: Give pieces opacity
-//TODO: Make like-pieces combine
-//TODO: Make sure new pieces arent added to the same space
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
 
 
@@ -59,8 +56,6 @@ class Model {
         level.boardHeight = 9
         level.boardWidth = 4
         level.numberOfPieces = 25
-        
-        
     }
     
     func setBoard() {
@@ -76,17 +71,13 @@ class Model {
     
     func setPieces() {
         
-        let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
-        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
-
         for _ in 0..<level.numberOfPieces {
             
             let piece = Piece()
             setPieceIndex(piece: piece)
-//            piece.indexes = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-            piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
-            piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-            piece.opacity = Int(arc4random_uniform(UInt32(3))) + 1
+            setPieceShape(piece: piece)
+            setPieceColor(piece: piece)
+            setPieceOpacity(piece: piece)
             pieces.append(piece)
         }
         delegate?.setUpPiecesView(pieces: pieces)
@@ -100,13 +91,24 @@ class Model {
             
             pieceX.indexes == index
         }){
-            
             setPieceIndex(piece: piece)
-            
         } else {
-            
             piece.indexes = index
         }
+    }
+    
+    func setPieceShape(piece: Piece) {
+        let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
+        piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
+    }
+    
+    func setPieceColor(piece: Piece) {
+        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
+        piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+    }
+    
+    func setPieceOpacity(piece: Piece) {
+        piece.opacity = Int(arc4random_uniform(UInt32(3))) + 1
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {

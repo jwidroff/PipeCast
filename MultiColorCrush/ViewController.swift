@@ -134,9 +134,6 @@ extension ViewController: ModelDelegate {
             spaceView.backgroundColor = .gray
             spaceView.layer.borderColor = UIColor.white.cgColor
             spaceView.layer.borderWidth = 2.0
-            
-            
-            
             spaceViews.append(spaceView)
             self.board.view.addSubview(spaceView)
         }
