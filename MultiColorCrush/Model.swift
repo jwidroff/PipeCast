@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
-//TODO: Create walls
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
+//TODO: Create inner walls
+//TODO: Create exits
 
 
 protocol ModelDelegate {
@@ -25,6 +26,7 @@ class Model {
     var board = Board()
     var pieces = [Piece]()
     var level = Level()
+    var walls = [Wall]()
     var delegate: ModelDelegate?
     var view = UIView()
     
@@ -66,7 +68,23 @@ class Model {
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
+        
+        board.walls = getWalls()
+        
         delegate?.setUpBoard(board: board)
+    }
+    
+    func getWalls() -> [Wall] {
+        
+        let wall = Wall()
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        wall.indexes = index
+        walls.append(wall)
+        
+        print("set walls called")
+        //delegate...
+        
+        return walls
     }
     
     func setPieces() {
