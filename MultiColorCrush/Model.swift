@@ -60,7 +60,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 5
+        level.numberOfPieces = 32
     }
     
     func setBoard() {
@@ -110,9 +110,10 @@ class Model {
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
         if pieces.contains(where: { (pieceX) -> Bool in
-            
             pieceX.indexes == index
-        }){
+        }) || board.walls.contains(where: { (wall) -> Bool in
+            wall.indexes == index
+        }) {
             setPieceIndex(piece: piece)
         } else {
             piece.indexes = index
