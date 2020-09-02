@@ -48,6 +48,16 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(leftSwipe)
     }
     
+    func resetSpaces() {
+        
+        for space in spaceViews {
+            
+            space.backgroundColor = .gray
+        }
+        
+        
+    }
+    
     @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
         
         switch sender.direction {
@@ -71,7 +81,25 @@ class ViewController: UIViewController {
 }
 
 
+
+//FIX THE PIECES ARE CONNECTED ALREADY
 extension ViewController: ModelDelegate {
+    
+    func animatePiece(piece: Piece) {
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            for spaceView in self.spaceViews {
+                
+                if spaceView.center == CGPoint(x: self.board.grid[piece.indexes]!.x, y: self.board.grid[piece.indexes]!.y) {
+                    
+                    spaceView.backgroundColor = .purple
+                }
+            }
+        }) { (true) in
+            self.resetSpaces()
+        }
+    }
+    
     
     func movePieces(pieces: [Piece]) {
         
@@ -85,12 +113,15 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView(pieces: [Piece]) {
         
+        let pieceWidth = self.board.view.frame.width / 100 * 15
+        let pieceHeight = self.board.view.frame.width / 100 * 15
+        
         for piece in pieces {
             
-            let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
-            piece.view.layer.opacity = Float(piece.opacity) / 10 * 20 //FIX THIS
+            piece.view.layer.opacity = 1.0
             
 //            piece.view.layer.borderColor = UIColor.white.cgColor
 //            piece.view.layer.borderWidth = 1.0
@@ -118,10 +149,10 @@ extension ViewController: ModelDelegate {
         self.board.view.backgroundColor = .black
         view.addSubview(self.board.view)
 
+        let spaceWidth = self.board.view.frame.width / 100 * 20
+        let spaceHeight = self.board.view.frame.width / 100 * 20
         for point in self.board.grid {
                         
-            let spaceWidth = self.board.view.frame.width / 100 * 20
-            let spaceHeight = self.board.view.frame.width / 100 * 20
             let pointX = point.value.x
             let pointY = point.value.y
             let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
@@ -139,16 +170,13 @@ extension ViewController: ModelDelegate {
         }
         for wall in self.board.walls {
             
-            
-            
-            
-            let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "octigon")
+            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
             
             wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
-            wallView.backgroundColor = .red
+            wallView.backgroundColor = .black
             //append walls
             
             self.board.view.addSubview(wallView)

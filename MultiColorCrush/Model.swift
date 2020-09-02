@@ -11,17 +11,13 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
-//TODO: Create inner walls
 //TODO: Create exits
-
-//TODO: Need to make pieces stop when they hit a wall
-//TODO: Need to make sure that pieces dont get added where walls are
-
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
     func setUpPiecesView(pieces: [Piece])
     func movePieces(pieces: [Piece])
+    func animatePiece(piece: Piece)
 }
 
 class Model {
@@ -81,13 +77,8 @@ class Model {
         
         let wall = Wall()
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-//        let index = Indexes(x: 2, y: 3)
         wall.indexes = index
         walls.append(wall)
-        
-        print("set walls called")
-        //delegate...
-        
         return walls
     }
     
@@ -214,7 +205,7 @@ class Model {
                         if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
                             
                             piece.indexes.y = piece.indexes.y! - 1
-
+                            delegate?.animatePiece(piece: piece)
                         }
                     }
                 }
@@ -242,7 +233,7 @@ class Model {
                         if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
                             
                             piece.indexes.y = piece.indexes.y! + 1
-
+                            delegate?.animatePiece(piece: piece)
                         }
                     }
                 }
@@ -264,7 +255,7 @@ class Model {
                         if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
                             
                             piece.indexes.x = piece.indexes.x! - 1
-
+                            delegate?.animatePiece(piece: piece)
                         }
                     }
                 }
@@ -289,7 +280,7 @@ class Model {
                         if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
                             
                             piece.indexes.x = piece.indexes.x! + 1
-
+                            delegate?.animatePiece(piece: piece)
                         }
                     }
                 }
