@@ -14,6 +14,9 @@ import UIKit
 //TODO: Create inner walls
 //TODO: Create exits
 
+//TODO: Need to make pieces stop when they hit a wall
+//TODO: Need to make sure that pieces dont get added where walls are
+
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
@@ -57,7 +60,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 25
+        level.numberOfPieces = 5
     }
     
     func setBoard() {
@@ -78,6 +81,7 @@ class Model {
         
         let wall = Wall()
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+//        let index = Indexes(x: 2, y: 3)
         wall.indexes = index
         walls.append(wall)
         
@@ -137,28 +141,36 @@ class Model {
         case .up:
             if pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }){
+            }) || board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) {
                 bool = false
             }
             
         case .down:
             if pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }){
+            }) || board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) {
                 bool = false
             }
             
         case .left:
             if pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }){
+            }) || board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) {
                 bool = false
             }
             
         case .right:
             if pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }){
+            }) || board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) {
                 bool = false
             }
         default:
