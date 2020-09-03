@@ -116,7 +116,10 @@ class Model {
     }
     
     func setPieceShape(piece: Piece) {
-        let randomShapes = ["square", "triangle", "star", "cross", "octigon", "elbow", "doubleElbow", "sword"]
+//        let randomShapes = ["square", "triangle", "star", "cross", "octigon", "elbow", "doubleElbow", "sword"]
+        
+        let randomShapes = ["elbow", "doubleElbow", "sword"]
+
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -298,5 +301,10 @@ class Model {
         default:
             break
         }
+    }
+    
+    
+    func handleTap() {
+        print("TAP")
     }
 }

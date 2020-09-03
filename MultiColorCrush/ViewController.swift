@@ -22,10 +22,10 @@ class ViewController: UIViewController {
         model = Model(view: self.view)
         model.delegate = self
         model.setUpGame()
-        addGestureRecognizer(view: board.view)
+        addSwipeGestureRecognizer(view: board.view)
     }
     
-    func addGestureRecognizer(view: UIView) {
+    func addSwipeGestureRecognizer(view: UIView) {
         
         var upSwipe = UISwipeGestureRecognizer()
         var downSwipe = UISwipeGestureRecognizer()
@@ -46,6 +46,20 @@ class ViewController: UIViewController {
         leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector( handleSwipe(sender:)))
         leftSwipe.direction = .left
         view.addGestureRecognizer(leftSwipe)
+    }
+    
+    func addTapGestureRecognizer(view: UIView) {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        tap.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap)
+        
+        
+    }
+    
+    @objc func handleTap(sender:UISwipeGestureRecognizer) {
+        model.handleTap()
+    
     }
     
     func resetSpaces() {
@@ -132,6 +146,7 @@ extension ViewController: ModelDelegate {
 //            piece.view.layer.shadowOffset = CGSize(width: 1, height: 1)
 //            piece.view.layer.shadowRadius = 5
 
+            addTapGestureRecognizer(view: piece.view)
             self.pieces.append(piece)
             board.view.addSubview(piece.view)
         }
