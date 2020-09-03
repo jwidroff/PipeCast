@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         
         for space in spaceViews {
             
-            space.backgroundColor = .gray
+            space.backgroundColor = .lightGray
         }
         
         
@@ -113,8 +113,8 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView(pieces: [Piece]) {
         
-        let pieceWidth = self.board.view.frame.width / 100 * 15
-        let pieceHeight = self.board.view.frame.width / 100 * 15
+        let pieceWidth = self.board.view.frame.width / 100 * 20
+        let pieceHeight = self.board.view.frame.width / 100 * 20
         
         for piece in pieces {
             
@@ -162,9 +162,10 @@ extension ViewController: ModelDelegate {
             let spaceView = UIView(frame: frame)
             spaceView.frame = frame
             spaceView.center = point.value
-            spaceView.backgroundColor = .gray
+            spaceView.backgroundColor = .lightGray
             spaceView.layer.borderColor = UIColor.white.cgColor
             spaceView.layer.borderWidth = 2.0
+            spaceView.layer.opacity = 0.5
             spaceViews.append(spaceView)
             self.board.view.addSubview(spaceView)
         }

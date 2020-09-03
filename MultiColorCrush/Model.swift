@@ -92,6 +92,10 @@ class Model {
             setPieceColor(piece: piece)
             setPieceOpacity(piece: piece)
             pieces.append(piece)
+            
+            
+            print("piece.color \(piece.color) piece.indexes \(piece.indexes) piece.shape \(piece.shape)")
+            
         }
         delegate?.setUpPiecesView(pieces: pieces)
     }
@@ -112,7 +116,7 @@ class Model {
     }
     
     func setPieceShape(piece: Piece) {
-        let randomShapes = ["square", "triangle", "star", "cross", "octigon"]
+        let randomShapes = ["square", "triangle", "star", "cross", "octigon", "elbow", "doubleElbow"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -122,7 +126,7 @@ class Model {
     }
     
     func setPieceOpacity(piece: Piece) {
-        piece.opacity = Int(arc4random_uniform(UInt32(3))) + 1
+        piece.opacity = 1 //Int(arc4random_uniform(UInt32(3))) + 1
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
@@ -199,15 +203,16 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.y = piece.indexes.y! - 1
-                    } else {
-                        
-                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1))
-                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-                            
-                            piece.indexes.y = piece.indexes.y! - 1
-                            delegate?.animatePiece(piece: piece)
-                        }
                     }
+//                    else {
+//
+//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1))
+//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+//
+//                            piece.indexes.y = piece.indexes.y! - 1
+//                            delegate?.animatePiece(piece: piece)
+//                        }
+//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -227,15 +232,16 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked{
                         piece.indexes.y = piece.indexes.y! + 1
-                    } else {
-                        
-                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1))
-                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-                            
-                            piece.indexes.y = piece.indexes.y! + 1
-                            delegate?.animatePiece(piece: piece)
-                        }
                     }
+//                    else {
+//
+//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1))
+//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+//
+//                            piece.indexes.y = piece.indexes.y! + 1
+//                            delegate?.animatePiece(piece: piece)
+//                        }
+//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -249,15 +255,16 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! - 1
-                    } else {
-                        
-                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y))
-                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-                            
-                            piece.indexes.x = piece.indexes.x! - 1
-                            delegate?.animatePiece(piece: piece)
-                        }
                     }
+//                    else {
+//
+//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y))
+//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+//
+//                            piece.indexes.x = piece.indexes.x! - 1
+//                            delegate?.animatePiece(piece: piece)
+//                        }
+//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -274,15 +281,16 @@ class Model {
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! + 1
-                    } else {
-                        
-                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y))
-                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-                            
-                            piece.indexes.x = piece.indexes.x! + 1
-                            delegate?.animatePiece(piece: piece)
-                        }
                     }
+//                    else {
+//                        
+//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y))
+//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
+//                            
+//                            piece.indexes.x = piece.indexes.x! + 1
+//                            delegate?.animatePiece(piece: piece)
+//                        }
+//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
