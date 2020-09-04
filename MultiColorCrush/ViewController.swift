@@ -57,8 +57,10 @@ class ViewController: UIViewController {
         
     }
     
-    @objc func handleTap(sender:UISwipeGestureRecognizer) {
-        model.handleTap()
+    @objc func handleTap(sender:UITapGestureRecognizer) {
+        
+        let pieceCenter = sender.view?.center
+        model.handleTap(center: pieceCenter!)
     
     }
     
@@ -222,6 +224,15 @@ extension ViewController: ModelDelegate {
             
             
         }
+        
+    }
+    
+    func pieceWasTapped(piece: Piece) {
+        
+        piece.view.backgroundColor = .yellow
+        
+        
+        
         
     }
 }

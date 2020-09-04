@@ -18,6 +18,7 @@ protocol ModelDelegate {
     func setUpPiecesView(pieces: [Piece])
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
+    func pieceWasTapped(piece: Piece)
 }
 
 class Model {
@@ -304,7 +305,19 @@ class Model {
     }
     
     
-    func handleTap() {
-        print("TAP")
+    func handleTap(center: CGPoint) {
+        
+        for piece in pieces {
+            
+            if board.grid[piece.indexes] == center {
+                
+                delegate?.pieceWasTapped(piece: piece)
+                
+                print("center \(center)")
+                print("center indexes are \(piece.indexes)")
+                
+                
+            }
+        }
     }
 }
