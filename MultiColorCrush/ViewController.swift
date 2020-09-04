@@ -229,7 +229,31 @@ extension ViewController: ModelDelegate {
     
     func pieceWasTapped(piece: Piece) {
         
-        piece.view.backgroundColor = .yellow
+        //TODO: Fix this!!!
+        
+        if piece.shape == "doubleElbow" {
+            
+            for spaceView in spaceViews {
+                
+                if board.grid[piece.indexes] == spaceView.center {
+                    
+//                    piece.view.removeFromSuperview()
+                    
+                    
+//                    let newFrame = CGRect(x: 0, y: 0, width: piece.view.frame.width, height: piece.view.frame.height)
+                    
+//                    piece.view = ShapeView(frame: newFrame, color: UIColor.green.cgColor, shape: "elbow")
+//                    spaceView.addSubview(newPiece)
+                    piece.view.backgroundColor = .yellow
+
+                }
+                
+                
+            }
+            
+            
+            
+        }
         
         
         
