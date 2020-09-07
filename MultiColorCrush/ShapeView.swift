@@ -18,6 +18,8 @@ class ShapeView : UIView {
     
     var color: CGColor?
     
+    var type = String()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -213,26 +215,63 @@ class ShapeView : UIView {
             
         case "elbow":
             
-            //TODO: MAKE THIS AN ELBOW
+            
+            //TODO: Save this - Toggled between elbows
             
             
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            var types = ["left", "right"]
             
-            let diff = frame.height / 10
             
-            let eclipseHeight1 = frame.height + diff
-            let eclipseWidth1 = frame.width + diff
-            let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
-            context.addEllipse(in: rect1)
-            context.setFillColor(UIColor.brown.cgColor)
-            context.fillEllipse(in: rect1)
+            if type == "right"{
+                
+                guard let context = UIGraphicsGetCurrentContext() else { return }
+                
+                let diff = frame.height / 10
+                
+                let eclipseHeight1 = frame.height + diff
+                let eclipseWidth1 = frame.width + diff
+                let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
+                context.addEllipse(in: rect1)
+                context.setFillColor(UIColor.brown.cgColor)
+                context.fillEllipse(in: rect1)
+                
+                let eclipseHeight2 = frame.height - diff
+                let eclipseWidth2 = frame.width - diff
+                let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
+                context.addEllipse(in: rect2)
+                context.setFillColor(UIColor.black.cgColor)
+                context.fillEllipse(in: rect2)
+                
+                type = "left"
+                
+            } else {
+                
+                guard let context = UIGraphicsGetCurrentContext() else { return }
+                
+                let diff = frame.height / 10
+                
+                
+                
+               let eclipseHeight3 = frame.height + diff
+                let eclipseWidth3 = frame.width + diff
+                let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: eclipseWidth3, height: eclipseHeight3)
+                context.addEllipse(in: rect3)
+                context.setFillColor(UIColor.purple.cgColor)
+                context.fillEllipse(in: rect3)
+                
+                let eclipseHeight4 = frame.height - diff
+                let eclipseWidth4 = frame.width - diff
+                let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: eclipseWidth4, height: eclipseHeight4)
+                context.addEllipse(in: rect4)
+                context.setFillColor(UIColor.black.cgColor)
+                context.fillEllipse(in: rect4)
+                
+                
+                type = "right"
+                
+            }
             
-            let eclipseHeight2 = frame.height - diff
-            let eclipseWidth2 = frame.width - diff
-            let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
-            context.addEllipse(in: rect2)
-            context.setFillColor(UIColor.darkGray.cgColor)
-            context.fillEllipse(in: rect2)
+            
             
 //            let eclipseHeight3 = frame.height
 //            let eclipseWidth3 = frame.width
@@ -240,6 +279,7 @@ class ShapeView : UIView {
 //            context.addEllipse(in: rect3)
 //            context.setFillColor(UIColor.brown.cgColor)
 //            context.fillEllipse(in: rect3)
+            
             
             
             print("elbow")
@@ -263,7 +303,7 @@ class ShapeView : UIView {
             let eclipseWidth2 = frame.width - diff
             let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
             context.addEllipse(in: rect2)
-            context.setFillColor(UIColor.darkGray.cgColor)
+            context.setFillColor(UIColor.black.cgColor)
             context.fillEllipse(in: rect2)
             
             let eclipseHeight3 = frame.height + diff
@@ -277,7 +317,7 @@ class ShapeView : UIView {
             let eclipseWidth4 = frame.width - diff
             let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: eclipseWidth4, height: eclipseHeight4)
             context.addEllipse(in: rect4)
-            context.setFillColor(UIColor.darkGray.cgColor)
+            context.setFillColor(UIColor.black.cgColor)
             context.fillEllipse(in: rect4)
             
             
@@ -306,7 +346,7 @@ class ShapeView : UIView {
             let eclipseWidth2 = frame.width - diff
             let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
             context.addEllipse(in: rect2)
-            context.setFillColor(UIColor.darkGray.cgColor)
+            context.setFillColor(UIColor.black.cgColor)
             context.fillEllipse(in: rect2)
             
             let eclipseHeight3 = frame.height + diff
@@ -320,7 +360,7 @@ class ShapeView : UIView {
             let eclipseWidth4 = frame.width - diff
             let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: eclipseWidth4, height: eclipseHeight4)
             context.addEllipse(in: rect4)
-            context.setFillColor(UIColor.darkGray.cgColor)
+            context.setFillColor(UIColor.black.cgColor)
             context.fillEllipse(in: rect4)
             
             
