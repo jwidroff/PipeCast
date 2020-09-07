@@ -229,45 +229,46 @@ extension ViewController: ModelDelegate {
     
     func pieceWasTapped(piece: Piece) {
                 
-        switch piece.shape
         
-        {
-        case "doubleElbow":
-            
-            for spaceView in spaceViews {
-                
-                if board.grid[piece.indexes] == spaceView.center {
+        piece.view.setNeedsDisplay()
 
-                    piece.view.backgroundColor = .yellow
-                    
-                }
-                
-                
-            }
-            
-        case "elbow":
-            
-            for spaceView in spaceViews {
-                
-                if board.grid[piece.indexes] == spaceView.center {
-                    
-                    let newFrame = CGRect(x: spaceView.frame.midX, y: spaceView.frame.midY, width: piece.view.frame.width, height: piece.view.frame.height)
-                 
-                    piece.view.setNeedsDisplay()
-                    piece.view.setNeedsLayout()
-                    
-                }
-                
-                
-            }
-            
-            
-            
-            
-            
-        default:
-            break
-        }
+        
+//        switch piece.shape
+//        
+//        {
+//        case "doubleElbow":
+//            
+//            for spaceView in spaceViews {
+//                
+//                if board.grid[piece.indexes] == spaceView.center {
+//
+//                    piece.view.backgroundColor = .yellow
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//        case "elbow":
+//            
+//            for spaceView in spaceViews {
+//                
+//                if board.grid[piece.indexes] == spaceView.center {
+//
+//                    piece.view.setNeedsDisplay()
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//            
+//            
+//            
+//            
+//        default:
+//            break
+//        }
         
         
         
