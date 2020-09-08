@@ -18,9 +18,24 @@ class Piece {
     var center = CGPoint()
     var color = UIColor()
     var opacity = Int()
+//    var powers = [String]()
+//    var power = String()
+    var switches = Int()
+    var currentSwitch = Int()
     
     init(){
         
+    }
+    
+    func switch4Tap() {
+        
+        if currentSwitch != switches{
+            currentSwitch += 1
+            print("current switch \(currentSwitch)")
+        } else {
+            currentSwitch = 1
+            print("current switch \(currentSwitch)")
+        }
     }
 }
 

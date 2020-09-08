@@ -92,6 +92,7 @@ class Model {
             setPieceShape(piece: piece)
             setPieceColor(piece: piece)
             setPieceOpacity(piece: piece)
+            setPieceSwitches(piece: piece)
             pieces.append(piece)
             
             
@@ -99,6 +100,32 @@ class Model {
             
         }
         delegate?.setUpPiecesView(pieces: pieces)
+    }
+    
+    func setPieceSwitches(piece: Piece) {
+        
+        
+        switch piece.shape {
+        case "elbow":
+            piece.switches = 2
+            piece.currentSwitch = 1
+            
+            
+        case "doubleElbow":
+            
+            piece.switches = 2
+            piece.currentSwitch = 1
+            
+            
+            
+        default:
+            break
+        }
+        
+
+        
+        
+        
     }
     
     func setPieceIndex(piece: Piece) {
@@ -307,10 +334,18 @@ class Model {
     
     func handleTap(center: CGPoint) {
         
+        //TODO Need to make switches in each shapes class
+        
         for piece in pieces {
             
             if board.grid[piece.indexes] == center {
                 
+                
+//                print("Pieces powers are \(piece.power)")
+                
+                
+                
+                piece.switch4Tap()
                 delegate?.pieceWasTapped(piece: piece)
                 
                 print("center \(center)")

@@ -198,30 +198,6 @@ extension ViewController: ModelDelegate {
             //append walls
             
             self.board.view.addSubview(wallView)
-
-            
-            
-//            let spaceWidth = self.board.view.frame.width / 100 * 20
-//            let spaceHeight = self.board.view.frame.width / 100 * 20
-//            let pointX = point.value.x
-//            let pointY = point.value.y
-//            let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
-//            //            let spaceView = ShapeView(frame: frame, color: UIColor.blue.cgColor, shape: "square")
-//            //            spaceView.backgroundColor = .clear
-//
-//            let spaceView = UIView(frame: frame)
-//            spaceView.frame = frame
-//            spaceView.center = point.value
-//            spaceView.backgroundColor = .gray
-//            spaceView.layer.borderColor = UIColor.white.cgColor
-//            spaceView.layer.borderWidth = 2.0
-//            spaceViews.append(spaceView)
-//            self.board.view.addSubview(spaceView)
-            
-            
-            
-            
-            
             
         }
         
@@ -229,75 +205,10 @@ extension ViewController: ModelDelegate {
     
     func pieceWasTapped(piece: Piece) {
                 
-        
+//        model.handleTap(center: piece.center)
         piece.view.setNeedsDisplay()
+        
 
-        
-//        switch piece.shape
-//        
-//        {
-//        case "doubleElbow":
-//            
-//            for spaceView in spaceViews {
-//                
-//                if board.grid[piece.indexes] == spaceView.center {
-//
-//                    piece.view.backgroundColor = .yellow
-//                    
-//                }
-//                
-//                
-//            }
-//            
-//        case "elbow":
-//            
-//            for spaceView in spaceViews {
-//                
-//                if board.grid[piece.indexes] == spaceView.center {
-//
-//                    piece.view.setNeedsDisplay()
-//                    
-//                }
-//                
-//                
-//            }
-//            
-//            
-//            
-//            
-//            
-//        default:
-//            break
-//        }
-        
-        
-        
-//        if piece.shape == "doubleElbow" {
-            
-//            for spaceView in spaceViews {
-//
-//                if board.grid[piece.indexes] == spaceView.center {
-//
-////                    piece.view.removeFromSuperview()
-//
-//
-////                    let newFrame = CGRect(x: 0, y: 0, width: piece.view.frame.width, height: piece.view.frame.height)
-//
-////                    piece.view = ShapeView(frame: newFrame, color: UIColor.green.cgColor, shape: "elbow")
-////                    spaceView.addSubview(newPiece)
-//                    piece.view.backgroundColor = .yellow
-//
-//                }
-//
-//
-//            }
-            
-            
-            
-//        }
-        
-        
-        
         
     }
 }

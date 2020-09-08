@@ -20,6 +20,8 @@ class ShapeView : UIView {
     
     var type = String()
     
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -33,6 +35,7 @@ class ShapeView : UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.name = shape
+        
     }
     
     override func draw(_ rect: CGRect) {
