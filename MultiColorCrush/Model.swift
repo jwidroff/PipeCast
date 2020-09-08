@@ -116,6 +116,11 @@ class Model {
             piece.switches = 2
             piece.currentSwitch = 1
             
+        case "sword":
+            
+            piece.switches = 3
+            piece.currentSwitch = 1
+            
             
             
         default:
@@ -333,24 +338,13 @@ class Model {
     
     
     func handleTap(center: CGPoint) {
-        
-        //TODO Need to make switches in each shapes class
-        
+                
         for piece in pieces {
             
             if board.grid[piece.indexes] == center {
                 
-                
-//                print("Pieces powers are \(piece.power)")
-                
-                
-                
                 piece.switch4Tap()
                 delegate?.pieceWasTapped(piece: piece)
-                
-                print("center \(center)")
-                print("center indexes are \(piece.indexes)")
-                
                 
             }
         }
