@@ -51,6 +51,10 @@ class ShapeView : UIView {
             switches = 3
             currentSwitch = 1
             
+        case "cross":
+            switches = 2
+            currentSwitch = 1
+            
         default:
             break
         }
@@ -138,51 +142,51 @@ class ShapeView : UIView {
             context.fillPath()
             context.clear(holeRect)
             
-        case "cross":
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let width = frame.width / 4 * 0.75
-            let height = frame.height / 4 * 2
-            let x =  -(width - frame.width) / 2
-            let y =  -(height - frame.height) / 2
-            let holeRect = CGRect(x: x, y: y, width: width, height: height)
-
-            let width2 = frame.width / 4 * 2
-            let height2 = frame.height / 4 * 0.75
-            let x2 =  -(width2 - frame.width) / 2
-            let y2 =  -(height2 - frame.height) / 2
-            let holeRect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
-
-            let pos1 = CGPoint(x: rect.width / 3 * 2, y: rect.minY)
-            let pos2 = CGPoint(x: rect.width / 3 * 1, y: rect.minY)
-            let pos3 = CGPoint(x: rect.width / 3 * 1, y: rect.height / 3 * 1)
-            let pos4 = CGPoint(x: rect.minX, y: rect.height / 3 * 1)
-            let pos5 = CGPoint(x: rect.minX, y: rect.height / 3 * 2)
-            let pos6 = CGPoint(x: rect.width / 3 * 1, y: rect.height / 3 * 2)
-            let pos7 = CGPoint(x: rect.width / 3 * 1, y: rect.maxY)
-            let pos8 = CGPoint(x: rect.width / 3 * 2, y: rect.maxY)
-            let pos9 = CGPoint(x: rect.width / 3 * 2, y: rect.height / 3 * 2)
-            let pos10 = CGPoint(x: rect.maxX, y: rect.height / 3 * 2)
-            let pos11 = CGPoint(x: rect.maxX, y: rect.height / 3 * 1)
-            let pos12 = CGPoint(x: rect.width / 3 * 2, y: rect.height / 3 * 1)
-            
-            context.beginPath()
-            context.move(to: pos1)
-            context.addLine(to: pos2)
-            context.addLine(to: pos3)
-            context.addLine(to: pos4)
-            context.addLine(to: pos5)
-            context.addLine(to: pos6)
-            context.addLine(to: pos7)
-            context.addLine(to: pos8)
-            context.addLine(to: pos9)
-            context.addLine(to: pos10)
-            context.addLine(to: pos11)
-            context.addLine(to: pos12)
-            context.closePath()
-            context.setFillColor(color!)
-            context.fillPath()
-            context.clear(holeRect)
-            context.clear(holeRect2)
+//        case "cross":
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            let width = frame.width / 4 * 0.75
+//            let height = frame.height / 4 * 2
+//            let x =  -(width - frame.width) / 2
+//            let y =  -(height - frame.height) / 2
+//            let holeRect = CGRect(x: x, y: y, width: width, height: height)
+//
+//            let width2 = frame.width / 4 * 2
+//            let height2 = frame.height / 4 * 0.75
+//            let x2 =  -(width2 - frame.width) / 2
+//            let y2 =  -(height2 - frame.height) / 2
+//            let holeRect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
+//
+//            let pos1 = CGPoint(x: rect.width / 3 * 2, y: rect.minY)
+//            let pos2 = CGPoint(x: rect.width / 3 * 1, y: rect.minY)
+//            let pos3 = CGPoint(x: rect.width / 3 * 1, y: rect.height / 3 * 1)
+//            let pos4 = CGPoint(x: rect.minX, y: rect.height / 3 * 1)
+//            let pos5 = CGPoint(x: rect.minX, y: rect.height / 3 * 2)
+//            let pos6 = CGPoint(x: rect.width / 3 * 1, y: rect.height / 3 * 2)
+//            let pos7 = CGPoint(x: rect.width / 3 * 1, y: rect.maxY)
+//            let pos8 = CGPoint(x: rect.width / 3 * 2, y: rect.maxY)
+//            let pos9 = CGPoint(x: rect.width / 3 * 2, y: rect.height / 3 * 2)
+//            let pos10 = CGPoint(x: rect.maxX, y: rect.height / 3 * 2)
+//            let pos11 = CGPoint(x: rect.maxX, y: rect.height / 3 * 1)
+//            let pos12 = CGPoint(x: rect.width / 3 * 2, y: rect.height / 3 * 1)
+//
+//            context.beginPath()
+//            context.move(to: pos1)
+//            context.addLine(to: pos2)
+//            context.addLine(to: pos3)
+//            context.addLine(to: pos4)
+//            context.addLine(to: pos5)
+//            context.addLine(to: pos6)
+//            context.addLine(to: pos7)
+//            context.addLine(to: pos8)
+//            context.addLine(to: pos9)
+//            context.addLine(to: pos10)
+//            context.addLine(to: pos11)
+//            context.addLine(to: pos12)
+//            context.closePath()
+//            context.setFillColor(color!)
+//            context.fillPath()
+//            context.clear(holeRect)
+//            context.clear(holeRect2)
             
         case "octigon":
             guard let context = UIGraphicsGetCurrentContext() else { return }
@@ -386,9 +390,6 @@ class ShapeView : UIView {
                 currentSwitch = 1
             }
             
-            
-            
-            
         case "sword":
             
             switch currentSwitch {
@@ -396,10 +397,7 @@ class ShapeView : UIView {
                 guard let context = UIGraphicsGetCurrentContext() else { return }
                 
                 let diff = frame.height / 10
-                
-                
-                
-                
+
                 let eclipseHeight1 = frame.height + diff
                 let eclipseWidth1 = frame.width + diff
                 let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
@@ -526,23 +524,67 @@ class ShapeView : UIView {
                 context.fillEllipse(in: rect4)
                 
                 currentSwitch = 1
-
+                
                 
             default:
                 break
             }
             
+            case "cross":
             
-            
-            
-            
-            
-            
-            
+                
+                
+                //Up to here
+                
+                
+                
+                switch currentSwitch {
+                case 1:
+                    
+                    
+                    guard let context = UIGraphicsGetCurrentContext() else { return }
+                    
+                    let diff = frame.height / 10
+                    let width = diff * 2
+                    let x = ((frame.width / 2) - (diff / 2)) - (width / 4)
+                    let rect1 = CGRect(x: x, y: 0, width: width, height: frame.height)
+                    context.setFillColor(UIColor.blue.cgColor)
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    let rect2 = CGRect(x: 0, y: x, width: frame.height, height: width)
+                    context.setFillColor(UIColor.orange.cgColor)
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    currentSwitch = 2
+                case 2:
+                    
+                    guard let context = UIGraphicsGetCurrentContext() else { return }
 
-            
-            print("sword")
-            
+                    
+                    let diff = frame.height / 10
+                    let width = diff * 2
+                    let x = ((frame.width / 2) - (diff / 2)) - (width / 4)
+                    
+                    let rect2 = CGRect(x: 0, y: x, width: frame.height, height: width)
+                    context.setFillColor(UIColor.orange.cgColor)
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    
+                    let rect1 = CGRect(x: x, y: 0, width: width, height: frame.height)
+                    context.setFillColor(UIColor.blue.cgColor)
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    currentSwitch = 1
+                    
+                default:
+                    break
+                }
+                
+                
+                
+                
             
         default:
             break
