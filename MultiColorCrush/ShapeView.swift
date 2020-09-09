@@ -59,6 +59,10 @@ class ShapeView : UIView {
             switches = 2
             currentSwitch = 1
             
+        case "diagElbow":
+            switches = 2
+            currentSwitch = 1
+            
         default:
             break
         }
@@ -552,7 +556,101 @@ class ShapeView : UIView {
                   currentSwitch = 1
                }
             
+            case "diagElbow":
             
+            
+            if currentSwitch == 1 {
+                
+              guard let context = UIGraphicsGetCurrentContext() else { return }
+              
+              let diff = frame.height / 10
+              
+              
+              let eclipseHeight3 = frame.height + diff
+              let eclipseWidth3 = frame.width + diff
+              let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: eclipseWidth3, height: eclipseHeight3)
+              context.addEllipse(in: rect3)
+              context.setFillColor(UIColor.purple.cgColor)
+              context.fillEllipse(in: rect3)
+              
+              let eclipseHeight4 = frame.height - diff
+              let eclipseWidth4 = frame.width - diff
+              let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: eclipseWidth4, height: eclipseHeight4)
+              context.addEllipse(in: rect4)
+              context.setFillColor(UIColor.black.cgColor)
+              context.fillEllipse(in: rect4)
+              
+              
+              
+              let eclipseHeight5 = frame.height + diff
+              let eclipseWidth5 = frame.width + diff
+              let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: eclipseWidth5, height: eclipseHeight5)
+              context.addEllipse(in: rect5)
+              context.setFillColor(UIColor.green.cgColor)
+              context.fillEllipse(in: rect5)
+              
+              let eclipseHeight6 = frame.height - diff
+              let eclipseWidth6 = frame.width - diff
+              let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: eclipseWidth6, height: eclipseHeight6)
+              context.addEllipse(in: rect6)
+              context.setFillColor(UIColor.black.cgColor)
+              context.fillEllipse(in: rect6)
+              
+              
+              
+              
+             
+              
+              
+              
+                currentSwitch = 2
+            } else if currentSwitch == 2 {
+                
+                guard let context = UIGraphicsGetCurrentContext() else { return }
+                
+                let diff = frame.height / 10
+                
+                
+               
+                
+                
+                
+                
+                let eclipseHeight1 = frame.height + diff
+                let eclipseWidth1 = frame.width + diff
+                let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
+                context.addEllipse(in: rect1)
+                context.setFillColor(UIColor.green.cgColor)
+                context.fillEllipse(in: rect1)
+                
+                let eclipseHeight2 = frame.height - diff
+                let eclipseWidth2 = frame.width - diff
+                let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
+                context.addEllipse(in: rect2)
+                context.setFillColor(UIColor.black.cgColor)
+                context.fillEllipse(in: rect2)
+                
+                
+                
+                
+                let eclipseHeight7 = frame.height + diff
+                let eclipseWidth7 = frame.width + diff
+                let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: eclipseWidth7, height: eclipseHeight7)
+                context.addEllipse(in: rect7)
+                context.setFillColor(UIColor.purple.cgColor)
+                context.fillEllipse(in: rect7)
+                
+                let eclipseHeight8 = frame.height - diff
+                let eclipseWidth8 = frame.width - diff
+                let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: eclipseWidth8, height: eclipseHeight8)
+                context.addEllipse(in: rect8)
+                context.setFillColor(UIColor.black.cgColor)
+                context.fillEllipse(in: rect8)
+                
+                
+              
+                currentSwitch = 1
+             }
             
         case "sword":
             

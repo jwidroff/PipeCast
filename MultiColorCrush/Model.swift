@@ -113,6 +113,11 @@ class Model {
             
         case "doubleElbow":
             
+           piece.switches = 2
+           piece.currentSwitch = 1
+            
+        case "diagElbow":
+            
             piece.switches = 2
             piece.currentSwitch = 1
             
@@ -154,7 +159,7 @@ class Model {
     func setPieceShape(piece: Piece) {
 //        let randomShapes = ["square", "triangle", "star", "cross", "octigon", "elbow", "doubleElbow", "sword"]
         
-        let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow"]
+        let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow", "diagElbow"]
 
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
