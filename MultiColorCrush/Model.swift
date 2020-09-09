@@ -59,7 +59,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 32
+        level.numberOfPieces = 1
     }
     
     func setBoard() {
@@ -96,10 +96,21 @@ class Model {
     
     func getWalls() -> [Wall] {
         
-        let wall = Wall()
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        wall.indexes = index
-        walls.append(wall)
+        
+        for _ in 0...10 {
+            
+            
+
+            let wall = Wall()
+            setWallIndex(wall: wall)
+            walls.append(wall)
+            
+        }
+        
+        
+        
+        
+        
         return walls
     }
     
@@ -165,19 +176,42 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
+        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
         if pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == index
         }) || board.walls.contains(where: { (wall) -> Bool in
             wall.indexes == index
-        }) {
+        }) || board.entrances.contains(where: { (entrance) -> Bool in
+            entrance.indexes == index
+        }) || board.exits.contains(where: { (exit) -> Bool in
+            exit.indexes == index
+        }){
             setPieceIndex(piece: piece)
         } else {
             piece.indexes = index
         }
     }
     
+    func setWallIndex(wall: Wall) {
+        
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        
+        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
+        if walls.contains(where: { (wallX) -> Bool in
+            wallX.indexes == index
+        }) || board.entrances.contains(where: { (entrance) -> Bool in
+            entrance.indexes == index
+        }) || board.exits.contains(where: { (exit) -> Bool in
+            exit.indexes == index
+        }){
+            setWallIndex(wall: wall)
+        } else {
+            wall.indexes = index
+        }
+    }
+    
+    
     func setPieceShape(piece: Piece) {
-//        let randomShapes = ["square", "triangle", "star", "cross", "octigon", "elbow", "doubleElbow", "sword"]
         
         let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow", "diagElbow"]
 
