@@ -78,26 +78,48 @@ class Model {
     
     func getEntrances() -> [Entrance] {
         
-        let entrance = Entrance()
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        entrance.indexes = index
-        entrances.append(entrance)
+        //TODO: Need to make sure that entrances can't be on top of eachother
+        
+        for _ in 1...3 {
+            
+            let entrance = Entrance()
+            //        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+            //        entrance.indexes = index
+            
+            setEntranceIndex(entrance: entrance)
+            
+            entrances.append(entrance)
+        }
         return entrances
+
+        
     }
     
     func getExits() -> [Exit] {
         
-        let exit = Exit()
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        exit.indexes = index
-        exits.append(exit)
+        
+        for _ in 1...3 {
+            
+            let exit = Exit()
+            //        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+            //        exit.indexes = index
+            
+            
+            
+            setExitIndex(exit: exit)
+            
+            exits.append(exit)
+            
+        }
         return exits
+
+        
     }
     
     func getWalls() -> [Wall] {
         
         
-        for _ in 0...10 {
+        for _ in 0...28 {
             
             
 
@@ -209,6 +231,35 @@ class Model {
             wall.indexes = index
         }
     }
+    
+    func setExitIndex(exit: Exit) {
+        
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        
+        if exits.contains(where: { (exit) -> Bool in
+            exit.indexes == index
+        }) || board.entrances.contains(where: { (entrance) -> Bool in
+            entrance.indexes == index
+        }){
+            setExitIndex(exit: exit)
+        } else {
+            exit.indexes = index
+        }
+    }
+    
+    func setEntranceIndex(entrance: Entrance) {
+        
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        
+        if entrances.contains(where: { (entrance) -> Bool in
+            entrance.indexes == index
+        }) {
+            setEntranceIndex(entrance: entrance)
+        } else {
+            entrance.indexes = index
+        }
+    }
+    
     
     
     func setPieceShape(piece: Piece) {
