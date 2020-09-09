@@ -186,6 +186,43 @@ extension ViewController: ModelDelegate {
             spaceViews.append(spaceView)
             self.board.view.addSubview(spaceView)
         }
+        
+        
+        //TODO: Make sure that no pieces can be added to these places
+        
+        for entrance in self.board.entrances {
+            
+            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
+
+            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
+            
+            entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
+
+            entranceView.backgroundColor = .yellow
+            //append walls
+            
+            self.board.view.addSubview(entranceView)
+            
+        }
+        
+        for exit in self.board.exits {
+            
+            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
+
+            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
+            
+            exitView.center = CGPoint(x: board.grid[exit.indexes]?.x ?? exit.view.center.x, y: board.grid[exit.indexes]?.y ?? exit.view.center.y)
+
+            exitView.backgroundColor = .green
+            //append walls
+            
+            self.board.view.addSubview(exitView)
+            
+        }
+        
+        
+        
+        
         for wall in self.board.walls {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
@@ -204,12 +241,8 @@ extension ViewController: ModelDelegate {
     }
     
     func pieceWasTapped(piece: Piece) {
-                
-//        model.handleTap(center: piece.center)
-        piece.view.setNeedsDisplay()
-        
 
-        
+            piece.view.setNeedsDisplay()
     }
 }
 

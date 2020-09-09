@@ -29,6 +29,8 @@ class Model {
     var walls = [Wall]()
     var delegate: ModelDelegate?
     var view = UIView()
+    var entrances = [Entrance]()
+    var exits = [Exit]()
     
     init(){
         
@@ -68,10 +70,28 @@ class Model {
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
-        
+        board.entrances = getEntrances()
+        board.exits = getExits()
         board.walls = getWalls()
-        
         delegate?.setUpBoard(board: board)
+    }
+    
+    func getEntrances() -> [Entrance] {
+        
+        let entrance = Entrance()
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        entrance.indexes = index
+        entrances.append(entrance)
+        return entrances
+    }
+    
+    func getExits() -> [Exit] {
+        
+        let exit = Exit()
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        exit.indexes = index
+        exits.append(exit)
+        return exits
     }
     
     func getWalls() -> [Wall] {
@@ -107,33 +127,33 @@ class Model {
         
         switch piece.shape {
         case "elbow":
-            piece.switches = 2
+//            piece.switches = 2
             piece.currentSwitch = 1
             
             
         case "doubleElbow":
             
-           piece.switches = 2
+//           piece.switches = 2
            piece.currentSwitch = 1
             
         case "diagElbow":
             
-            piece.switches = 2
+//            piece.switches = 2
             piece.currentSwitch = 1
             
         case "quadBow":
             
-            piece.switches = 4
+//            piece.switches = 4
             piece.currentSwitch = 1
             
         case "sword":
             
-            piece.switches = 3
+//            piece.switches = 3
             piece.currentSwitch = 1
             
         case "cross":
             
-            piece.switches = 2
+//            piece.switches = 2
             piece.currentSwitch = 1
             
         default:

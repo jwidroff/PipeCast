@@ -22,3 +22,17 @@ class Wall {
         
     }
 }
+
+class Entrance {
+    
+    var indexes = Indexes()
+    var view = ShapeView()
+    var center = CGPoint()
+}
+
+class Exit {
+    
+    var indexes = Indexes()
+    var view = ShapeView()
+    var center = CGPoint()
+}
