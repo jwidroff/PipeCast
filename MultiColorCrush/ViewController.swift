@@ -236,11 +236,11 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let ballView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "triangle")
+            let ballView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "ball")
             
             ballView.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
-            ballView.backgroundColor = .systemPink
+//            ballView.backgroundColor = .systemPink
             //append walls
             
             self.board.view.addSubview(ballView)
