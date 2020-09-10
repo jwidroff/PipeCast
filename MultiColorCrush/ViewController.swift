@@ -198,6 +198,13 @@ extension ViewController: ModelDelegate {
             entranceView.backgroundColor = .yellow
             //append walls
             
+            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
+            let textBox = UITextField(frame: halfFrame)
+            textBox.text = "Begin"
+            textBox.textColor = .white
+            textBox.textAlignment = .center
+            entranceView.addSubview(textBox)
+            
             self.board.view.addSubview(entranceView)
             
         }
@@ -212,6 +219,12 @@ extension ViewController: ModelDelegate {
 
             exitView.backgroundColor = .green
             //append walls
+            
+            let textBox = UITextField(frame: frame)
+            textBox.text = "End"
+            textBox.textColor = .white
+            textBox.textAlignment = .center
+            exitView.addSubview(textBox)
             
             self.board.view.addSubview(exitView)
             

@@ -11,12 +11,15 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
-//TODO: Make a textbox in the entrance saying "Begin"
-//TODO: Make a textbox in the exit saying "End"
 //TODO: Make the possibility for more balls
 //TODO: Make the possibility for ball color-changing pieces
-//TODO: change the control of the color of the pieces to the Model
+//TODO: change the control of the color of the pieces, entrances, exits, walls... etc to the Model
 //TODO: Make sure that all piece characteristics are chosen in the model (ultimately by the level)
+//TODO: Add an opening for the entrances and exits
+
+
+//TODO: Add number of moves left
+//TODO: Make the text box for the entrance lower when the ball initially moves
 
 
 protocol ModelDelegate {
