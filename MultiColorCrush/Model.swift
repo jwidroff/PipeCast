@@ -11,7 +11,6 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
-//TODO: Need to make sure that pieces cant move to be on top of entrances or exits
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
@@ -31,6 +30,7 @@ class Model {
     var view = UIView()
     var entrances = [Entrance]()
     var exits = [Exit]()
+    var balls = [Ball]()
     
     init(){
         
@@ -71,9 +71,24 @@ class Model {
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
         board.entrances = getEntrances()
+        
         board.exits = getExits()
         board.walls = getWalls()
+        
+        setupBalls()
+        
         delegate?.setUpBoard(board: board)
+    }
+
+    func setupBalls() {
+        
+        for entrance in board.entrances {
+            
+            let ball = Ball()
+            ball.indexes = entrance.indexes
+            balls.append(ball)
+        }
+        board.balls = balls
     }
     
     func getEntrances() -> [Entrance] {

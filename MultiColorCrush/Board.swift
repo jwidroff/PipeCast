@@ -17,4 +17,5 @@ class Board {
     var walls = [Wall]()
     var entrances = [Entrance]()
     var exits = [Exit]()
+    var balls = [Ball]()
 }

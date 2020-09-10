@@ -39,6 +39,14 @@ class Piece {
     }
 }
 
+class Ball {
+    
+    var view = ShapeView()
+    var indexes = Indexes()
+    
+    
+}
+
 enum PieceShape: String {
     
     case square = "square"
