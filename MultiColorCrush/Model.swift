@@ -11,7 +11,7 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
-//TODO: Create exits
+//TODO: Need to make sure that pieces cant move to be on top of entrances or exits
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
@@ -59,7 +59,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 1
+        level.numberOfPieces = 10
     }
     
     func setBoard() {
@@ -77,37 +77,23 @@ class Model {
     }
     
     func getEntrances() -> [Entrance] {
-        
-        //TODO: Need to make sure that entrances can't be on top of eachother
-        
-        for _ in 1...3 {
+                
+        for _ in 1...1 {
             
             let entrance = Entrance()
-            //        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-            //        entrance.indexes = index
-            
             setEntranceIndex(entrance: entrance)
-            
             entrances.append(entrance)
         }
         return entrances
-
-        
     }
     
     func getExits() -> [Exit] {
         
         
-        for _ in 1...3 {
+        for _ in 1...1 {
             
             let exit = Exit()
-            //        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-            //        exit.indexes = index
-            
-            
-            
             setExitIndex(exit: exit)
-            
             exits.append(exit)
             
         }
@@ -119,20 +105,12 @@ class Model {
     func getWalls() -> [Wall] {
         
         
-        for _ in 0...28 {
-            
-            
+        for _ in 0...2 {
 
             let wall = Wall()
             setWallIndex(wall: wall)
             walls.append(wall)
-            
         }
-        
-        
-        
-        
-        
         return walls
     }
     
@@ -218,7 +196,6 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
-        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
         if walls.contains(where: { (wallX) -> Bool in
             wallX.indexes == index
         }) || board.entrances.contains(where: { (entrance) -> Bool in
@@ -288,6 +265,10 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) {
                 bool = false
             }
@@ -297,6 +278,10 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) {
                 bool = false
             }
@@ -306,6 +291,10 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) {
                 bool = false
             }
@@ -315,6 +304,10 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) {
                 bool = false
             }

@@ -187,9 +187,6 @@ extension ViewController: ModelDelegate {
             self.board.view.addSubview(spaceView)
         }
         
-        
-        //TODO: Make sure that no pieces can be added to these places
-        
         for entrance in self.board.entrances {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
@@ -219,9 +216,6 @@ extension ViewController: ModelDelegate {
             self.board.view.addSubview(exitView)
             
         }
-        
-        
-        
         
         for wall in self.board.walls {
             

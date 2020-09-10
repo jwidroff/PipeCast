@@ -252,11 +252,6 @@ class ShapeView : UIView {
         case "elbow":
             
             
-            //TODO: Save this - Toggled between elbows
-            
-            
-//            var types = ["left", "right"]
-            
             
             if currentSwitch == 1 {
                 
