@@ -11,6 +11,13 @@ import UIKit
 
 //TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
 //TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
+//TODO: Make a textbox in the entrance saying "Begin"
+//TODO: Make a textbox in the exit saying "End"
+//TODO: Make the possibility for more balls
+//TODO: Make the possibility for ball color-changing pieces
+//TODO: change the control of the color of the pieces to the Model
+//TODO: Make sure that all piece characteristics are chosen in the model (ultimately by the level)
+
 
 protocol ModelDelegate {
     func setUpBoard(board: Board)
@@ -64,22 +71,41 @@ class Model {
     
     func setBoard() {
         
+        setupGrid()
+        setupEntrances()
+        setupExits()
+        setupWalls()
+        setupBalls()
+        
+        delegate?.setUpBoard(board: board)
+    }
+    
+    
+    func setupGrid() {
+        
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
+    }
+    
+    func setupEntrances() {
+        
         board.entrances = getEntrances()
-        
-        board.exits = getExits()
-        board.walls = getWalls()
-        
-        setupBalls()
-        
-        delegate?.setUpBoard(board: board)
     }
 
+    func setupExits() {
+        
+        board.exits = getExits()
+    }
+    
+    func setupWalls() {
+        
+        board.walls = getWalls()
+    }
+    
     func setupBalls() {
         
         for entrance in board.entrances {
@@ -256,7 +282,7 @@ class Model {
     
     func setPieceShape(piece: Piece) {
         
-        let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow", "diagElbow"]
+        let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow", "diagElbow"]//, "sword"]
 
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
