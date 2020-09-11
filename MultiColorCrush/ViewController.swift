@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var board = Board()
     var dotView = Piece()
     var model = Model()
-    var pieces = [Piece]()
+    var piecesViews = [Piece]()
     var spaceViews = [UIView]()
     
     var degrees = 90.0
@@ -55,11 +55,11 @@ class ViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         tap.numberOfTapsRequired = 1
         view.addGestureRecognizer(tap)
-        
-        
     }
     
     @objc func handleTap(sender:UITapGestureRecognizer) {
+        
+        print("WORKING")
         
         let pieceCenter = sender.view?.center
         model.handleTap(center: pieceCenter!)
@@ -157,7 +157,7 @@ extension ViewController: ModelDelegate {
 //            piece.view.layer.shadowRadius = 5
 
             addTapGestureRecognizer(view: piece.view)
-            self.pieces.append(piece)
+            self.piecesViews.append(piece)
             board.view.addSubview(piece.view)
         }
     }
@@ -204,17 +204,17 @@ extension ViewController: ModelDelegate {
             entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
 
             entranceView.backgroundColor = .yellow
-            //append walls
             
-            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
-            let textBox = UITextField(frame: halfFrame)
-            textBox.text = "Begin"
-            textBox.textColor = .white
-            textBox.textAlignment = .center
-            entranceView.addSubview(textBox)
-            
+//            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
+//            let textBox = UITextField(frame: halfFrame)
+//            textBox.text = "Begin"
+//            textBox.textColor = .white
+//            textBox.textAlignment = .center
+//            entranceView.addSubview(textBox)
+
+
             self.board.view.addSubview(entranceView)
-            
+
         }
         
         for exit in self.board.exits {
@@ -264,6 +264,8 @@ extension ViewController: ModelDelegate {
 //            ballView.backgroundColor = .systemPink
             //append walls
             
+            addTapGestureRecognizer(view: ballView)
+
             self.board.view.addSubview(ballView)
             
             
@@ -273,7 +275,15 @@ extension ViewController: ModelDelegate {
         
     }
     
-    
+    func startBall() {
+        
+        //
+        
+        print("ball started")
+        
+        
+        
+    }
     
     
     func pieceWasTapped(piece: Piece) {

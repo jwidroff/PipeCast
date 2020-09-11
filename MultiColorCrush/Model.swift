@@ -17,6 +17,9 @@ import UIKit
 //TODO: Give pieces the ability to rotate
 //TODO: Make a piece that rotates pieces
 //TODO: Make the sides of all pieces have a class like right left etc so that we can control the ball
+//TODO: Make a start ball button
+//TODO: Make all of the pieces move together once the start button is pressed
+//TODO: make a pivot line on the pivot pieces
 
 
 //TODO: Add number of moves left
@@ -29,6 +32,7 @@ protocol ModelDelegate {
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
+    func startBall()
 }
 
 class Model {
@@ -495,11 +499,22 @@ class Model {
                 
         for piece in pieces {
             
+            print("Working")
+
+            
             if board.grid[piece.indexes] == center {
                 
                 piece.switch4Tap()
                 delegate?.pieceWasTapped(piece: piece)
+            }
+        }
+        for ball in balls {
+            
+            print("Working")
+            
+            if board.grid[ball.indexes] == center {
                 
+                delegate?.startBall()
             }
         }
     }
