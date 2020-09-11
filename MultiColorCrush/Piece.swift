@@ -22,6 +22,7 @@ class Piece {
 //    var power = String()
     var switches = Int()
     var currentSwitch = Int()
+    var side = Side()
     
     init(){
         
@@ -38,6 +39,49 @@ class Piece {
         }
     }
 }
+
+class Side {
+    
+    var top = Top()
+    var bottom = Bottom()
+    var left = Left()
+    var right = Right()
+}
+
+
+class Top {
+    
+    var isOpen = false
+    var isPivot = false
+    
+    
+}
+
+class Bottom {
+    
+    var isOpen = false
+    var isPivot = false
+
+    
+}
+
+class Left {
+    
+    var isOpen = false
+    var isPivot = false
+
+    
+}
+
+class Right {
+    
+    var isOpen = false
+    var isPivot = false
+
+    
+}
+
+
 
 class Ball {
     

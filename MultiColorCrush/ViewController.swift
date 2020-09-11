@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var model = Model()
     var pieces = [Piece]()
     var spaceViews = [UIView]()
+    
+    var degrees = 90.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +96,12 @@ class ViewController: UIViewController {
             break
         }
     }
+    
+    func radians(degrees: Double) ->  CGFloat {
+        
+        return CGFloat(degrees * .pi / degrees)
+    }
+    
 }
 
 
@@ -268,10 +276,10 @@ extension ViewController: ModelDelegate {
     
     
     
-    
     func pieceWasTapped(piece: Piece) {
 
-            piece.view.setNeedsDisplay()
+        
+        piece.view.setNeedsDisplay()
     }
 }
 

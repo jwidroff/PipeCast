@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
-//TODO: After checking if theres something blocking the space, check to see what it is and go accordingly
-//TODO: Make sure that give the opacity meaning - lets make it that pieces with only the same opacity combine
 //TODO: Make the possibility for more balls
 //TODO: Make the possibility for ball color-changing pieces
 //TODO: change the control of the color of the pieces, entrances, exits, walls... etc to the Model
 //TODO: Make sure that all piece characteristics are chosen in the model (ultimately by the level)
 //TODO: Add an opening for the entrances and exits
+//TODO: Give pieces the ability to rotate
+//TODO: Make a piece that rotates pieces
+//TODO: Make the sides of all pieces have a class like right left etc so that we can control the ball
 
 
 //TODO: Add number of moves left
@@ -159,6 +160,9 @@ class Model {
     }
     
     func setPieces() {
+        
+        //MARK: SET PIECE SIDES HERE
+        
         
         for _ in 0..<level.numberOfPieces {
             
