@@ -284,8 +284,6 @@ extension ViewController: ModelDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             
             
-            print("Animation called")
-            
             let transform = CGAffineTransform.init(translationX: 0, y: -20)
             ball.view.transform = transform
             

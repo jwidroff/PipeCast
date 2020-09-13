@@ -176,6 +176,7 @@ class Model {
             setPieceColor(piece: piece)
             setPieceOpacity(piece: piece)
             setPieceSwitches(piece: piece)
+            setPieceSides(piece: piece)
             pieces.append(piece)
             
             
@@ -183,6 +184,45 @@ class Model {
             
         }
         delegate?.setUpPiecesView(pieces: pieces)
+    }
+    
+    func setPieceSides(piece: Piece) {
+        
+        switch piece.shape {
+            
+        case "elbow":
+            
+            //TODO: Make this conditional on the pieces way that its rotated
+            
+            piece.side.top.isOpen = true
+            piece.side.left.isOpen = true
+        
+        case "doubleElbow":
+            
+            print("TODO - Set this")
+            
+        case "quadElbow":
+            print("TODO - Set this")
+            
+            
+        case "cross":
+            print("TODO - Set this")
+            
+            
+        case "sword":
+            print("TODO - Set this")
+            
+            
+            
+            
+        default:
+            break
+        }
+        
+        
+        
+        
+        
     }
     
     func setPieceSwitches(piece: Piece) {
@@ -494,6 +534,48 @@ class Model {
         }
     }
     
+    func switchPieces(piece: Piece) {
+        
+        piece.switch4Tap()
+        
+        switch piece.shape {
+            
+        case "elbow":
+            
+            piece.side.left.isOpen = !piece.side.left.isOpen
+            piece.side.right.isOpen =  !piece.side.right.isOpen
+  
+            
+        case "doubleElbow":
+            
+            print("TODO - Set this")
+            
+        case "quadElbow":
+            print("TODO - Set this")
+
+            
+        case "cross":
+            print("TODO - Set this")
+
+            
+        case "sword":
+            print("TODO - Set this")
+
+            
+            
+            
+            
+            
+        default:
+            break
+        }
+
+        
+        
+        
+    }
+    
+    
     
     func handleTap(center: CGPoint) {
                 
@@ -504,8 +586,32 @@ class Model {
             
             if board.grid[piece.indexes] == center {
                 
-                piece.switch4Tap()
+                
+                
+                print("piece before switch - left is open = \(piece.side.left.isOpen)")
+                print("piece before switch - right is open = \(piece.side.right.isOpen)")
+                print("piece before switch - top is open = \(piece.side.top.isOpen)")
+                print("piece before switch - bottom is open = \(piece.side.bottom.isOpen)")
+                
+                
+                //TODO: Need to change the pieces sides here
+                
+                switchPieces(piece: piece)
+                
+                
+                print("piece after switch - left is open = \(piece.side.left.isOpen)")
+                print("piece after switch - right is open = \(piece.side.right.isOpen)")
+                print("piece after switch - top is open = \(piece.side.top.isOpen)")
+                print("piece after switch - bottom is open = \(piece.side.bottom.isOpen)")
+
+                
+                
                 delegate?.pieceWasTapped(piece: piece)
+                
+                
+                
+                
+                
             }
         }
         for ball in balls {
