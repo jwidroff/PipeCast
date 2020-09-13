@@ -32,7 +32,7 @@ protocol ModelDelegate {
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
-    func startBall()
+    func startBall(ball: Ball)
 }
 
 class Model {
@@ -499,7 +499,7 @@ class Model {
                 
         for piece in pieces {
             
-            print("Working")
+//            print("Working")
 
             
             if board.grid[piece.indexes] == center {
@@ -510,11 +510,12 @@ class Model {
         }
         for ball in balls {
             
-            print("Working")
+//            print("Working")
             
             if board.grid[ball.indexes] == center {
                 
-                delegate?.startBall()
+                
+                delegate?.startBall(ball: ball)
             }
         }
     }

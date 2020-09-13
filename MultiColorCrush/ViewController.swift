@@ -205,12 +205,12 @@ extension ViewController: ModelDelegate {
 
             entranceView.backgroundColor = .yellow
             
-//            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
-//            let textBox = UITextField(frame: halfFrame)
-//            textBox.text = "Begin"
-//            textBox.textColor = .white
-//            textBox.textAlignment = .center
-//            entranceView.addSubview(textBox)
+            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
+            let textBox = UITextField(frame: halfFrame)
+            textBox.text = "Begin"
+            textBox.textColor = .white
+            textBox.textAlignment = .center
+            entranceView.addSubview(textBox)
 
 
             self.board.view.addSubview(entranceView)
@@ -263,7 +263,7 @@ extension ViewController: ModelDelegate {
             
 //            ballView.backgroundColor = .systemPink
             //append walls
-            
+            ball.view = ballView
             addTapGestureRecognizer(view: ballView)
 
             self.board.view.addSubview(ballView)
@@ -275,11 +275,28 @@ extension ViewController: ModelDelegate {
         
     }
     
-    func startBall() {
+    func startBall(ball: Ball) {
         
-        //
         
-        print("ball started")
+        //TODO: Need the model to tell this which way to go and then the balls view will follow that path
+                
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            
+            print("Animation called")
+            
+            let transform = CGAffineTransform.init(translationX: 0, y: -20)
+            ball.view.transform = transform
+            
+//            ball.view.center.y = ball.view.center.y - 10
+
+        }) { (false) in
+            print("HI")
+        }
+        
+        
+        
         
         
         
