@@ -53,7 +53,9 @@ class Top {
     
     var isOpen = false
     var isPivot = false
-    
+    var cleared = false
+    var opening = Opening()
+    var closing  = Closing()
     
 }
 
@@ -61,7 +63,9 @@ class Bottom {
     
     var isOpen = false
     var isPivot = false
-
+    var cleared = false
+    var opening = Opening()
+    var closing  = Closing()
     
 }
 
@@ -69,7 +73,9 @@ class Left {
     
     var isOpen = false
     var isPivot = false
-
+    var cleared = false
+    var opening = Opening()
+    var closing  = Closing()
     
 }
 
@@ -77,7 +83,21 @@ class Right {
     
     var isOpen = false
     var isPivot = false
+    var cleared = false
+    var opening = Opening()
+    var closing  = Closing()
+    
+}
 
+class Opening {
+    
+    var isOpen = false
+
+}
+
+class Closing {
+    
+    var isOpen = false
     
 }
 

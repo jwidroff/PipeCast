@@ -188,29 +188,76 @@ class Model {
     
     func setPieceSides(piece: Piece) {
         
+        //TODO: Make it that the pieces sides being open are not true and false but rather another side that the piece leads to and if the other side is nil, then the side is obviously closed - that way we know #1 which way to send the ball and #2 to determine if the ball can even go through the tube. Also get rid of the unnecessary pieces added for the side.
+        
+        
+        
+        
+        
         switch piece.shape {
             
         case "elbow":
             
             //TODO: Make this conditional on the pieces way that its rotated
+
             
-            piece.side.top.isOpen = true
-            piece.side.left.isOpen = true
-        
+            piece.side.top.opening.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.top.closing.isOpen = true
+            piece.side.left.closing.isOpen = true
+
         case "doubleElbow":
             
-            print("TODO - Set this")
+            
+            piece.side.top.opening.isOpen = true
+            piece.side.top.closing.isOpen = true
+            piece.side.right.opening.isOpen = true
+            piece.side.right.closing.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.left.closing.isOpen = false
             
         case "quadElbow":
-            print("TODO - Set this")
+            
+            piece.side.top.opening.isOpen = true
+            piece.side.bottom.opening.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.right.opening.isOpen = true
+            piece.side.top.closing.isOpen = true
+            piece.side.bottom.closing.isOpen = true
+            piece.side.left.closing.isOpen = true
+            piece.side.right.closing.isOpen = true
             
             
         case "cross":
-            print("TODO - Set this")
             
+            piece.side.top.opening.isOpen = true
+            piece.side.bottom.opening.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.right.opening.isOpen = true
+            piece.side.left.closing.isOpen = true
+            piece.side.right.closing.isOpen = true
             
         case "sword":
+            
+            //TODO: Finish this
+            
             print("TODO - Set this")
+
+//            piece.side.top.opening.isOpen = true
+//            piece.side.bottom.opening.isOpen = true
+//            piece.side.left.opening.isOpen = true
+//            piece.side.right.opening.isOpen = true
+            
+        case "diagElbow":
+            
+            piece.side.top.opening.isOpen = true
+            piece.side.bottom.opening.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.right.opening.isOpen = true
+            piece.side.top.closing.isOpen = true
+            piece.side.bottom.closing.isOpen = true
+            piece.side.left.closing.isOpen = true
+            piece.side.right.closing.isOpen = true
             
             
             
@@ -333,7 +380,7 @@ class Model {
     
     func setPieceShape(piece: Piece) {
         
-        let randomShapes = ["elbow", "doubleElbow", "sword", "cross", "quadBow", "diagElbow"]//, "sword"]
+        let randomShapes = ["elbow", "doubleElbow", "cross", "quadBow", "diagElbow"]//, "sword"]
 
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
@@ -542,27 +589,41 @@ class Model {
             
         case "elbow":
             
-            piece.side.left.isOpen = !piece.side.left.isOpen
-            piece.side.right.isOpen =  !piece.side.right.isOpen
-  
+//            piece.side.left.isOpen = !piece.side.left.isOpen
+//            piece.side.right.isOpen =  !piece.side.right.isOpen
+            
+            piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
+            piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
+            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+            
             
         case "doubleElbow":
             
-            print("TODO - Set this")
+            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+
             
-        case "quadElbow":
+            
+        case "quadElbow": // Nothing to set as far as openings and closings
             print("TODO - Set this")
 
             
         case "cross":
-            print("TODO - Set this")
 
+           
+            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+            piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+            piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+            
             
         case "sword":
             print("TODO - Set this")
 
             
-            
+        case "diagElbow": // Nothing to set as far as openings and closings
+            print("TODO - Set this")
             
             
             
@@ -588,22 +649,28 @@ class Model {
                 
                 
                 
-                print("piece before switch - left is open = \(piece.side.left.isOpen)")
-                print("piece before switch - right is open = \(piece.side.right.isOpen)")
-                print("piece before switch - top is open = \(piece.side.top.isOpen)")
-                print("piece before switch - bottom is open = \(piece.side.bottom.isOpen)")
-                
+                print("piece before switch opening - left is open = \(piece.side.left.opening.isOpen)")
+                print("piece before switch closing - left is open = \(piece.side.left.closing.isOpen)")
+                print("piece before switch opening - right is open = \(piece.side.right.opening.isOpen)")
+                print("piece before switch closing - right is open = \(piece.side.right.closing.isOpen)")
+                print("piece before switch opening - top is open = \(piece.side.top.opening.isOpen)")
+                print("piece before switch closing - top is open = \(piece.side.top.closing.isOpen)")
+                print("piece before switch opening - bottom is open = \(piece.side.bottom.opening.isOpen)")
+                print("piece before switch closing - bottom is open = \(piece.side.bottom.closing.isOpen)")
                 
                 //TODO: Need to change the pieces sides here
                 
                 switchPieces(piece: piece)
                 
                 
-                print("piece after switch - left is open = \(piece.side.left.isOpen)")
-                print("piece after switch - right is open = \(piece.side.right.isOpen)")
-                print("piece after switch - top is open = \(piece.side.top.isOpen)")
-                print("piece after switch - bottom is open = \(piece.side.bottom.isOpen)")
-
+                print("piece after switch opening - left is open = \(piece.side.left.opening.isOpen)")
+                print("piece after switch closing - left is open = \(piece.side.left.closing.isOpen)")
+                print("piece after switch opening - right is open = \(piece.side.right.opening.isOpen)")
+                print("piece after switch closing - right is open = \(piece.side.right.closing.isOpen)")
+                print("piece after switch opening - top is open = \(piece.side.top.opening.isOpen)")
+                print("piece after switch closing - top is open = \(piece.side.top.closing.isOpen)")
+                print("piece after switch opening - bottom is open = \(piece.side.bottom.opening.isOpen)")
+                print("piece after switch closing - bottom is open = \(piece.side.bottom.closing.isOpen)")
                 
                 
                 delegate?.pieceWasTapped(piece: piece)
