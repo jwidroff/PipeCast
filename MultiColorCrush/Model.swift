@@ -277,33 +277,33 @@ class Model {
         
         switch piece.shape {
         case "elbow":
-//            piece.switches = 2
+            piece.switches = 2
             piece.currentSwitch = 1
             
             
         case "doubleElbow":
             
-//           piece.switches = 2
+           piece.switches = 2
            piece.currentSwitch = 1
             
         case "diagElbow":
             
-//            piece.switches = 2
+            piece.switches = 2
             piece.currentSwitch = 1
             
         case "quadBow":
             
-//            piece.switches = 4
+            piece.switches = 4
             piece.currentSwitch = 1
             
         case "sword":
             
-//            piece.switches = 3
+            piece.switches = 3
             piece.currentSwitch = 1
             
         case "cross":
             
-//            piece.switches = 2
+            piece.switches = 2
             piece.currentSwitch = 1
             
         default:
