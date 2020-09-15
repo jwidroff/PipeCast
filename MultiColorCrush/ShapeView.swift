@@ -228,35 +228,22 @@ class ShapeView : UIView {
             
         case "regular":
             
-             guard let context = UIGraphicsGetCurrentContext() else { return }
-//             let width = frame.width / 4 * 2
-//             let height = frame.height / 4 * 2
-//             let x =  -(width - frame.width) / 2
-//             let y =  -(height - frame.height) / 2
-             let corner1 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.minY + (frame.width / 10))
-             let corner2 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.maxY - (frame.width / 10))
-             let corner3 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.maxY - (frame.width / 10))
-             let corner4 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.minY + (frame.width / 10))
-//             let holeRect = CGRect(x: x, y: y, width: width, height: height)
-             context.beginPath()
-             context.move(to: corner1)
-             context.addLine(to: corner2)
-             context.addLine(to: corner3)
-             context.addLine(to: corner4)
-             context.closePath()
-             context.setFillColor(color!)
-             context.fillPath()
-//             context.clear(holeRect)
-            
+            guard let context = UIGraphicsGetCurrentContext() else { return }
+            let w = frame.width / 10 * 9
+            let h = frame.height / 10 * 9
+            let x = (frame.width - w) / 2
+            let y = (frame.height - h) / 2
+            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+            context.setFillColor(UIColor.black.cgColor)
+            context.addRects([rect1])
+            context.fill(rect1)
             
         case "elbow":
 
             if currentSwitch == 1 {
                 
                 guard let context = UIGraphicsGetCurrentContext() else { return }
-                
                 let diff = frame.height / 10
-                
                 let eclipseHeight1 = frame.height + diff
                 let eclipseWidth1 = frame.width + diff
                 let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
@@ -278,10 +265,7 @@ class ShapeView : UIView {
                 guard let context = UIGraphicsGetCurrentContext() else { return }
                 
                 let diff = frame.height / 10
-                
-                
-                
-               let eclipseHeight3 = frame.height + diff
+                let eclipseHeight3 = frame.height + diff
                 let eclipseWidth3 = frame.width + diff
                 let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: eclipseWidth3, height: eclipseHeight3)
                 context.addEllipse(in: rect3)

@@ -20,6 +20,8 @@ import UIKit
 //TODO: Make a start ball button
 //TODO: Make all of the pieces move together once the start button is pressed
 //TODO: make a pivot line on the pivot pieces
+//TODO: Need to show openings on entrances and exits
+//TODO: Need to set the opening of the entrances and exits dynamically
 
 
 //TODO: Add number of moves left
@@ -131,6 +133,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
+            entrance.opening = "bottom"
             entrances.append(entrance)
         }
         return entrances
@@ -143,6 +146,7 @@ class Model {
             
             let exit = Exit()
             setExitIndex(exit: exit)
+            exit.opening = "top"
             exits.append(exit)
             
         }
@@ -667,7 +671,16 @@ class Model {
         
     }
     
-    
+    func moveBall(ball: Ball) {
+        
+        
+        //Determine which way the opening is on the entrance
+        
+        
+        
+        
+        
+    }
     
     func handleTap(center: CGPoint) {
                 
@@ -712,20 +725,20 @@ class Model {
                 print("After bottom closing = \(piece.side.bottom.closing.isOpen)")
                 
                 
+                
                 delegate?.pieceWasTapped(piece: piece)
-                
-                
-                
-                
-                
             }
         }
+        
         for ball in balls {
             
 //            print("Working")
             
             if board.grid[ball.indexes] == center {
                 
+                
+                
+                moveBall(ball: ball)
                 
                 delegate?.startBall(ball: ball)
             }

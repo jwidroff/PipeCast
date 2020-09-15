@@ -27,10 +27,13 @@ class Entrance {
     
     var indexes = Indexes()
     var view = ShapeView()
+    var opening = String()
 }
 
 class Exit {
     
     var indexes = Indexes()
     var view = ShapeView()
+    var opening = String()
+
 }
