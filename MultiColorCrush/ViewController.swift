@@ -284,7 +284,7 @@ extension ViewController: ModelDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             
             
-            let transform = CGAffineTransform.init(translationX: 0, y: -20)
+            let transform = CGAffineTransform.init(translationX: 0, y: -200)
             ball.view.transform = transform
             
 //            ball.view.center.y = ball.view.center.y - 10

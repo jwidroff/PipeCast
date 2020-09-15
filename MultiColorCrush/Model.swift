@@ -205,6 +205,9 @@ class Model {
             piece.side.left.opening.isOpen = true
             piece.side.top.closing.isOpen = true
             piece.side.left.closing.isOpen = true
+            
+            piece.side.top.exitSide = "left"
+            piece.side.left.exitSide = "top"
 
         case "doubleElbow":
             
@@ -215,6 +218,11 @@ class Model {
             piece.side.right.closing.isOpen = true
             piece.side.left.opening.isOpen = true
             piece.side.left.closing.isOpen = false
+            
+            piece.side.top.exitSide = "right"
+            piece.side.right.exitSide = "top"
+            
+            
             
         case "quadElbow":
             
@@ -227,6 +235,10 @@ class Model {
             piece.side.left.closing.isOpen = true
             piece.side.right.closing.isOpen = true
             
+            piece.side.top.exitSide = "left"
+            piece.side.left.exitSide = "top"
+            piece.side.bottom.exitSide = "right"
+            piece.side.right.exitSide = "bottom"
             
         case "cross":
             
@@ -236,6 +248,9 @@ class Model {
             piece.side.right.opening.isOpen = true
             piece.side.left.closing.isOpen = true
             piece.side.right.closing.isOpen = true
+            
+            piece.side.right.exitSide = "left"
+            piece.side.left.exitSide = "right"
             
         case "sword":
             
@@ -259,8 +274,10 @@ class Model {
             piece.side.left.closing.isOpen = true
             piece.side.right.closing.isOpen = true
             
-            
-            
+            piece.side.top.exitSide = "right"
+            piece.side.right.exitSide = "top"
+            piece.side.bottom.exitSide = "left"
+            piece.side.left.exitSide = "bottom"
             
         default:
             break
@@ -597,17 +614,26 @@ class Model {
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             
+            piece.side.top.exitSide = "right"
+            piece.side.right.exitSide = "top"
             
         case "doubleElbow":
             
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
 
+            piece.side.top.exitSide = "left"
+            piece.side.left.exitSide = "top"
             
             
         case "quadElbow": // Nothing to set as far as openings and closings
-            print("TODO - Set this")
 
+            
+            piece.side.top.exitSide = "right"
+            piece.side.right.exitSide = "top"
+            piece.side.bottom.exitSide = "left"
+            piece.side.left.exitSide = "bottom"
+            
             
         case "cross":
 
@@ -617,6 +643,8 @@ class Model {
             piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
             piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
             
+            piece.side.top.exitSide = "bottom"
+            piece.side.bottom.exitSide = "top"
             
         case "sword":
             print("TODO - Set this")
@@ -625,7 +653,10 @@ class Model {
         case "diagElbow": // Nothing to set as far as openings and closings
             print("TODO - Set this")
             
-            
+            piece.side.top.exitSide = "left"
+            piece.side.left.exitSide = "top"
+            piece.side.bottom.exitSide = "right"
+            piece.side.right.exitSide = "bottom"
             
         default:
             break
@@ -647,30 +678,38 @@ class Model {
             
             if board.grid[piece.indexes] == center {
                 
+                print("top exit \(piece.side.top.exitSide ?? "None")")
+                print("bottom exit \(piece.side.bottom.exitSide ?? "None")")
+                print("left exit \(piece.side.left.exitSide ?? "None")")
+                print("right exit \(piece.side.right.exitSide ?? "None")")
+
                 
-                
-                print("piece before switch opening - left is open = \(piece.side.left.opening.isOpen)")
-                print("piece before switch closing - left is open = \(piece.side.left.closing.isOpen)")
-                print("piece before switch opening - right is open = \(piece.side.right.opening.isOpen)")
-                print("piece before switch closing - right is open = \(piece.side.right.closing.isOpen)")
-                print("piece before switch opening - top is open = \(piece.side.top.opening.isOpen)")
-                print("piece before switch closing - top is open = \(piece.side.top.closing.isOpen)")
-                print("piece before switch opening - bottom is open = \(piece.side.bottom.opening.isOpen)")
-                print("piece before switch closing - bottom is open = \(piece.side.bottom.closing.isOpen)")
+                print("B4 left opening   = \(piece.side.left.opening.isOpen)")
+                print("B4 left closing   = \(piece.side.left.closing.isOpen)")
+                print("B4 right opening  = \(piece.side.right.opening.isOpen)")
+                print("B4 right closing  = \(piece.side.right.closing.isOpen)")
+                print("B4 top opening    = \(piece.side.top.opening.isOpen)")
+                print("B4 top closing    = \(piece.side.top.closing.isOpen)")
+                print("B4 bottom opening = \(piece.side.bottom.opening.isOpen)")
+                print("B4 bottom closing = \(piece.side.bottom.closing.isOpen)")
                 
                 //TODO: Need to change the pieces sides here
                 
                 switchPieces(piece: piece)
                 
+                print("top exit \(piece.side.top.exitSide ?? "None")")
+                print("bottom exit \(piece.side.bottom.exitSide ?? "None")")
+                print("left exit \(piece.side.left.exitSide ?? "None")")
+                print("right exit \(piece.side.right.exitSide ?? "None")")
                 
-                print("piece after switch opening - left is open = \(piece.side.left.opening.isOpen)")
-                print("piece after switch closing - left is open = \(piece.side.left.closing.isOpen)")
-                print("piece after switch opening - right is open = \(piece.side.right.opening.isOpen)")
-                print("piece after switch closing - right is open = \(piece.side.right.closing.isOpen)")
-                print("piece after switch opening - top is open = \(piece.side.top.opening.isOpen)")
-                print("piece after switch closing - top is open = \(piece.side.top.closing.isOpen)")
-                print("piece after switch opening - bottom is open = \(piece.side.bottom.opening.isOpen)")
-                print("piece after switch closing - bottom is open = \(piece.side.bottom.closing.isOpen)")
+                print("After left opening   = \(piece.side.left.opening.isOpen)")
+                print("After left closing   = \(piece.side.left.closing.isOpen)")
+                print("After right opening  = \(piece.side.right.opening.isOpen)")
+                print("After right closing  = \(piece.side.right.closing.isOpen)")
+                print("After top opening    = \(piece.side.top.opening.isOpen)")
+                print("After top closing    = \(piece.side.top.closing.isOpen)")
+                print("After bottom opening = \(piece.side.bottom.opening.isOpen)")
+                print("After bottom closing = \(piece.side.bottom.closing.isOpen)")
                 
                 
                 delegate?.pieceWasTapped(piece: piece)

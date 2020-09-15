@@ -51,42 +51,35 @@ class Side {
 
 class Top {
     
-    var isOpen = false
-    var isPivot = false
-    var cleared = false
+   
     var opening = Opening()
     var closing  = Closing()
+    var exitSide: String?
     
 }
 
 class Bottom {
     
-    var isOpen = false
-    var isPivot = false
-    var cleared = false
     var opening = Opening()
     var closing  = Closing()
-    
+    var exitSide: String?
+
 }
 
 class Left {
-    
-    var isOpen = false
-    var isPivot = false
-    var cleared = false
+
     var opening = Opening()
     var closing  = Closing()
-    
+    var exitSide: String?
+
 }
 
 class Right {
-    
-    var isOpen = false
-    var isPivot = false
-    var cleared = false
+
     var opening = Opening()
     var closing  = Closing()
-    
+    var exitSide: String?
+
 }
 
 class Opening {
