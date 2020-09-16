@@ -34,7 +34,7 @@ protocol ModelDelegate {
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
-    func startBall(ball: Ball)
+    func startBall(ball: Ball, direction: Direction)
 }
 
 class Model {
@@ -74,7 +74,7 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         level.number = 1
-        level.boardHeight = 9
+        level.boardHeight = 4
         level.boardWidth = 4
         level.numberOfPieces = 10
     }
@@ -133,7 +133,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "bottom"
+            entrance.opening = "top"
             entrances.append(entrance)
         }
         return entrances
@@ -673,8 +673,51 @@ class Model {
     
     func moveBall(ball: Ball) {
         
+        //MARK: MOVEBALL - WORK ON THIS
         
         //Determine which way the opening is on the entrance
+        
+        print("ball index \(ball.indexes)")
+        
+        //Determine where the ball is starting from
+        for entrance in entrances {
+            
+            print("entrance opening \(entrance.opening)")
+
+            if entrance.opening == "top" {
+                
+                if ball.indexes.y! != 0 {
+                    
+                    
+                    ball.indexes.y! -= 1
+
+                }
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        //Check if ball can enter the next piece
+        
+        //Check if ball can exit the next piece
+        
+        //Set the index of the ball
+        
+        //Move the balls view
+        
+        //TODO: Need to learn how to curve a view
+        
         
         
         
@@ -736,11 +779,33 @@ class Model {
             
             if board.grid[ball.indexes] == center {
                 
-                
+                let previousIndexes = ball.indexes
                 
                 moveBall(ball: ball)
                 
-                delegate?.startBall(ball: ball)
+                let currentIndexes = ball.indexes
+                
+                var direction:Direction = .none
+                
+                if currentIndexes.y! > previousIndexes.y! {
+                    direction = .down
+                }
+                if currentIndexes.y! < previousIndexes.y! {
+                    direction = .up
+                }
+                if currentIndexes.x! > previousIndexes.x! {
+                    direction = .right
+                }
+                if currentIndexes.x! > previousIndexes.x! {
+                    direction = .left
+                }
+                
+                print("previousIndexes \(previousIndexes)")
+                print("currentIndexes \(currentIndexes)")
+
+                print("Direction = \(direction)")
+                
+                delegate?.startBall(ball: ball, direction: direction)
             }
         }
     }

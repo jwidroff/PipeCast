@@ -295,7 +295,7 @@ extension ViewController: ModelDelegate {
         
     }
     
-    func startBall(ball: Ball) {
+    func startBall(ball: Ball, direction: Direction) {
         
         
         //TODO: Need the model to tell this which way to go and then the balls view will follow that path
@@ -304,10 +304,38 @@ extension ViewController: ModelDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             
             
-            let transform = CGAffineTransform.init(translationX: 0, y: -200)
-            ball.view.transform = transform
             
-//            ball.view.center.y = ball.view.center.y - 10
+            
+            
+            //TODO: Need to pass in the previous center to here to make sure that that we know where the ball is coming from
+            
+            var yDiff = 0
+            var xDiff = 0
+            
+            switch direction {
+            case .up:
+                yDiff = 1
+            case .down:
+                yDiff = -1
+            case .left:
+                xDiff = 1
+            case .right:
+                xDiff = -1
+                
+            default:
+                break
+            }
+            
+            let pastXPoint = ball.indexes.x! + xDiff
+            let pastYPoint = ball.indexes.y! + yDiff
+            let pastIndexes = Indexes(x: pastXPoint , y: pastYPoint)
+            let currentPoint = self.board.grid[pastIndexes]
+            let nextPoint = self.board.grid[ball.indexes]
+            let translationX = nextPoint!.x - currentPoint!.x
+            let translationY = nextPoint!.y - currentPoint!.y
+            let transform = CGAffineTransform.init(translationX: translationX, y: translationY)
+            ball.view.transform = transform
+
 
         }) { (false) in
             print("HI")
