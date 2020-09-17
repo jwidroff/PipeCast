@@ -685,50 +685,20 @@ class Model {
 
             print("entrance opening \(entrance.opening)")
 
-            if entrance.opening == "top" {
-                
-                
-                
-                
-                
-                
-                
-                
-            }
             switch entrance.opening {
+                
+                
             case "top":
                 
-                if ball.indexes.y! != 0 {
-                    
-                    let previousIndexes = ball.indexes
+                let ballCanMove = isNextSpaceBlocked(direction: .up, indexes: ball.indexes)
 
+                if ballCanMove {
+                    
                     ball.indexes.y! -= 1
                     
-                    let currentIndexes = ball.indexes
-                    
-                    var direction:Direction = .none
-                    
-                    if currentIndexes.y! > previousIndexes.y! {
-                        direction = .down
-                    }
-                    if currentIndexes.y! < previousIndexes.y! {
-                        direction = .up
-                    }
-                    if currentIndexes.x! > previousIndexes.x! {
-                        direction = .right
-                    }
-                    if currentIndexes.x! > previousIndexes.x! {
-                        direction = .left
-                    }
-                    
-                    print("previousIndexes \(previousIndexes)")
-                    print("currentIndexes \(currentIndexes)")
-
-                    print("Direction = \(direction)")
-                    
-                    delegate?.startBall(ball: ball, direction: direction)
-
+                    delegate?.startBall(ball: ball, direction: .up)
                 }
+                
                 
             case "bottom":
                 
@@ -736,60 +706,39 @@ class Model {
                 
                 if ballCanMove {
                     
-                    
-                    let previousIndexes = ball.indexes
-
                     ball.indexes.y! += 1
                     
-//                    let currentIndexes = ball.indexes
-                    
-//                    var direction:Direction = .none
-//
-//                    if currentIndexes.y! > previousIndexes.y! {
-//                        direction = .down
-//                    }
-//                    if currentIndexes.y! < previousIndexes.y! {
-//                        direction = .up
-//                    }
-//                    if currentIndexes.x! > previousIndexes.x! {
-//                        direction = .right
-//                    }
-//                    if currentIndexes.x! > previousIndexes.x! {
-//                        direction = .left
-//                    }
-//
-//                    print("previousIndexes \(previousIndexes)")
-//                    print("currentIndexes \(currentIndexes)")
-//
-//                    print("Direction = \(direction)")
-                    
                     delegate?.startBall(ball: ball, direction: .down)
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                 }
                 
                 
-               
-                
-                
-                
-                
             case "left":
                 
-                
-                print("TODO")
+                let ballCanMove = isNextSpaceBlocked(direction: .left, indexes: ball.indexes)
 
+                if ballCanMove {
+                    
+                    ball.indexes.x! -= 1
+                    
+                    delegate?.startBall(ball: ball, direction: .left)
+                }
                 
             case "right":
                 
                 
-                print("TODO")
+               let ballCanMove = isNextSpaceBlocked(direction: .right, indexes: ball.indexes)
+
+                if ballCanMove {
+                    
+                    ball.indexes.x! += 1
+                    
+                    delegate?.startBall(ball: ball, direction: .right)
+                }
+                
+                //MARK: TODO - JUST COPIED THIS AFTER DOING UP AND DOWN AND NOW THE BALL DIDNT MOVE LEFT WHEN THE ENTRANCE IS SUPPOSED TO BE OPEN ON THE LEFT SIDE
+                
+                
                 
             default:
                 break
