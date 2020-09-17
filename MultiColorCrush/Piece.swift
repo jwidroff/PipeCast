@@ -101,7 +101,6 @@ class Ball {
     var view = ShapeView()
     var indexes = Indexes()
     var direction = Direction.none
-    
 }
 
 enum Direction {

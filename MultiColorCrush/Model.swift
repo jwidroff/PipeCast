@@ -74,7 +74,7 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         level.number = 1
-        level.boardHeight = 4
+        level.boardHeight = 9
         level.boardWidth = 4
         level.numberOfPieces = 10
     }
@@ -682,16 +682,12 @@ class Model {
         //Determine where the ball is starting from
         for entrance in entrances {
             
+
             print("entrance opening \(entrance.opening)")
 
             if entrance.opening == "top" {
                 
-                if ball.indexes.y! != 0 {
-                    
-                    
-                    ball.indexes.y! -= 1
-
-                }
+                
                 
                 
                 
@@ -699,7 +695,105 @@ class Model {
                 
                 
             }
-            
+            switch entrance.opening {
+            case "top":
+                
+                if ball.indexes.y! != 0 {
+                    
+                    let previousIndexes = ball.indexes
+
+                    ball.indexes.y! -= 1
+                    
+                    let currentIndexes = ball.indexes
+                    
+                    var direction:Direction = .none
+                    
+                    if currentIndexes.y! > previousIndexes.y! {
+                        direction = .down
+                    }
+                    if currentIndexes.y! < previousIndexes.y! {
+                        direction = .up
+                    }
+                    if currentIndexes.x! > previousIndexes.x! {
+                        direction = .right
+                    }
+                    if currentIndexes.x! > previousIndexes.x! {
+                        direction = .left
+                    }
+                    
+                    print("previousIndexes \(previousIndexes)")
+                    print("currentIndexes \(currentIndexes)")
+
+                    print("Direction = \(direction)")
+                    
+                    delegate?.startBall(ball: ball, direction: direction)
+
+                }
+                
+            case "bottom":
+                
+                let ballCanMove = isNextSpaceBlocked(direction: .down, indexes: ball.indexes)
+                
+                if ballCanMove {
+                    
+                    
+                    let previousIndexes = ball.indexes
+
+                    ball.indexes.y! += 1
+                    
+//                    let currentIndexes = ball.indexes
+                    
+//                    var direction:Direction = .none
+//
+//                    if currentIndexes.y! > previousIndexes.y! {
+//                        direction = .down
+//                    }
+//                    if currentIndexes.y! < previousIndexes.y! {
+//                        direction = .up
+//                    }
+//                    if currentIndexes.x! > previousIndexes.x! {
+//                        direction = .right
+//                    }
+//                    if currentIndexes.x! > previousIndexes.x! {
+//                        direction = .left
+//                    }
+//
+//                    print("previousIndexes \(previousIndexes)")
+//                    print("currentIndexes \(currentIndexes)")
+//
+//                    print("Direction = \(direction)")
+                    
+                    delegate?.startBall(ball: ball, direction: .down)
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                }
+                
+                
+               
+                
+                
+                
+                
+            case "left":
+                
+                
+                print("TODO")
+
+                
+            case "right":
+                
+                
+                print("TODO")
+                
+            default:
+                break
+            }
             
             
             
@@ -779,33 +873,33 @@ class Model {
             
             if board.grid[ball.indexes] == center {
                 
-                let previousIndexes = ball.indexes
+//                let previousIndexes = ball.indexes
                 
                 moveBall(ball: ball)
                 
-                let currentIndexes = ball.indexes
-                
-                var direction:Direction = .none
-                
-                if currentIndexes.y! > previousIndexes.y! {
-                    direction = .down
-                }
-                if currentIndexes.y! < previousIndexes.y! {
-                    direction = .up
-                }
-                if currentIndexes.x! > previousIndexes.x! {
-                    direction = .right
-                }
-                if currentIndexes.x! > previousIndexes.x! {
-                    direction = .left
-                }
-                
-                print("previousIndexes \(previousIndexes)")
-                print("currentIndexes \(currentIndexes)")
-
-                print("Direction = \(direction)")
-                
-                delegate?.startBall(ball: ball, direction: direction)
+//                let currentIndexes = ball.indexes
+//
+//                var direction:Direction = .none
+//
+//                if currentIndexes.y! > previousIndexes.y! {
+//                    direction = .down
+//                }
+//                if currentIndexes.y! < previousIndexes.y! {
+//                    direction = .up
+//                }
+//                if currentIndexes.x! > previousIndexes.x! {
+//                    direction = .right
+//                }
+//                if currentIndexes.x! > previousIndexes.x! {
+//                    direction = .left
+//                }
+//
+//                print("previousIndexes \(previousIndexes)")
+//                print("currentIndexes \(currentIndexes)")
+//
+//                print("Direction = \(direction)")
+//
+//                delegate?.startBall(ball: ball, direction: direction)
             }
         }
     }
