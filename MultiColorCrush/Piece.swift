@@ -13,7 +13,7 @@ import UIKit
 class Piece {
     
     var indexes = Indexes()
-    var shape = String()
+    var shape: Shape = .regular
     var view = ShapeView()
     var center = CGPoint()
     var color = UIColor()
@@ -111,6 +111,8 @@ enum Direction {
     case right
     case none
 }
+
+
 
 
 

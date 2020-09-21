@@ -37,3 +37,6 @@ class Exit {
     var opening = String()
 
 }
+
+
+

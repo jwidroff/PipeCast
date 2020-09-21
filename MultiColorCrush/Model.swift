@@ -200,7 +200,7 @@ class Model {
         
         switch piece.shape {
             
-        case "elbow":
+        case .elbow:
             
             //TODO: Make this conditional on the pieces way that its rotated
 
@@ -213,7 +213,7 @@ class Model {
             piece.side.top.exitSide = "left"
             piece.side.left.exitSide = "top"
 
-        case "doubleElbow":
+        case .doubleElbow:
             
             
             piece.side.top.opening.isOpen = true
@@ -228,7 +228,7 @@ class Model {
             
             
             
-        case "quadElbow":
+        case .quadElbow:
             
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
@@ -244,7 +244,7 @@ class Model {
             piece.side.bottom.exitSide = "right"
             piece.side.right.exitSide = "bottom"
             
-        case "cross":
+        case .cross:
             
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
@@ -256,7 +256,7 @@ class Model {
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             
-        case "sword":
+        case .sword:
             
             //TODO: Finish this
             
@@ -267,7 +267,7 @@ class Model {
 //            piece.side.left.opening.isOpen = true
 //            piece.side.right.opening.isOpen = true
             
-        case "diagElbow":
+        case .quadElbow:
             
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
@@ -297,32 +297,32 @@ class Model {
         
         
         switch piece.shape {
-        case "elbow":
+        case .elbow:
             piece.switches = 2
             piece.currentSwitch = 1
             
             
-        case "doubleElbow":
+        case .doubleElbow:
             
            piece.switches = 2
            piece.currentSwitch = 1
             
-        case "diagElbow":
+        case .diagElbow:
             
             piece.switches = 2
             piece.currentSwitch = 1
             
-        case "quadBow":
+        case .quadBox:
             
             piece.switches = 4
             piece.currentSwitch = 1
             
-        case "sword":
+        case .sword:
             
             piece.switches = 3
             piece.currentSwitch = 1
             
-        case "cross":
+        case .cross:
             
             piece.switches = 2
             piece.currentSwitch = 1
@@ -401,7 +401,7 @@ class Model {
     
     func setPieceShape(piece: Piece) {
         
-        let randomShapes = ["elbow", "doubleElbow", "cross", "quadBow", "diagElbow"]//, "sword"]
+        let randomShapes:[Shape] = [.elbow, .doubleElbow, .cross, .quadBox, .diagElbow]//, "sword"]
 
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
@@ -608,7 +608,7 @@ class Model {
         
         switch piece.shape {
             
-        case "elbow":
+        case .elbow:
             
 //            piece.side.left.isOpen = !piece.side.left.isOpen
 //            piece.side.right.isOpen =  !piece.side.right.isOpen
@@ -621,7 +621,7 @@ class Model {
             piece.side.top.exitSide = "right"
             piece.side.right.exitSide = "top"
             
-        case "doubleElbow":
+        case .doubleElbow:
             
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
@@ -630,7 +630,7 @@ class Model {
             piece.side.left.exitSide = "top"
             
             
-        case "quadElbow": // Nothing to set as far as openings and closings
+        case .quadBox: // Nothing to set as far as openings and closings
 
             
             piece.side.top.exitSide = "right"
@@ -639,7 +639,7 @@ class Model {
             piece.side.left.exitSide = "bottom"
             
             
-        case "cross":
+        case .cross:
 
            
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
@@ -650,11 +650,11 @@ class Model {
             piece.side.top.exitSide = "bottom"
             piece.side.bottom.exitSide = "top"
             
-        case "sword":
+        case .sword:
             print("TODO - Set this")
 
             
-        case "diagElbow": // Nothing to set as far as openings and closings
+        case .diagElbow: // Nothing to set as far as openings and closings
             print("TODO - Set this")
             
             piece.side.top.exitSide = "left"

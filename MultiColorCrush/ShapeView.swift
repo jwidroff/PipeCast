@@ -14,12 +14,10 @@ import UIKit
 
 class ShapeView : UIView {
     
-    var name = String()
+    var name:Shape = .regular
     
     var color: CGColor?
-    
-    var type = String()
-    
+        
     var switches = Int()
     
     var currentSwitch = Int()
@@ -32,34 +30,34 @@ class ShapeView : UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect, color: CGColor, shape: String) {
+    init(frame: CGRect, color: CGColor, shape: Shape) {
         self.color  = color
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.name = shape
         
         switch shape {
-        case "elbow":
+        case .elbow:
             switches = 2
             currentSwitch = 1
             
-        case "doubleElbow":
+        case .doubleElbow:
             switches = 2
             currentSwitch = 1
             
-        case "sword":
+        case .sword:
             switches = 3
             currentSwitch = 1
             
-        case "cross":
+        case .cross:
             switches = 2
             currentSwitch = 1
             
-        case "quadBow":
+        case .quadBox:
             switches = 2
             currentSwitch = 1
             
-        case "diagElbow":
+        case .diagElbow:
             switches = 2
             currentSwitch = 1
             
@@ -76,79 +74,79 @@ class ShapeView : UIView {
         
         switch name {
             
-        case "square":
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let width = frame.width / 4 * 2
-            let height = frame.height / 4 * 2
-            let x =  -(width - frame.width) / 2
-            let y =  -(height - frame.height) / 2
-            let corner1 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.minY + (frame.width / 10))
-            let corner2 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.maxY - (frame.width / 10))
-            let corner3 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.maxY - (frame.width / 10))
-            let corner4 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.minY + (frame.width / 10))
-            let holeRect = CGRect(x: x, y: y, width: width, height: height)
-            context.beginPath()
-            context.move(to: corner1)
-            context.addLine(to: corner2)
-            context.addLine(to: corner3)
-            context.addLine(to: corner4)
-            context.closePath()
-            context.setFillColor(color!)
-            context.fillPath()
-            context.clear(holeRect)
+//        case "square":
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            let width = frame.width / 4 * 2
+//            let height = frame.height / 4 * 2
+//            let x =  -(width - frame.width) / 2
+//            let y =  -(height - frame.height) / 2
+//            let corner1 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.minY + (frame.width / 10))
+//            let corner2 = CGPoint(x: rect.minX + (frame.width / 10), y: rect.maxY - (frame.width / 10))
+//            let corner3 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.maxY - (frame.width / 10))
+//            let corner4 = CGPoint(x: rect.maxX - (frame.width / 10), y: rect.minY + (frame.width / 10))
+//            let holeRect = CGRect(x: x, y: y, width: width, height: height)
+//            context.beginPath()
+//            context.move(to: corner1)
+//            context.addLine(to: corner2)
+//            context.addLine(to: corner3)
+//            context.addLine(to: corner4)
+//            context.closePath()
+//            context.setFillColor(color!)
+//            context.fillPath()
+//            context.clear(holeRect)
             
-        case "star":
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+//        case "star":
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//
+//            let rectSideLength = rect.width
+//            let rectSidePortion = rectSideLength / 5
+//            let cushion = rectSideLength / 4
+//            let corner1 = CGPoint(x: rect.minX, y: rectSidePortion * 2)
+//            let corner2 = CGPoint(x: rectSidePortion * 1.5, y: (rectSidePortion * 2))
+//            let corner3 = CGPoint(x: rectSidePortion * 2.5, y: rect.minY)
+//            let corner4 = CGPoint(x: rect.maxX - (rectSidePortion * 1.5), y: (rectSidePortion * 2))
+//            let corner5 = CGPoint(x: rect.maxX, y: rectSidePortion * 2)
+//            let corner6 = CGPoint(x: rect.maxX - cushion, y: rectSidePortion * 3)
+//            let corner7 = CGPoint(x: rectSidePortion * 4.5, y: rect.maxY)
+//            let corner8 = CGPoint(x: rectSidePortion * 2.5, y: rect.maxY - cushion)
+//            let corner9 = CGPoint(x: rectSidePortion * 0.5, y: rect.maxY)
+//            let corner10 = CGPoint(x: rect.minX + cushion, y: rectSidePortion * 3)
+//
+//            context.beginPath()
+//            context.move(to: corner1)
+//            context.addLine(to: corner2)
+//            context.addLine(to: corner3)
+//            context.addLine(to: corner4)
+//            context.addLine(to: corner5)
+//            context.addLine(to: corner6)
+//            context.addLine(to: corner7)
+//            context.addLine(to: corner8)
+//            context.addLine(to: corner9)
+//            context.addLine(to: corner10)
+//            context.closePath()
+//            context.setFillColor(color!)
+//            context.fillPath()
             
-            let rectSideLength = rect.width
-            let rectSidePortion = rectSideLength / 5
-            let cushion = rectSideLength / 4
-            let corner1 = CGPoint(x: rect.minX, y: rectSidePortion * 2)
-            let corner2 = CGPoint(x: rectSidePortion * 1.5, y: (rectSidePortion * 2))
-            let corner3 = CGPoint(x: rectSidePortion * 2.5, y: rect.minY)
-            let corner4 = CGPoint(x: rect.maxX - (rectSidePortion * 1.5), y: (rectSidePortion * 2))
-            let corner5 = CGPoint(x: rect.maxX, y: rectSidePortion * 2)
-            let corner6 = CGPoint(x: rect.maxX - cushion, y: rectSidePortion * 3)
-            let corner7 = CGPoint(x: rectSidePortion * 4.5, y: rect.maxY)
-            let corner8 = CGPoint(x: rectSidePortion * 2.5, y: rect.maxY - cushion)
-            let corner9 = CGPoint(x: rectSidePortion * 0.5, y: rect.maxY)
-            let corner10 = CGPoint(x: rect.minX + cushion, y: rectSidePortion * 3)
-            
-            context.beginPath()
-            context.move(to: corner1)
-            context.addLine(to: corner2)
-            context.addLine(to: corner3)
-            context.addLine(to: corner4)
-            context.addLine(to: corner5)
-            context.addLine(to: corner6)
-            context.addLine(to: corner7)
-            context.addLine(to: corner8)
-            context.addLine(to: corner9)
-            context.addLine(to: corner10)
-            context.closePath()
-            context.setFillColor(color!)
-            context.fillPath()
-            
-        case "triangle":
-            
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let width = frame.width / 4 * 1
-            let height = frame.height / 4 * 1
-            let x =  -(width - frame.width) / 2
-            let y =  -(height - frame.height) / 1.5
-            let corner1 = CGPoint(x: rect.minX, y: rect.maxY)
-            let corner2 = CGPoint(x: rect.maxX, y: rect.maxY)
-            let corner3 = CGPoint(x: rect.midX, y: rect.minY)
-            let holeRect = CGRect(x: x, y: y, width: width, height: height)
-            
-            context.beginPath()
-            context.move(to: corner1)
-            context.addLine(to: corner2)
-            context.addLine(to: corner3)
-            context.closePath()
-            context.setFillColor(color!)
-            context.fillPath()
-            context.clear(holeRect)
+//        case "triangle":
+//
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            let width = frame.width / 4 * 1
+//            let height = frame.height / 4 * 1
+//            let x =  -(width - frame.width) / 2
+//            let y =  -(height - frame.height) / 1.5
+//            let corner1 = CGPoint(x: rect.minX, y: rect.maxY)
+//            let corner2 = CGPoint(x: rect.maxX, y: rect.maxY)
+//            let corner3 = CGPoint(x: rect.midX, y: rect.minY)
+//            let holeRect = CGRect(x: x, y: y, width: width, height: height)
+//
+//            context.beginPath()
+//            context.move(to: corner1)
+//            context.addLine(to: corner2)
+//            context.addLine(to: corner3)
+//            context.closePath()
+//            context.setFillColor(color!)
+//            context.fillPath()
+//            context.clear(holeRect)
             
 //        case "cross":
 //            guard let context = UIGraphicsGetCurrentContext() else { return }
@@ -196,37 +194,37 @@ class ShapeView : UIView {
 //            context.clear(holeRect)
 //            context.clear(holeRect2)
             
-        case "octigon":
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let width = frame.width / 4 * 1
-            let height = frame.height / 4 * 1
-            let x =  -(width - frame.width) / 2
-            let y =  -(height - frame.height) / 2
-            let holeRect = CGRect(x: x, y: y, width: width, height: height)
-            let leftTop = CGPoint(x: rect.width / 3 * 1, y: rect.minY)
-            let rightTop = CGPoint(x: rect.width / 3 * 2, y: rect.minY)
-            let topLeft =  CGPoint(x: rect.minX, y: rect.height / 3 * 1)
-            let bottomLeft =  CGPoint(x: rect.minX, y: rect.height / 3 * 2)
-            let topRight =  CGPoint(x: rect.maxX, y: rect.height / 3 * 1)
-            let bottomright =  CGPoint(x: rect.maxX, y: rect.height / 3 * 2)
-            let leftBottom = CGPoint(x: rect.width / 3 * 1, y: rect.maxY)
-            let rightBottom = CGPoint(x: rect.width / 3 * 2, y: rect.maxY)
+//        case "octigon":
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            let width = frame.width / 4 * 1
+//            let height = frame.height / 4 * 1
+//            let x =  -(width - frame.width) / 2
+//            let y =  -(height - frame.height) / 2
+//            let holeRect = CGRect(x: x, y: y, width: width, height: height)
+//            let leftTop = CGPoint(x: rect.width / 3 * 1, y: rect.minY)
+//            let rightTop = CGPoint(x: rect.width / 3 * 2, y: rect.minY)
+//            let topLeft =  CGPoint(x: rect.minX, y: rect.height / 3 * 1)
+//            let bottomLeft =  CGPoint(x: rect.minX, y: rect.height / 3 * 2)
+//            let topRight =  CGPoint(x: rect.maxX, y: rect.height / 3 * 1)
+//            let bottomright =  CGPoint(x: rect.maxX, y: rect.height / 3 * 2)
+//            let leftBottom = CGPoint(x: rect.width / 3 * 1, y: rect.maxY)
+//            let rightBottom = CGPoint(x: rect.width / 3 * 2, y: rect.maxY)
+//
+//            context.beginPath()
+//            context.move(to: rightTop)
+//            context.addLine(to: leftTop)
+//            context.addLine(to: topLeft)
+//            context.addLine(to: bottomLeft)
+//            context.addLine(to: leftBottom)
+//            context.addLine(to: rightBottom)
+//            context.addLine(to: bottomright)
+//            context.addLine(to: topRight)
+//            context.closePath()
+//            context.setFillColor(color!)
+//            context.fillPath()
+//            context.clear(holeRect)
             
-            context.beginPath()
-            context.move(to: rightTop)
-            context.addLine(to: leftTop)
-            context.addLine(to: topLeft)
-            context.addLine(to: bottomLeft)
-            context.addLine(to: leftBottom)
-            context.addLine(to: rightBottom)
-            context.addLine(to: bottomright)
-            context.addLine(to: topRight)
-            context.closePath()
-            context.setFillColor(color!)
-            context.fillPath()
-            context.clear(holeRect)
-            
-        case "regular":
+        case .regular:
             
             guard let context = UIGraphicsGetCurrentContext() else { return }
             let w = frame.width / 10 * 9
@@ -238,7 +236,7 @@ class ShapeView : UIView {
             context.addRects([rect1])
             context.fill(rect1)
             
-        case "elbow":
+        case .elbow:
 
             if currentSwitch == 1 {
                 
@@ -299,7 +297,7 @@ class ShapeView : UIView {
             
             
             
-          case "doubleElbow":
+        case .doubleElbow:
             
             
             if currentSwitch == 1 {
@@ -375,7 +373,7 @@ class ShapeView : UIView {
                 currentSwitch = 1
             }
             
-        case "quadBow":
+        case .quadBox:
               
               
               if currentSwitch == 1 {
@@ -533,7 +531,7 @@ class ShapeView : UIView {
                   currentSwitch = 1
                }
             
-            case "diagElbow":
+        case .regular:
             
             
             if currentSwitch == 1 {
@@ -629,7 +627,7 @@ class ShapeView : UIView {
                 currentSwitch = 1
              }
             
-        case "sword":
+        case .sword:
             
             switch currentSwitch {
             case 1:
@@ -769,7 +767,7 @@ class ShapeView : UIView {
                 break
             }
             
-            case "cross":
+        case .cross:
 
                 switch currentSwitch {
                 case 1:
@@ -816,7 +814,7 @@ class ShapeView : UIView {
                 }
                 
                 
-        case "ball":
+        case .ball:
             
             
             
@@ -846,3 +844,23 @@ class ShapeView : UIView {
         }
     }
 }
+
+
+
+enum Shape {
+    
+    case elbow
+    case doubleElbow
+    case quadElbow
+    case diagElbow
+    case sword
+    case cross
+    case quadBox
+    case regular
+    case ball
+}
+
+
+
+
+

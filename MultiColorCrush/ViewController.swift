@@ -199,7 +199,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
+            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
             
             entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
 
@@ -229,7 +229,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
+            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
             
             exitView.center = CGPoint(x: board.grid[exit.indexes]?.x ?? exit.view.center.x, y: board.grid[exit.indexes]?.y ?? exit.view.center.y)
 
@@ -262,7 +262,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "regular")
+            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
             
             wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
@@ -277,7 +277,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let ballView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: "ball")
+            let ballView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball)
             
             ballView.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
