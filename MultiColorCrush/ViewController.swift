@@ -197,17 +197,42 @@ extension ViewController: ModelDelegate {
         
         for entrance in self.board.entrances {
             
+            let widthAndHeight = spaceWidth / 10
+
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
-
             let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
-            
             entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
-
             entranceView.backgroundColor = .yellow
             
-            let widthAndHeight = spaceWidth / 10
-            let x = frame.midX - (widthAndHeight / 2)
-            let y:CGFloat = 0
+            var x = CGFloat()
+            var y = CGFloat()
+
+            switch entrance.opening {
+
+            case "top":
+                
+                 x = frame.midX - (widthAndHeight / 2)
+                 y = 0
+                
+            case "bottom":
+                
+                x = frame.midX - (widthAndHeight / 2)
+                y = frame.maxY - widthAndHeight
+
+            case "left":
+                
+                x = 0
+                y = frame.midY - (widthAndHeight / 2)
+                
+            case "right":
+                
+               x = frame.maxX - widthAndHeight
+               y = frame.midY - (widthAndHeight / 2)
+
+            default:
+                break
+            }
+            
             let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
             let openingView = UIView(frame: rect)
             openingView.backgroundColor = .black
@@ -219,10 +244,8 @@ extension ViewController: ModelDelegate {
             textBox.textColor = .white
             textBox.textAlignment = .center
             entranceView.addSubview(textBox)
-
-
+            
             self.board.view.addSubview(entranceView)
-
         }
         
         for exit in self.board.exits {
@@ -238,16 +261,41 @@ extension ViewController: ModelDelegate {
             
             
             let widthAndHeight = spaceWidth / 10
-            let x = frame.midX - (widthAndHeight / 2)
-            let y:CGFloat = 0
+            var x = CGFloat()
+            var y = CGFloat()
+
+            
+            switch exit.opening {
+
+            case "top":
+                
+                x = frame.midX - (widthAndHeight / 2)
+                y = 0
+                
+            case "bottom":
+                
+                x = frame.midX - (widthAndHeight / 2)
+                y = frame.maxY - widthAndHeight
+
+            case "left":
+                
+                x = 0
+                y = frame.midY - (widthAndHeight / 2)
+                
+            case "right":
+                
+               x = frame.maxX - widthAndHeight
+               y = frame.midY - (widthAndHeight / 2)
+
+            default:
+                break
+            }
+            
             let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
             let openingView = UIView(frame: rect)
             openingView.backgroundColor = .black
             exitView.addSubview(openingView)
 
-            
-            
-            
             let textBox = UITextField(frame: frame)
             textBox.text = "End"
             textBox.textColor = .white

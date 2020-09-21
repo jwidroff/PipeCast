@@ -129,11 +129,14 @@ class Model {
     
     func getEntrances() -> [Entrance] {
                 
+        
+        //MARK: This needs to be set with the levelModel
+        
         for _ in 1...1 {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "top"
+            entrance.opening = "right"
             entrances.append(entrance)
         }
         return entrances
@@ -141,12 +144,13 @@ class Model {
     
     func getExits() -> [Exit] {
         
-        
+        //MARK: This needs to be set with the levelModel
+
         for _ in 1...1 {
             
             let exit = Exit()
             setExitIndex(exit: exit)
-            exit.opening = "top"
+            exit.opening = "bottom"
             exits.append(exit)
             
         }
