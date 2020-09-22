@@ -136,7 +136,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "right"
+            entrance.opening = "top"
             entrances.append(entrance)
         }
         return entrances
@@ -188,7 +188,7 @@ class Model {
             pieces.append(piece)
             
             
-            print("piece.color \(piece.color) piece.indexes \(piece.indexes) piece.shape \(piece.shape)")
+//            print("piece.color \(piece.color) piece.indexes \(piece.indexes) piece.shape \(piece.shape)")
             
         }
         delegate?.setUpPiecesView(pieces: pieces)
@@ -232,7 +232,7 @@ class Model {
             
             
             
-        case .quadElbow:
+        case .quadBox:
             
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
@@ -260,6 +260,24 @@ class Model {
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             
+        case .diagElbow:
+            
+            piece.side.top.opening.isOpen = true
+            piece.side.bottom.opening.isOpen = true
+            piece.side.left.opening.isOpen = true
+            piece.side.right.opening.isOpen = true
+            piece.side.top.closing.isOpen = true
+            piece.side.bottom.closing.isOpen = true
+            piece.side.left.closing.isOpen = true
+            piece.side.right.closing.isOpen = true
+            
+            piece.side.right.exitSide = "top"
+            piece.side.left.exitSide = "bottom"
+            piece.side.top.exitSide = "right"
+            piece.side.bottom.exitSide = "left"
+            
+            
+            
         case .sword:
             
             //TODO: Finish this
@@ -271,21 +289,9 @@ class Model {
 //            piece.side.left.opening.isOpen = true
 //            piece.side.right.opening.isOpen = true
             
-        case .quadElbow:
+
             
-            piece.side.top.opening.isOpen = true
-            piece.side.bottom.opening.isOpen = true
-            piece.side.left.opening.isOpen = true
-            piece.side.right.opening.isOpen = true
-            piece.side.top.closing.isOpen = true
-            piece.side.bottom.closing.isOpen = true
-            piece.side.left.closing.isOpen = true
-            piece.side.right.closing.isOpen = true
             
-            piece.side.top.exitSide = "right"
-            piece.side.right.exitSide = "top"
-            piece.side.bottom.exitSide = "left"
-            piece.side.left.exitSide = "bottom"
             
         default:
             break
@@ -437,6 +443,7 @@ class Model {
                 bool = false
             }
             
+            
         case .down:
             if pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
@@ -532,7 +539,7 @@ class Model {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
                 
                 let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
-                    print("int1 \(int1), int2 \(int2)")
+//                    print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
                 })
                 if notAtWall {
@@ -581,7 +588,7 @@ class Model {
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
-                    print("int1 \(int1), int2 \(int2)")
+//                    print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
                 })
                 if notAtWall {
@@ -614,45 +621,97 @@ class Model {
             
         case .elbow:
             
-//            piece.side.left.isOpen = !piece.side.left.isOpen
-//            piece.side.right.isOpen =  !piece.side.right.isOpen
+            
+            //TODO: Need to apply the following to all shapes in order to make sure that the pieces sides are correct
+            
+            
+            if piece.currentSwitch == 1 {
+                
+                piece.side.top.exitSide = "right"
+                piece.side.right.exitSide = "top"
+                piece.side.left.exitSide = "none"
+                
+            } else if piece.currentSwitch == 2 {
+                
+                piece.side.top.exitSide = "left"
+                piece.side.left.exitSide = "top"
+                piece.side.right.exitSide = "none"
+
+            }
             
             piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
             piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             
-            piece.side.top.exitSide = "right"
-            piece.side.right.exitSide = "top"
             
         case .doubleElbow:
             
+            if piece.currentSwitch == 1 {
+                
+                piece.side.top.exitSide = "right"
+                piece.side.right.exitSide = "top"
+                piece.side.left.exitSide = "none"
+                
+            } else if piece.currentSwitch == 2 {
+
+                piece.side.top.exitSide = "left"
+                piece.side.left.exitSide = "top"
+                piece.side.right.exitSide = "none"
+
+            }
+            
+            
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+           
 
-            piece.side.top.exitSide = "left"
-            piece.side.left.exitSide = "top"
+            
             
             
         case .quadBox: // Nothing to set as far as openings and closings
 
             
-            piece.side.top.exitSide = "right"
-            piece.side.right.exitSide = "top"
-            piece.side.bottom.exitSide = "left"
-            piece.side.left.exitSide = "bottom"
+            
+            
+            if piece.currentSwitch == 1 {
+                
+                piece.side.top.exitSide = "left"
+                piece.side.left.exitSide = "top"
+                piece.side.bottom.exitSide = "right"
+                piece.side.right.exitSide = "bottom"
+                
+            } else if piece.currentSwitch == 2 {
+
+                piece.side.top.exitSide = "right"
+                piece.side.right.exitSide = "top"
+                piece.side.bottom.exitSide = "left"
+                piece.side.left.exitSide = "bottom"
+
+            }
+            
             
             
         case .cross:
 
-           
+           if piece.currentSwitch == 1 {
+        
+            piece.side.right.exitSide = "left"
+            piece.side.left.exitSide = "right"
+            
+           } else if piece.currentSwitch == 2 {
+
+            piece.side.top.exitSide = "bottom"
+            piece.side.bottom.exitSide = "top"
+
+           }
+            
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
             piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
             
-            piece.side.top.exitSide = "bottom"
-            piece.side.bottom.exitSide = "top"
+            
             
         case .sword:
             print("TODO - Set this")
@@ -661,10 +720,24 @@ class Model {
         case .diagElbow: // Nothing to set as far as openings and closings
             print("TODO - Set this")
             
-            piece.side.top.exitSide = "left"
-            piece.side.left.exitSide = "top"
-            piece.side.bottom.exitSide = "right"
-            piece.side.right.exitSide = "bottom"
+            
+            
+            
+            if piece.currentSwitch == 1 {
+            
+                piece.side.right.exitSide = "top"
+                piece.side.left.exitSide = "bottom"
+                piece.side.top.exitSide = "right"
+                piece.side.bottom.exitSide = "left"
+                
+            } else if piece.currentSwitch == 2 {
+                
+                piece.side.top.exitSide = "left"
+                piece.side.left.exitSide = "top"
+                piece.side.bottom.exitSide = "right"
+                piece.side.right.exitSide = "bottom"
+                
+            }
             
         default:
             break
@@ -681,24 +754,42 @@ class Model {
         
         //Determine which way the opening is on the entrance
         
-        print("ball index \(ball.indexes)")
+//        print("ball index \(ball.indexes)")
         
         //Determine where the ball is starting from
         for entrance in entrances {
             
 
-            print("entrance opening \(entrance.opening)")
+//            print("entrance opening \(entrance.opening)")
 
             switch entrance.opening {
                 
                 
             case "top":
                 
-                let ballCanMove = isNextSpaceBlocked(direction: .up, indexes: ball.indexes)
+                let ballCanMove = checkIfBallCanMove(direction: .up, indexes: ball.indexes)
 
                 if ballCanMove {
                     
                     ball.indexes.y! -= 1
+                    
+                    for piece in pieces {
+                        
+                        if ball.indexes == piece.indexes {
+                            
+                            
+                            print(piece.side.bottom.opening.isOpen)
+                            print(piece.side.top.opening.isOpen)
+                            print(piece.side.left.opening.isOpen)
+                            print(piece.side.right.opening.isOpen)
+
+                            
+                            
+                        }
+                        
+                        
+                        
+                    }
                     
                     delegate?.startBall(ball: ball, direction: .up)
                 }
@@ -706,7 +797,7 @@ class Model {
                 
             case "bottom":
                 
-                let ballCanMove = isNextSpaceBlocked(direction: .down, indexes: ball.indexes)
+                let ballCanMove = checkIfBallCanMove(direction: .down, indexes: ball.indexes)
                 
                 if ballCanMove {
                     
@@ -719,7 +810,7 @@ class Model {
                 
             case "left":
                 
-                let ballCanMove = isNextSpaceBlocked(direction: .left, indexes: ball.indexes)
+                let ballCanMove = checkIfBallCanMove(direction: .left, indexes: ball.indexes)
 
                 if ballCanMove {
                     
@@ -731,7 +822,7 @@ class Model {
             case "right":
                 
                 
-               let ballCanMove = isNextSpaceBlocked(direction: .right, indexes: ball.indexes)
+               let ballCanMove = checkIfBallCanMove(direction: .right, indexes: ball.indexes)
 
                 if ballCanMove {
                     
@@ -771,6 +862,62 @@ class Model {
         
         
     }
+    
+    func checkIfBallCanMove(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
+        
+        var bool = true
+
+        switch direction {
+        case .up:
+            if board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) {
+                bool = false
+            }
+            
+            
+        case .down:
+            if board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) {
+                bool = false
+            }
+            
+        case .left:
+            if board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) {
+                bool = false
+            }
+            
+        case .right:
+            if board.walls.contains(where: { (wall) -> Bool in
+                wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) || board.entrances.contains(where: { (entrance) -> Bool in
+                entrance.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) || board.exits.contains(where: { (exit) -> Bool in
+                exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) {
+                bool = false
+            }
+        default:
+            break
+        }
+        return bool
+    }
+    
     
     func handleTap(center: CGPoint) {
                 

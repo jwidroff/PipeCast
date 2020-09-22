@@ -59,7 +59,6 @@ class ViewController: UIViewController {
     
     @objc func handleTap(sender:UITapGestureRecognizer) {
         
-        print("WORKING")
         
         let pieceCenter = sender.view?.center
         model.handleTap(center: pieceCenter!)
@@ -349,12 +348,12 @@ extension ViewController: ModelDelegate {
         //TODO: Need the model to tell this which way to go and then the balls view will follow that path
                 
         
+        
+        
+        
         UIView.animate(withDuration: 0.5, animations: {
             
-            
-            
-            
-            
+
             //TODO: Need to pass in the previous center to here to make sure that that we know where the ball is coming from
             
             var yDiff = 0
@@ -388,12 +387,6 @@ extension ViewController: ModelDelegate {
         }) { (false) in
             print("HI")
         }
-        
-        
-        
-        
-        
-        
     }
     
     
