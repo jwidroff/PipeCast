@@ -20,9 +20,7 @@ import UIKit
 //TODO: Make a start ball button
 //TODO: Make all of the pieces move together once the start button is pressed
 //TODO: make a pivot line on the pivot pieces
-//TODO: Need to show openings on entrances and exits
-//TODO: Need to set the opening of the entrances and exits dynamically
-
+//TODO: Make the ball the highest on the view heirarchy
 
 //TODO: Add number of moves left
 //TODO: Make the text box for the entrance lower when the ball initially moves
@@ -136,7 +134,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "top"
+            entrance.opening = "left"
             entrances.append(entrance)
         }
         return entrances
@@ -865,53 +863,118 @@ class Model {
     
     func checkIfBallCanMove(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
         
-        var bool = true
+        
+        //MARK: NEED TO CHECK THE SIDES OF THE NEXT PIECE BEFORE ALLOWING THE PIECE TO MOVE
+        
+        
+        
+        var bool = Bool()
 
         switch direction {
+            
+            
+            
+            
+            //FIGURE OUT WHY THE LAST PART WONT WORK TO STOP AN ELBOW THATS BLOCKING THE ENTRANCE
+            
+            
+            
         case .up:
-            if board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1) && piece.side.bottom.opening.isOpen == true
             }) {
+                bool = true
+            } else {
                 bool = false
             }
+            
+//            if board.walls.contains(where: { (wall) -> Bool in
+//                wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+//            }) || board.entrances.contains(where: { (entrance) -> Bool in
+//                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+//            }) || board.exits.contains(where: { (exit) -> Bool in
+//                exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+//            }) || pieces.contains(where: { (piece) -> Bool in
+//                piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1) && piece.side.bottom.opening.isOpen == false
+//            }){
+//                bool = false
+//            }
             
             
         case .down:
-            if board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            
+            
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1) && piece.side.top.opening.isOpen == true
             }) {
+                bool = true
+            } else {
                 bool = false
             }
+            
+            
+            
+//            if board.walls.contains(where: { (wall) -> Bool in
+//                wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+//            }) || board.entrances.contains(where: { (entrance) -> Bool in
+//                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+//            }) || board.exits.contains(where: { (exit) -> Bool in
+//                exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+//            }) || pieces.contains(where: { (piece) -> Bool in
+//                piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1) && piece.side.top.opening.isOpen == false
+//            }) {
+//                bool = false
+//            }
             
         case .left:
-            if board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            
+            
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y) && piece.side.right.opening.isOpen == true
             }) {
+                bool = true
+            } else {
                 bool = false
             }
             
+            
+//            if board.walls.contains(where: { (wall) -> Bool in
+//                wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+//            }) || board.entrances.contains(where: { (entrance) -> Bool in
+//                entrance.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+//            }) || board.exits.contains(where: { (exit) -> Bool in
+//                exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+//            }) || pieces.contains(where: { (piece) -> Bool in
+//                piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y) && piece.side.right.opening.isOpen == false
+//            }) {
+//                bool = false
+//            }
+            
         case .right:
-            if board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            
+            if pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y) && piece.side.left.opening.isOpen == true
             }) {
+                bool = true
+            } else {
                 bool = false
             }
+            
+            
+            
+            
+//            if board.walls.contains(where: { (wall) -> Bool in
+//                wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+//            }) || board.entrances.contains(where: { (entrance) -> Bool in
+//                entrance.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+//            }) || board.exits.contains(where: { (exit) -> Bool in
+//                exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+//            }) || pieces.contains(where: { (piece) -> Bool in
+//                piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y) && piece.side.left.opening.isOpen == false
+//            }) {
+//                bool = false
+//            }
         default:
             break
         }
