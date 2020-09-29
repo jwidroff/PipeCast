@@ -33,6 +33,7 @@ protocol ModelDelegate {
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
     func startBall(ball: Ball, direction: Direction)
+    func moveBall(startIndex: Indexes, endIndex: Indexes, side: String)
 }
 
 class Model {
@@ -134,7 +135,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "left"
+            entrance.opening = "right"
             entrances.append(entrance)
         }
         return entrances
@@ -757,52 +758,57 @@ class Model {
         //Determine where the ball is starting from
         for entrance in entrances {
             
-
-//            print("entrance opening \(entrance.opening)")
-
+            let startIndex = ball.indexes
+            let endIndex: Indexes?
+            var side = String()
+            
             switch entrance.opening {
                 
                 
+                //MARK: DO THIS FOR ALL DIRECTIONS. ALSO DO THIS FOR ALL DIRECTIONS IN THE VC
             case "top":
                 
                 let ballCanMove = checkIfBallCanMove(direction: .up, indexes: ball.indexes)
 
                 if ballCanMove {
-                    
-                    ball.indexes.y! -= 1
+                                        
+                    endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
                     
                     for piece in pieces {
                         
                         if ball.indexes == piece.indexes {
                             
-                            
-                            print(piece.side.bottom.opening.isOpen)
-                            print(piece.side.top.opening.isOpen)
-                            print(piece.side.left.opening.isOpen)
-                            print(piece.side.right.opening.isOpen)
-
-                            
-                            
+                            if piece.side.bottom.opening.isOpen {
+                                
+                                side = piece.side.bottom.exitSide! // FIX
+                            }
                         }
-                        
-                        
-                        
                     }
-                    
-                    delegate?.startBall(ball: ball, direction: .up)
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    ball.indexes = endIndex!
                 }
                 
                 
             case "bottom":
                 
                 let ballCanMove = checkIfBallCanMove(direction: .down, indexes: ball.indexes)
-                
+
                 if ballCanMove {
+                                        
+                    endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! + 1)
                     
-                    ball.indexes.y! += 1
-                    
-                    delegate?.startBall(ball: ball, direction: .down)
-                    
+                    for piece in pieces {
+                        
+                        if ball.indexes == piece.indexes {
+                            
+                            if piece.side.top.opening.isOpen {
+                                
+                                side = piece.side.top.exitSide! // FIX
+                            }
+                        }
+                    }
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    ball.indexes = endIndex!
                 }
                 
                 
@@ -811,26 +817,45 @@ class Model {
                 let ballCanMove = checkIfBallCanMove(direction: .left, indexes: ball.indexes)
 
                 if ballCanMove {
+                                        
+                    endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
                     
-                    ball.indexes.x! -= 1
-                    
-                    delegate?.startBall(ball: ball, direction: .left)
+                    for piece in pieces {
+                        
+                        if ball.indexes == piece.indexes {
+                            
+                            if piece.side.right.opening.isOpen {
+                                
+                                side = piece.side.right.exitSide! // FIX
+                            }
+                        }
+                    }
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    ball.indexes = endIndex!
                 }
                 
             case "right":
                 
                 
-               let ballCanMove = checkIfBallCanMove(direction: .right, indexes: ball.indexes)
+                let ballCanMove = checkIfBallCanMove(direction: .right, indexes: ball.indexes)
 
                 if ballCanMove {
+                                        
+                    endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
                     
-                    ball.indexes.x! += 1
-                    
-                    delegate?.startBall(ball: ball, direction: .right)
+                    for piece in pieces {
+                        
+                        if ball.indexes == piece.indexes {
+                            
+                            if piece.side.left.opening.isOpen {
+                                
+                                side = piece.side.left.exitSide! // FIX
+                            }
+                        }
+                    }
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    ball.indexes = endIndex!
                 }
-                
-                //MARK: TODO - JUST COPIED THIS AFTER DOING UP AND DOWN AND NOW THE BALL DIDNT MOVE LEFT WHEN THE ENTRANCE IS SUPPOSED TO BE OPEN ON THE LEFT SIDE
-                
                 
                 
             default:
