@@ -395,11 +395,12 @@ extension ViewController: ModelDelegate {
         
         print("Start Index = \(startIndex)")
         print("end Index = \(endIndex)")
-        print("side = \(side)")
+//        print("side = \(side)")
 
         
-        //MARK: Do this for all directions
         if startIndex.y! > endIndex.y! {
+            
+            print("startIndex.y! > endIndex.y!")
             
             for ball in model.balls {
                 
@@ -408,10 +409,20 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
-                        print(translationY)
-                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
-                        ball.view.transform = transform
+//                        print(translationY)
+//                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
+//                        ball.view.transform = transform
                         
+                        print("center before \(ball.view.center)")
+
+                        
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
+                        
+                        print("center after \(ball.view.center)")
+
+                        
+
                     }) { (false) in
                         print()
                     }
@@ -421,6 +432,9 @@ extension ViewController: ModelDelegate {
         
         if startIndex.y! < endIndex.y! {
             
+            print("startIndex.y! < endIndex.y!")
+
+            
             for ball in model.balls {
                 
                 if ball.indexes == startIndex {
@@ -428,9 +442,20 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
-                        print(translationY)
-                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
-                        ball.view.transform = transform
+//                        print(translationY)
+//                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
+//                        ball.view.transform = transform
+                        
+                        
+                        print("center before \(ball.view.center)")
+
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
+
+                        
+                        print("center after \(ball.view.center)")
+
+                        
                         
                     }) { (false) in
                         print()
@@ -441,6 +466,9 @@ extension ViewController: ModelDelegate {
        
         if startIndex.x! > endIndex.x! {
             
+            print("startIndex.x! > endIndex.x!")
+
+            
             for ball in model.balls {
                 
                 if ball.indexes == startIndex {
@@ -448,9 +476,19 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
-                        print(translationX)
-                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
-                        ball.view.transform = transform
+//                        print(translationX)
+//                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
+//                        ball.view.transform = transform
+                        
+                        print("center before \(ball.view.center)")
+                        
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
+
+                        
+                        print("center after \(ball.view.center)")
+
+                        
                         
                     }) { (false) in
                         print()
@@ -461,6 +499,9 @@ extension ViewController: ModelDelegate {
         
         if startIndex.x! < endIndex.x! {
             
+            print("startIndex.x! < endIndex.x!")
+
+            
             for ball in model.balls {
                 
                 if ball.indexes == startIndex {
@@ -468,9 +509,18 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
-                        print(translationX)
-                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
-                        ball.view.transform = transform
+//                        print(translationX)
+//                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
+//                        ball.view.transform = transform
+                        
+                        print("center before \(ball.view.center)")
+
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
+                        
+                        print("center after \(ball.view.center)")
+
+                        
                         
                     }) { (false) in
                         print()
