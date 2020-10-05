@@ -528,8 +528,6 @@ extension ViewController: ModelDelegate {
                 }
             }
         }
-        
-        
     }
     
     func pieceWasTapped(piece: Piece) {

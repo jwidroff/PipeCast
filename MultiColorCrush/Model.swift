@@ -233,6 +233,8 @@ class Model {
             
         case .quadBox:
             
+            
+            
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
@@ -323,7 +325,7 @@ class Model {
             
         case .quadBox:
             
-            piece.switches = 4
+            piece.switches = 2
             piece.currentSwitch = 1
             
         case .sword:
@@ -643,14 +645,14 @@ class Model {
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             
             
-            print("piece.side.top.exitSide \(piece.side.top.exitSide)")
-            print("piece.side.left.exitSide \(piece.side.left.exitSide)")
-            print("piece.side.right.exitSide \(piece.side.right.exitSide)")
-
-            print("piece.side.left.opening.isOpen \(piece.side.left.opening.isOpen)")
-            print("piece.side.right.closing.isOpen \(piece.side.right.opening.isOpen)")
-            print("piece.side.left.opening.isOpen \(piece.side.left.closing.isOpen)")
-            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
+//            print("piece.side.top.exitSide \(piece.side.top.exitSide)")
+//            print("piece.side.left.exitSide \(piece.side.left.exitSide)")
+//            print("piece.side.right.exitSide \(piece.side.right.exitSide)")
+//
+//            print("piece.side.left.opening.isOpen \(piece.side.left.opening.isOpen)")
+//            print("piece.side.right.closing.isOpen \(piece.side.right.opening.isOpen)")
+//            print("piece.side.left.opening.isOpen \(piece.side.left.closing.isOpen)")
+//            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
 
             
             
@@ -683,6 +685,7 @@ class Model {
         case .quadBox: // Nothing to set as far as openings and closings
 
             
+            print(piece.currentSwitch)
             
             
             if piece.currentSwitch == 1 {
@@ -914,24 +917,9 @@ class Model {
             
             if ball.indexes == piece.indexes {
                 
-//                print("Piece INDEXES = \(piece.indexes)")
-//                print("piece.side.left.exitSide = \(piece.side.left.exitSide)")
-//                print("piece.side.right.closing.isOpen = \(piece.side.right.closing.isOpen)")
-
                 
                 
-
-
-
-
-
-
-                //MARK: Continue here with up and down
-                
-                
-                
-                
-                
+                //MAKE SURE THAT all pieces properties in terms of side are correct
                 
                 
                 
@@ -1069,7 +1057,7 @@ class Model {
                     
                     if piece.side.bottom.exitSide == "top" && piece.side.top.closing.isOpen {
                         
-                        print("exit side = bottom")
+                        print("exit side = top")
 
                         
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
