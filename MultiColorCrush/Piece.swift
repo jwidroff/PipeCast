@@ -32,10 +32,10 @@ class Piece {
         
         if currentSwitch != switches{
             currentSwitch += 1
-//            print("current switch \(currentSwitch)")
+            
         } else {
             currentSwitch = 1
-//            print("current switch \(currentSwitch)")
+
         }
     }
 }

@@ -32,8 +32,7 @@ protocol ModelDelegate {
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
-    func startBall(ball: Ball, direction: Direction)
-    func moveBall(startIndex: Indexes, endIndex: Indexes, side: String)
+    func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String)
 }
 
 class Model {
@@ -185,9 +184,6 @@ class Model {
             setPieceSwitches(piece: piece)
             setPieceSides(piece: piece)
             pieces.append(piece)
-            
-            
-//            print("piece.color \(piece.color) piece.indexes \(piece.indexes) piece.shape \(piece.shape)")
             
         }
         delegate?.setUpPiecesView(pieces: pieces)
@@ -518,15 +514,6 @@ class Model {
                     if spaceIsntBlocked {
                         piece.indexes.y = piece.indexes.y! - 1
                     }
-//                    else {
-//
-//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1))
-//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-//
-//                            piece.indexes.y = piece.indexes.y! - 1
-//                            delegate?.animatePiece(piece: piece)
-//                        }
-//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -540,22 +527,12 @@ class Model {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
                 
                 let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
-//                    print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
                 })
                 if notAtWall {
                     if spaceIsntBlocked{
                         piece.indexes.y = piece.indexes.y! + 1
                     }
-//                    else {
-//
-//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1))
-//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-//
-//                            piece.indexes.y = piece.indexes.y! + 1
-//                            delegate?.animatePiece(piece: piece)
-//                        }
-//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -570,15 +547,6 @@ class Model {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! - 1
                     }
-//                    else {
-//
-//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y))
-//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-//
-//                            piece.indexes.x = piece.indexes.x! - 1
-//                            delegate?.animatePiece(piece: piece)
-//                        }
-//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -589,22 +557,12 @@ class Model {
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
-//                    print("int1 \(int1), int2 \(int2)")
                     return int1 < int2
                 })
                 if notAtWall {
                     if spaceIsntBlocked {
                         piece.indexes.x = piece.indexes.x! + 1
                     }
-//                    else {
-//                        
-//                        let bloackingPiece = getPieceInfo(index: Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y))
-//                        if bloackingPiece.shape == piece.shape && bloackingPiece.color == piece.color {
-//                            
-//                            piece.indexes.x = piece.indexes.x! + 1
-//                            delegate?.animatePiece(piece: piece)
-//                        }
-//                    }
                 }
             }
             delegate?.movePieces(pieces: pieces)
@@ -623,20 +581,17 @@ class Model {
         case .elbow:
             
             
-            //TODO: Need to apply the following to all shapes in order to make sure that the pieces sides are correct
-            
-            
             if piece.currentSwitch == 1 {
                 
                 piece.side.top.exitSide = "left"
                 piece.side.left.exitSide = "top"
-                piece.side.right.exitSide = "none"
+                piece.side.right.exitSide = nil
                 
             } else if piece.currentSwitch == 2 {
 
                 piece.side.top.exitSide = "right"
                 piece.side.right.exitSide = "top"
-                piece.side.left.exitSide = "none"
+                piece.side.left.exitSide = nil
             }
             
             piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
@@ -644,49 +599,31 @@ class Model {
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             
-            
-//            print("piece.side.top.exitSide \(piece.side.top.exitSide)")
-//            print("piece.side.left.exitSide \(piece.side.left.exitSide)")
-//            print("piece.side.right.exitSide \(piece.side.right.exitSide)")
-//
-//            print("piece.side.left.opening.isOpen \(piece.side.left.opening.isOpen)")
-//            print("piece.side.right.closing.isOpen \(piece.side.right.opening.isOpen)")
-//            print("piece.side.left.opening.isOpen \(piece.side.left.closing.isOpen)")
-//            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
-
-            
-            
-            
-            
         case .doubleElbow:
             
             if piece.currentSwitch == 1 {
                 
                 piece.side.top.exitSide = "right"
                 piece.side.right.exitSide = "top"
-                piece.side.left.exitSide = "none"
+                piece.side.left.exitSide = nil
                 
             } else if piece.currentSwitch == 2 {
 
                 piece.side.top.exitSide = "left"
                 piece.side.left.exitSide = "top"
-                piece.side.right.exitSide = "none"
+                piece.side.right.exitSide = nil
 
             }
             
             
             piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
-           
-
+            
             
             
             
         case .quadBox: // Nothing to set as far as openings and closings
 
-            
-            print(piece.currentSwitch)
-            
             
             if piece.currentSwitch == 1 {
                 
@@ -732,9 +669,7 @@ class Model {
 
             
         case .diagElbow: // Nothing to set as far as openings and closings
-            print("TODO - Set this")
-            
-            
+                    
             
             
             if piece.currentSwitch == 1 {
@@ -756,133 +691,94 @@ class Model {
         default:
             break
         }
-
-        
-        
         
     }
     
     func moveBall(ball: Ball) {
-        
-        //MARK: MOVEBALL - WORK ON THIS
-        
-        //Determine which way the opening is on the entrance
-        
-//        print("ball index \(ball.indexes)")
-        
-        //Determine where the ball is starting from
+                                
         for entrance in entrances {
             
             let startIndex = ball.indexes
             let endIndex: Indexes?
-            var side = String()
+            
+            
+            print("moving out of entrance")
+
             
             switch entrance.opening {
                 
-                
-                //MARK: DO THIS FOR ALL DIRECTIONS. ALSO DO THIS FOR ALL DIRECTIONS IN THE VC
+            
+            
             case "top":
+                
+                print("moving out of top of entrance")
+                
                 
                 let ballCanMove = checkIfBallCanMove(direction: .up, indexes: ball.indexes)
 
                 if ballCanMove {
                                         
+                    print("Y index went down because we moved up")
+                    
                     endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
                     
-                    for piece in pieces {
-                        
-                        if ball.indexes == piece.indexes {
-                            
-                            if piece.side.bottom.opening.isOpen {
-                                
-                                side = piece.side.bottom.exitSide! // FIX
-//                                delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
-//                                ball.indexes = endIndex!
-                            }
-                        }
-                    }
-                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: "top")
                     ball.indexes = endIndex!
-                    moveBallAgain(ball: ball, enteringSide: "bottom")
                 }
                 
                 
             case "bottom":
                 
+                print("moving out of bottom of entrance")
+
+                
                 let ballCanMove = checkIfBallCanMove(direction: .down, indexes: ball.indexes)
 
                 if ballCanMove {
+                    
+                    print("Y index went up because we moved down")
                                         
                     endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! + 1)
                     
-                    for piece in pieces {
-                        
-                        if ball.indexes == piece.indexes {
-                            
-                            if piece.side.top.opening.isOpen {
-                                
-                                side = piece.side.top.exitSide! // FIX
-//                                delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
-//                                ball.indexes = endIndex!
-                            }
-                        }
-                    }
-                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: "bottom")
                     ball.indexes = endIndex!
-                    moveBallAgain(ball: ball, enteringSide: "top")
                 }
                 
                 
             case "left":
                 
+                print("moving out of left of entrance")
+
+                
                 let ballCanMove = checkIfBallCanMove(direction: .left, indexes: ball.indexes)
 
                 if ballCanMove {
-                                        
-                    endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
+                          
+                    print("X index went down because we moved left")
                     
-                    for piece in pieces {
-                        
-                        if ball.indexes == piece.indexes {
-                            
-                            if piece.side.right.opening.isOpen {
-                                
-                                side = piece.side.right.exitSide! // FIX
-//                                delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
-//                                ball.indexes = endIndex!
-                            }
-                        }
-                    }
-                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
+
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: "left")
                     ball.indexes = endIndex!
-                    moveBallAgain(ball: ball, enteringSide: "right")
                 }
                 
             case "right":
                 
+                print("moving out of right of entrance")
+
                 
                 let ballCanMove = checkIfBallCanMove(direction: .right, indexes: ball.indexes)
 
                 if ballCanMove {
-                                        
-                    endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
-                    
-                    for piece in pieces {
-                        
-                        if ball.indexes == piece.indexes {
                             
-                            if piece.side.left.opening.isOpen {
-                                
-                                side = piece.side.left.exitSide! // FIX
-                                
-//                                moveBallAgain(ball: ball, enteringSide: "left")
+                    print("X index went up because we moved right")
 
-                            }
-                        }
-                    }
-                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                    
+                    
+                    endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
+
+                    delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: "right")
                     ball.indexes = endIndex!
-                    moveBallAgain(ball: ball, enteringSide: "left") // MARK: JUST ADDED THIS. Pick up here
                 }
                 
                 
@@ -892,214 +788,157 @@ class Model {
             
         }
         
-        
-        
-        //Check if ball can enter the next piece
-        
-        //Check if ball can exit the next piece
-        
-        //Set the index of the ball
-        
-        //Move the balls view
-        
-        //TODO: Need to learn how to curve a view
-        
     }
     
     
     func moveBallAgain(ball: Ball, enteringSide: String) {
         
+        
         let startIndex = ball.indexes
         var endIndex: Indexes?
         var side = String()
         
+        print("entered new piece on \(enteringSide) as expected")
+        
+        
         for piece in pieces {
             
             if ball.indexes == piece.indexes {
-                
-                
-                
-                //MAKE SURE THAT all pieces properties in terms of side are correct
-                
-                
-                
+                  
                 if enteringSide == "left" {
                     
-                    print("new piece enter side = left")
-                    
-                    if piece.side.left.exitSide == "right" && piece.side.right.closing.isOpen {
+                    print("entered piece on the left")
+                                        
+                    if piece.side.left.exitSide == "right" {
                         
-                        print("exit side = right")
-
+                        print("the pieces exit side is on the right")
                         
                         endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
                         side = piece.side.left.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
+                        
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "left")
-                        return
                         
-                    } else if piece.side.left.exitSide == "top" && piece.side.top.closing.isOpen {
-                        
-                        print("exit side = top")
+                    } else if piece.side.left.exitSide == "top" {
 
-                        
+                        print("the pieces exit side is on the top")
+
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
-                        side = piece.side.top.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.left.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "bottom")
-                        return
                         
-                    } else if piece.side.left.exitSide == "bottom" && piece.side.bottom.closing.isOpen{
+                    } else if piece.side.left.exitSide == "bottom" {
                         
-                        print("exit side = bottom")
+                        print("the pieces exit side is on the bottom")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! + 1)
-                        side = piece.side.bottom.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.left.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "top")
-                        return
                     }
                     
                 } else if enteringSide == "right" {
                     
-                    print("new piece enter side = right")
+                    print("entered piece on the right")
 
                     
-                    
-                    if piece.side.right.exitSide == "left" && piece.side.left.closing.isOpen {
-                            
-                        print("exit side = left")
-
+                    if piece.side.right.exitSide == "left" {
                         
+                        print("the pieces exit side is on the left")
+
                         endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
                         side = piece.side.right.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "right")
-                        return
 
-                    } else if piece.side.right.exitSide == "top" && piece.side.top.closing.isOpen {
+                    } else if piece.side.right.exitSide == "top" {
                         
-                        print("exit side = top")
+                        print("the pieces exit side is on the top")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
-                        side = piece.side.top.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.right.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "bottom")
-                        return
                         
-                    } else if piece.side.right.exitSide == "bottom" && piece.side.bottom.closing.isOpen{
+                    } else if piece.side.right.exitSide == "bottom" {
                         
-                        print("exit side = bottom")
+                        print("the pieces exit side is on the bottom")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! + 1)
-                        side = piece.side.bottom.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.right.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "top")
-                        return
                     }
                     
                 } else if enteringSide == "top" {
                     
-                    
-                    if piece.side.top.exitSide == "bottom" && piece.side.bottom.closing.isOpen {
-                        
-                        print("exit side = bottom")
+                    print("entered piece on the top")
 
+                    
+                    if piece.side.top.exitSide == "bottom" {
                         
+                        print("the pieces exit side is on the bottom")
+
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! + 1)
-                        side = piece.side.bottom.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.top.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "top")
-                        return
                         
-                    } else if piece.side.top.exitSide == "left" && piece.side.left.closing.isOpen {
+                    } else if piece.side.top.exitSide == "left" {
                         
-                        print("exit side = left")
+                        print("the pieces exit side is on the left")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
-                        side = piece.side.left.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.top.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "right")
-                        return
                         
-                    } else if piece.side.top.exitSide == "right" && piece.side.right.closing.isOpen{
+                    } else if piece.side.top.exitSide == "right" {
                         
-                        print("exit side = right")
+                        print("the pieces exit side is on the right")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
-                        side = piece.side.right.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.top.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "left")
-                        return
                     }
-                    
-                    
-                    
-                    
                     
                 } else if enteringSide == "bottom" {
                     
-                    
-                    
-                    if piece.side.bottom.exitSide == "top" && piece.side.top.closing.isOpen {
-                        
-                        print("exit side = top")
+                    print("entered piece on the bottom")
 
+                    if piece.side.bottom.exitSide == "top" {
                         
+                        print("the pieces exit side is on the top")
+
                         endIndex = Indexes(x: ball.indexes.x, y: ball.indexes.y! - 1)
-                        side = piece.side.top.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.bottom.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "bottom")
-                        return
                         
-                    } else if piece.side.bottom.exitSide == "left" && piece.side.left.closing.isOpen {
+                    } else if piece.side.bottom.exitSide == "left" {
                         
-                        print("exit side = left")
+                        print("the pieces exit side is on the left")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y)
-                        side = piece.side.left.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.bottom.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "right")
-                        return
                         
-                    } else if piece.side.bottom.exitSide == "right" && piece.side.right.closing.isOpen{
+                    } else if piece.side.bottom.exitSide == "right" {
                         
-                        print("exit side = right")
+                        print("the pieces exit side is on the right")
 
-                        
                         endIndex = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y)
-                        side = piece.side.right.exitSide! // FIX
-                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, side: side)
+                        side = piece.side.bottom.exitSide! // FIX
+                        delegate?.moveBall(startIndex: startIndex, endIndex: endIndex!, exitingSide: side)
                         ball.indexes = endIndex!
-                        moveBallAgain(ball: ball, enteringSide: "left")
-                        return
                     }
                     
-                    
-                    
-                    
-                    
-                    
-                    
                 }
-                
+                return
+                                
             }
             
         }
@@ -1113,21 +952,9 @@ class Model {
     
     func checkIfBallCanMove(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
         
-        
-        //MARK: NEED TO CHECK THE SIDES OF THE NEXT PIECE BEFORE ALLOWING THE PIECE TO MOVE
-        
-        
-        
         var bool = Bool()
 
         switch direction {
-            
-            
-            
-            
-            //FIGURE OUT WHY THE LAST PART WONT WORK TO STOP AN ELBOW THATS BLOCKING THE ENTRANCE
-            
-            
             
         case .up:
             
@@ -1236,45 +1063,10 @@ class Model {
                 
         for piece in pieces {
             
-//            print("Working")
-
             
             if board.grid[piece.indexes] == center {
                 
-//                print("top exit \(piece.side.top.exitSide ?? "None")")
-//                print("bottom exit \(piece.side.bottom.exitSide ?? "None")")
-//                print("left exit \(piece.side.left.exitSide ?? "None")")
-//                print("right exit \(piece.side.right.exitSide ?? "None")")
-//
-//
-//                print("B4 left opening   = \(piece.side.left.opening.isOpen)")
-//                print("B4 left closing   = \(piece.side.left.closing.isOpen)")
-//                print("B4 right opening  = \(piece.side.right.opening.isOpen)")
-//                print("B4 right closing  = \(piece.side.right.closing.isOpen)")
-//                print("B4 top opening    = \(piece.side.top.opening.isOpen)")
-//                print("B4 top closing    = \(piece.side.top.closing.isOpen)")
-//                print("B4 bottom opening = \(piece.side.bottom.opening.isOpen)")
-//                print("B4 bottom closing = \(piece.side.bottom.closing.isOpen)")
-                
-                //TODO: Need to change the pieces sides here
-                
                 switchPieces(piece: piece)
-                
-//                print("top exit \(piece.side.top.exitSide ?? "None")")
-//                print("bottom exit \(piece.side.bottom.exitSide ?? "None")")
-//                print("left exit \(piece.side.left.exitSide ?? "None")")
-//                print("right exit \(piece.side.right.exitSide ?? "None")")
-//
-//                print("After left opening   = \(piece.side.left.opening.isOpen)")
-//                print("After left closing   = \(piece.side.left.closing.isOpen)")
-//                print("After right opening  = \(piece.side.right.opening.isOpen)")
-//                print("After right closing  = \(piece.side.right.closing.isOpen)")
-//                print("After top opening    = \(piece.side.top.opening.isOpen)")
-//                print("After top closing    = \(piece.side.top.closing.isOpen)")
-//                print("After bottom opening = \(piece.side.bottom.opening.isOpen)")
-//                print("After bottom closing = \(piece.side.bottom.closing.isOpen)")
-                
-                
                 
                 delegate?.pieceWasTapped(piece: piece)
             }
@@ -1282,37 +1074,13 @@ class Model {
         
         for ball in balls {
             
-//            print("Working")
+            print("begin was tapped. Moving ball now \(balls.count)")
             
             if board.grid[ball.indexes] == center {
                 
-//                let previousIndexes = ball.indexes
                 
                 moveBall(ball: ball)
                 
-//                let currentIndexes = ball.indexes
-//
-//                var direction:Direction = .none
-//
-//                if currentIndexes.y! > previousIndexes.y! {
-//                    direction = .down
-//                }
-//                if currentIndexes.y! < previousIndexes.y! {
-//                    direction = .up
-//                }
-//                if currentIndexes.x! > previousIndexes.x! {
-//                    direction = .right
-//                }
-//                if currentIndexes.x! > previousIndexes.x! {
-//                    direction = .left
-//                }
-//
-//                print("previousIndexes \(previousIndexes)")
-//                print("currentIndexes \(currentIndexes)")
-//
-//                print("Direction = \(direction)")
-//
-//                delegate?.startBall(ball: ball, direction: direction)
             }
         }
     }

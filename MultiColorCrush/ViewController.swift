@@ -107,7 +107,8 @@ class ViewController: UIViewController {
 
 //FIX THE PIECES ARE CONNECTED ALREADY
 extension ViewController: ModelDelegate {
-    
+
+
     func animatePiece(piece: Piece) {
         
         UIView.animate(withDuration: 1.0, animations: {
@@ -334,6 +335,7 @@ extension ViewController: ModelDelegate {
             addTapGestureRecognizer(view: ballView)
 
             self.board.view.addSubview(ballView)
+            self.view.bringSubviewToFront(ballView)
             
             
             
@@ -341,90 +343,37 @@ extension ViewController: ModelDelegate {
         
         
     }
+
     
-    func startBall(ball: Ball, direction: Direction) {
+    func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String) {
         
         
-        //TODO: Need the model to tell this which way to go and then the balls view will follow that path
-                
-        
-        
-        
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            
 
-            //TODO: Need to pass in the previous center to here to make sure that that we know where the ball is coming from
-            
-            var yDiff = 0
-            var xDiff = 0
-            
-            switch direction {
-            case .up:
-                yDiff = 1
-            case .down:
-                yDiff = -1
-            case .left:
-                xDiff = 1
-            case .right:
-                xDiff = -1
-                
-            default:
-                break
-            }
-            
-            let pastXPoint = ball.indexes.x! + xDiff
-            let pastYPoint = ball.indexes.y! + yDiff
-            let pastIndexes = Indexes(x: pastXPoint , y: pastYPoint)
-            let currentPoint = self.board.grid[pastIndexes]
-            let nextPoint = self.board.grid[ball.indexes]
-            let translationX = nextPoint!.x - currentPoint!.x
-            let translationY = nextPoint!.y - currentPoint!.y
-            let transform = CGAffineTransform.init(translationX: translationX, y: translationY)
-            ball.view.transform = transform
-
-
-        }) { (false) in
-            print("HI")
-        }
-    }
-    
-    func moveBall(startIndex: Indexes, endIndex: Indexes, side: String) {
-        
-        
-        
-        print("Start Index = \(startIndex)")
-        print("end Index = \(endIndex)")
-//        print("side = \(side)")
-
-        
         if startIndex.y! > endIndex.y! {
+                        
+            print("headed up because y index is smaller")
+
             
-            print("startIndex.y! > endIndex.y!")
-            
-            for ball in model.balls {
+            for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
-//                        print(translationY)
-//                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
-//                        ball.view.transform = transform
                         
-                        print("center before \(ball.view.center)")
-
                         
                         
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
-                        
-                        print("center after \(ball.view.center)")
+                                                
 
+                    }) { (true) in
                         
-
-                    }) { (false) in
-                        print()
+                        print("we should be entering the bottom side of the new piece")
+                        
+                        self.model.moveBallAgain(ball: ball, enteringSide: "bottom")
+                        return
+                        
                     }
                 }
             }
@@ -432,33 +381,28 @@ extension ViewController: ModelDelegate {
         
         if startIndex.y! < endIndex.y! {
             
-            print("startIndex.y! < endIndex.y!")
+            print("headed down because y index is bigger")
 
             
-            for ball in model.balls {
+            for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
-//                        print(translationY)
-//                        let transform = CGAffineTransform.init(translationX: 0, y: translationY)
-//                        ball.view.transform = transform
-                        
-                        
-                        print("center before \(ball.view.center)")
-
                         
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
-
-                        
-                        print("center after \(ball.view.center)")
-
                         
                         
-                    }) { (false) in
-                        print()
+                    }) { (true) in
+                        
+                        print("we should be entering the top side of the new piece")
+                        
+                        self.model.moveBallAgain(ball: ball, enteringSide: "top")
+                        return
+                        
+                        
                     }
                 }
             }
@@ -466,32 +410,30 @@ extension ViewController: ModelDelegate {
        
         if startIndex.x! > endIndex.x! {
             
-            print("startIndex.x! > endIndex.x!")
+            print("headed left because x index is smaller")
 
             
-            for ball in model.balls {
+            for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
-//                        print(translationX)
-//                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
-//                        ball.view.transform = transform
-                        
-                        print("center before \(ball.view.center)")
-                        
+                                                
                         
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
-
-                        
-                        print("center after \(ball.view.center)")
-
                         
                         
-                    }) { (false) in
-                        print()
+                    }) { (true) in
+                        
+                        print("we should be entering the right side of the new piece")
+                        
+                        self.model.moveBallAgain(ball: ball, enteringSide: "right")
+                        return
+                        
+                        
+                        
                     }
                 }
             }
@@ -499,31 +441,29 @@ extension ViewController: ModelDelegate {
         
         if startIndex.x! < endIndex.x! {
             
-            print("startIndex.x! < endIndex.x!")
+            print("headed right because x index is bigger")
 
             
-            for ball in model.balls {
+            for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
-//                        print(translationX)
-//                        let transform = CGAffineTransform.init(translationX: translationX, y: 0)
-//                        ball.view.transform = transform
-                        
-                        print("center before \(ball.view.center)")
 
-                        
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
                         
-                        print("center after \(ball.view.center)")
-
+                        
+                    }) { (true) in
+                        
+                        print("we should be entering the left side of the new piece")
+                        
+                        self.model.moveBallAgain(ball: ball, enteringSide: "left")
+                        return
                         
                         
-                    }) { (false) in
-                        print()
+                        
                     }
                 }
             }
@@ -535,6 +475,7 @@ extension ViewController: ModelDelegate {
         
         piece.view.setNeedsDisplay()
     }
+    
 }
 
 

@@ -83,7 +83,6 @@ class GridPoints {
             }
         }
                 
-        print(dictionary)
         return dictionary
     }
 }
