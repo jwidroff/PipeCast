@@ -325,17 +325,16 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let ballView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball)
+            ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball)
             
-            ballView.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
+            ball.view.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
 //            ballView.backgroundColor = .systemPink
             //append walls
-            ball.view = ballView
-            addTapGestureRecognizer(view: ballView)
+//            ball.view = ballView
+            addTapGestureRecognizer(view: ball.view)
 
-            self.board.view.addSubview(ballView)
-            self.view.bringSubviewToFront(ballView)
+            self.board.view.addSubview(ball.view)
             
             
             
@@ -347,7 +346,7 @@ extension ViewController: ModelDelegate {
     
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String) {
         
-        
+
 
         if startIndex.y! > endIndex.y! {
                         
@@ -358,8 +357,11 @@ extension ViewController: ModelDelegate {
                 
                 if ball.indexes == startIndex {
                     
+
                     UIView.animate(withDuration: 0.5, animations: {
                         
+                        self.board.view.bringSubviewToFront(ball.view)
+
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
                         
                         
@@ -390,6 +392,9 @@ extension ViewController: ModelDelegate {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
+                        self.board.view.bringSubviewToFront(ball.view)
+
+                        
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
                         
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
@@ -419,6 +424,8 @@ extension ViewController: ModelDelegate {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
+                        self.board.view.bringSubviewToFront(ball.view)
+
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
                                                 
                         
@@ -450,6 +457,8 @@ extension ViewController: ModelDelegate {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
+                        self.board.view.bringSubviewToFront(ball.view)
+
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
 
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)

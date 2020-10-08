@@ -134,7 +134,7 @@ class Model {
             
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
-            entrance.opening = "bottom"
+            entrance.opening = "left"
             entrances.append(entrance)
         }
         return entrances
