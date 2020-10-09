@@ -124,7 +124,7 @@ extension ViewController: ModelDelegate {
     }
     
     
-    func movePieces(pieces: [Piece]) {
+    func movePieces() {
         
         for piece in board.pieces {
             
@@ -134,12 +134,12 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func setUpPiecesView(pieces: [Piece]) {
+    func setUpPiecesView() {
         
         let pieceWidth = self.board.view.frame.width / 100 * 18
         let pieceHeight = self.board.view.frame.width / 100 * 18
         
-        for piece in pieces {
+        for piece in board.pieces {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape)

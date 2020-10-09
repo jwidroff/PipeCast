@@ -26,8 +26,8 @@ import UIKit
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
-    func setUpPiecesView(pieces: [Piece])
-    func movePieces(pieces: [Piece])
+    func setUpPiecesView()
+    func movePieces()
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String)
@@ -183,7 +183,7 @@ class Model {
             board.pieces.append(piece)
             
         }
-        delegate?.setUpPiecesView(pieces: board.pieces)
+        delegate?.setUpPiecesView()
     }
     
     func setPieceSides(piece: Piece) {
@@ -513,7 +513,7 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: board.pieces)
+            delegate?.movePieces()
 
         case .down:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -532,7 +532,7 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: board.pieces)
+            delegate?.movePieces()
 
         case .left:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -546,7 +546,7 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: board.pieces)
+            delegate?.movePieces()
 
         case .right:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -562,7 +562,7 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: board.pieces)
+            delegate?.movePieces()
 
         default:
             break
