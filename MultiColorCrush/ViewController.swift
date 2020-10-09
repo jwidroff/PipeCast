@@ -181,9 +181,6 @@ extension ViewController: ModelDelegate {
             let pointX = point.value.x
             let pointY = point.value.y
             let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
-//            let spaceView = ShapeView(frame: frame, color: UIColor.blue.cgColor, shape: "square")
-//            spaceView.backgroundColor = .clear
-
             let spaceView = UIView(frame: frame)
             spaceView.frame = frame
             spaceView.center = point.value
@@ -303,7 +300,6 @@ extension ViewController: ModelDelegate {
             exitView.addSubview(textBox)
             
             self.board.view.addSubview(exitView)
-            
         }
         
         for wall in self.board.walls {
@@ -329,53 +325,35 @@ extension ViewController: ModelDelegate {
             
             ball.view.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
-//            ballView.backgroundColor = .systemPink
-            //append walls
-//            ball.view = ballView
             addTapGestureRecognizer(view: ball.view)
 
             self.board.view.addSubview(ball.view)
-            
-            
-            
         }
-        
-        
     }
 
     
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String) {
         
-
-
         if startIndex.y! > endIndex.y! {
                         
             print("headed up because y index is smaller")
 
-            
             for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
-
-                    UIView.animate(withDuration: 0.5, animations: {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
                         
                         self.board.view.bringSubviewToFront(ball.view)
-
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
-                        
-                        
-                        
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
                                                 
-
                     }) { (true) in
                         
                         print("we should be entering the bottom side of the new piece")
                         
                         self.model.moveBallAgain(ball: ball, enteringSide: "bottom")
                         return
-                        
                     }
                 }
             }
@@ -385,20 +363,17 @@ extension ViewController: ModelDelegate {
             
             print("headed down because y index is bigger")
 
-            
             for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
-                    UIView.animate(withDuration: 0.5, animations: {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
                         
                         self.board.view.bringSubviewToFront(ball.view)
 
-                        
                         let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
                         
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
-                        
                         
                     }) { (true) in
                         
@@ -406,8 +381,6 @@ extension ViewController: ModelDelegate {
                         
                         self.model.moveBallAgain(ball: ball, enteringSide: "top")
                         return
-                        
-                        
                     }
                 }
             }
@@ -416,21 +389,18 @@ extension ViewController: ModelDelegate {
         if startIndex.x! > endIndex.x! {
             
             print("headed left because x index is smaller")
-
             
             for ball in board.balls {
                 
                 if ball.indexes == startIndex {
                     
-                    UIView.animate(withDuration: 0.5, animations: {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
                         
                         self.board.view.bringSubviewToFront(ball.view)
 
                         let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
                                                 
-                        
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
-                        
                         
                     }) { (true) in
                         
@@ -438,9 +408,6 @@ extension ViewController: ModelDelegate {
                         
                         self.model.moveBallAgain(ball: ball, enteringSide: "right")
                         return
-                        
-                        
-                        
                     }
                 }
             }
@@ -455,7 +422,7 @@ extension ViewController: ModelDelegate {
                 
                 if ball.indexes == startIndex {
                     
-                    UIView.animate(withDuration: 0.5, animations: {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
                         
                         self.board.view.bringSubviewToFront(ball.view)
 
