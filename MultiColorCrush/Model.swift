@@ -25,7 +25,7 @@ import UIKit
 
 
 protocol ModelDelegate {
-    func setUpBoard(board: Board)
+    func setUpGame(board: Board)
     func setUpPiecesView(pieces: [Piece])
     func movePieces(pieces: [Piece])
     func animatePiece(piece: Piece)
@@ -36,7 +36,7 @@ protocol ModelDelegate {
 class Model {
     
     var board = Board()
-    var pieces = [Piece]()
+//    var pieces = [Piece]()
     var level = Level()
     var walls = [Wall]()
     var delegate: ModelDelegate?
@@ -82,8 +82,7 @@ class Model {
         setupExits()
         setupWalls()
         setupBalls()
-        
-        delegate?.setUpBoard(board: board)
+        delegate?.setUpGame(board: board)
     }
     
     
@@ -181,10 +180,10 @@ class Model {
             setPieceOpacity(piece: piece)
             setPieceSwitches(piece: piece)
             setPieceSides(piece: piece)
-            pieces.append(piece)
+            board.pieces.append(piece)
             
         }
-        delegate?.setUpPiecesView(pieces: pieces)
+        delegate?.setUpPiecesView(pieces: board.pieces)
     }
     
     func setPieceSides(piece: Piece) {
@@ -342,7 +341,7 @@ class Model {
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
         // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
-        if pieces.contains(where: { (pieceX) -> Bool in
+        if board.pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == index
         }) || board.walls.contains(where: { (wall) -> Bool in
             wall.indexes == index
@@ -426,7 +425,7 @@ class Model {
 
         switch direction {
         case .up:
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
@@ -440,7 +439,7 @@ class Model {
             
             
         case .down:
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
@@ -453,7 +452,7 @@ class Model {
             }
             
         case .left:
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
@@ -466,7 +465,7 @@ class Model {
             }
             
         case .right:
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
@@ -487,7 +486,7 @@ class Model {
         
         var piece = Piece()
         
-        for pieceX in pieces {
+        for pieceX in board.pieces {
             
             if pieceX.indexes == index {
                 
@@ -503,7 +502,7 @@ class Model {
             
         case .up:
                         
-            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
+            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! < piece2.indexes.y!
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
@@ -514,10 +513,10 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: pieces)
+            delegate?.movePieces(pieces: board.pieces)
 
         case .down:
-            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
+            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! > piece2.indexes.y!
                 
             }) {
@@ -533,10 +532,10 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: pieces)
+            delegate?.movePieces(pieces: board.pieces)
 
         case .left:
-            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
+            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! < piece2.indexes.x!
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
@@ -547,10 +546,10 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: pieces)
+            delegate?.movePieces(pieces: board.pieces)
 
         case .right:
-            for piece in pieces.sorted(by: { (piece1, piece2) -> Bool in
+            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! > piece2.indexes.x!
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
@@ -563,7 +562,7 @@ class Model {
                     }
                 }
             }
-            delegate?.movePieces(pieces: pieces)
+            delegate?.movePieces(pieces: board.pieces)
 
         default:
             break
@@ -796,7 +795,7 @@ class Model {
             
         case .up:
             
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1) && piece.side.bottom.opening.isOpen == true
             }) {
                 bool = true
@@ -807,7 +806,7 @@ class Model {
         case .down:
             
             
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1) && piece.side.top.opening.isOpen == true
             }) {
                 bool = true
@@ -817,7 +816,7 @@ class Model {
             
         case .left:
             
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y) && piece.side.right.opening.isOpen == true
             }) {
                 bool = true
@@ -827,7 +826,7 @@ class Model {
             
         case .right:
             
-            if pieces.contains(where: { (piece) -> Bool in
+            if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y) && piece.side.left.opening.isOpen == true
             }) {
                 bool = true
@@ -852,7 +851,7 @@ class Model {
         print("entered new piece on \(enteringSide) as expected")
         
         
-        for piece in pieces {
+        for piece in board.pieces {
             
             if ball.indexes == piece.indexes {
                   
@@ -1034,8 +1033,7 @@ class Model {
     
     func handleTap(center: CGPoint) {
                 
-        for piece in pieces {
-            
+        for piece in board.pieces {
             
             if board.grid[piece.indexes] == center {
                 
