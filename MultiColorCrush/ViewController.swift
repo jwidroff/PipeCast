@@ -137,8 +137,8 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView() {
         
-        let pieceWidth = spaceWidth * 0.90
-        let pieceHeight = spaceHeight * 0.90
+        let pieceWidth = spaceWidth //* 0.90
+        let pieceHeight = spaceHeight //* 0.90
         
         for piece in board.pieces {
             
@@ -147,8 +147,11 @@ extension ViewController: ModelDelegate {
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             piece.view.layer.opacity = 1.0
             
-//            piece.view.layer.borderColor = UIColor.white.cgColor
-//            piece.view.layer.borderWidth = 1.0
+            
+            
+            
+            piece.view.layer.borderColor = UIColor.white.cgColor
+            piece.view.layer.borderWidth = 2.0
 
 //            piece.view.layer.shadowOpacity = 1
 //            piece.view.layer.shadowPath = CGPath(rect: piece.view.bounds, transform: nil)
@@ -299,14 +302,13 @@ extension ViewController: ModelDelegate {
         for wall in self.board.walls {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
-            
-            let wallView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
-            
+            let wallView = UIView(frame: frame)
             wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
-            wallView.backgroundColor = .black
-            //append walls
+            wallView.backgroundColor = .gray
             
+            wallView.layer.cornerRadius = wallView.frame.height / 2
+
             self.board.view.addSubview(wallView)
             
         }
@@ -369,7 +371,44 @@ extension ViewController: ModelDelegate {
         let frameX = (view.frame.width - frameWidth) / 2
         let frameY = (view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
-        self.board.view.frame = frame
+        self.board.view = UIView(frame: frame) //as! BoardView
+//        let boardView = BoardView(frame: frame, xArray: board.grid, yArray: <#T##[CGFloat]#>)
+        
+                
+//        self.board.view.frame = frame
+        
+//        let boardView = BoardView(frame: frame, xArray: , yArray: <#T##[CGFloat]#>)
+        
+        
+        var xArray = [CGFloat]()
+        var yArray = [CGFloat]()
+        
+        
+        for point in self.board.grid.values {
+                        
+            let pointX = point.x
+            xArray.append(pointX)
+            let pointY = point.y
+            yArray.append(pointY)
+            
+        }
+        
+        
+        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray)
+        
+        self.board.view = boardView
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         self.board.view.backgroundColor = .black
         view.addSubview(self.board.view)
     }
@@ -404,7 +443,7 @@ extension ViewController: ModelDelegate {
 
         setSizes()
         
-        setupSpaces()
+//        setupSpaces()
         
         setupEntrances()
         
