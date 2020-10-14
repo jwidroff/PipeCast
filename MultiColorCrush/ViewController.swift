@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     var model = Model()
     var piecesViews = [Piece]()
     var spaceViews = [UIView]()
-    
+    var spaceWidth = CGFloat()
+    var spaceHeight = CGFloat()
     var degrees = 90.0
 
     override func viewDidLoad() {
@@ -136,8 +137,8 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView() {
         
-        let pieceWidth = self.board.view.frame.width / 100 * 18
-        let pieceHeight = self.board.view.frame.width / 100 * 18
+        let pieceWidth = spaceWidth * 0.90
+        let pieceHeight = spaceHeight * 0.90
         
         for piece in board.pieces {
             
@@ -163,8 +164,8 @@ extension ViewController: ModelDelegate {
     
     func setupEntrances() {
         
-        let spaceWidth = self.board.view.frame.width / 100 * 20
-        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        let spaceWidth = self.board.view.frame.width / 100 * 20
+//        let spaceHeight = self.board.view.frame.width / 100 * 20
         
         for entrance in self.board.entrances {
             
@@ -224,8 +225,8 @@ extension ViewController: ModelDelegate {
     
     func setupExits() {
         
-        let spaceWidth = self.board.view.frame.width / 100 * 20
-        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        let spaceWidth = self.board.view.frame.width / 100 * 20
+//        let spaceHeight = self.board.view.frame.width / 100 * 20
         
         for exit in self.board.exits {
             
@@ -292,8 +293,8 @@ extension ViewController: ModelDelegate {
     
     func setupWalls() {
         
-        let spaceWidth = self.board.view.frame.width / 100 * 20
-        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        let spaceWidth = self.board.view.frame.width / 100 * 20
+//        let spaceHeight = self.board.view.frame.width / 100 * 20
         
         for wall in self.board.walls {
             
@@ -316,8 +317,8 @@ extension ViewController: ModelDelegate {
     
     func setupBalls() {
         
-        let spaceWidth = self.board.view.frame.width / 100 * 20
-        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        let spaceWidth = self.board.view.frame.width / 100 * 20
+//        let spaceHeight = self.board.view.frame.width / 100 * 20
         
         for ball in self.board.balls {
             
@@ -339,8 +340,8 @@ extension ViewController: ModelDelegate {
     
     func setupSpaces() {
         
-        let spaceWidth = self.board.view.frame.width / 100 * 20
-        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        let spaceWidth = self.board.view.frame.width / 100 * 20
+//        let spaceHeight = self.board.view.frame.width / 100 * 20
         for point in self.board.grid {
                         
             let pointX = point.value.x
@@ -377,6 +378,18 @@ extension ViewController: ModelDelegate {
         
         
         
+        //TODO: Pick up here and set the space width and height (in a new property in the Board) to be used for the setEntrance, setExits, setWalls... etc
+        
+        
+        spaceWidth = self.board.view.frame.width / 100 * 20
+        spaceHeight = self.board.view.frame.width / 100 * 20
+        
+        
+        
+        
+        
+        
+        
         
     }
     
@@ -384,10 +397,13 @@ extension ViewController: ModelDelegate {
                 
         self.board = board
         
-        setSizes()
+        
+        
         
         setupBoard()
 
+        setSizes()
+        
         setupSpaces()
         
         setupEntrances()
