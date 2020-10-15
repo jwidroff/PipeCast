@@ -51,38 +51,36 @@ class BoardView : UIView {
     override func draw(_ rect: CGRect) {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setStrokeColor(UIColor.cyan.cgColor)
-        context.setLineWidth(1.5)
+        context.setStrokeColor(UIColor.gray.cgColor)
+        context.setLineWidth(2.5)
         
-        let xHalfDistance = sqrt((xArray[0] - xArray[1]) * (xArray[0] - xArray[1])) / 2
-        let yHalfDistance = sqrt((yArray[0] - yArray[1]) * (yArray[0] - yArray[1])) / 2
+        
+        let point1 = CGPoint(x: xArray[0], y: yArray[0])
+        let point2 = CGPoint(x: xArray[1], y: yArray[1])
+        
+        let halfX = (point1.x - point2.x) / 2
+        let halfY = (point1.y - point2.y) / 2
 
-        for index in 0..<xArray.count {
-            
+        for x in xArray {
+                        
             context.beginPath()
-            context.move(to: CGPoint(x: xArray[index] + xHalfDistance, y: yArray.first! - yHalfDistance))
-            context.addLine(to: CGPoint(x: xArray[index] + xHalfDistance, y: yArray.last! + yHalfDistance))
+            context.move(to: CGPoint(x: x - halfX, y: yArray.first! + halfY))
+            context.addLine(to: CGPoint(x: x - halfX, y: yArray.last! - halfY))
             context.strokePath()
         }
         
-        for index in 0..<yArray.count {
+        for y in yArray {
             
             context.beginPath()
-            context.move(to: CGPoint(x: xArray.first! - xHalfDistance, y: yArray[index] + yHalfDistance))
-            context.addLine(to: CGPoint(x: xArray.last! + xHalfDistance, y: yArray[index] + yHalfDistance))
+            context.move(to: CGPoint(x: xArray.first! + halfX, y: y - halfY))
+            context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y - halfY))
             context.strokePath()
         }
-        
-//        context.beginPath()
-//        context.move(to: CGPoint(x: xArray[1], y: yArray.first!))
-//        context.addLine(to: CGPoint(x: xArray[1], y: yArray.last!))
-//        context.strokePath()
+
         setNeedsDisplay()
         
         self.context = context
-        
 
-        
     }
 }
 

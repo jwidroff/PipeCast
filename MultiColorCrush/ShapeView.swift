@@ -952,29 +952,14 @@ class ShapeView : UIView {
                 
         case .ball:
             
-            
-            
-            //TODO: UP TO HERE - FIGURE THIS OUT
-            
             guard let context = UIGraphicsGetCurrentContext() else { return }
-            
-//            let diff = frame.height / 10
-            
             let eclipseHeight1 = frame.height / 5
             let eclipseWidth1 = frame.width / 5
             let rect1 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
             context.addEllipse(in: rect1)
             context.setFillColor(UIColor.systemPink.cgColor)
             context.fillEllipse(in: rect1)
-            
-//            let eclipseHeight2 = frame.height - diff
-//            let eclipseWidth2 = frame.width - diff
-//            let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
-//            context.addEllipse(in: rect2)
-//            context.setFillColor(UIColor.black.cgColor)
-//            context.fillEllipse(in: rect2)
-                
-            
+
         default:
             break
         }
