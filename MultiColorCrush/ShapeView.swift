@@ -120,6 +120,16 @@ class ShapeView : UIView {
                 
                 case 1:
                     
+                    
+                    //Pick up here. Figure out why this doesnt go in the correct place and then fix the sides for the elbows and repeat for all piece types
+                    
+                    
+                    
+                   
+                    
+                    
+                    
+                    
                     if currentSwitch == 1 {
                     
                     let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
@@ -140,7 +150,7 @@ class ShapeView : UIView {
                         context.addEllipse(in: rect3)
                         context.setFillColor(color!)
                         context.fillEllipse(in: rect3)
-                        
+
                         let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
                         context.addEllipse(in: rect4)
                         context.setFillColor(UIColor.black.cgColor)
@@ -149,10 +159,16 @@ class ShapeView : UIView {
                         currentSwitch = 1
                         
                     }
-                        
+                    //TOP PIVOT
+                    
+                    let width = bounds.width / 2
+                    let x = (bounds.midX - (width / 2))
+                    let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: 5)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
+                    
                 case 2:
-                    
-                    
                     
                     if currentSwitch == 1 {
 
@@ -186,7 +202,17 @@ class ShapeView : UIView {
                         
                     }
                     
-                     
+                    //Left Pivot
+                    
+                    let height = bounds.height / 2
+                    let y = (bounds.midY - (height / 2))
+                    let pivotRect = CGRect(x: bounds.minX, y: y, width: 5, height: height)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
+                    
+                    
+                    
                 case 3:
                     
                     
@@ -221,6 +247,13 @@ class ShapeView : UIView {
                         
                     }
                     
+                    //Bottom pivot
+                    let width = bounds.width / 2
+                    let x = (bounds.midX - (width / 2))
+                    let pivotRect = CGRect(x: x, y: bounds.maxY - 5, width: width, height: 5)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
                     
                 case 4:
                     
@@ -257,6 +290,17 @@ class ShapeView : UIView {
                         currentSwitch = 1
                         
                     }
+                    
+                    //Right Pivot
+                    
+                    let height = bounds.height / 2
+                    let y = (bounds.midY - (height / 2))
+                    let pivotRect = CGRect(x: bounds.maxX - 5, y: y, width: 5, height: height)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
+
+                    
                     
                 default:
                     break
