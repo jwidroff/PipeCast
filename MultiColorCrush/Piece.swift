@@ -44,23 +44,98 @@ class Piece {
         case .elbow:
             
             
-            if currentSwitch == 1 {
+            switch version {
+            
+            
+            case 1:
                 
-                side.top.exitSide = "left"
-                side.left.exitSide = "top"
-                side.right.exitSide = nil
-                
-            } else if currentSwitch == 2 {
+                if currentSwitch == 1 {
+                    
+                    side.top.exitSide = "left"
+                    side.left.exitSide = "top"
+                    side.right.exitSide = nil
+                    
+                } else if currentSwitch == 2 {
 
-                side.top.exitSide = "right"
-                side.right.exitSide = "top"
-                side.left.exitSide = nil
+                    side.top.exitSide = "right"
+                    side.right.exitSide = "top"
+                    side.left.exitSide = nil
+                }
+                
+                side.left.opening.isOpen = !side.left.opening.isOpen
+                side.right.opening.isOpen = !side.right.opening.isOpen
+                side.left.closing.isOpen = !side.left.closing.isOpen
+                side.right.closing.isOpen = !side.right.closing.isOpen
+
+            case 2:
+                
+                if currentSwitch == 1 {
+                    
+                    side.left.exitSide = "bottom"
+                    side.bottom.exitSide = "left"
+                    side.top.exitSide = nil
+                    
+                } else if currentSwitch == 2 {
+
+                    side.left.exitSide = "top"
+                    side.top.exitSide = "left"
+                    side.bottom.exitSide = nil
+                }
+                
+                side.top.opening.isOpen = !side.top.opening.isOpen
+                side.bottom.opening.isOpen = !side.bottom.opening.isOpen
+                side.top.closing.isOpen = !side.top.closing.isOpen
+                side.bottom.closing.isOpen = !side.bottom.closing.isOpen
+                
+            case 3:
+                
+                if currentSwitch == 1 {
+                    
+                    side.bottom.exitSide = "right"
+                    side.right.exitSide = "bottom"
+                    side.left.exitSide = nil
+                    
+                } else if currentSwitch == 2 {
+
+                    side.bottom.exitSide = "left"
+                    side.left.exitSide = "bottom"
+                    side.right.exitSide = nil
+                }
+                
+                side.left.opening.isOpen = !side.left.opening.isOpen
+                side.right.opening.isOpen = !side.right.opening.isOpen
+                side.left.closing.isOpen = !side.left.closing.isOpen
+                side.right.closing.isOpen = !side.right.closing.isOpen
+                
+                
+            case 4:
+                
+                if currentSwitch == 1 {
+                    
+                    side.right.exitSide = "top"
+                    side.top.exitSide = "right"
+                    side.bottom.exitSide = nil
+                    
+                } else if currentSwitch == 2 {
+
+                    side.right.exitSide = "bottom"
+                    side.bottom.exitSide = "right"
+                    side.top.exitSide = nil
+                }
+                
+                side.top.opening.isOpen = !side.top.opening.isOpen
+                side.bottom.opening.isOpen = !side.bottom.opening.isOpen
+                side.top.closing.isOpen = !side.top.closing.isOpen
+                side.bottom.closing.isOpen = !side.bottom.closing.isOpen
+                
+            default:
+                
+                break
+            
+            
             }
             
-            side.left.opening.isOpen = !side.left.opening.isOpen
-            side.right.opening.isOpen = !side.right.opening.isOpen
-            side.left.closing.isOpen = !side.left.closing.isOpen
-            side.right.closing.isOpen = !side.right.closing.isOpen
+            
             
         case .doubleElbow:
             

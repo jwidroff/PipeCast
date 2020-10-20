@@ -120,16 +120,6 @@ class ShapeView : UIView {
                 
                 case 1:
                     
-                    
-                    //Pick up here. Figure out why this doesnt go in the correct place and then fix the sides for the elbows and repeat for all piece types
-                    
-                    
-                    
-                   
-                    
-                    
-                    
-                    
                     if currentSwitch == 1 {
                     
                     let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
