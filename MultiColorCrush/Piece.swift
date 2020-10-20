@@ -23,6 +23,7 @@ class Piece {
     var switches = Int()
     var currentSwitch = Int()
     var side = Side()
+    var version = Int()
     
     init(){
         
@@ -37,6 +38,127 @@ class Piece {
             currentSwitch = 1
 
         }
+        
+        switch shape {
+            
+        case .elbow:
+            
+            
+            if currentSwitch == 1 {
+                
+                side.top.exitSide = "left"
+                side.left.exitSide = "top"
+                side.right.exitSide = nil
+                
+            } else if currentSwitch == 2 {
+
+                side.top.exitSide = "right"
+                side.right.exitSide = "top"
+                side.left.exitSide = nil
+            }
+            
+            side.left.opening.isOpen = !side.left.opening.isOpen
+            side.right.opening.isOpen = !side.right.opening.isOpen
+            side.left.closing.isOpen = !side.left.closing.isOpen
+            side.right.closing.isOpen = !side.right.closing.isOpen
+            
+        case .doubleElbow:
+            
+            if currentSwitch == 1 {
+                
+                side.top.exitSide = "right"
+                side.right.exitSide = "top"
+                side.left.exitSide = nil
+                
+            } else if currentSwitch == 2 {
+
+                side.top.exitSide = "left"
+                side.left.exitSide = "top"
+                side.right.exitSide = nil
+
+            }
+            
+            
+            side.left.closing.isOpen = !side.left.closing.isOpen
+            side.right.closing.isOpen = !side.right.closing.isOpen
+            
+            
+            
+            
+        case .quadBox: // Nothing to set as far as openings and closings
+
+            
+            if currentSwitch == 1 {
+                
+                side.top.exitSide = "left"
+                side.left.exitSide = "top"
+                side.bottom.exitSide = "right"
+                side.right.exitSide = "bottom"
+                
+            } else if currentSwitch == 2 {
+
+                side.top.exitSide = "right"
+                side.right.exitSide = "top"
+                side.bottom.exitSide = "left"
+                side.left.exitSide = "bottom"
+
+            }
+            
+            
+            
+        case .cross:
+
+           if currentSwitch == 1 {
+        
+            side.right.exitSide = "left"
+            side.left.exitSide = "right"
+            
+           } else if currentSwitch == 2 {
+
+            side.top.exitSide = "bottom"
+            side.bottom.exitSide = "top"
+
+           }
+            
+            side.left.closing.isOpen = !side.left.closing.isOpen
+            side.right.closing.isOpen = !side.right.closing.isOpen
+            side.top.closing.isOpen = !side.top.closing.isOpen
+            side.bottom.closing.isOpen = !side.bottom.closing.isOpen
+            
+            
+            
+        case .sword:
+            print("TODO - Set this")
+
+            
+        case .diagElbow: // Nothing to set as far as openings and closings
+                    
+            
+            
+            if currentSwitch == 1 {
+            
+                side.right.exitSide = "top"
+                side.left.exitSide = "bottom"
+                side.top.exitSide = "right"
+                side.bottom.exitSide = "left"
+                
+            } else if currentSwitch == 2 {
+                
+                side.top.exitSide = "left"
+                side.left.exitSide = "top"
+                side.bottom.exitSide = "right"
+                side.right.exitSide = "bottom"
+                
+            }
+            
+        default:
+            break
+        }
+        
+        
+        
+        
+        
     }
 }
 

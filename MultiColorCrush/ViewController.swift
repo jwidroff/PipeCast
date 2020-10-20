@@ -143,7 +143,7 @@ extension ViewController: ModelDelegate {
         for piece in board.pieces {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape)
+            piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
             piece.view.layer.opacity = 1.0
             
@@ -172,7 +172,7 @@ extension ViewController: ModelDelegate {
             let widthAndHeight = spaceWidth / 10
 
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
-            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
+            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
             entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
             entranceView.backgroundColor = .yellow
             
@@ -229,7 +229,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular)
+            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
             
             exitView.center = CGPoint(x: board.grid[exit.indexes]?.x ?? exit.view.center.x, y: board.grid[exit.indexes]?.y ?? exit.view.center.y)
 
@@ -292,7 +292,7 @@ extension ViewController: ModelDelegate {
         
         for wall in self.board.walls {
             
-            let frame = CGRect(x: 0, y: 0, width: spaceWidth * 0.75, height: spaceHeight * 0.75)
+            let frame = CGRect(x: 0, y: 0, width: spaceWidth * 0.50, height: spaceHeight * 0.50)
             let wallView = UIView(frame: frame)
             wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
@@ -317,7 +317,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
-            ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball)
+            ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball, version: nil)
             
             ball.view.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
@@ -542,17 +542,10 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    
     func pieceWasTapped(piece: Piece) {
 
-        //TODO: Make it that the pieces all get "glued together" and also move this function to a better place
-        
-//        for spaceView in spaceViews {
-//
-//            let center = spaceView.center
-//            spaceView.frame = CGRect(x: 0, y: 0, width: self.board.view.frame.width / 100 * 90, height: self.board.view.frame.width / 100 * 90)
-//            spaceView.center = center
-//            spaceView.setNeedsDisplay()
-//        }
+
         
         piece.view.setNeedsDisplay()
     }

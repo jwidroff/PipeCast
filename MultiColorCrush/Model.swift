@@ -19,6 +19,9 @@ import UIKit
 //TODO: make a pivot line on the pivot pieces
 //TODO: Need to turn off gesture recognizers when the ball is moving
 //TODO: Make the pieces switch if the ball passes it
+//TODO: Make a piece that changes the balls color
+//TODO: Make it that the variables of each piece can be set on their own and create a level model
+
 
 //TODO: Add number of moves left
 //TODO: Make the text box for the entrance lower when the ball initially moves
@@ -177,7 +180,7 @@ class Model {
             setPieceIndex(piece: piece)
             setPieceShape(piece: piece)
             setPieceColor(piece: piece)
-            setPieceOpacity(piece: piece)
+//            setPieceOpacity(piece: piece)
             setPieceSwitches(piece: piece)
             setPieceSides(piece: piece)
             board.pieces.append(piece)
@@ -198,16 +201,76 @@ class Model {
             
         case .elbow:
             
+            
+            switch piece.version {
+            
+            
             //TODO: Make this conditional on the pieces way that its rotated
 
             
-            piece.side.top.opening.isOpen = true
-            piece.side.left.opening.isOpen = true
-            piece.side.top.closing.isOpen = true
-            piece.side.left.closing.isOpen = true
+            case 1:
+                
+
+                
+                piece.side.top.opening.isOpen = true
+                piece.side.left.opening.isOpen = true
+                piece.side.top.closing.isOpen = true
+                piece.side.left.closing.isOpen = true
+                
+                piece.side.top.exitSide = "left"
+                piece.side.left.exitSide = "top"
+                
+                
+                
+                
+            case 2:
+                
+                
+                piece.side.bottom.opening.isOpen = true
+                piece.side.left.opening.isOpen = true
+                piece.side.bottom.closing.isOpen = true
+                piece.side.left.closing.isOpen = true
+                
+                piece.side.bottom.exitSide = "left"
+                piece.side.left.exitSide = "bottom"
+                
+                
+            case 3:
+                
+                piece.side.bottom.opening.isOpen = true
+                piece.side.right.opening.isOpen = true
+                piece.side.bottom.closing.isOpen = true
+                piece.side.right.closing.isOpen = true
+                
+                piece.side.bottom.exitSide = "right"
+                piece.side.right.exitSide = "bottom"
+                
+                
+            case 4:
+                
+                piece.side.top.opening.isOpen = true
+                piece.side.right.opening.isOpen = true
+                piece.side.top.closing.isOpen = true
+                piece.side.right.closing.isOpen = true
+                
+                piece.side.top.exitSide = "right"
+                piece.side.right.exitSide = "top"
+                
+            default:
+                
+                
+                break
             
-            piece.side.top.exitSide = "left"
-            piece.side.left.exitSide = "top"
+            
+            
+            
+            
+            }
+            
+            
+            
+            
+           
 
         case .doubleElbow:
             
@@ -405,8 +468,10 @@ class Model {
     
     func setPieceShape(piece: Piece) {
         
-        let randomShapes:[Shape] = [.elbow, .doubleElbow, .cross, .quadBox, .diagElbow]//, "sword"]
-
+        
+        let version = Int(arc4random_uniform(UInt32(4))) + 1
+        piece.version = version
+        let randomShapes:[Shape] = [.elbow]//, .doubleElbow, .cross, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -415,9 +480,7 @@ class Model {
         piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
     }
     
-    func setPieceOpacity(piece: Piece) {
-        piece.opacity = 1 //Int(arc4random_uniform(UInt32(3))) + 1
-    }
+
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
         
@@ -573,121 +636,7 @@ class Model {
         
         piece.switch4Tap()
         
-        switch piece.shape {
-            
-        case .elbow:
-            
-            
-            if piece.currentSwitch == 1 {
-                
-                piece.side.top.exitSide = "left"
-                piece.side.left.exitSide = "top"
-                piece.side.right.exitSide = nil
-                
-            } else if piece.currentSwitch == 2 {
-
-                piece.side.top.exitSide = "right"
-                piece.side.right.exitSide = "top"
-                piece.side.left.exitSide = nil
-            }
-            
-            piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
-            piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
-            
-        case .doubleElbow:
-            
-            if piece.currentSwitch == 1 {
-                
-                piece.side.top.exitSide = "right"
-                piece.side.right.exitSide = "top"
-                piece.side.left.exitSide = nil
-                
-            } else if piece.currentSwitch == 2 {
-
-                piece.side.top.exitSide = "left"
-                piece.side.left.exitSide = "top"
-                piece.side.right.exitSide = nil
-
-            }
-            
-            
-            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
-            
-            
-            
-            
-        case .quadBox: // Nothing to set as far as openings and closings
-
-            
-            if piece.currentSwitch == 1 {
-                
-                piece.side.top.exitSide = "left"
-                piece.side.left.exitSide = "top"
-                piece.side.bottom.exitSide = "right"
-                piece.side.right.exitSide = "bottom"
-                
-            } else if piece.currentSwitch == 2 {
-
-                piece.side.top.exitSide = "right"
-                piece.side.right.exitSide = "top"
-                piece.side.bottom.exitSide = "left"
-                piece.side.left.exitSide = "bottom"
-
-            }
-            
-            
-            
-        case .cross:
-
-           if piece.currentSwitch == 1 {
-        
-            piece.side.right.exitSide = "left"
-            piece.side.left.exitSide = "right"
-            
-           } else if piece.currentSwitch == 2 {
-
-            piece.side.top.exitSide = "bottom"
-            piece.side.bottom.exitSide = "top"
-
-           }
-            
-            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
-            piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-            piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
-            
-            
-            
-        case .sword:
-            print("TODO - Set this")
-
-            
-        case .diagElbow: // Nothing to set as far as openings and closings
-                    
-            
-            
-            if piece.currentSwitch == 1 {
-            
-                piece.side.right.exitSide = "top"
-                piece.side.left.exitSide = "bottom"
-                piece.side.top.exitSide = "right"
-                piece.side.bottom.exitSide = "left"
-                
-            } else if piece.currentSwitch == 2 {
-                
-                piece.side.top.exitSide = "left"
-                piece.side.left.exitSide = "top"
-                piece.side.bottom.exitSide = "right"
-                piece.side.right.exitSide = "bottom"
-                
-            }
-            
-        default:
-            break
-        }
+ 
         
     }
     
@@ -1022,13 +971,6 @@ class Model {
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     func handleTap(center: CGPoint) {
