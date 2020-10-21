@@ -564,9 +564,7 @@ class ShapeView : UIView {
             
             
             case .diagElbow:
-                
-                //JUST FINISHED THIS. COMMIT AND FIX DIAGELBOW SIDES ACCORDINGLY
-                
+                                
                 
                 guard let context = UIGraphicsGetCurrentContext() else { return }
                 let diff = frame.height / 10

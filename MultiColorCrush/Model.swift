@@ -198,12 +198,6 @@ class Model {
     
     func setPieceSides(piece: Piece) {
         
-        //TODO: Make it that the pieces sides being open are not true and false but rather another side that the piece leads to and if the other side is nil, then the side is obviously closed - that way we know #1 which way to send the ball and #2 to determine if the ball can even go through the tube. Also get rid of the unnecessary pieces added for the side.
-        
-        
-        
-        
-        
         switch piece.shape {
             
         case .elbow:
@@ -326,6 +320,9 @@ class Model {
             
         case .diagElbow:
             
+            //UP TO HERE:
+            
+            
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
@@ -335,10 +332,40 @@ class Model {
             piece.side.left.closing.isOpen = true
             piece.side.right.closing.isOpen = true
             
-            piece.side.right.exitSide = "top"
-            piece.side.left.exitSide = "bottom"
-            piece.side.top.exitSide = "right"
-            piece.side.bottom.exitSide = "left"
+            switch piece.version {
+            
+            case 1, 3:
+                
+                
+                
+                piece.side.right.exitSide = "top"
+                piece.side.left.exitSide = "bottom"
+                piece.side.top.exitSide = "right"
+                piece.side.bottom.exitSide = "left"
+                
+            case 2, 4:
+                
+                
+                piece.side.left.exitSide = "top"
+                piece.side.right.exitSide = "bottom"
+                piece.side.bottom.exitSide = "right"
+                piece.side.top.exitSide = "left"
+                
+                
+                
+            default:
+                
+                break
+            
+            
+            
+            }
+            
+            
+            
+            
+            
+            
             
             
             

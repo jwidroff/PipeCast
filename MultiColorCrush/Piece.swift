@@ -208,23 +208,56 @@ class Piece {
             
         case .diagElbow: // Nothing to set as far as openings and closings
                     
+            switch version {
             
             
-            if currentSwitch == 1 {
+            case 1, 3:
+                
+                if currentSwitch == 1 {
+                
+                    side.right.exitSide = "top"
+                    side.left.exitSide = "bottom"
+                    side.top.exitSide = "right"
+                    side.bottom.exitSide = "left"
+                    
+                } else if currentSwitch == 2 {
+                    
+                    side.top.exitSide = "left"
+                    side.left.exitSide = "top"
+                    side.bottom.exitSide = "right"
+                    side.right.exitSide = "bottom"
+                    
+                }
+                
+            case 2, 4:
+                
+                if currentSwitch == 1 {
+                
+                    side.top.exitSide = "left"
+                    side.left.exitSide = "top"
+                    side.bottom.exitSide = "right"
+                    side.right.exitSide = "bottom"
+                    
+                } else if currentSwitch == 2 {
+                    
+                    
+                    side.right.exitSide = "top"
+                    side.left.exitSide = "bottom"
+                    side.top.exitSide = "right"
+                    side.bottom.exitSide = "left"
+                }
             
-                side.right.exitSide = "top"
-                side.left.exitSide = "bottom"
-                side.top.exitSide = "right"
-                side.bottom.exitSide = "left"
+            default:
                 
-            } else if currentSwitch == 2 {
-                
-                side.top.exitSide = "left"
-                side.left.exitSide = "top"
-                side.bottom.exitSide = "right"
-                side.right.exitSide = "bottom"
-                
+                break
+            
+            
+            
             }
+            
+            
+            
+            
             
         default:
             break
