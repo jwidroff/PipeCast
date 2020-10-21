@@ -21,6 +21,13 @@ import UIKit
 //TODO: Make the pieces switch if the ball passes it
 //TODO: Make a piece that changes the balls color
 //TODO: Make it that the variables of each piece can be set on their own and create a level model
+//TODO: Make it that the pieces switch (if they have a switch) after the ball passes
+//TODO: Make it that the ball follows the curve better
+
+//TODO: Make it that the entrances cant open next to a wall
+//TODO: Add place that pieces get added from (in higher levels)
+//TODO: Make a retry button
+
 
 
 //TODO: Add number of moves left
@@ -75,7 +82,7 @@ class Model {
         level.number = 1
         level.boardHeight = 9
         level.boardWidth = 4
-        level.numberOfPieces = 10
+        level.numberOfPieces = 20
     }
     
     func setBoard() {
@@ -471,7 +478,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.elbow]//, .doubleElbow, .cross, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.elbow, .diagElbow,]// .doubleElbow, .cross, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     

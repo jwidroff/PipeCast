@@ -74,6 +74,8 @@ class ShapeView : UIView {
         case .diagElbow:
             switches = 2
             currentSwitch = 1
+            self.version = version!
+
             
         default:
             break
@@ -122,6 +124,8 @@ class ShapeView : UIView {
                     
                     if currentSwitch == 1 {
                     
+                        
+                        // TOP PIVOT TO LEFT SIDE
                     let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
                     context.addEllipse(in: rect1)
                     context.setFillColor(color!)
@@ -136,6 +140,8 @@ class ShapeView : UIView {
                     
                     } else {
                     
+                        
+                        // TOP PIVOT TO RIGHT SIDE
                         let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
                         context.addEllipse(in: rect3)
                         context.setFillColor(color!)
@@ -161,6 +167,8 @@ class ShapeView : UIView {
                 case 2:
                     
                     if currentSwitch == 1 {
+                        
+                        //LEFT PIVOT TO BOTTOM
 
                         let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
                         context.addEllipse(in: rect5)
@@ -177,6 +185,10 @@ class ShapeView : UIView {
                         
                         
                     } else {
+                        
+                        //LEFT PIVOT TO TOP
+
+                        
                         
                         let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
                         context.addEllipse(in: rect1)
@@ -206,8 +218,11 @@ class ShapeView : UIView {
                 case 3:
                     
                     
+                    
                     if currentSwitch == 1 {
 
+                        //BOTTOM PIVOT TO RIGHT
+                        
                         let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
                         context.addEllipse(in: rect7)
                         context.setFillColor(color!)
@@ -223,6 +238,9 @@ class ShapeView : UIView {
                         
                         
                     } else {
+                        
+                        //BOTTOM PIVOT TO LEFT
+
                         
                         let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
                         context.addEllipse(in: rect5)
@@ -249,6 +267,8 @@ class ShapeView : UIView {
                     
                     if currentSwitch == 1 {
                         
+                        //RIGHT PIVOT TO TOP
+                        
                         let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
                         context.addEllipse(in: rect3)
                         context.setFillColor(color!)
@@ -266,6 +286,10 @@ class ShapeView : UIView {
                         
                         
                     } else {
+                        
+                        
+                        //RIGHT PIVOT TO BOTTOM
+
                         
                         let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
                         context.addEllipse(in: rect7)
@@ -299,6 +323,18 @@ class ShapeView : UIView {
                 
             
         case .doubleElbow:
+            
+            
+           //UP TO HERE
+            //Make versions
+            //Make pivot points
+            //Configure the sides
+            
+            
+            
+            
+            
+            
             
             
             if currentSwitch == 1 {
@@ -528,89 +564,190 @@ class ShapeView : UIView {
             
             
             case .diagElbow:
-              
-              
-              if currentSwitch == 1 {
-                  
+                
+                //JUST FINISHED THIS. COMMIT AND FIX DIAGELBOW SIDES ACCORDINGLY
+                
+                
                 guard let context = UIGraphicsGetCurrentContext() else { return }
-                
                 let diff = frame.height / 10
+                let posHeight = frame.height + diff
+                let posWidth = frame.width + diff
+                let negHeight = frame.height - diff
+                let negWidth = frame.width - diff
                 
                 
-                let eclipseHeight3 = frame.height + diff
-                let eclipseWidth3 = frame.width + diff
-                let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: eclipseWidth3, height: eclipseHeight3)
-                context.addEllipse(in: rect3)
-                context.setFillColor(UIColor.purple.cgColor)
-                context.fillEllipse(in: rect3)
+                switch version {
                 
-                let eclipseHeight4 = frame.height - diff
-                let eclipseWidth4 = frame.width - diff
-                let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: eclipseWidth4, height: eclipseHeight4)
-                context.addEllipse(in: rect4)
-                context.setFillColor(UIColor.black.cgColor)
-                context.fillEllipse(in: rect4)
-                
-                
-                
-                let eclipseHeight5 = frame.height + diff
-                let eclipseWidth5 = frame.width + diff
-                let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: eclipseWidth5, height: eclipseHeight5)
-                context.addEllipse(in: rect5)
-                context.setFillColor(UIColor.green.cgColor)
-                context.fillEllipse(in: rect5)
-
-                let eclipseHeight6 = frame.height - diff
-                let eclipseWidth6 = frame.width - diff
-                let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: eclipseWidth6, height: eclipseHeight6)
-                context.addEllipse(in: rect6)
-                context.setFillColor(UIColor.black.cgColor)
-                context.fillEllipse(in: rect6)
-                
-                  currentSwitch = 2
-              } else if currentSwitch == 2 {
+                case 1, 3:
+                    
+                    if currentSwitch == 1 {
+                        
+                        //RIGHT PIVOT TO TOP SIDE
+                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect3)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect3)
+                        
+                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect4)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect4)
+                        
+                        //LEFT PIVOT TO BOTTOM SIDE
+                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect5)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect5)
+                        
+                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect6)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect6)
+                        
+                        currentSwitch = 2
+                    } else if currentSwitch == 2 {
+                        
+                        //LEFT PIVOT TO TOP SIDE
+                        let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect1)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect1)
+                        
+                        let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect2)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect2)
+                        
+                        
+                        //RIGHT PIVOT TO BOTTOM SIDE
+                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect7)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect7)
+                        
+                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect8)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect8)
+                        
+                        currentSwitch = 1
+                     }
+                    
+                    //Left Pivot
+                    let height = bounds.height / 2
+                    let y = (bounds.midY - (height / 2))
+                    let pivotRect = CGRect(x: bounds.minX, y: y, width: 5, height: height)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
+                    
+                    //RIGHT PIVOT
+                    let pivotRect2 = CGRect(x: bounds.maxX - 5, y: y, width: 5, height: height)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect2])
+                    context.fill(pivotRect2)
+                    
+                    
                   
-                  guard let context = UIGraphicsGetCurrentContext() else { return }
-                  
-                  let diff = frame.height / 10
-                  
-                  let eclipseHeight1 = frame.height + diff
-                  let eclipseWidth1 = frame.width + diff
-                  let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth1, height: eclipseHeight1)
-                  context.addEllipse(in: rect1)
-                  context.setFillColor(UIColor.green.cgColor)
-                  context.fillEllipse(in: rect1)
-
-                  let eclipseHeight2 = frame.height - diff
-                  let eclipseWidth2 = frame.width - diff
-                  let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: eclipseWidth2, height: eclipseHeight2)
-                  context.addEllipse(in: rect2)
-                  context.setFillColor(UIColor.black.cgColor)
-                  context.fillEllipse(in: rect2)
-                  
-                  
-                  
-                  
-                  let eclipseHeight7 = frame.height + diff
-                  let eclipseWidth7 = frame.width + diff
-                  let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: eclipseWidth7, height: eclipseHeight7)
-                  context.addEllipse(in: rect7)
-                  context.setFillColor(UIColor.purple.cgColor)
-                  context.fillEllipse(in: rect7)
-                  
-                  let eclipseHeight8 = frame.height - diff
-                  let eclipseWidth8 = frame.width - diff
-                  let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: eclipseWidth8, height: eclipseHeight8)
-                  context.addEllipse(in: rect8)
-                  context.setFillColor(UIColor.black.cgColor)
-                  context.fillEllipse(in: rect8)
-       
+                case 2, 4:
+                    
+                   
+                    if currentSwitch == 1 {
+                        
+                        //TOP PIVOT TO LEFT SIDE
+                        let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect1)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect1)
+                        
+                        let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect2)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect2)
+                        
+                        
+                        //BOTTOM PIVOT TO RIGHT SIDE
+                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect7)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect7)
+                        
+                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect8)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect8)
+                        
+                        
+                        currentSwitch = 2
+                    } else if currentSwitch == 2 {
+                        
+                        
+                        
+                        //TOP PIVOT TO RIGHT SIDE
+                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect3)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect3)
+                        
+                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect4)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect4)
+                        
+                        //BOTTOM PIVOT TO LEFT SIDE
+                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
+                        context.addEllipse(in: rect5)
+                        context.setFillColor(color!)
+                        context.fillEllipse(in: rect5)
+                        
+                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
+                        context.addEllipse(in: rect6)
+                        context.setFillColor(UIColor.black.cgColor)
+                        context.fillEllipse(in: rect6)
+                        
+                        currentSwitch = 1
+                     }
+                    
+                    
+                    //TOP PIVOT
+                    let width = bounds.width / 2
+                    let x = (bounds.midX - (width / 2))
+                    let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: 5)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect])
+                    context.fill(pivotRect)
+                    
+                    //Bottom pivot
+                    let pivotRect2 = CGRect(x: x, y: bounds.maxY - 5, width: width, height: 5)
+                    context.setFillColor(color!)
+                    context.addRects([pivotRect2])
+                    context.fill(pivotRect2)
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    break
                 
                 
-                  currentSwitch = 1
-               }
-            
-            
+                default:
+                    
+                    break
+                
+                
+                
+                
+                
+                
+                
+                
+                }
+              
+              
+              
             
 //        case .regular:
 //
