@@ -46,14 +46,8 @@ protocol ModelDelegate {
 class Model {
     
     var board = Board()
-//    var pieces = [Piece]()
     var level = Level()
-    var walls = [Wall]()
     var delegate: ModelDelegate?
-//    var view = UIView()
-    var entrances = [Entrance]()
-    var exits = [Exit]()
-    var balls = [Ball]()
     
     init(){
         
@@ -129,9 +123,9 @@ class Model {
             
             let ball = Ball()
             ball.indexes = entrance.indexes
-            balls.append(ball)
+            board.balls.append(ball)
         }
-        board.balls = balls
+        board.balls = board.balls
     }
     
     func getEntrances() -> [Entrance] {
@@ -144,9 +138,9 @@ class Model {
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
             entrance.opening = "left"
-            entrances.append(entrance)
+            board.entrances.append(entrance)
         }
-        return entrances
+        return board.entrances
     }
     
     func getExits() -> [Exit] {
@@ -158,10 +152,10 @@ class Model {
             let exit = Exit()
             setExitIndex(exit: exit)
             exit.opening = "bottom"
-            exits.append(exit)
+            board.exits.append(exit)
             
         }
-        return exits
+        return board.exits
 
         
     }
@@ -173,9 +167,9 @@ class Model {
 
             let wall = Wall()
             setWallIndex(wall: wall)
-            walls.append(wall)
+            board.walls.append(wall)
         }
-        return walls
+        return board.walls
     }
     
     func setPieces() {
@@ -459,7 +453,7 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
-        if walls.contains(where: { (wallX) -> Bool in
+        if board.walls.contains(where: { (wallX) -> Bool in
             wallX.indexes == index
         }) || board.entrances.contains(where: { (entrance) -> Bool in
             entrance.indexes == index
@@ -476,7 +470,7 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
-        if exits.contains(where: { (exit) -> Bool in
+        if board.exits.contains(where: { (exit) -> Bool in
             exit.indexes == index
         }) || board.entrances.contains(where: { (entrance) -> Bool in
             entrance.indexes == index
@@ -491,7 +485,7 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
-        if entrances.contains(where: { (entrance) -> Bool in
+        if board.entrances.contains(where: { (entrance) -> Bool in
             entrance.indexes == index
         }) {
             setEntranceIndex(entrance: entrance)
@@ -678,7 +672,7 @@ class Model {
     
     func moveBall(ball: Ball) {
                                 
-        for entrance in entrances {
+        for entrance in board.entrances {
             
             let startIndex = ball.indexes
             let endIndex: Indexes?
@@ -1021,9 +1015,9 @@ class Model {
             }
         }
         
-        for ball in balls {
+        for ball in board.balls {
             
-            print("begin was tapped. Moving ball now \(balls.count)")
+            print("begin was tapped. Moving ball now \(board.balls.count)")
             
             if board.grid[ball.indexes] == center {
                 
