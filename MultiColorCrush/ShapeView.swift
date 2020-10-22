@@ -972,7 +972,7 @@ class ShapeView : UIView {
             }
             
         case .cross:
-
+            
                 switch currentSwitch {
                 case 1:
                     

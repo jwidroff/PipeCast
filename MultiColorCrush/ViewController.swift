@@ -71,8 +71,40 @@ class ViewController: UIViewController {
             
             space.backgroundColor = .black
         }
+    }
+    
+    var piecesWereEnlarged = false
+    
+    func enlargePieces() {
         
         
+        guard piecesWereEnlarged == false else { return }
+        
+
+        piecesWereEnlarged = true
+        
+        
+        //THIS IS BACKWARDS... NEED TO CHANGE AND MAKE ABS
+        let totalWidthDifference = (view.frame.width / 10 * 9) - spaceWidth
+        let totalHeightDifference = (view.frame.height / 10 * 9) - spaceHeight
+
+        
+        print("totalWidthDifference \(totalWidthDifference)")
+        print("totalHeightDifference \(totalHeightDifference)")
+        print("frameHeight \(self.view.frame.height)")
+
+        
+        for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
+            piece1.center.y < piece2.center.y
+        }) {
+                        
+            let height = (piece.view.frame.height / 9 * 10)
+            let width = (piece.view.frame.width / 9 * 10)
+            let x = piece.view.center.x - (width / 2)
+            let y = piece.view.center.y - (height / 2)
+            
+            piece.view.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
     }
     
     @objc func handleSwipe(sender:UISwipeGestureRecognizer) {
@@ -145,20 +177,8 @@ extension ViewController: ModelDelegate {
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
             piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
-            piece.view.layer.opacity = 1.0
-            
-            
-            
-            
             piece.view.layer.borderColor = UIColor.white.cgColor
             piece.view.layer.borderWidth = 2.0
-
-//            piece.view.layer.shadowOpacity = 1
-//            piece.view.layer.shadowPath = CGPath(rect: piece.view.bounds, transform: nil)
-//            piece.view.layer.shadowColor = UIColor.white.cgColor
-//            piece.view.layer.shadowOffset = CGSize(width: 1, height: 1)
-//            piece.view.layer.shadowRadius = 5
-
             addTapGestureRecognizer(view: piece.view)
             self.piecesViews.append(piece)
             board.view.addSubview(piece.view)
@@ -331,29 +351,29 @@ extension ViewController: ModelDelegate {
         
     }
     
-    func setupSpaces() {
-        
-//        let spaceWidth = self.board.view.frame.width / 100 * 20
-//        let spaceHeight = self.board.view.frame.width / 100 * 20
-        for point in self.board.grid {
-                        
-            let pointX = point.value.x
-            let pointY = point.value.y
-            let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
-            let spaceView = UIView(frame: frame)
-            spaceView.frame = frame
-            spaceView.center = point.value
-            spaceView.backgroundColor = .black
-            spaceView.layer.borderColor = UIColor.white.cgColor
-            spaceView.layer.borderWidth = 2.0
-            spaceView.layer.opacity = 0.5
-            spaceViews.append(spaceView)
-            self.board.view.addSubview(spaceView)
-        }
-        
-        
-        
-    }
+//    func setupSpaces() {
+//
+////        let spaceWidth = self.board.view.frame.width / 100 * 20
+////        let spaceHeight = self.board.view.frame.width / 100 * 20
+//        for point in self.board.grid {
+//
+//            let pointX = point.value.x
+//            let pointY = point.value.y
+//            let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
+//            let spaceView = UIView(frame: frame)
+//            spaceView.frame = frame
+//            spaceView.center = point.value
+//            spaceView.backgroundColor = .black
+//            spaceView.layer.borderColor = UIColor.white.cgColor
+//            spaceView.layer.borderWidth = 2.0
+//            spaceView.layer.opacity = 0.5
+//            spaceViews.append(spaceView)
+//            self.board.view.addSubview(spaceView)
+//        }
+//
+//
+//
+//    }
     
     func setupBoard() {
         
@@ -396,13 +416,6 @@ extension ViewController: ModelDelegate {
         spaceWidth = self.board.view.frame.width / 100 * 20
         spaceHeight = self.board.view.frame.width / 100 * 20
         
-        
-        
-        
-        
-        
-        
-        
     }
     
     func setUpGame(board: Board) {
@@ -429,6 +442,8 @@ extension ViewController: ModelDelegate {
 
     
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String) {
+        
+        enlargePieces()
         
         if startIndex.y! > endIndex.y! {
                         
@@ -546,6 +561,8 @@ extension ViewController: ModelDelegate {
     func pieceWasTapped(piece: Piece) {
 
 
+        
+        
         
         piece.view.setNeedsDisplay()
     }
