@@ -99,7 +99,9 @@ class Model {
         let frameX = (board.view.frame.width - frameWidth) / 2
         let frameY = (board.view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
-        board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
+        board.widthSpaces = level.boardWidth
+        board.heightSpaces = level.boardHeight
+        board.grid = GridPoints(frame: frame, height: board.heightSpaces, width: board.widthSpaces).getGrid()
     }
     
     func setupEntrances() {

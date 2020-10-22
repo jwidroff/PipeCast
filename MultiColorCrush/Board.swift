@@ -19,6 +19,8 @@ class Board {
     var exits = [Exit]()
     var balls = [Ball]()
     var pieces = [Piece]()
+    var heightSpaces = Int()
+    var widthSpaces = Int()
 }
 
 class BoardView : UIView {

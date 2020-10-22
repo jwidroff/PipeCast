@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     var model = Model()
     var piecesViews = [Piece]()
     var spaceViews = [UIView]()
-    var spaceWidth = CGFloat()
-    var spaceHeight = CGFloat()
+    var pieceWidth = CGFloat()
+    var pieceHeight = CGFloat()
     var degrees = 90.0
 
     override func viewDidLoad() {
@@ -157,10 +157,7 @@ extension ViewController: ModelDelegate {
     }
     
     func setUpPiecesView() {
-        
-        let pieceWidth = spaceWidth //* 0.90
-        let pieceHeight = spaceHeight //* 0.90
-        
+                
         for piece in model.board.pieces {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
@@ -178,9 +175,9 @@ extension ViewController: ModelDelegate {
                 
         for entrance in self.model.board.entrances {
             
-            let widthAndHeight = spaceWidth / 10
+            let widthAndHeight = pieceWidth / 10
 
-            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
             entranceView.center = CGPoint(x: model.board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: model.board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
             entranceView.backgroundColor = .yellow
@@ -219,7 +216,7 @@ extension ViewController: ModelDelegate {
             openingView.backgroundColor = .black
             entranceView.addSubview(openingView)
             
-            let halfFrame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight / 2)
+            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
             let textBox = UITextField(frame: halfFrame)
             textBox.text = "Begin"
             textBox.textColor = .white
@@ -236,7 +233,7 @@ extension ViewController: ModelDelegate {
         
         for exit in self.model.board.exits {
             
-            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
 
             let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
             
@@ -246,7 +243,7 @@ extension ViewController: ModelDelegate {
             //append walls
             
             
-            let widthAndHeight = spaceWidth / 10
+            let widthAndHeight = pieceWidth / 10
             var x = CGFloat()
             var y = CGFloat()
 
@@ -301,7 +298,7 @@ extension ViewController: ModelDelegate {
         
         for wall in self.model.board.walls {
             
-            let frame = CGRect(x: 0, y: 0, width: spaceWidth * 0.50, height: spaceHeight * 0.50)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth * 0.50, height: pieceHeight * 0.50)
             let wallView = UIView(frame: frame)
             wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
@@ -324,7 +321,7 @@ extension ViewController: ModelDelegate {
                 
         for ball in self.model.board.balls {
             
-            let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
 
             ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball, version: nil)
             
@@ -366,6 +363,12 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
+        //FIX THIS. ITS USING THE WRONG VIEW... IT S/B USING THE BOARDS VIEW
+        
+        
+        
+        
+        
         print("!!!!! \(model.board.view.frame)")
         
         
@@ -404,9 +407,15 @@ extension ViewController: ModelDelegate {
         
         //TODO: Pick up here and set the space width and height (in a new property in the Board) to be used for the setEntrance, setExits, setWalls... etc
         
+//        let heightAndWidth:CGFloat = Int()
+//
+//        if self.model.board.view.frame.width >
         
-        spaceWidth = self.model.board.view.frame.width / 100 * 20
-        spaceHeight = self.model.board.view.frame.width / 100 * 20
+        
+        
+        
+        pieceWidth = self.model.board.view.frame.width / CGFloat(model.board.widthSpaces)
+        pieceHeight = self.model.board.view.frame.height / CGFloat(model.board.heightSpaces)
         
     }
     
