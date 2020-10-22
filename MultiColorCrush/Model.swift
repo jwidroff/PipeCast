@@ -50,7 +50,7 @@ class Model {
     var level = Level()
     var walls = [Wall]()
     var delegate: ModelDelegate?
-    var view = UIView()
+//    var view = UIView()
     var entrances = [Entrance]()
     var exits = [Exit]()
     var balls = [Ball]()
@@ -60,7 +60,7 @@ class Model {
     }
     
     init(view: UIView){
-        self.view = view
+        self.board.view = view
     }
     
     func setUpGame() {
@@ -98,12 +98,12 @@ class Model {
     
     func setupGrid() {
         
-        print("View frame is \(view.frame)")
+        print("View frame is \(board.view.frame)")
         
-        let frameWidth = view.frame.width / 10 * 9
-        let frameHeight = view.frame.height / 10 * 9
-        let frameX = (view.frame.width - frameWidth) / 2
-        let frameY = (view.frame.height - frameHeight) / 2
+        let frameWidth = board.view.frame.width / 10 * 9
+        let frameHeight = board.view.frame.height / 10 * 9
+        let frameX = (board.view.frame.width - frameWidth) / 2
+        let frameY = (board.view.frame.height - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         board.grid = GridPoints(frame: frame, height: level.boardHeight, width: level.boardWidth).getGrid()
     }

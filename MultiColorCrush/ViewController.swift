@@ -366,6 +366,9 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
+        print("!!!!! \(model.board.view.frame)")
+        
+        
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
