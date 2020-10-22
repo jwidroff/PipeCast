@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var board = Board()
+//    var board = Board()
     var model = Model()
     var piecesViews = [Piece]()
     var spaceViews = [UIView]()
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         model = Model(view: self.view)
         model.delegate = self
         model.setUpGame()
-        addSwipeGestureRecognizer(view: board.view)
+        addSwipeGestureRecognizer(view: model.board.view)
     }
     
     func addSwipeGestureRecognizer(view: UIView) {
@@ -83,17 +83,6 @@ class ViewController: UIViewController {
 
         piecesWereEnlarged = true
         
-        
-        //THIS IS BACKWARDS... NEED TO CHANGE AND MAKE ABS
-        let totalWidthDifference = (view.frame.width / 10 * 9) - spaceWidth
-        let totalHeightDifference = (view.frame.height / 10 * 9) - spaceHeight
-
-        
-        print("totalWidthDifference \(totalWidthDifference)")
-        print("totalHeightDifference \(totalHeightDifference)")
-        print("frameHeight \(self.view.frame.height)")
-
-        
         for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
             piece1.center.y < piece2.center.y
         }) {
@@ -146,7 +135,7 @@ extension ViewController: ModelDelegate {
         UIView.animate(withDuration: 1.0, animations: {
             for spaceView in self.spaceViews {
                 
-                if spaceView.center == CGPoint(x: self.board.grid[piece.indexes]!.x, y: self.board.grid[piece.indexes]!.y) {
+                if spaceView.center == CGPoint(x: self.model.board.grid[piece.indexes]!.x, y: self.model.board.grid[piece.indexes]!.y) {
                     
                     spaceView.backgroundColor = .purple
                 }
@@ -159,10 +148,10 @@ extension ViewController: ModelDelegate {
     
     func movePieces() {
         
-        for piece in board.pieces {
+        for piece in model.board.pieces {
             
             UIView.animate(withDuration: 0.25) {
-                piece.view.center = self.board.grid[piece.indexes]!
+                piece.view.center = self.model.board.grid[piece.indexes]!
             }
         }
     }
@@ -172,28 +161,28 @@ extension ViewController: ModelDelegate {
         let pieceWidth = spaceWidth //* 0.90
         let pieceHeight = spaceHeight //* 0.90
         
-        for piece in board.pieces {
+        for piece in model.board.pieces {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
-            piece.view.center = CGPoint(x: board.grid[piece.indexes]?.x ?? piece.view.center.x, y: board.grid[piece.indexes]?.y ?? piece.view.center.y)
+            piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
             piece.view.layer.borderColor = UIColor.white.cgColor
             piece.view.layer.borderWidth = 2.0
             addTapGestureRecognizer(view: piece.view)
             self.piecesViews.append(piece)
-            board.view.addSubview(piece.view)
+            model.board.view.addSubview(piece.view)
         }
     }
     
     func setupEntrances() {
                 
-        for entrance in self.board.entrances {
+        for entrance in self.model.board.entrances {
             
             let widthAndHeight = spaceWidth / 10
 
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
             let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
-            entranceView.center = CGPoint(x: board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
+            entranceView.center = CGPoint(x: model.board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: model.board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
             entranceView.backgroundColor = .yellow
             
             var x = CGFloat()
@@ -237,7 +226,7 @@ extension ViewController: ModelDelegate {
             textBox.textAlignment = .center
             entranceView.addSubview(textBox)
             
-            self.board.view.addSubview(entranceView)
+            self.model.board.view.addSubview(entranceView)
         }
         
         
@@ -245,13 +234,13 @@ extension ViewController: ModelDelegate {
     
     func setupExits() {
         
-        for exit in self.board.exits {
+        for exit in self.model.board.exits {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
             let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
             
-            exitView.center = CGPoint(x: board.grid[exit.indexes]?.x ?? exit.view.center.x, y: board.grid[exit.indexes]?.y ?? exit.view.center.y)
+            exitView.center = CGPoint(x: model.board.grid[exit.indexes]?.x ?? exit.view.center.x, y: model.board.grid[exit.indexes]?.y ?? exit.view.center.y)
 
             exitView.backgroundColor = .green
             //append walls
@@ -299,7 +288,7 @@ extension ViewController: ModelDelegate {
             textBox.textAlignment = .center
             exitView.addSubview(textBox)
             
-            self.board.view.addSubview(exitView)
+            self.model.board.view.addSubview(exitView)
         }
         
         
@@ -310,11 +299,11 @@ extension ViewController: ModelDelegate {
     
     func setupWalls() {
         
-        for wall in self.board.walls {
+        for wall in self.model.board.walls {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth * 0.50, height: spaceHeight * 0.50)
             let wallView = UIView(frame: frame)
-            wallView.center = CGPoint(x: board.grid[wall.indexes]?.x ?? wall.view.center.x, y: board.grid[wall.indexes]?.y ?? wall.view.center.y)
+            wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
 
             wallView.backgroundColor = .red
             
@@ -326,24 +315,24 @@ extension ViewController: ModelDelegate {
             wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
             wallView.layer.shadowRadius = 10
             
-            self.board.view.addSubview(wallView)
+            self.model.board.view.addSubview(wallView)
             
         }
     }
     
     func setupBalls() {
                 
-        for ball in self.board.balls {
+        for ball in self.model.board.balls {
             
             let frame = CGRect(x: 0, y: 0, width: spaceWidth, height: spaceHeight)
 
             ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball, version: nil)
             
-            ball.view.center = CGPoint(x: board.grid[ball.indexes]?.x ?? ball.view.center.x, y: board.grid[ball.indexes]?.y ?? ball.view.center.y)
+            ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
             
             addTapGestureRecognizer(view: ball.view)
 
-            self.board.view.addSubview(ball.view)
+            self.model.board.view.addSubview(ball.view)
         }
         
         
@@ -385,7 +374,7 @@ extension ViewController: ModelDelegate {
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
         
-        for point in self.board.grid.values {
+        for point in self.model.board.grid.values {
                         
             if !xArray.contains(point.x) {
                 
@@ -401,9 +390,9 @@ extension ViewController: ModelDelegate {
         }
         
         let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray)
-        self.board.view = boardView
-        self.board.view.backgroundColor = .black
-        view.addSubview(self.board.view)
+        self.model.board.view = boardView
+        self.model.board.view.backgroundColor = .black
+        view.addSubview(self.model.board.view)
     }
     
     func setSizes() {
@@ -413,17 +402,13 @@ extension ViewController: ModelDelegate {
         //TODO: Pick up here and set the space width and height (in a new property in the Board) to be used for the setEntrance, setExits, setWalls... etc
         
         
-        spaceWidth = self.board.view.frame.width / 100 * 20
-        spaceHeight = self.board.view.frame.width / 100 * 20
+        spaceWidth = self.model.board.view.frame.width / 100 * 20
+        spaceHeight = self.model.board.view.frame.width / 100 * 20
         
     }
     
     func setUpGame(board: Board) {
                 
-        self.board = board
-        
-        
-        
         
         setupBoard()
 
@@ -449,14 +434,14 @@ extension ViewController: ModelDelegate {
                         
             print("headed up because y index is smaller")
 
-            for ball in board.balls {
+            for ball in model.board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
-                        self.board.view.bringSubviewToFront(ball.view)
-                        let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
+                        self.model.board.view.bringSubviewToFront(ball.view)
+                        let translationY = self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
                                                 
                     }) { (true) in
@@ -474,15 +459,15 @@ extension ViewController: ModelDelegate {
             
             print("headed down because y index is bigger")
 
-            for ball in board.balls {
+            for ball in model.board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
-                        self.board.view.bringSubviewToFront(ball.view)
+                        self.model.board.view.bringSubviewToFront(ball.view)
 
-                        let translationY = self.board.grid[endIndex]!.y - self.board.grid[startIndex]!.y
+                        let translationY = self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y
                         
                         ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
                         
@@ -501,15 +486,15 @@ extension ViewController: ModelDelegate {
             
             print("headed left because x index is smaller")
             
-            for ball in board.balls {
+            for ball in model.board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
-                        self.board.view.bringSubviewToFront(ball.view)
+                        self.model.board.view.bringSubviewToFront(ball.view)
 
-                        let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
+                        let translationX = self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x
                                                 
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
                         
@@ -529,15 +514,15 @@ extension ViewController: ModelDelegate {
             print("headed right because x index is bigger")
 
             
-            for ball in board.balls {
+            for ball in model.board.balls {
                 
                 if ball.indexes == startIndex {
                     
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
-                        self.board.view.bringSubviewToFront(ball.view)
+                        self.model.board.view.bringSubviewToFront(ball.view)
 
-                        let translationX = self.board.grid[endIndex]!.x - self.board.grid[startIndex]!.x
+                        let translationX = self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x
 
                         ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
                         

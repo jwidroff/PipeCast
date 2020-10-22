@@ -98,6 +98,8 @@ class Model {
     
     func setupGrid() {
         
+        print("View frame is \(view.frame)")
+        
         let frameWidth = view.frame.width / 10 * 9
         let frameHeight = view.frame.height / 10 * 9
         let frameX = (view.frame.width - frameWidth) / 2
