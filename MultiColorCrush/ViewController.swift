@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var spaceViews = [UIView]()
     var pieceWidth = CGFloat()
     var pieceHeight = CGFloat()
+    var boardWidth = CGFloat()
+    var boardHeight = CGFloat()
     var degrees = 90.0
 
     override func viewDidLoad() {
@@ -363,19 +365,10 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
-        //FIX THIS. ITS USING THE WRONG VIEW... IT S/B USING THE BOARDS VIEW
-        
-        
-        
-        
-        
-        print("!!!!! \(model.board.view.frame)")
-        
-        
-        let frameWidth = view.frame.width / 10 * 9
-        let frameHeight = view.frame.height / 10 * 9
-        let frameX = (view.frame.width - frameWidth) / 2
-        let frameY = (view.frame.height - frameHeight) / 2
+        let frameWidth = boardWidth / 10 * 9
+        let frameHeight = boardHeight / 10 * 9
+        let frameX = (boardWidth - frameWidth) / 2
+        let frameY = (boardHeight - frameHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
@@ -412,19 +405,20 @@ extension ViewController: ModelDelegate {
 //        if self.model.board.view.frame.width >
         
         
+        boardWidth = model.board.view.frame.width
+        boardHeight = model.board.view.frame.height
         
-        
-        pieceWidth = self.model.board.view.frame.width / CGFloat(model.board.widthSpaces)
-        pieceHeight = self.model.board.view.frame.height / CGFloat(model.board.heightSpaces)
+        pieceWidth = (self.model.board.view.frame.width / CGFloat(model.board.widthSpaces)) / 10 * 9
+        pieceHeight = (self.model.board.view.frame.height / CGFloat(model.board.heightSpaces)) / 10 * 9
         
     }
     
     func setUpGame(board: Board) {
                 
-        
+        setSizes()
+
         setupBoard()
 
-        setSizes()
         
 //        setupSpaces()
         
