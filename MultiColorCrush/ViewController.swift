@@ -365,10 +365,10 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
-        let frameWidth = boardWidth / 10 * 9
-        let frameHeight = boardHeight / 10 * 9
-        let frameX = (boardWidth - frameWidth) / 2
-        let frameY = (boardHeight - frameHeight) / 2
+        let frameWidth = boardWidth// / 10 * 9
+        let frameHeight = boardHeight// / 10 * 9
+        let frameX = self.view.frame.midX - (frameWidth / 2)
+        let frameY = self.view.frame.midY - (frameHeight / 2)
         let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
@@ -402,14 +402,20 @@ extension ViewController: ModelDelegate {
         
 //        let heightAndWidth:CGFloat = Int()
 //
-//        if self.model.board.view.frame.width >
+        if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
+            
+            boardHeight = self.model.board.view.frame.width * 2
+            boardWidth = model.board.view.frame.width
+
+        } else if self.model.board.view.frame.width > (self.model.board.view.frame.height / 2) {
         
+            boardWidth = self.model.board.view.frame.height / 2
+            boardHeight = model.board.view.frame.height
+
+        }
         
-        boardWidth = model.board.view.frame.width
-        boardHeight = model.board.view.frame.height
-        
-        pieceWidth = (self.model.board.view.frame.width / CGFloat(model.board.widthSpaces)) / 10 * 9
-        pieceHeight = (self.model.board.view.frame.height / CGFloat(model.board.heightSpaces)) / 10 * 9
+        pieceWidth = boardWidth / CGFloat(model.level.boardWidth)
+        pieceHeight = boardHeight / CGFloat(model.level.boardHeight)
         
     }
     

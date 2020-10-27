@@ -973,21 +973,11 @@ class ShapeView : UIView {
             
         case .cross:
             
-            
-            print("currentSwitch \(currentSwitch)")
-            print("current version \(version)")
-//            print("currentSwitch \(currentSwitch)")
-
                 switch currentSwitch {
-                
-                
                 
                 case 1:
                     
-                    
                     guard let context = UIGraphicsGetCurrentContext() else { return }
-                    
-                    
                     
                     let width = frame.width
                     let height = frame.height / 5
