@@ -74,65 +74,18 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         level.number = 1
-        level.boardHeight = 9
-        level.boardWidth = 4
+        level.boardHeight = 10
+        level.boardWidth = 5
         level.numberOfPieces = 20
     }
     
     func setBoard() {
         
-        setupGrid()
         setupEntrances()
         setupExits()
         setupWalls()
         setupBalls()
         delegate?.setUpGame(board: board)
-    }
-    
-    
-    func setupGrid() {
-        
-        //FIGURE OUT WHY THE WRONG GRID LINES ARE BEING MADE
-        
-        
-        
-        
-        print("View frame is \(board.view.frame)")
-        
-        //IPAD = 1024.0, 1366.0
-        //IPHONE 11 = 414, 896
-        
-        //Ratio s/b 2 to one
-        var frameWidth:CGFloat = 0
-        var frameHeight:CGFloat = 0
-//        var frameX:CGFloat = 0
-//        var frameY:CGFloat = 0
-        
-        if self.board.view.frame.width < (self.board.view.frame.height / 2) {
-            
-            frameHeight = self.board.view.frame.width * 2
-            frameWidth = board.view.frame.width
-            
-
-        } else if self.board.view.frame.width > (self.board.view.frame.height / 2) {
-        
-            frameWidth = self.board.view.frame.height / 2
-            frameHeight = board.view.frame.height
-
-        }
-
-        
-        
-//        let frameWidth = board.view.frame.width / 10 * 9
-//        let frameHeight = board.view.frame.height / 10 * 9
-        let frameX = (board.view.frame.width - frameWidth) / 2
-        let frameY = (board.view.frame.height - frameHeight) / 2
-        
-        let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
-       
-        board.widthSpaces = level.boardWidth
-        board.heightSpaces = level.boardHeight
-        board.grid = GridPoints(frame: frame, height: board.heightSpaces, width: board.widthSpaces).getGrid()
     }
     
     func setupEntrances() {

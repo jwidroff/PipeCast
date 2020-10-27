@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .black
         model = Model(view: self.view)
         model.delegate = self
         model.setUpGame()
@@ -289,28 +290,20 @@ extension ViewController: ModelDelegate {
             
             self.model.board.view.addSubview(exitView)
         }
-        
-        
-        
-        
-        
     }
     
     func setupWalls() {
         
         for wall in self.model.board.walls {
             
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth * 0.50, height: pieceHeight * 0.50)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth * 0.75, height: pieceHeight * 0.75)
             let wallView = UIView(frame: frame)
             wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
-
             wallView.backgroundColor = .red
-            
             wallView.layer.cornerRadius = wallView.frame.height / 2
-
             wallView.layer.shadowOpacity = 1
             wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
-            wallView.layer.shadowColor = UIColor.white.cgColor
+            wallView.layer.shadowColor = UIColor.red.cgColor
             wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
             wallView.layer.shadowRadius = 10
             
@@ -333,43 +326,17 @@ extension ViewController: ModelDelegate {
 
             self.model.board.view.addSubview(ball.view)
         }
-        
-        
-        
-        
     }
-    
-//    func setupSpaces() {
-//
-////        let spaceWidth = self.board.view.frame.width / 100 * 20
-////        let spaceHeight = self.board.view.frame.width / 100 * 20
-//        for point in self.board.grid {
-//
-//            let pointX = point.value.x
-//            let pointY = point.value.y
-//            let frame = CGRect(x: pointX, y: pointY, width: spaceWidth, height: spaceHeight)
-//            let spaceView = UIView(frame: frame)
-//            spaceView.frame = frame
-//            spaceView.center = point.value
-//            spaceView.backgroundColor = .black
-//            spaceView.layer.borderColor = UIColor.white.cgColor
-//            spaceView.layer.borderWidth = 2.0
-//            spaceView.layer.opacity = 0.5
-//            spaceViews.append(spaceView)
-//            self.board.view.addSubview(spaceView)
-//        }
-//
-//
-//
-//    }
     
     func setupBoard() {
         
-        let frameWidth = boardWidth// / 10 * 9
-        let frameHeight = boardHeight// / 10 * 9
-        let frameX = self.view.frame.midX - (frameWidth / 2)
-        let frameY = self.view.frame.midY - (frameHeight / 2)
-        let frame = CGRect(x: frameX, y: frameY, width: frameWidth, height: frameHeight)
+        
+        
+//        let frameWidth = boardWidth// / 10 * 9
+//        let frameHeight = boardHeight// / 10 * 9
+        let frameX = self.view.frame.midX - (boardWidth / 2)
+        let frameY = self.view.frame.midY - (boardHeight / 2)
+        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
         
@@ -397,32 +364,33 @@ extension ViewController: ModelDelegate {
     func setSizes() {
         
 
+        let widthCushion = (model.board.view.frame.width / 20)
+        let heightCushion = (model.board.view.frame.height / 20)
+        
         if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
             
-            boardHeight = self.model.board.view.frame.width * 2
-            boardWidth = model.board.view.frame.width
+            boardHeight = (model.board.view.frame.width - widthCushion) * 2
+            boardWidth = model.board.view.frame.width - widthCushion
 
         } else if self.model.board.view.frame.width > (self.model.board.view.frame.height / 2) {
         
-            boardWidth = self.model.board.view.frame.height / 2
-            boardHeight = model.board.view.frame.height
+            boardWidth = (model.board.view.frame.height - heightCushion) / 2
+            boardHeight = model.board.view.frame.height - heightCushion
 
         }
         
         pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
         pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
-        
     }
     
     func setUpGame(board: Board) {
                 
         setSizes()
 
+        setupGrid()
+        
         setupBoard()
 
-        
-//        setupSpaces()
-        
         setupEntrances()
         
         setupExits()
@@ -430,6 +398,16 @@ extension ViewController: ModelDelegate {
         setupWalls()
         
         setupBalls()
+    }
+    
+    func setupGrid() {
+
+        let frameX = (self.model.board.view.frame.width - boardWidth) / 2
+        let frameY = (self.model.board.view.frame.height - boardHeight) / 2
+        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
+        self.model.board.widthSpaces = self.model.level.boardWidth
+        self.model.board.heightSpaces = self.model.level.boardHeight
+        self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
     }
 
     
