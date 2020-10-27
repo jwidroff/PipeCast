@@ -978,6 +978,7 @@ class ShapeView : UIView {
                 case 1:
                     
                     guard let context = UIGraphicsGetCurrentContext() else { return }
+
                     
                     let width = frame.width
                     let height = frame.height / 5
@@ -989,22 +990,25 @@ class ShapeView : UIView {
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
 
-                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
-                    context.setFillColor(UIColor.blue.cgColor)
-                    context.addRects([rect1])
-                    context.fill(rect1)
+                   
                     
                     let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
-                    context.setFillColor(UIColor.green.cgColor)
+                    context.setFillColor(UIColor.blue.cgColor)
                     context.addRects([rect2])
                     context.fill(rect2)
+                    
+                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                    context.setFillColor(UIColor.green.cgColor)
+                    context.addRects([rect1])
+                    context.fill(rect1)
             
                     currentSwitch = 2
                     
                 case 2:
                     
+       
+                    
                     guard let context = UIGraphicsGetCurrentContext() else { return }
-
                     
                     let width = frame.width
                     let height = frame.height / 5
@@ -1015,7 +1019,7 @@ class ShapeView : UIView {
                     let height2 = frame.height
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
-
+                    
                     let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
                     context.setFillColor(UIColor.green.cgColor)
                     context.addRects([rect1])

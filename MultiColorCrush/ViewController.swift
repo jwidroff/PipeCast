@@ -396,12 +396,7 @@ extension ViewController: ModelDelegate {
     
     func setSizes() {
         
-        
-        
-        //TODO: Pick up here and set the space width and height (in a new property in the Board) to be used for the setEntrance, setExits, setWalls... etc
-        
-//        let heightAndWidth:CGFloat = Int()
-//
+
         if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
             
             boardHeight = self.model.board.view.frame.width * 2
@@ -414,8 +409,8 @@ extension ViewController: ModelDelegate {
 
         }
         
-        pieceWidth = boardWidth / CGFloat(model.level.boardWidth)
-        pieceHeight = boardHeight / CGFloat(model.level.boardHeight)
+        pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
+        pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
         
     }
     
