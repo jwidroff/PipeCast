@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var boardWidth = CGFloat()
     var boardHeight = CGFloat()
     var degrees = 90.0
+    var piecesWereEnlarged = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,58 @@ class ViewController: UIViewController {
         }
     }
     
-    var piecesWereEnlarged = false
+    func checkIfBallCanMove(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
+        
+        var bool = Bool()
+
+        switch direction {
+            
+        case .up:
+            
+            if model.board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
+            }) {
+                bool = true
+            } else {
+                bool = false
+            }
+            
+        case .down:
+            
+            
+            if model.board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
+            }) {
+                bool = true
+            } else {
+                bool = false
+            }
+            
+        case .left:
+            
+            if model.board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
+            }) {
+                bool = true
+            } else {
+                bool = false
+            }
+            
+        case .right:
+            
+            if model.board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
+            }) {
+                bool = true
+            } else {
+                bool = false
+            }
+
+        default:
+            break
+        }
+        return bool
+    }
     
     func enlargePieces() {
         
@@ -87,7 +139,7 @@ class ViewController: UIViewController {
         piecesWereEnlarged = true
         
         for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
-            piece1.center.y < piece2.center.y
+            piece1.view.center.y < piece2.view.center.y
         }) {
                         
             let height = (piece.view.frame.height / 9 * 10)
@@ -130,9 +182,11 @@ class ViewController: UIViewController {
 
 
 //FIX THE PIECES ARE CONNECTED ALREADY
+
 extension ViewController: ModelDelegate {
 
-
+    
+    
     func animatePiece(piece: Piece) {
         
         UIView.animate(withDuration: 1.0, animations: {
@@ -296,16 +350,16 @@ extension ViewController: ModelDelegate {
         
         for wall in self.model.board.walls {
             
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth * 0.75, height: pieceHeight * 0.75)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth / 9 * 10, height: pieceHeight / 9 * 10)
             let wallView = UIView(frame: frame)
             wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
-            wallView.backgroundColor = .red
-            wallView.layer.cornerRadius = wallView.frame.height / 2
-            wallView.layer.shadowOpacity = 1
-            wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
-            wallView.layer.shadowColor = UIColor.red.cgColor
-            wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
-            wallView.layer.shadowRadius = 10
+            wallView.backgroundColor = .lightGray
+//            wallView.layer.cornerRadius = wallView.frame.height / 2
+//            wallView.layer.shadowOpacity = 1
+//            wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
+//            wallView.layer.shadowColor = UIColor.white.cgColor
+//            wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            wallView.layer.shadowRadius = 10
             
             self.model.board.view.addSubview(wallView)
             
@@ -364,8 +418,8 @@ extension ViewController: ModelDelegate {
     func setSizes() {
         
 
-        let widthCushion = (model.board.view.frame.width / 20)
-        let heightCushion = (model.board.view.frame.height / 20)
+        let widthCushion = (model.board.view.frame.width / 10)
+        let heightCushion = (model.board.view.frame.height / 10)
         
         if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
             
@@ -411,9 +465,13 @@ extension ViewController: ModelDelegate {
     }
 
     
-    func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String) {
+    func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String, piece: Piece?) {
         
         enlargePieces()
+        
+        if let piece = piece {
+            print("Piece shape \(piece.shape) version \(piece.version) switch \(piece.currentSwitch)")
+        }
         
         if startIndex.y! > endIndex.y! {
                         
@@ -426,10 +484,20 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
                         self.model.board.view.bringSubviewToFront(ball.view)
-                        let translationY = self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y
-                        ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
-                                                
+                        
+                        let translationX = self.model.board.grid[startIndex]!.x - ball.view.center.x
+                        
+                        var translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y) / 2
+                        
+                        if piece?.shape == .cross {
+                            translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y)
+                        }
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
+                        
+                        
                     }) { (true) in
+                        
                         
                         print("we should be entering the bottom side of the new piece")
                         
@@ -451,10 +519,14 @@ extension ViewController: ModelDelegate {
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                         
                         self.model.board.view.bringSubviewToFront(ball.view)
-
-                        let translationY = self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y
+                        let translationX = self.model.board.grid[startIndex]!.x - ball.view.center.x
+                        var translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y) / 2
                         
-                        ball.view.center = CGPoint(x: ball.view.center.x, y: ball.view.center.y + translationY)
+                        if piece?.shape == .cross {
+                            translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y)
+                        }
+                        
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
                         
                     }) { (true) in
                         
@@ -479,9 +551,15 @@ extension ViewController: ModelDelegate {
                         
                         self.model.board.view.bringSubviewToFront(ball.view)
 
-                        let translationX = self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x
-                                                
-                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
+                        var translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x) / 2
+                        
+                        if piece?.shape == .cross {
+                            translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x)
+                        }
+                        
+                        let translationY = self.model.board.grid[startIndex]!.y - ball.view.center.y
+
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
                         
                     }) { (true) in
                         
@@ -507,9 +585,15 @@ extension ViewController: ModelDelegate {
                         
                         self.model.board.view.bringSubviewToFront(ball.view)
 
-                        let translationX = self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x
+                        var translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x) / 2
+                        
+                        if piece?.shape == .cross {
+                            translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x)
+                        }
+                        
+                        let translationY = self.model.board.grid[startIndex]!.y - ball.view.center.y
 
-                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y)
+                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
                         
                         
                     }) { (true) in

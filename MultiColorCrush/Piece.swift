@@ -15,7 +15,7 @@ class Piece {
     var indexes = Indexes()
     var shape: Shape = .regular
     var view = ShapeView()
-    var center = CGPoint()
+//    var center = CGPoint()
     var color = UIColor()
     var opacity = Int()
 //    var powers = [String]()
