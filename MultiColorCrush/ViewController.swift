@@ -225,6 +225,9 @@ extension ViewController: ModelDelegate {
             addTapGestureRecognizer(view: piece.view)
             self.piecesViews.append(piece)
             model.board.view.addSubview(piece.view)
+            
+            //MARK: Change the pieces to bubbles
+//            piece.view.layer.cornerRadius = piece.view.frame.height / 2
         }
     }
     
@@ -232,81 +235,23 @@ extension ViewController: ModelDelegate {
                 
         for entrance in self.model.board.entrances {
             
-            let widthAndHeight = pieceWidth / 10
-
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            let entranceView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
-            entranceView.center = CGPoint(x: model.board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: model.board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
-            entranceView.backgroundColor = .yellow
+            entrance.color = .black
+            entrance.opening = "left"
             
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+            entrance.view = ShapeView(frame: frame, color: entrance.color.cgColor, shape: entrance.shape, version: entrance.version)
+            entrance.view.center = CGPoint(x: model.board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: model.board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
+            entrance.view.backgroundColor = .blue
+            addTapGestureRecognizer(view: entrance.view)
+            self.piecesViews.append(entrance)
+            model.board.view.addSubview(entrance.view)
+            
+            let widthAndHeight = pieceWidth / 4.5
             var x = CGFloat()
             var y = CGFloat()
-
+            
             switch entrance.opening {
-
-            case "top":
-                
-                 x = frame.midX - (widthAndHeight / 2)
-                 y = 0
-                
-            case "bottom":
-                
-                x = frame.midX - (widthAndHeight / 2)
-                y = frame.maxY - widthAndHeight
-
-            case "left":
-                
-                x = 0
-                y = frame.midY - (widthAndHeight / 2)
-                
-            case "right":
-                
-               x = frame.maxX - widthAndHeight
-               y = frame.midY - (widthAndHeight / 2)
-
-            default:
-                break
-            }
             
-            let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
-            let openingView = UIView(frame: rect)
-            openingView.backgroundColor = .black
-            entranceView.addSubview(openingView)
-            
-            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
-            let textBox = UITextField(frame: halfFrame)
-            textBox.text = "Begin"
-            textBox.textColor = .white
-            textBox.textAlignment = .center
-            entranceView.addSubview(textBox)
-            
-            self.model.board.view.addSubview(entranceView)
-        }
-        
-        
-    }
-    
-    func setupExits() {
-        
-        for exit in self.model.board.exits {
-            
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-
-            let exitView = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .regular, version: nil)
-            
-            exitView.center = CGPoint(x: model.board.grid[exit.indexes]?.x ?? exit.view.center.x, y: model.board.grid[exit.indexes]?.y ?? exit.view.center.y)
-
-            exitView.backgroundColor = .green
-            //append walls
-            
-            
-            let widthAndHeight = pieceWidth / 10
-            var x = CGFloat()
-            var y = CGFloat()
-
-            
-            switch exit.opening {
-
             case "top":
                 
                 x = frame.midX - (widthAndHeight / 2)
@@ -316,7 +261,7 @@ extension ViewController: ModelDelegate {
                 
                 x = frame.midX - (widthAndHeight / 2)
                 y = frame.maxY - widthAndHeight
-
+                
             case "left":
                 
                 x = 0
@@ -324,9 +269,9 @@ extension ViewController: ModelDelegate {
                 
             case "right":
                 
-               x = frame.maxX - widthAndHeight
-               y = frame.midY - (widthAndHeight / 2)
-
+                x = frame.maxX - widthAndHeight
+                y = frame.midY - (widthAndHeight / 2)
+                
             default:
                 break
             }
@@ -334,15 +279,80 @@ extension ViewController: ModelDelegate {
             let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
             let openingView = UIView(frame: rect)
             openingView.backgroundColor = .black
-            exitView.addSubview(openingView)
-
-            let textBox = UITextField(frame: frame)
+            entrance.view.addSubview(openingView)
+            
+            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
+            let textBox = UITextField(frame: halfFrame)
+            textBox.text = "Begin"
+            textBox.textColor = .white
+            textBox.textAlignment = .center
+            entrance.view.addSubview(textBox)
+            
+            self.model.board.view.addSubview(entrance.view)
+        
+        }
+    }
+    
+    func setupExits() {
+        
+        
+        for exit in self.model.board.exits {
+            
+            exit.color = .black
+            exit.opening = "left"
+            
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+            exit.view = ShapeView(frame: frame, color: exit.color.cgColor, shape: exit.shape, version: exit.version)
+            exit.view.center = CGPoint(x: model.board.grid[exit.indexes]?.x ?? exit.view.center.x, y: model.board.grid[exit.indexes]?.y ?? exit.view.center.y)
+            exit.view.backgroundColor = .blue
+            addTapGestureRecognizer(view: exit.view)
+            self.piecesViews.append(exit)
+            model.board.view.addSubview(exit.view)
+            
+            let widthAndHeight = pieceWidth / 4.5
+            var x = CGFloat()
+            var y = CGFloat()
+            
+            switch exit.opening {
+            
+            case "top":
+                
+                x = frame.midX - (widthAndHeight / 2)
+                y = 0
+                
+            case "bottom":
+                
+                x = frame.midX - (widthAndHeight / 2)
+                y = frame.maxY - widthAndHeight
+                
+            case "left":
+                
+                x = 0
+                y = frame.midY - (widthAndHeight / 2)
+                
+            case "right":
+                
+                x = frame.maxX - widthAndHeight
+                y = frame.midY - (widthAndHeight / 2)
+                
+            default:
+                break
+            }
+            
+            let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
+            let openingView = UIView(frame: rect)
+            openingView.backgroundColor = .black
+            exit.view.addSubview(openingView)
+            
+            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
+            let textBox = UITextField(frame: halfFrame)
             textBox.text = "End"
             textBox.textColor = .white
             textBox.textAlignment = .center
-            exitView.addSubview(textBox)
+            exit.view.addSubview(textBox)
             
-            self.model.board.view.addSubview(exitView)
+            self.model.board.view.addSubview(exit.view)
+        
         }
     }
     
@@ -350,18 +360,51 @@ extension ViewController: ModelDelegate {
         
         for wall in self.model.board.walls {
             
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth / 9 * 10, height: pieceHeight / 9 * 10)
-            let wallView = UIView(frame: frame)
-            wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
-            wallView.backgroundColor = .lightGray
-//            wallView.layer.cornerRadius = wallView.frame.height / 2
-//            wallView.layer.shadowOpacity = 1
-//            wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
-//            wallView.layer.shadowColor = UIColor.white.cgColor
-//            wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
-//            wallView.layer.shadowRadius = 10
+            wall.color = .lightGray
+//            wall.opening = "left"
             
-            self.model.board.view.addSubview(wallView)
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+            wall.view = ShapeView(frame: frame, color: wall.color.cgColor, shape: wall.shape, version: wall.version)
+            wall.view.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
+            wall.view.backgroundColor = .lightGray
+            addTapGestureRecognizer(view: wall.view)
+            self.piecesViews.append(wall)
+            model.board.view.addSubview(wall.view)
+   
+            
+          
+            
+            self.model.board.view.addSubview(wall.view)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//            let frame = CGRect(x: 0, y: 0, width: pieceWidth / 9 * 10, height: pieceHeight / 9 * 10)
+//            let wallView = UIView(frame: frame)
+//            wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
+//            wallView.backgroundColor = .lightGray
+////            wallView.layer.cornerRadius = wallView.frame.height / 2
+////            wallView.layer.shadowOpacity = 1
+////            wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
+////            wallView.layer.shadowColor = UIColor.white.cgColor
+////            wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
+////            wallView.layer.shadowRadius = 10
+//
+//            self.model.board.view.addSubview(wallView)
             
         }
     }

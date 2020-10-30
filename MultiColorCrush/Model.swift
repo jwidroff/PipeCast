@@ -670,10 +670,10 @@ class Model {
             print("moving out of entrance")
 
             
-            switch entrance.opening {
                 
             
-            
+            switch entrance.opening {
+
             case "top":
                 
                 print("moving out of top of entrance")

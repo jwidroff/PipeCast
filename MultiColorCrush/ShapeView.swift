@@ -98,7 +98,7 @@ class ShapeView : UIView {
             let x = (frame.width - w) / 2
             let y = (frame.height - h) / 2
             let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(UIColor.black.cgColor)
+            context.setFillColor(self.color!)
             context.addRects([rect1])
             context.fill(rect1)
             
@@ -981,11 +981,11 @@ class ShapeView : UIView {
 
                     
                     let width = frame.width
-                    let height = frame.height / 5
+                    let height = frame.height / 4.5
                     let x1:CGFloat = 0.0
                     let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 5
+                    let width2 = frame.width / 4.5
                     let height2 = frame.height
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
@@ -1011,11 +1011,11 @@ class ShapeView : UIView {
                     guard let context = UIGraphicsGetCurrentContext() else { return }
                     
                     let width = frame.width
-                    let height = frame.height / 5
+                    let height = frame.height / 4.5
                     let x1:CGFloat = 0.0
                     let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 5
+                    let width2 = frame.width / 4.5
                     let height2 = frame.height
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)

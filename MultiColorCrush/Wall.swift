@@ -9,31 +9,28 @@
 import Foundation
 import UIKit
 
-class Wall {
+class Wall: Piece {
     
-    var indexes = Indexes()
+//    var indexes = Indexes()
 //    var shape = String()
-    var view = ShapeView()
-    var center = CGPoint()
+//    var view = ShapeView()
+//    var center = CGPoint()
 //    var color = UIColor()
-    var opacity = Int()
+//    var opacity = Int()
     
-    init(){
-        
-    }
 }
 
-class Entrance {
+class Entrance: Piece {
     
-    var indexes = Indexes()
-    var view = ShapeView()
+//    var indexes = Indexes()
+//    var view = ShapeView()
     var opening = String()
 }
 
-class Exit {
+class Exit: Piece {
     
-    var indexes = Indexes()
-    var view = ShapeView()
+//    var indexes = Indexes()
+//    var view = ShapeView()
     var opening = String()
 
 }
