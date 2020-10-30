@@ -247,8 +247,6 @@ extension ViewController: ModelDelegate {
             if piece is Entrance {
                 
                 piece.color = .black
-    //            piece.opening = "left"
-//                piece.side.left.opening.isOpen = true
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 
@@ -386,42 +384,31 @@ extension ViewController: ModelDelegate {
                     
                     self.model.board.view.addSubview(piece.view)
                 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 }
-                
-                
             }
         }
     }
     
     func setupWalls() {
         
-        for wall in self.model.board.walls {
+        for piece in self.model.board.pieces {
             
-            wall.color = .lightGray
-//            wall.opening = "left"
+            if piece is Wall {
+                
+                piece.color = .lightGray
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+                piece.view.backgroundColor = .lightGray
+                addTapGestureRecognizer(view: piece.view)
+                self.piecesViews.append(piece)
+                model.board.view.addSubview(piece.view)
+                self.model.board.view.addSubview(piece.view)
+                
+                
+            }
             
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            wall.view = ShapeView(frame: frame, color: wall.color.cgColor, shape: wall.shape, version: wall.version)
-            wall.view.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
-            wall.view.backgroundColor = .lightGray
-            addTapGestureRecognizer(view: wall.view)
-            self.piecesViews.append(wall)
-            model.board.view.addSubview(wall.view)
-   
             
-          
-            
-            self.model.board.view.addSubview(wall.view)
             
             
             

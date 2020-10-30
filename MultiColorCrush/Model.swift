@@ -95,7 +95,8 @@ class Model {
         for _ in 1...1 {
             
             let entrance = Entrance()
-            setEntranceIndex(entrance: entrance)
+//            setEntranceIndex(entrance: entrance)
+            setPieceIndex(piece: entrance)
             entrance.opening = "left"
             
             //MARK: THIS WAS FOR THE ENTRANCE
@@ -109,7 +110,9 @@ class Model {
         for _ in 1...1 {
             
             let exit = Exit()
-            setExitIndex(exit: exit)
+//            setExitIndex(exit: exit)
+            
+            setPieceIndex(piece: exit)
             exit.opening = "bottom"
             board.pieces.append(exit)
 
@@ -120,7 +123,14 @@ class Model {
     
     func setupWalls() {
         
-        board.walls = getWalls()
+        for _ in 0...2 {
+
+            let wall = Wall()
+//            setWallIndex(wall: wall)
+            
+            setPieceIndex(piece: wall)
+            board.pieces.append(wall)
+        }
     }
     
     func setupBalls() {
@@ -138,17 +148,7 @@ class Model {
         board.balls = board.balls
     }
     
-    func getWalls() -> [Wall] {
-        
-        
-        for _ in 0...2 {
 
-            let wall = Wall()
-            setWallIndex(wall: wall)
-            board.walls.append(wall)
-        }
-        return board.walls
-    }
     
     func setPieces() {
         
@@ -414,8 +414,6 @@ class Model {
         // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
         if board.pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == index
-        }) || board.walls.contains(where: { (wall) -> Bool in
-            wall.indexes == index
         }){
             setPieceIndex(piece: piece)
         } else {
@@ -423,51 +421,51 @@ class Model {
         }
     }
     
-    func setWallIndex(wall: Wall) {
-        
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        
-        if board.walls.contains(where: { (wallX) -> Bool in
-            wallX.indexes == index
-        }) || board.pieces.contains(where: { (piece) -> Bool in
-            piece.indexes == index
-        }){
-            setWallIndex(wall: wall)
-        } else {
-            wall.indexes = index
-        }
-    }
+//    func setWallIndex(wall: Wall) {
+//
+//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+//
+//        if board.walls.contains(where: { (wallX) -> Bool in
+//            wallX.indexes == index
+//        }) || board.pieces.contains(where: { (piece) -> Bool in
+//            piece.indexes == index
+//        }){
+//            setWallIndex(wall: wall)
+//        } else {
+//            wall.indexes = index
+//        }
+//    }
     
-    func setExitIndex(exit: Exit) {
-        
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        
-        if board.pieces.contains(where: { (piece) -> Bool in
-            piece.indexes == index
-        }){
-            setExitIndex(exit: exit)
-        } else {
-            exit.indexes = index
-        }
-    }
-    
+//    func setExitIndex(exit: Exit) {
+//
+//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+//
+//        if board.pieces.contains(where: { (piece) -> Bool in
+//            piece.indexes == index
+//        }){
+//            setExitIndex(exit: exit)
+//        } else {
+//            exit.indexes = index
+//        }
+//    }
+//
     
     //MARK: THIS WAS FOR THE ENTRANCE
-    func setEntranceIndex(entrance: Entrance) {
-        
-
-        
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        
-        
-        if board.pieces.contains(where: { (piece) -> Bool in
-            piece.indexes == index
-        }) {
-            setEntranceIndex(entrance: entrance)
-        } else {
-            entrance.indexes = index
-        }
-    }
+//    func setEntranceIndex(entrance: Entrance) {
+//
+//
+//
+//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+//
+//
+//        if board.pieces.contains(where: { (piece) -> Bool in
+//            piece.indexes == index
+//        }) {
+//            setEntranceIndex(entrance: entrance)
+//        } else {
+//            entrance.indexes = index
+//        }
+//    }
     
     
     
@@ -495,8 +493,6 @@ class Model {
         case .up:
             if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) || board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }){
                 bool = false
             }
@@ -505,8 +501,6 @@ class Model {
         case .down:
             if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) || board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }){
                 bool = false
             }
@@ -514,8 +508,6 @@ class Model {
         case .left:
             if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) || board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }){
                 bool = false
             }
@@ -523,8 +515,6 @@ class Model {
         case .right:
             if board.pieces.contains(where: { (piece) -> Bool in
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) || board.walls.contains(where: { (wall) -> Bool in
-                wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }){
                 bool = false
             }
