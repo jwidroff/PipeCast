@@ -92,12 +92,30 @@ class Model {
     
     func setupEntrances() {
         
-        board.entrances = getEntrances()
+        for _ in 1...1 {
+            
+            let entrance = Entrance()
+            setEntranceIndex(entrance: entrance)
+            entrance.opening = "left"
+            
+            //MARK: THIS WAS FOR THE ENTRANCE
+//            board.entrances.append(entrance)
+            board.pieces.append(entrance)
+        }
     }
 
     func setupExits() {
         
-        board.exits = getExits()
+        for _ in 1...1 {
+            
+            let exit = Exit()
+            setExitIndex(exit: exit)
+            exit.opening = "bottom"
+            board.pieces.append(exit)
+
+//            board.exits.append(exit)
+            
+        }
     }
     
     func setupWalls() {
@@ -118,52 +136,6 @@ class Model {
             
         }
         board.balls = board.balls
-    }
-    
-    func getEntrances() -> [Entrance] {
-                
-        
-        //MARK: This needs to be set with the levelModel
-        
-        for _ in 1...1 {
-            
-            let entrance = Entrance()
-            setEntranceIndex(entrance: entrance)
-            entrance.opening = "left"
-            
-            //MARK: THIS WAS FOR THE ENTRANCE
-//            board.entrances.append(entrance)
-            board.pieces.append(entrance)
-        }
-        return board.entrances
-    }
-    
-    func getExits() -> [Exit] {
-        
-        //MARK: This needs to be set with the levelModel
-
-        for _ in 1...1 {
-            
-            let exit = Exit()
-            setExitIndex(exit: exit)
-            exit.opening = "bottom"
-            board.pieces.append(exit)
-
-//            board.exits.append(exit)
-            
-        }
-        
-        
-        
-        
-        //MARK: What is this doing?
-        return board.exits
-
-        
-        
-        
-        
-        
     }
     
     func getWalls() -> [Wall] {
