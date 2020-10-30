@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+
+//TODO: MAKE ENTRANCES AND EXITS MOVEABLE AND NON MOVEABLE
 //TODO: Make the possibility for more balls
 //TODO: Make the possibility for ball color-changing pieces
 //TODO: change the control of the color of the pieces, entrances, exits, walls... etc to the Model
@@ -105,11 +107,15 @@ class Model {
     
     func setupBalls() {
         
-        for entrance in board.entrances {
+        for piece in board.pieces {
             
-            let ball = Ball()
-            ball.indexes = entrance.indexes
-            board.balls.append(ball)
+            if piece is Entrance {
+                
+                let ball = Ball()
+                ball.indexes = piece.indexes
+                board.balls.append(ball)
+            }
+            
         }
         board.balls = board.balls
     }
@@ -124,7 +130,10 @@ class Model {
             let entrance = Entrance()
             setEntranceIndex(entrance: entrance)
             entrance.opening = "left"
-            board.entrances.append(entrance)
+            
+            //MARK: THIS WAS FOR THE ENTRANCE
+//            board.entrances.append(entrance)
+            board.pieces.append(entrance)
         }
         return board.entrances
     }
@@ -424,8 +433,6 @@ class Model {
             pieceX.indexes == index
         }) || board.walls.contains(where: { (wall) -> Bool in
             wall.indexes == index
-        }) || board.entrances.contains(where: { (entrance) -> Bool in
-            entrance.indexes == index
         }) || board.exits.contains(where: { (exit) -> Bool in
             exit.indexes == index
         }){
@@ -441,8 +448,8 @@ class Model {
         
         if board.walls.contains(where: { (wallX) -> Bool in
             wallX.indexes == index
-        }) || board.entrances.contains(where: { (entrance) -> Bool in
-            entrance.indexes == index
+        }) || board.pieces.contains(where: { (piece) -> Bool in
+            piece.indexes == index
         }) || board.exits.contains(where: { (exit) -> Bool in
             exit.indexes == index
         }){
@@ -458,8 +465,8 @@ class Model {
         
         if board.exits.contains(where: { (exit) -> Bool in
             exit.indexes == index
-        }) || board.entrances.contains(where: { (entrance) -> Bool in
-            entrance.indexes == index
+        }) || board.pieces.contains(where: { (piece) -> Bool in
+            piece.indexes == index
         }){
             setExitIndex(exit: exit)
         } else {
@@ -467,15 +474,17 @@ class Model {
         }
     }
     
+    
+    //MARK: THIS WAS FOR THE ENTRANCE
     func setEntranceIndex(entrance: Entrance) {
         
-//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+
         
         let index = Indexes(x: level.boardWidth - 1, y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
         
-        if board.entrances.contains(where: { (entrance) -> Bool in
-            entrance.indexes == index
+        if board.pieces.contains(where: { (piece) -> Bool in
+            piece.indexes == index
         }) {
             setEntranceIndex(entrance: entrance)
         } else {
@@ -511,8 +520,6 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) || board.exits.contains(where: { (exit) -> Bool in
                 exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) {
@@ -525,8 +532,6 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) || board.exits.contains(where: { (exit) -> Bool in
                 exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) {
@@ -538,8 +543,6 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) || board.exits.contains(where: { (exit) -> Bool in
                 exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) {
@@ -551,8 +554,6 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) || board.entrances.contains(where: { (entrance) -> Bool in
-                entrance.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) || board.exits.contains(where: { (exit) -> Bool in
                 exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) {
@@ -586,6 +587,8 @@ class Model {
                         
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! < piece2.indexes.y!
+            }).filter({ (piece) -> Bool in
+                piece is Entrance == false && piece is Exit == false && piece is Wall == false
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
                 let notAtWall = piece.indexes.y != 0
@@ -601,7 +604,9 @@ class Model {
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! > piece2.indexes.y!
                 
-            }) {
+            }).filter({ (piece) -> Bool in
+                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+            })  {
                 
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
                 
@@ -619,7 +624,9 @@ class Model {
         case .left:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! < piece2.indexes.x!
-            }) {
+            }).filter({ (piece) -> Bool in
+                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+            })  {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != 0
                 if notAtWall {
@@ -633,7 +640,9 @@ class Model {
         case .right:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! > piece2.indexes.x!
-            }) {
+            }).filter({ (piece) -> Bool in
+                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+            })  {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
                     return int1 < int2

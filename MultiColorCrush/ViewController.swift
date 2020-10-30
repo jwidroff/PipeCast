@@ -140,6 +140,8 @@ class ViewController: UIViewController {
         
         for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
             piece1.view.center.y < piece2.view.center.y
+        }).filter({ (piece) -> Bool in
+            piece is Entrance == false
         }) {
                         
             let height = (piece.view.frame.height / 9 * 10)
@@ -215,7 +217,11 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView() {
                 
-        for piece in model.board.pieces {
+        for piece in model.board.pieces.filter({ (piece) -> Bool in
+            piece is Entrance == false && piece is Exit == false && piece is Wall == false
+        }) {
+            
+            if piece is Entrance { print("this somehow got away") }
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
@@ -231,65 +237,87 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    
+    //MARK: THIS WAS FOR THE ENTRANCE
     func setupEntrances() {
                 
-        for entrance in self.model.board.entrances {
+        for piece in self.model.board.pieces {
             
-            entrance.color = .black
-            entrance.opening = "left"
             
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            entrance.view = ShapeView(frame: frame, color: entrance.color.cgColor, shape: entrance.shape, version: entrance.version)
-            entrance.view.center = CGPoint(x: model.board.grid[entrance.indexes]?.x ?? entrance.view.center.x, y: model.board.grid[entrance.indexes]?.y ?? entrance.view.center.y)
-            entrance.view.backgroundColor = .blue
-            addTapGestureRecognizer(view: entrance.view)
-            self.piecesViews.append(entrance)
-            model.board.view.addSubview(entrance.view)
-            
-            let widthAndHeight = pieceWidth / 4.5
-            var x = CGFloat()
-            var y = CGFloat()
-            
-            switch entrance.opening {
-            
-            case "top":
+            if piece is Entrance {
                 
-                x = frame.midX - (widthAndHeight / 2)
-                y = 0
+                piece.color = .black
+    //            piece.opening = "left"
+//                piece.side.left.opening.isOpen = true
                 
-            case "bottom":
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 
-                x = frame.midX - (widthAndHeight / 2)
-                y = frame.maxY - widthAndHeight
                 
-            case "left":
                 
-                x = 0
-                y = frame.midY - (widthAndHeight / 2)
+                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+                piece.view.backgroundColor = .blue
+                addTapGestureRecognizer(view: piece.view)
+                self.piecesViews.append(piece)
+                model.board.view.addSubview(piece.view)
                 
-            case "right":
                 
-                x = frame.maxX - widthAndHeight
-                y = frame.midY - (widthAndHeight / 2)
+                let widthAndHeight = pieceWidth / 4.5
+                var x = CGFloat()
+                var y = CGFloat()
                 
-            default:
-                break
+                
+                if let piece = piece as? Entrance {
+                    
+                    
+                    switch piece.opening {
+                    
+                    case "top":
+                        
+                        x = frame.midX - (widthAndHeight / 2)
+                        y = 0
+                        
+                    case "bottom":
+                        
+                        x = frame.midX - (widthAndHeight / 2)
+                        y = frame.maxY - widthAndHeight
+                        
+                    case "left":
+                        
+                        x = 0
+                        y = frame.midY - (widthAndHeight / 2)
+                        
+                    case "right":
+                        
+                        x = frame.maxX - widthAndHeight
+                        y = frame.midY - (widthAndHeight / 2)
+                        
+                    default:
+                        break
+                    }
+                    
+                    let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
+                    let openingView = UIView(frame: rect)
+                    openingView.backgroundColor = .black
+                    piece.view.addSubview(openingView)
+                    
+                    let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
+                    let textBox = UITextField(frame: halfFrame)
+                    textBox.text = "Begin"
+                    textBox.textColor = .white
+                    textBox.textAlignment = .center
+                    piece.view.addSubview(textBox)
+                    
+                    self.model.board.view.addSubview(piece.view)
+                
+                    
+                    
+                }
+                
             }
             
-            let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
-            let openingView = UIView(frame: rect)
-            openingView.backgroundColor = .black
-            entrance.view.addSubview(openingView)
             
-            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
-            let textBox = UITextField(frame: halfFrame)
-            textBox.text = "Begin"
-            textBox.textColor = .white
-            textBox.textAlignment = .center
-            entrance.view.addSubview(textBox)
-            
-            self.model.board.view.addSubview(entrance.view)
-        
+
         }
     }
     
