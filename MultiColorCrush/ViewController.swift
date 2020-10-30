@@ -324,63 +324,82 @@ extension ViewController: ModelDelegate {
     func setupExits() {
         
         
-        for exit in self.model.board.exits {
+        for piece in self.model.board.pieces {
             
-            exit.color = .black
-            exit.opening = "left"
-            
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            exit.view = ShapeView(frame: frame, color: exit.color.cgColor, shape: exit.shape, version: exit.version)
-            exit.view.center = CGPoint(x: model.board.grid[exit.indexes]?.x ?? exit.view.center.x, y: model.board.grid[exit.indexes]?.y ?? exit.view.center.y)
-            exit.view.backgroundColor = .blue
-            addTapGestureRecognizer(view: exit.view)
-            self.piecesViews.append(exit)
-            model.board.view.addSubview(exit.view)
-            
-            let widthAndHeight = pieceWidth / 4.5
-            var x = CGFloat()
-            var y = CGFloat()
-            
-            switch exit.opening {
-            
-            case "top":
+            if piece is Exit {
                 
-                x = frame.midX - (widthAndHeight / 2)
-                y = 0
+                piece.color = .black
                 
-            case "bottom":
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+                piece.view.backgroundColor = .blue
+                addTapGestureRecognizer(view: piece.view)
+                self.piecesViews.append(piece)
+                model.board.view.addSubview(piece.view)
                 
-                x = frame.midX - (widthAndHeight / 2)
-                y = frame.maxY - widthAndHeight
+                let widthAndHeight = pieceWidth / 4.5
+                var x = CGFloat()
+                var y = CGFloat()
                 
-            case "left":
                 
-                x = 0
-                y = frame.midY - (widthAndHeight / 2)
+                if let piece = piece as? Exit {
+
+                    
+                    switch piece.opening {
+                    
+                    case "top":
+                        
+                        x = frame.midX - (widthAndHeight / 2)
+                        y = 0
+                        
+                    case "bottom":
+                        
+                        x = frame.midX - (widthAndHeight / 2)
+                        y = frame.maxY - widthAndHeight
+                        
+                    case "left":
+                        
+                        x = 0
+                        y = frame.midY - (widthAndHeight / 2)
+                        
+                    case "right":
+                        
+                        x = frame.maxX - widthAndHeight
+                        y = frame.midY - (widthAndHeight / 2)
+                        
+                    default:
+                        break
+                    }
+                    
+                    let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
+                    let openingView = UIView(frame: rect)
+                    openingView.backgroundColor = .black
+                    piece.view.addSubview(openingView)
+                    
+                    let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
+                    let textBox = UITextField(frame: halfFrame)
+                    textBox.text = "End"
+                    textBox.textColor = .white
+                    textBox.textAlignment = .center
+                    piece.view.addSubview(textBox)
+                    
+                    self.model.board.view.addSubview(piece.view)
                 
-            case "right":
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                }
                 
-                x = frame.maxX - widthAndHeight
-                y = frame.midY - (widthAndHeight / 2)
                 
-            default:
-                break
             }
-            
-            let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
-            let openingView = UIView(frame: rect)
-            openingView.backgroundColor = .black
-            exit.view.addSubview(openingView)
-            
-            let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
-            let textBox = UITextField(frame: halfFrame)
-            textBox.text = "End"
-            textBox.textColor = .white
-            textBox.textAlignment = .center
-            exit.view.addSubview(textBox)
-            
-            self.model.board.view.addSubview(exit.view)
-        
         }
     }
     

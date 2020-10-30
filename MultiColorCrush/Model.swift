@@ -147,11 +147,22 @@ class Model {
             let exit = Exit()
             setExitIndex(exit: exit)
             exit.opening = "bottom"
-            board.exits.append(exit)
+            board.pieces.append(exit)
+
+//            board.exits.append(exit)
             
         }
+        
+        
+        
+        
+        //MARK: What is this doing?
         return board.exits
 
+        
+        
+        
+        
         
     }
     
@@ -433,8 +444,6 @@ class Model {
             pieceX.indexes == index
         }) || board.walls.contains(where: { (wall) -> Bool in
             wall.indexes == index
-        }) || board.exits.contains(where: { (exit) -> Bool in
-            exit.indexes == index
         }){
             setPieceIndex(piece: piece)
         } else {
@@ -450,8 +459,6 @@ class Model {
             wallX.indexes == index
         }) || board.pieces.contains(where: { (piece) -> Bool in
             piece.indexes == index
-        }) || board.exits.contains(where: { (exit) -> Bool in
-            exit.indexes == index
         }){
             setWallIndex(wall: wall)
         } else {
@@ -463,9 +470,7 @@ class Model {
         
         let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
-        if board.exits.contains(where: { (exit) -> Bool in
-            exit.indexes == index
-        }) || board.pieces.contains(where: { (piece) -> Bool in
+        if board.pieces.contains(where: { (piece) -> Bool in
             piece.indexes == index
         }){
             setExitIndex(exit: exit)
@@ -480,7 +485,7 @@ class Model {
         
 
         
-        let index = Indexes(x: level.boardWidth - 1, y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
         
         
         if board.pieces.contains(where: { (piece) -> Bool in
@@ -520,9 +525,7 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x, y: indexes.y! - 1)
-            }) {
+            }){
                 bool = false
             }
             
@@ -532,9 +535,7 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x, y: indexes.y! + 1)
-            }) {
+            }){
                 bool = false
             }
             
@@ -543,9 +544,7 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x! - 1, y: indexes.y)
-            }) {
+            }){
                 bool = false
             }
             
@@ -554,9 +553,7 @@ class Model {
                 piece.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
             }) || board.walls.contains(where: { (wall) -> Bool in
                 wall.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) || board.exits.contains(where: { (exit) -> Bool in
-                exit.indexes == Indexes(x: indexes.x! + 1, y: indexes.y)
-            }) {
+            }){
                 bool = false
             }
         default:
