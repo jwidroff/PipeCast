@@ -72,6 +72,8 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    
+    
     @objc func handleTap(sender:UITapGestureRecognizer) {
         
         
@@ -984,8 +986,13 @@ extension ViewController: ModelDelegate {
     func pieceWasTapped(piece: Piece) {
 
 
-        
-        
+//        for piece in model.board.pieces {
+//            
+//            piece.view.isUserInteractionEnabled = false
+//        }
+//        
+//        model.board.view.isUserInteractionEnabled = false
+//        
         
         piece.view.setNeedsDisplay()
     }

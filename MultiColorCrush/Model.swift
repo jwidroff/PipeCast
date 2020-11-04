@@ -1185,6 +1185,15 @@ class Model {
                 
 //                moveBall(ball: ball)
                 
+                for piece in board.pieces {
+                    
+                    piece.view.isUserInteractionEnabled = false
+                }
+                
+                board.view.isUserInteractionEnabled = false
+                
+                
+                
                 
                 moveBallXX(ball: ball, startSide: "unmoved")
 
