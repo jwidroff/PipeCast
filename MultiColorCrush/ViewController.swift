@@ -20,7 +20,18 @@ class ViewController: UIViewController {
     var boardHeight = CGFloat()
     var degrees = 90.0
     var piecesWereEnlarged = false
+    var distanceFromPieceCenter = CGFloat()
 
+    
+    
+    //TODO: Make a grid like dictionary for moving the ball depending on the piece and where its starting from. Also need to copy code for the opening being just on the left and need to fix for the back and forth as well as non entrances
+    
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -186,6 +197,291 @@ class ViewController: UIViewController {
 //FIX THE PIECES ARE CONNECTED ALREADY
 
 extension ViewController: ModelDelegate {
+    
+    
+    
+    
+    func moveBallX(ball: Ball, piece: Piece, startSide: String, endSide: String) {
+        
+//        var beginPoint = CGPoint()
+        var endPoint = CGPoint()
+//        var pivotPoint = CGPoint()
+        
+                
+                switch startSide {
+                
+                case "center":
+                    
+                    UIView.animate(withDuration: 0.25) {
+                        
+                        if endSide == "left" {
+                            endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
+                        } else if endSide == "right" {
+                            endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
+                        } else if endSide == "top"{
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
+                        } else if endSide == "bottom" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
+                        }
+                        ball.view.center = endPoint
+
+                    } completion: { (true) in
+
+                        switch endSide {
+                        
+                        case "top":
+                            self.model.moveBallXX(ball: ball, startSide: "bottom")
+                            return
+                            
+                        case "bottom":
+                            self.model.moveBallXX(ball: ball, startSide: "top")
+                            return
+
+                        case "left":
+                            self.model.moveBallXX(ball: ball, startSide: "right")
+                            return
+                            
+                        case "right":
+                            self.model.moveBallXX(ball: ball, startSide: "left")
+                            return
+
+                        default:
+                            
+                            break
+                        
+                        }
+                        return
+                
+                    }
+                    
+                    
+                
+                case "top":
+                    UIView.animate(withDuration: 0.25) {
+                        
+                        if endSide == "left" {
+                            endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
+                        } else if endSide == "right" {
+                            endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
+                        } else if endSide == "bottom" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
+                        }
+                        ball.view.center = endPoint
+
+                    } completion: { (true) in
+
+                        switch endSide {
+                        
+                        
+                        case "top":
+                            self.model.moveBallXX(ball: ball, startSide: "bottom")
+                            return
+                            
+                        case "bottom":
+                            self.model.moveBallXX(ball: ball, startSide: "top")
+                            return
+
+                        case "left":
+                            self.model.moveBallXX(ball: ball, startSide: "right")
+                            return
+                            
+                        case "right":
+                            self.model.moveBallXX(ball: ball, startSide: "left")
+                            return
+
+                        default:
+                            
+                            break
+                        
+                        }
+                        return
+                
+                    }
+                    
+                case "bottom":
+                    
+                    UIView.animate(withDuration: 0.25) {
+                        
+                        if endSide == "left" {
+                            endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
+                        } else if endSide == "right" {
+                            endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
+                        } else if endSide == "top" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
+                        }
+                        ball.view.center = endPoint
+
+                    } completion: { (true) in
+
+                        switch endSide {
+                        
+                        
+                        case "top":
+                            self.model.moveBallXX(ball: ball, startSide: "bottom")
+                            return
+                            
+                        case "bottom":
+                            self.model.moveBallXX(ball: ball, startSide: "top")
+                            return
+
+                        case "left":
+                            self.model.moveBallXX(ball: ball, startSide: "right")
+                            return
+                            
+                        case "right":
+                            self.model.moveBallXX(ball: ball, startSide: "left")
+                            return
+
+                        default:
+                            
+                            break
+                        
+                        }
+                        return
+                
+                    }
+                    
+                case "left":
+                    UIView.animate(withDuration: 0.25) {
+                        
+                        if endSide == "bottom" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
+                        } else if endSide == "top" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
+                        } else if endSide == "right" {
+                            endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
+                        }
+                        ball.view.center = endPoint
+
+                    } completion: { (true) in
+
+                        switch endSide {
+                        
+                        
+                        case "top":
+                            self.model.moveBallXX(ball: ball, startSide: "bottom")
+                            return
+                            
+                        case "bottom":
+                            self.model.moveBallXX(ball: ball, startSide: "top")
+                            return
+
+                        case "left":
+                            self.model.moveBallXX(ball: ball, startSide: "right")
+                            return
+                            
+                        case "right":
+                            self.model.moveBallXX(ball: ball, startSide: "left")
+                            return
+
+                        default:
+                            
+                            break
+                        
+                        }
+                        return
+                
+                    }
+                    
+                case "right":
+                    
+                    UIView.animate(withDuration: 0.25) {
+                        
+                        if endSide == "bottom" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
+                        } else if endSide == "top" {
+                            endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
+                            ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
+                        } else if endSide == "left" {
+                            endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
+                            ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
+                        }
+                        ball.view.center = endPoint
+
+                    } completion: { (true) in
+
+                        switch endSide {
+                        
+                        
+                        case "top":
+                            self.model.moveBallXX(ball: ball, startSide: "bottom")
+                            return
+                            
+                        case "bottom":
+                            self.model.moveBallXX(ball: ball, startSide: "top")
+                            return
+
+                        case "left":
+                            self.model.moveBallXX(ball: ball, startSide: "right")
+                            return
+                            
+                        case "right":
+                            self.model.moveBallXX(ball: ball, startSide: "left")
+                            return
+
+                        default:
+                            
+                            break
+                        
+                        }
+                        return
+                
+                    }
+                    
+                    
+                    
+                    
+                default:
+                    
+                    break
+                    
+                
+                
+                
+                
+                
+                }
+                
+                
+                
+ 
+
+            
+            
+            
+            
+            
+            
+//        }
+        
+                
+                
+        //ADD A CURVED ANIMATION HERE USING THE 3 POINTS THAT CAN BE OBTAINED FOR THE VARIABLES ABOVE THAT ARE SET BY THE PARAMETERS. TO BE THROWN BACK AND FORTH BETWEEN THE VC AND THE MODEL
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
 
     
     
@@ -221,7 +517,6 @@ extension ViewController: ModelDelegate {
             piece is Entrance == false && piece is Exit == false && piece is Wall == false
         }) {
             
-            if piece is Entrance { print("this somehow got away") }
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
@@ -233,7 +528,7 @@ extension ViewController: ModelDelegate {
             model.board.view.addSubview(piece.view)
             
             //MARK: Change the pieces to bubbles
-//            piece.view.layer.cornerRadius = piece.view.frame.height / 2
+            piece.view.layer.cornerRadius = piece.view.frame.height / 2
         }
     }
     
@@ -461,8 +756,6 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
-        
-        
 //        let frameWidth = boardWidth// / 10 * 9
 //        let frameHeight = boardHeight// / 10 * 9
         let frameX = self.view.frame.midX - (boardWidth / 2)
@@ -512,6 +805,9 @@ extension ViewController: ModelDelegate {
         
         pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
         pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
+        
+        distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
+        
     }
     
     func setUpGame(board: Board) {
@@ -545,10 +841,6 @@ extension ViewController: ModelDelegate {
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String, piece: Piece?) {
         
         enlargePieces()
-        
-        if let piece = piece {
-            print("Piece shape \(piece.shape) version \(piece.version) switch \(piece.currentSwitch)")
-        }
         
         if startIndex.y! > endIndex.y! {
                         

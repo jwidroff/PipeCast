@@ -43,6 +43,8 @@ protocol ModelDelegate {
     func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
     func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String, piece: Piece?)
+    func moveBallX(ball: Ball, piece: Piece, startSide: String, endSide: String)
+    
 }
 
 class Model {
@@ -97,7 +99,7 @@ class Model {
             let entrance = Entrance()
 //            setEntranceIndex(entrance: entrance)
             setPieceIndex(piece: entrance)
-            entrance.opening = "left"
+            entrance.opening = "top"
             
             //MARK: THIS WAS FOR THE ENTRANCE
 //            board.entrances.append(entrance)
@@ -172,10 +174,11 @@ class Model {
     
     func setPieceSides(piece: Piece) {
         
+        //MARK: Perhaps this should include the entrances and exits.
+        
         switch piece.shape {
             
         case .elbow:
-            
             
             switch piece.version {
             
@@ -421,56 +424,8 @@ class Model {
         }
     }
     
-//    func setWallIndex(wall: Wall) {
-//
-//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-//
-//        if board.walls.contains(where: { (wallX) -> Bool in
-//            wallX.indexes == index
-//        }) || board.pieces.contains(where: { (piece) -> Bool in
-//            piece.indexes == index
-//        }){
-//            setWallIndex(wall: wall)
-//        } else {
-//            wall.indexes = index
-//        }
-//    }
-    
-//    func setExitIndex(exit: Exit) {
-//
-//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-//
-//        if board.pieces.contains(where: { (piece) -> Bool in
-//            piece.indexes == index
-//        }){
-//            setExitIndex(exit: exit)
-//        } else {
-//            exit.indexes = index
-//        }
-//    }
-//
-    
-    //MARK: THIS WAS FOR THE ENTRANCE
-//    func setEntranceIndex(entrance: Entrance) {
-//
-//
-//
-//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-//
-//
-//        if board.pieces.contains(where: { (piece) -> Bool in
-//            piece.indexes == index
-//        }) {
-//            setEntranceIndex(entrance: entrance)
-//        } else {
-//            entrance.indexes = index
-//        }
-//    }
-    
-    
-    
+
     func setPieceShape(piece: Piece) {
-        
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
@@ -533,6 +488,9 @@ class Model {
             if pieceX.indexes == index {
                 
                 piece = pieceX
+                
+                print("piece found index = \(piece.indexes)")
+                
             }
         }
         return piece
@@ -789,6 +747,177 @@ class Model {
 //        }
 //        return bool
 //    }
+    
+    func moveBallXX(ball: Ball, startSide: String) {
+        
+        
+        switch startSide {
+        
+        
+        
+        case "unmoved":
+            
+            
+            let piece = getPieceInfo(index: ball.indexes) as! Entrance
+            
+            print("piece.opening \(piece.opening)")
+            
+            let startSide = "center"
+            let endSide = piece.opening
+ 
+            delegate?.moveBallX(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+
+            
+            
+            
+            return
+        
+        case "top":
+            
+            
+            let piece = getPieceInfo(index: ball.indexes)
+            print(piece.view.center)
+
+            let startSide = "top"
+
+            let endSide = piece.side.top.exitSide
+            
+            print("endSide \(endSide)")
+            
+            
+            if board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == ball.indexes
+            }) {
+                if let endSide = endSide {
+                    delegate?.moveBallX(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                } else {
+                    print("piece ran off track")
+                }
+            }
+                        
+            
+            return
+            
+        case "bottom":
+            
+            let piece = getPieceInfo(index: ball.indexes)
+
+            let startSide = "bottom"
+
+            let endSide = piece.side.bottom.exitSide
+            
+            print("endSide \(endSide)")
+            
+            if board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == ball.indexes
+            }) {
+                if let endSide = endSide {
+                    delegate?.moveBallX(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                } else {
+                    print("piece ran off track")
+                }
+            }
+                        
+            
+            return
+
+            
+        case "left":
+            
+            let piece = getPieceInfo(index: ball.indexes)
+            print(piece.view.center)
+
+            let startSide = "left"
+
+            let endSide = piece.side.left.exitSide
+            
+            print("endSide \(endSide)")
+            
+            if board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == ball.indexes
+            }) {
+                
+                if let endSide = endSide {
+                    delegate?.moveBallX(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                } else {
+                    print("piece ran off track")
+                }
+            }
+                        
+            
+            return
+            
+        case "right":
+            
+            let piece = getPieceInfo(index: ball.indexes)
+
+            let startSide = "right"
+
+            let endSide = piece.side.right.exitSide
+            
+            print("endSide \(endSide)")
+            
+            
+            if board.pieces.contains(where: { (piece) -> Bool in
+                piece.indexes == ball.indexes
+            }) {
+//
+                if let endSide = endSide {
+                    delegate?.moveBallX(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                } else {
+                    print("piece ran off track")
+                }
+            }
+                        
+            
+            return
+
+                
+        
+            
+            
+        default:
+            break
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+   
+    func findStartSide(ball: Ball) -> String {
+        
+        var string = String()
+        
+        let piece = getPieceInfo(index: ball.indexes)
+        
+        if piece is Entrance {
+            
+            print(piece.view.center)
+            
+        }
+        
+        
+        
+        
+        
+        
+        return string
+        
+    }
+    
+    func findEndSide(ball: Ball) -> String {
+        
+        var string = String()
+        
+        
+        return string
+        
+    }
     
     
     func moveBallAgain(ball: Ball, enteringSide: String) {
@@ -1054,8 +1183,11 @@ class Model {
             if board.grid[ball.indexes] == center {
                 
                 
-                moveBall(ball: ball)
+//                moveBall(ball: ball)
                 
+                
+                moveBallXX(ball: ball, startSide: "unmoved")
+
             }
         }
     }

@@ -15,11 +15,8 @@ class Piece {
     var indexes = Indexes()
     var shape: Shape = .regular
     var view = ShapeView()
-//    var center = CGPoint()
     var color = UIColor()
     var opacity = Int()
-//    var powers = [String]()
-//    var power = String()
     var switches = Int()
     var currentSwitch = Int()
     var side = Side()
@@ -285,6 +282,7 @@ class Top {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
+    var center: CGPoint?
     
 }
 
@@ -293,6 +291,8 @@ class Bottom {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
+    var center: CGPoint?
+
 
 }
 
@@ -301,6 +301,8 @@ class Left {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
+    var center: CGPoint?
+
 
 }
 
@@ -309,6 +311,7 @@ class Right {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
+    var center: CGPoint?
 
 }
 
@@ -330,7 +333,9 @@ class Ball {
     
     var view = ShapeView()
     var indexes = Indexes()
-    var direction = Direction.none
+    var startSide = "unmoved"
+    
+//    var direction = Direction.none
 }
 
 enum Direction {
