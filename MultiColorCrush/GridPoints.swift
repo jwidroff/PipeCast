@@ -14,8 +14,6 @@ class GridPoints {
     var gameFrame = CGRect()
     var height = CGFloat()
     var width = CGFloat()
-//    var xIndex = Int()
-//    var yIndex = Int()
     var dictionary = [Indexes: CGPoint]()
     var heightPoints = [CGFloat]()
     var widthPoints = [CGFloat]()

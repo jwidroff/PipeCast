@@ -30,20 +30,18 @@ class Piece {
     func switch4Tap() {
         
         if currentSwitch != switches{
-            currentSwitch += 1
             
+            currentSwitch += 1
         } else {
+            
             currentSwitch = 1
-
         }
         
         switch shape {
             
         case .elbow:
             
-            
             switch version {
-            
             
             case 1:
                 
@@ -105,7 +103,6 @@ class Piece {
                 side.left.closing.isOpen = !side.left.closing.isOpen
                 side.right.closing.isOpen = !side.right.closing.isOpen
                 
-                
             case 4:
                 
                 if currentSwitch == 1 {
@@ -127,13 +124,8 @@ class Piece {
                 side.bottom.closing.isOpen = !side.bottom.closing.isOpen
                 
             default:
-                
                 break
-            
-            
             }
-            
-            
             
         case .doubleElbow:
             
@@ -148,19 +140,13 @@ class Piece {
                 side.top.exitSide = "left"
                 side.left.exitSide = "top"
                 side.right.exitSide = nil
-
             }
-            
             
             side.left.closing.isOpen = !side.left.closing.isOpen
             side.right.closing.isOpen = !side.right.closing.isOpen
             
-            
-            
-            
         case .quadBox: // Nothing to set as far as openings and closings
 
-            
             if currentSwitch == 1 {
                 
                 side.top.exitSide = "left"
@@ -176,8 +162,6 @@ class Piece {
                 side.left.exitSide = "bottom"
 
             }
-            
-            
             
         case .cross:
 
@@ -198,8 +182,6 @@ class Piece {
             side.top.closing.isOpen = !side.top.closing.isOpen
             side.bottom.closing.isOpen = !side.bottom.closing.isOpen
             
-            
-            
         case .sword:
             print("TODO - Set this")
 
@@ -207,7 +189,6 @@ class Piece {
         case .diagElbow: // Nothing to set as far as openings and closings
                     
             switch version {
-            
             
             case 1, 3:
                 
@@ -224,7 +205,6 @@ class Piece {
                     side.left.exitSide = "top"
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
-                    
                 }
                 
             case 2, 4:
@@ -246,25 +226,11 @@ class Piece {
                 }
             
             default:
-                
                 break
-            
-            
-            
             }
-            
-            
-            
-            
-            
         default:
             break
         }
-        
-        
-        
-        
-        
     }
 }
 
@@ -276,15 +242,12 @@ class Side {
     var right = Right()
 }
 
-
 class Top {
     
-   
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
     var center: CGPoint?
-    
 }
 
 class Bottom {
@@ -293,8 +256,6 @@ class Bottom {
     var closing  = Closing()
     var exitSide: String?
     var center: CGPoint?
-
-
 }
 
 class Left {
@@ -303,8 +264,6 @@ class Left {
     var closing  = Closing()
     var exitSide: String?
     var center: CGPoint?
-
-
 }
 
 class Right {
@@ -313,30 +272,23 @@ class Right {
     var closing  = Closing()
     var exitSide: String?
     var center: CGPoint?
-
 }
 
 class Opening {
     
     var isOpen = false
-
 }
 
 class Closing {
     
     var isOpen = false
-    
 }
-
-
 
 class Ball {
     
     var view = ShapeView()
     var indexes = Indexes()
     var startSide = "unmoved"
-    
-//    var direction = Direction.none
 }
 
 enum Direction {
@@ -347,11 +299,6 @@ enum Direction {
     case right
     case none
 }
-
-
-
-
-
 
 enum PieceShape: String {
     
