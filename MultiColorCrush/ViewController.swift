@@ -788,8 +788,8 @@ extension ViewController: ModelDelegate {
     func setSizes() {
         
 
-        let widthCushion = (model.board.view.frame.width / 10)
-        let heightCushion = (model.board.view.frame.height / 10)
+        let widthCushion:CGFloat = (model.board.view.frame.width / 10)
+        let heightCushion:CGFloat = (model.board.view.frame.height / 10)
         
         if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
             

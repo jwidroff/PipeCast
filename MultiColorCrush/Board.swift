@@ -63,19 +63,29 @@ class BoardView : UIView {
         let halfX = (point1.x - point2.x) / 2
         let halfY = (point1.y - point2.y) / 2
 
+        context.beginPath()
+        context.move(to: CGPoint(x: 0, y: 0))
+        context.addLine(to: CGPoint(x: 0, y: frame.maxY))
+        context.strokePath()
+        
+        context.beginPath()
+        context.move(to: CGPoint(x: frame.maxX, y: 0))
+        context.addLine(to: CGPoint(x: 0, y: 0))
+        context.strokePath()
+        
         for x in xArray {
                         
             context.beginPath()
-            context.move(to: CGPoint(x: x - halfX, y: yArray.first! + halfY))
-            context.addLine(to: CGPoint(x: x - halfX, y: yArray.last! - halfY))
+            context.move(to: CGPoint(x: x + halfX, y: yArray.first! + halfY))
+            context.addLine(to: CGPoint(x: x + halfX, y: yArray.last! - halfY))
             context.strokePath()
         }
         
         for y in yArray {
             
             context.beginPath()
-            context.move(to: CGPoint(x: xArray.first! + halfX, y: y - halfY))
-            context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y - halfY))
+            context.move(to: CGPoint(x: xArray.first! + halfX, y: y + halfY))
+            context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y + halfY))
             context.strokePath()
         }
 
