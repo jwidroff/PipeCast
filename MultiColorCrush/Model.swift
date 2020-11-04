@@ -99,6 +99,7 @@ class Model {
             let entrance = Entrance()
 //            setEntranceIndex(entrance: entrance)
             setPieceIndex(piece: entrance)
+            entrance.isMoveable = false
             entrance.opening = "top"
             
             //MARK: THIS WAS FOR THE ENTRANCE
@@ -115,6 +116,7 @@ class Model {
 //            setExitIndex(exit: exit)
             
             setPieceIndex(piece: exit)
+            exit.isMoveable = false
             exit.opening = "bottom"
             board.pieces.append(exit)
 
@@ -131,6 +133,7 @@ class Model {
 //            setWallIndex(wall: wall)
             
             setPieceIndex(piece: wall)
+            wall.isMoveable = false
             board.pieces.append(wall)
         }
     }
@@ -505,7 +508,7 @@ class Model {
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! < piece2.indexes.y!
             }).filter({ (piece) -> Bool in
-                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+                piece.isMoveable
             }) {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
                 let notAtWall = piece.indexes.y != 0
@@ -522,7 +525,7 @@ class Model {
                 piece1.indexes.y! > piece2.indexes.y!
                 
             }).filter({ (piece) -> Bool in
-                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+                piece.isMoveable
             })  {
                 
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
@@ -542,7 +545,7 @@ class Model {
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! < piece2.indexes.x!
             }).filter({ (piece) -> Bool in
-                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+                piece.isMoveable
             })  {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != 0
@@ -558,7 +561,7 @@ class Model {
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! > piece2.indexes.x!
             }).filter({ (piece) -> Bool in
-                piece is Entrance == false && piece is Exit == false && piece is Wall == false
+                piece.isMoveable
             })  {
                 let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
                 let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in

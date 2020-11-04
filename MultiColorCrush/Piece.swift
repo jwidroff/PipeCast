@@ -21,6 +21,7 @@ class Piece {
     var currentSwitch = Int()
     var side = Side()
     var version = Int()
+    var isMoveable = true
     
     init(){
         
