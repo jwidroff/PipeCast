@@ -177,12 +177,11 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
     
-    func moveBallX(ball: Ball, piece: Piece, startSide: String, endSide: String) {
+    func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
 //        var beginPoint = CGPoint()
         var endPoint = CGPoint()
 //        var pivotPoint = CGPoint()
-        
         
         switch startSide {
         
@@ -210,19 +209,19 @@ extension ViewController: ModelDelegate {
                 switch endSide {
                 
                 case "top":
-                    self.model.moveBallXX(ball: ball, startSide: "bottom")
+                    self.model.moveBall(ball: ball, startSide: "bottom")
                     return
                     
                 case "bottom":
-                    self.model.moveBallXX(ball: ball, startSide: "top")
+                    self.model.moveBall(ball: ball, startSide: "top")
                     return
                     
                 case "left":
-                    self.model.moveBallXX(ball: ball, startSide: "right")
+                    self.model.moveBall(ball: ball, startSide: "right")
                     return
                     
                 case "right":
-                    self.model.moveBallXX(ball: ball, startSide: "left")
+                    self.model.moveBall(ball: ball, startSide: "left")
                     return
                     
                 default:
@@ -251,19 +250,19 @@ extension ViewController: ModelDelegate {
                 switch endSide {
                 
                 case "top":
-                    self.model.moveBallXX(ball: ball, startSide: "bottom")
+                    self.model.moveBall(ball: ball, startSide: "bottom")
                     return
                     
                 case "bottom":
-                    self.model.moveBallXX(ball: ball, startSide: "top")
+                    self.model.moveBall(ball: ball, startSide: "top")
                     return
                     
                 case "left":
-                    self.model.moveBallXX(ball: ball, startSide: "right")
+                    self.model.moveBall(ball: ball, startSide: "right")
                     return
                     
                 case "right":
-                    self.model.moveBallXX(ball: ball, startSide: "left")
+                    self.model.moveBall(ball: ball, startSide: "left")
                     return
                     
                 default:
@@ -294,19 +293,19 @@ extension ViewController: ModelDelegate {
                 
                 
                 case "top":
-                    self.model.moveBallXX(ball: ball, startSide: "bottom")
+                    self.model.moveBall(ball: ball, startSide: "bottom")
                     return
                     
                 case "bottom":
-                    self.model.moveBallXX(ball: ball, startSide: "top")
+                    self.model.moveBall(ball: ball, startSide: "top")
                     return
                     
                 case "left":
-                    self.model.moveBallXX(ball: ball, startSide: "right")
+                    self.model.moveBall(ball: ball, startSide: "right")
                     return
                     
                 case "right":
-                    self.model.moveBallXX(ball: ball, startSide: "left")
+                    self.model.moveBall(ball: ball, startSide: "left")
                     return
                     
                 default:
@@ -335,19 +334,19 @@ extension ViewController: ModelDelegate {
                 switch endSide {
                 
                 case "top":
-                    self.model.moveBallXX(ball: ball, startSide: "bottom")
+                    self.model.moveBall(ball: ball, startSide: "bottom")
                     return
                     
                 case "bottom":
-                    self.model.moveBallXX(ball: ball, startSide: "top")
+                    self.model.moveBall(ball: ball, startSide: "top")
                     return
                     
                 case "left":
-                    self.model.moveBallXX(ball: ball, startSide: "right")
+                    self.model.moveBall(ball: ball, startSide: "right")
                     return
                     
                 case "right":
-                    self.model.moveBallXX(ball: ball, startSide: "left")
+                    self.model.moveBall(ball: ball, startSide: "left")
                     return
                     
                 default:
@@ -377,19 +376,19 @@ extension ViewController: ModelDelegate {
                 switch endSide {
                 
                 case "top":
-                    self.model.moveBallXX(ball: ball, startSide: "bottom")
+                    self.model.moveBall(ball: ball, startSide: "bottom")
                     return
                     
                 case "bottom":
-                    self.model.moveBallXX(ball: ball, startSide: "top")
+                    self.model.moveBall(ball: ball, startSide: "top")
                     return
                     
                 case "left":
-                    self.model.moveBallXX(ball: ball, startSide: "right")
+                    self.model.moveBall(ball: ball, startSide: "right")
                     return
                     
                 case "right":
-                    self.model.moveBallXX(ball: ball, startSide: "left")
+                    self.model.moveBall(ball: ball, startSide: "left")
                     return
                     
                 default:
@@ -417,7 +416,6 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    
     func movePieces() {
         
         for piece in model.board.pieces {
@@ -434,7 +432,6 @@ extension ViewController: ModelDelegate {
             piece is Entrance == false && piece is Exit == false && piece is Wall == false
         }) {
             
-            
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
@@ -449,20 +446,15 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    
-    //MARK: THIS WAS FOR THE ENTRANCE
     func setupEntrances() {
                 
         for piece in self.model.board.pieces {
-            
             
             if piece is Entrance {
                 
                 piece.color = .black
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                
-                
                 
                 piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
@@ -471,14 +463,11 @@ extension ViewController: ModelDelegate {
                 self.piecesViews.append(piece)
                 model.board.view.addSubview(piece.view)
                 
-                
                 let widthAndHeight = pieceWidth / 4.5
                 var x = CGFloat()
                 var y = CGFloat()
                 
-                
                 if let piece = piece as? Entrance {
-                    
                     
                     switch piece.opening {
                     
@@ -519,20 +508,12 @@ extension ViewController: ModelDelegate {
                     piece.view.addSubview(textBox)
                     
                     self.model.board.view.addSubview(piece.view)
-                
-                    
-                    
                 }
-                
             }
-            
-            
-
         }
     }
     
     func setupExits() {
-        
         
         for piece in self.model.board.pieces {
             
@@ -552,10 +533,8 @@ extension ViewController: ModelDelegate {
                 var x = CGFloat()
                 var y = CGFloat()
                 
-                
                 if let piece = piece as? Exit {
 
-                    
                     switch piece.opening {
                     
                     case "top":
@@ -616,42 +595,7 @@ extension ViewController: ModelDelegate {
                 self.piecesViews.append(piece)
                 model.board.view.addSubview(piece.view)
                 self.model.board.view.addSubview(piece.view)
-                
-                
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            let frame = CGRect(x: 0, y: 0, width: pieceWidth / 9 * 10, height: pieceHeight / 9 * 10)
-//            let wallView = UIView(frame: frame)
-//            wallView.center = CGPoint(x: model.board.grid[wall.indexes]?.x ?? wall.view.center.x, y: model.board.grid[wall.indexes]?.y ?? wall.view.center.y)
-//            wallView.backgroundColor = .lightGray
-////            wallView.layer.cornerRadius = wallView.frame.height / 2
-////            wallView.layer.shadowOpacity = 1
-////            wallView.layer.shadowPath = CGPath(rect: wallView.bounds, transform: nil)
-////            wallView.layer.shadowColor = UIColor.white.cgColor
-////            wallView.layer.shadowOffset = CGSize(width: 0, height: 0)
-////            wallView.layer.shadowRadius = 10
-//
-//            self.model.board.view.addSubview(wallView)
-            
         }
     }
     
@@ -673,8 +617,6 @@ extension ViewController: ModelDelegate {
     
     func setupBoard() {
         
-//        let frameWidth = boardWidth// / 10 * 9
-//        let frameHeight = boardHeight// / 10 * 9
         let frameX = self.view.frame.midX - (boardWidth / 2)
         let frameY = self.view.frame.midY - (boardHeight / 2)
         let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
@@ -686,13 +628,11 @@ extension ViewController: ModelDelegate {
             if !xArray.contains(point.x) {
                 
                 xArray.append(point.x)
-                
             }
             
             if !yArray.contains(point.y) {
                 
                 yArray.append(point.y)
-                
             }
         }
         
@@ -703,7 +643,6 @@ extension ViewController: ModelDelegate {
     }
     
     func setSizes() {
-        
 
         let widthCushion:CGFloat = (model.board.view.frame.width / 10)
         let heightCushion:CGFloat = (model.board.view.frame.height / 10)
@@ -717,14 +656,12 @@ extension ViewController: ModelDelegate {
         
             boardWidth = (model.board.view.frame.height - heightCushion) / 2
             boardHeight = model.board.view.frame.height - heightCushion
-
         }
         
         pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
         pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
         
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
-        
     }
     
     func setUpGame(board: Board) {
@@ -755,163 +692,10 @@ extension ViewController: ModelDelegate {
     }
 
     
-//    func moveBall(startIndex: Indexes, endIndex: Indexes, exitingSide: String, piece: Piece?) {
-//        
-//        enlargePieces()
-//        
-//        if startIndex.y! > endIndex.y! {
-//                        
-//            print("headed up because y index is smaller")
-//
-//            for ball in model.board.balls {
-//                
-//                if ball.indexes == startIndex {
-//                    
-//                    UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-//                        
-//                        self.model.board.view.bringSubviewToFront(ball.view)
-//                        
-//                        let translationX = self.model.board.grid[startIndex]!.x - ball.view.center.x
-//                        
-//                        var translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y) / 2
-//                        
-//                        if piece?.shape == .cross {
-//                            translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y)
-//                        }
-//                        
-//                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
-//                        
-//                        
-//                    }) { (true) in
-//                        
-//                        
-//                        print("we should be entering the bottom side of the new piece")
-//                        
-//                        self.model.moveBallAgain(ball: ball, enteringSide: "bottom")
-//                        return
-//                    }
-//                }
-//            }
-//        }
-//        
-//        if startIndex.y! < endIndex.y! {
-//            
-//            print("headed down because y index is bigger")
-//
-//            for ball in model.board.balls {
-//                
-//                if ball.indexes == startIndex {
-//                    
-//                    UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-//                        
-//                        self.model.board.view.bringSubviewToFront(ball.view)
-//                        let translationX = self.model.board.grid[startIndex]!.x - ball.view.center.x
-//                        var translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y) / 2
-//                        
-//                        if piece?.shape == .cross {
-//                            translationY = (self.model.board.grid[endIndex]!.y - self.model.board.grid[startIndex]!.y)
-//                        }
-//                        
-//                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
-//                        
-//                    }) { (true) in
-//                        
-//                        print("we should be entering the top side of the new piece")
-//                        
-//                        self.model.moveBallAgain(ball: ball, enteringSide: "top")
-//                        return
-//                    }
-//                }
-//            }
-//        }
-//       
-//        if startIndex.x! > endIndex.x! {
-//            
-//            print("headed left because x index is smaller")
-//            
-//            for ball in model.board.balls {
-//                
-//                if ball.indexes == startIndex {
-//                    
-//                    UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-//                        
-//                        self.model.board.view.bringSubviewToFront(ball.view)
-//
-//                        var translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x) / 2
-//                        
-//                        if piece?.shape == .cross {
-//                            translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x)
-//                        }
-//                        
-//                        let translationY = self.model.board.grid[startIndex]!.y - ball.view.center.y
-//
-//                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
-//                        
-//                    }) { (true) in
-//                        
-//                        print("we should be entering the right side of the new piece")
-//                        
-//                        self.model.moveBallAgain(ball: ball, enteringSide: "right")
-//                        return
-//                    }
-//                }
-//            }
-//        }
-//        
-//        if startIndex.x! < endIndex.x! {
-//            
-//            print("headed right because x index is bigger")
-//
-//            
-//            for ball in model.board.balls {
-//                
-//                if ball.indexes == startIndex {
-//                    
-//                    UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-//                        
-//                        self.model.board.view.bringSubviewToFront(ball.view)
-//
-//                        var translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x) / 2
-//                        
-//                        if piece?.shape == .cross {
-//                            translationX = (self.model.board.grid[endIndex]!.x - self.model.board.grid[startIndex]!.x)
-//                        }
-//                        
-//                        let translationY = self.model.board.grid[startIndex]!.y - ball.view.center.y
-//
-//                        ball.view.center = CGPoint(x: ball.view.center.x + translationX, y: ball.view.center.y + translationY)
-//                        
-//                        
-//                    }) { (true) in
-//                        
-//                        print("we should be entering the left side of the new piece")
-//                        
-//                        self.model.moveBallAgain(ball: ball, enteringSide: "left")
-//                        return
-//                        
-//                        
-//                        
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-    
     func pieceWasTapped(piece: Piece) {
-
-
-//        for piece in model.board.pieces {
-//            
-//            piece.view.isUserInteractionEnabled = false
-//        }
-//        
-//        model.board.view.isUserInteractionEnabled = false
-//        
         
         piece.view.setNeedsDisplay()
     }
-    
 }
 
 
