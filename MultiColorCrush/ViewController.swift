@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var piecesWereEnlarged = false
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
+    var piecesCrossed:Double = 0
 
     
     override func viewDidLoad() {
@@ -141,12 +142,11 @@ class ViewController: UIViewController {
         ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
         ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
         
-        //TODO: This animation is probably happening over and over until the last (which we see). Maybe make it that the animation only happens when there is no more pieces left to move on
-        
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = ballPath.cgPath
         animation.repeatCount = 0
-        animation.duration = 3.0 //TODO: Make this dependent on the amount of pieces
+        piecesCrossed += 0.25
+        animation.duration = piecesCrossed
         view.layer.add(animation, forKey: "animate along path")
         view.center = endPoint
         
