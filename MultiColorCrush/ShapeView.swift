@@ -24,6 +24,9 @@ class ShapeView : UIView {
     
     var currentSwitch = Int()
     
+    var isLocked = false
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -39,6 +42,7 @@ class ShapeView : UIView {
         self.backgroundColor = UIColor.clear
         self.name = piece.shape
         self.version = piece.version
+        self.isLocked = piece.isLocked
         
         switch name {
         case .elbow:
@@ -72,6 +76,32 @@ class ShapeView : UIView {
         }
     }
     
+    func setLock(context: CGContext) {
+        let w = frame.width * 0.3
+        let h = frame.height * 0.3
+        let x = (frame.width - w) / 2
+        let y = (frame.height - h) / 2
+        let rect1 = CGRect(x: x, y: y, width: w, height: h)
+
+        context.addRect(rect1)
+        context.setFillColor(UIColor.darkGray.cgColor)
+        context.fill(rect1)
+        
+        let lineWidth:CGFloat = 8.0
+
+        let startPoint = CGPoint(x: ((frame.width - w) / 2) + lineWidth, y: (frame.height - h) / 2)
+        let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 6)
+        let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 6)
+        let point4 = CGPoint(x: ((frame.width + w) / 2) - lineWidth, y: (frame.height - h) / 2)
+        
+        context.setStrokeColor(UIColor.darkGray.cgColor)
+        context.setLineWidth(lineWidth)
+        context.beginPath()
+        context.move(to: startPoint)
+        context.addCurve(to: point4, control1: point2, control2: point3)
+        context.strokePath()
+    }
+    
     override func draw(_ rect: CGRect) {
         
         switch name {
@@ -87,6 +117,37 @@ class ShapeView : UIView {
             context.setFillColor(self.color!)
             context.addRects([rect1])
             context.fill(rect1)
+
+            if isLocked == true {
+                
+                
+                setLock(context: context)
+//                let w = frame.width / 10 * 3
+//                let h = frame.height / 10 * 3
+//                let x = (frame.width - w) / 2
+//                let y = (frame.height - h) / 2
+//                let rect1 = CGRect(x: x, y: y, width: w, height: h)
+//
+//                context.addRect(rect1)
+//                context.setFillColor(UIColor.darkGray.cgColor)
+//                context.fill(rect1)
+//
+//                let lineWidth = 5.0
+//
+//                let startPoint = CGPoint(x: ((frame.width - w) / 2) + CGFloat(lineWidth / 2), y: frame.height / 2)
+//                let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 10)
+//                let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 10)
+//                let point4 = CGPoint(x: ((frame.width + w) / 2) - CGFloat(lineWidth / 2), y: frame.height / 2)
+//
+//                context.setStrokeColor(UIColor.darkGray.cgColor)
+//                context.setLineWidth(5.0)
+//                context.beginPath()
+//                context.move(to: startPoint)
+//                context.addCurve(to: point4, control1: point2, control2: point3)
+//                context.strokePath()
+            }
+            
+            
             
         case .elbow:
             
