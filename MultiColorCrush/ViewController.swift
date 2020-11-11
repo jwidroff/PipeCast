@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .lightGray
         model = Model(view: self.view)
         model.delegate = self
         model.setUpGame()
@@ -202,6 +202,8 @@ class ViewController: UIViewController {
 extension ViewController: ModelDelegate {
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
+        
+        enlargePieces()
         
         var beginPoint = CGPoint()
         var endPoint = CGPoint()

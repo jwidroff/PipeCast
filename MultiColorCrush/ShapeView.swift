@@ -38,12 +38,13 @@ class ShapeView : UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.name = piece.shape
+        self.version = piece.version
         
         switch name {
         case .elbow:
             switches = 2
             currentSwitch = 1
-            self.version = piece.version
+//            self.version = piece.version
             
         case .doubleElbow:
             switches = 2
@@ -64,7 +65,7 @@ class ShapeView : UIView {
         case .diagElbow:
             switches = 2
             currentSwitch = 1
-            self.version = piece.version
+//            self.version = piece.version
 
         default:
             break
@@ -88,7 +89,8 @@ class ShapeView : UIView {
             context.fill(rect1)
             
         case .elbow:
-
+            
+            
             guard let context = UIGraphicsGetCurrentContext() else { return }
             let diff = frame.height / 10
             let posHeight = frame.height + diff

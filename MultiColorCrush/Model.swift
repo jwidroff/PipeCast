@@ -518,7 +518,9 @@ class Model {
             let piece = getPieceInfo(index: ball.indexes) as! Entrance
             let startSide = "center"
             let endSide = piece.opening
+            
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+
             return
         
         case "top":
