@@ -436,7 +436,7 @@ extension ViewController: ModelDelegate {
             
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+            piece.view = ShapeView(frame: frame, piece: piece)
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
             piece.view.layer.borderColor = UIColor.white.cgColor
             piece.view.layer.borderWidth = 2.0
@@ -445,7 +445,7 @@ extension ViewController: ModelDelegate {
             model.board.view.addSubview(piece.view)
             
             //MARK: Change the pieces to bubbles
-            piece.view.layer.cornerRadius = piece.view.frame.height / 2
+//            piece.view.layer.cornerRadius = piece.view.frame.height / 2
         }
     }
     
@@ -459,7 +459,7 @@ extension ViewController: ModelDelegate {
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 
-                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view = ShapeView(frame: frame, piece: piece)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .blue
                 addTapGestureRecognizer(view: piece.view)
@@ -526,7 +526,7 @@ extension ViewController: ModelDelegate {
                 piece.color = .black
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view = ShapeView(frame: frame, piece: piece)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .blue
                 addTapGestureRecognizer(view: piece.view)
@@ -592,7 +592,7 @@ extension ViewController: ModelDelegate {
                 
                 piece.color = .lightGray
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                piece.view = ShapeView(frame: frame, color: piece.color.cgColor, shape: piece.shape, version: piece.version)
+                piece.view = ShapeView(frame: frame, piece: piece)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .lightGray
                 addTapGestureRecognizer(view: piece.view)
@@ -609,7 +609,7 @@ extension ViewController: ModelDelegate {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
 
-            ball.view = ShapeView(frame: frame, color: UIColor.black.cgColor, shape: .ball, version: nil)
+            ball.view = BallView(frame: frame)
             
             ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
             

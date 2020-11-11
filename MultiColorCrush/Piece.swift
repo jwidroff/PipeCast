@@ -21,7 +21,7 @@ class Piece {
     var currentSwitch = Int()
     var side = Side()
     var version = Int()
-    var isMoveable = true
+    var isLocked = true
     
     init(){
         
@@ -286,7 +286,7 @@ class Closing {
 
 class Ball {
     
-    var view = ShapeView()
+    var view = BallView()
     var indexes = Indexes()
     var startSide = "unmoved"
 }

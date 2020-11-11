@@ -32,18 +32,18 @@ class ShapeView : UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect, color: CGColor, shape: Shape, version: Int?) {
+    init(frame: CGRect, piece: Piece) {
 
-        self.color  = color
+        self.color  = piece.color.cgColor
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
-        self.name = shape
+        self.name = piece.shape
         
-        switch shape {
+        switch name {
         case .elbow:
             switches = 2
             currentSwitch = 1
-            self.version = version!
+            self.version = piece.version
             
         case .doubleElbow:
             switches = 2
@@ -64,7 +64,7 @@ class ShapeView : UIView {
         case .diagElbow:
             switches = 2
             currentSwitch = 1
-            self.version = version!
+            self.version = piece.version
 
         default:
             break
@@ -835,6 +835,38 @@ class ShapeView : UIView {
 //            break
         }
     }
+}
+
+
+class BallView : UIView {
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    
+    
+    
+    override func draw(_ rect: CGRect) {
+
+    
+    
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let eclipseHeight1 = frame.height / 5
+        let eclipseWidth1 = frame.width / 5
+        let rect1 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+        context.addEllipse(in: rect1)
+        context.setFillColor(UIColor.systemPink.cgColor)
+        context.fillEllipse(in: rect1)
+    
+    }
+    
 }
 
 enum Shape {
