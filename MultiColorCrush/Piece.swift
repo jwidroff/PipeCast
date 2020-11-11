@@ -21,7 +21,7 @@ class Piece {
     var currentSwitch = Int()
     var side = Side()
     var version = Int()
-    var isLocked = true
+    var isLocked = false
     
     init(){
         
