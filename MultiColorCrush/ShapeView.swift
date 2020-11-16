@@ -104,11 +104,24 @@ class ShapeView : UIView {
     
     override func draw(_ rect: CGRect) {
         
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let path = UIBezierPath()
+        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let topCenterPoint = CGPoint(x: frame.width / 2, y: 0)
+        let bottomCenterPoint = CGPoint(x: frame.width / 2, y: frame.height)
+        let leftCenterPoint = CGPoint(x: 0, y: frame.height / 2)
+        let rightCenterPoint = CGPoint(x: frame.width, y: frame.height / 2)
+        
+        context.setLineWidth(frame.height / 4)
+        context.setStrokeColor(color!)
+        
+        
+        
         switch name {
             
         case .regular:
             
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
             let w = frame.width / 10 * 9
             let h = frame.height / 10 * 9
             let x = (frame.width - w) / 2
@@ -120,31 +133,7 @@ class ShapeView : UIView {
 
             if isLocked == true {
                 
-                
                 setLock(context: context)
-//                let w = frame.width / 10 * 3
-//                let h = frame.height / 10 * 3
-//                let x = (frame.width - w) / 2
-//                let y = (frame.height - h) / 2
-//                let rect1 = CGRect(x: x, y: y, width: w, height: h)
-//
-//                context.addRect(rect1)
-//                context.setFillColor(UIColor.darkGray.cgColor)
-//                context.fill(rect1)
-//
-//                let lineWidth = 5.0
-//
-//                let startPoint = CGPoint(x: ((frame.width - w) / 2) + CGFloat(lineWidth / 2), y: frame.height / 2)
-//                let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 10)
-//                let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 10)
-//                let point4 = CGPoint(x: ((frame.width + w) / 2) - CGFloat(lineWidth / 2), y: frame.height / 2)
-//
-//                context.setStrokeColor(UIColor.darkGray.cgColor)
-//                context.setLineWidth(5.0)
-//                context.beginPath()
-//                context.move(to: startPoint)
-//                context.addCurve(to: point4, control1: point2, control2: point3)
-//                context.strokePath()
             }
             
             
@@ -152,44 +141,44 @@ class ShapeView : UIView {
         case .elbow:
             
             
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let diff = frame.height / 10
-            let posHeight = frame.height + diff
-            let posWidth = frame.width + diff
-            let negHeight = frame.height - diff
-            let negWidth = frame.width - diff
-
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            let curve = UIBezierPath()
+//            let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+//            let topCenterPoint = CGPoint(x: frame.width / 2, y: 0)
+//            let bottomCenterPoint = CGPoint(x: frame.width / 2, y: frame.height)
+//            let leftCenterPoint = CGPoint(x: 0, y: frame.height / 2)
+//            let rightCenterPoint = CGPoint(x: frame.width, y: frame.height / 2)
+//
+//            context.setLineWidth(frame.height / 4)
+//            context.setStrokeColor(color!)
+            
                 switch version {
                 
                 case 1:
                     
+                    // TOP PIVOT TO LEFT SIDE
                     if currentSwitch == 1 {
                     
-                        // TOP PIVOT TO LEFT SIDE
-                    let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                    context.addEllipse(in: rect1)
-                    context.setFillColor(color!)
-                    context.fillEllipse(in: rect1)
+//                        curve.move(to: topCenterPoint)
+//                        curve.addQuadCurve(to: leftCenterPoint, controlPoint: center)
+//                        context.addPath(curve.cgPath)
+//                        context.strokePath()
+                        
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
+                        
+                        
+                        currentSwitch = 2
                     
-                    let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                    context.addEllipse(in: rect2)
-                    context.setFillColor(UIColor.black.cgColor)
-                    context.fillEllipse(in: rect2)
-                    
-                    currentSwitch = 2
-                    
+                    // TOP PIVOT TO RIGHT SIDE
                     } else {
                         
-                        // TOP PIVOT TO RIGHT SIDE
-                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect3)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect3)
-
-                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect4)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect4)
+//                        curve.move(to: rightCenterPoint)
+//                        curve.addQuadCurve(to: topCenterPoint, controlPoint: center)
+//                        context.addPath(curve.cgPath)
+//                        context.strokePath()
+                        
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
+                        
                         
                         currentSwitch = 1
                     }
@@ -207,29 +196,13 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //LEFT PIVOT TO BOTTOM
-                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect5)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect5)
-                        
-                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect6)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect6)
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
                         
                         currentSwitch = 2
                     } else {
                         
                         //LEFT PIVOT TO TOP
-                        let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect1)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect1)
-                        
-                        let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect2)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect2)
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
                         
                         currentSwitch = 1
                     }
@@ -247,30 +220,14 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
 
                         //BOTTOM PIVOT TO RIGHT
-                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect7)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect7)
-                        
-                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect8)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect8)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint)
                         
                         currentSwitch = 2
                         
                     } else {
                         
                         //BOTTOM PIVOT TO LEFT
-                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect5)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect5)
-                        
-                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect6)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect6)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
                         
                         currentSwitch = 1
                     }
@@ -288,30 +245,14 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //RIGHT PIVOT TO TOP
-                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect3)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect3)
-                        
-                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect4)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect4)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint)
 
                         currentSwitch = 2
 
                     } else {
                         
                         //RIGHT PIVOT TO BOTTOM
-                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect7)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect7)
-                        
-                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect8)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect8)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)
                         
                         currentSwitch = 1
                     }
@@ -333,7 +274,7 @@ class ShapeView : UIView {
             
             if currentSwitch == 1 {
                 
-                guard let context = UIGraphicsGetCurrentContext() else { return }
+//                guard let context = UIGraphicsGetCurrentContext() else { return }
                 
                 let diff = frame.height / 10
                 
@@ -408,7 +349,7 @@ class ShapeView : UIView {
               
               if currentSwitch == 1 {
                   
-                guard let context = UIGraphicsGetCurrentContext() else { return }
+//                guard let context = UIGraphicsGetCurrentContext() else { return }
                 
                 let diff = frame.height / 10
 
@@ -539,11 +480,11 @@ class ShapeView : UIView {
             case .diagElbow:
                                
                 guard let context = UIGraphicsGetCurrentContext() else { return }
-                let diff = frame.height / 10
-                let posHeight = frame.height + diff
-                let posWidth = frame.width + diff
-                let negHeight = frame.height - diff
-                let negWidth = frame.width - diff
+//                let diff = frame.height / 10
+//                let posHeight = frame.height + diff
+//                let posWidth = frame.width + diff
+//                let negHeight = frame.height - diff
+//                let negWidth = frame.width - diff
                 
                 switch version {
                 
@@ -552,52 +493,21 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //RIGHT PIVOT TO TOP SIDE
-                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect3)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect3)
-                        
-                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect4)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect4)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint)
                         
                         //LEFT PIVOT TO BOTTOM SIDE
-                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect5)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect5)
-                        
-                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect6)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect6)
-                        
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
+
                         currentSwitch = 2
                         
                     } else if currentSwitch == 2 {
                         
                         //LEFT PIVOT TO TOP SIDE
-                        let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect1)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect1)
-                        
-                        let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect2)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect2)
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
                         
                         //RIGHT PIVOT TO BOTTOM SIDE
-                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect7)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect7)
-                        
-                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect8)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect8)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)
+
                         
                         currentSwitch = 1
                      }
@@ -621,52 +531,22 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //TOP PIVOT TO LEFT SIDE
-                        let rect1 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect1)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect1)
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
                         
-                        let rect2 = CGRect(x: (-frame.width / 2), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect2)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect2)
+                        
                         
                         //BOTTOM PIVOT TO RIGHT SIDE
-                        let rect7 = CGRect(x: (frame.width / 2) - (diff), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect7)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect7)
-                        
-                        let rect8 = CGRect(x: (frame.width / 2) + (diff), y: (frame.height / 2) + diff, width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect8)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect8)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint)
                         
                         currentSwitch = 2
                         
                     } else if currentSwitch == 2 {
                         
                         //TOP PIVOT TO RIGHT SIDE
-                        let rect3 = CGRect(x: (frame.width / 2) - (diff), y: (-frame.height / 2), width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect3)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect3)
-                        
-                        let rect4 = CGRect(x: (frame.width / 2) + (diff), y: (-frame.height / 2), width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect4)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect4)
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
                         
                         //BOTTOM PIVOT TO LEFT SIDE
-                        let rect5 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) - diff, width: posWidth, height: posHeight)
-                        context.addEllipse(in: rect5)
-                        context.setFillColor(color!)
-                        context.fillEllipse(in: rect5)
-                        
-                        let rect6 = CGRect(x: (-frame.width / 2), y: (frame.height / 2) + diff , width: negWidth, height: negHeight)
-                        context.addEllipse(in: rect6)
-                        context.setFillColor(UIColor.black.cgColor)
-                        context.fillEllipse(in: rect6)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
                         
                         currentSwitch = 1
                      }
@@ -829,14 +709,14 @@ class ShapeView : UIView {
                 
                 case 1:
                     
-                    guard let context = UIGraphicsGetCurrentContext() else { return }
+//                    guard let context = UIGraphicsGetCurrentContext() else { return }
 
                     let width = frame.width
-                    let height = frame.height / 4.5
+                    let height = frame.height / 4
                     let x1:CGFloat = 0.0
                     let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 4.5
+                    let width2 = frame.width / 4
                     let height2 = frame.height
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
@@ -855,14 +735,14 @@ class ShapeView : UIView {
                     
                 case 2:
                     
-                    guard let context = UIGraphicsGetCurrentContext() else { return }
+//                    guard let context = UIGraphicsGetCurrentContext() else { return }
                     
                     let width = frame.width
-                    let height = frame.height / 4.5
+                    let height = frame.height / 4
                     let x1:CGFloat = 0.0
                     let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 4.5
+                    let width2 = frame.width / 4
                     let height2 = frame.height
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
@@ -886,7 +766,7 @@ class ShapeView : UIView {
                 
         case .ball:
             
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+//            guard let context = UIGraphicsGetCurrentContext() else { return }
             let eclipseHeight1 = frame.height / 5
             let eclipseWidth1 = frame.width / 5
             let rect1 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
@@ -898,6 +778,18 @@ class ShapeView : UIView {
 //            break
         }
     }
+    
+    func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint) {
+
+        
+        path.move(to: pivotPoint)
+        path.addQuadCurve(to: endPoint, controlPoint: center)
+        context.addPath(path.cgPath)
+        context.strokePath()
+        
+    }
+    
+    
 }
 
 
