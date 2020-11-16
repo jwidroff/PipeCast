@@ -232,6 +232,8 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                                 
+                ballPath = UIBezierPath()
+                
                 switch endSide {
                 
                 case "top":
