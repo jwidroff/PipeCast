@@ -15,7 +15,7 @@ class Piece {
     var indexes = Indexes()
     var shape: Shape = .regular
     var view = ShapeView()
-    var color = UIColor()
+    var colors = [UIColor()]
     var opacity = Int()
     var switches = Int()
     var currentSwitch = Int()

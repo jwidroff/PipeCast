@@ -438,7 +438,6 @@ extension ViewController: ModelDelegate {
             piece is Entrance == false && piece is Exit == false && piece is Wall == false
         }) {
             
-            
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, piece: piece)
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
@@ -459,7 +458,8 @@ extension ViewController: ModelDelegate {
             
             if piece is Entrance {
                 
-                piece.color = .black
+//                piece.colors.append(UIColor.black)
+
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 
@@ -527,7 +527,7 @@ extension ViewController: ModelDelegate {
             
             if piece is Exit {
                 
-                piece.color = .black
+//                piece.colors.append(UIColor.black)
                 
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 piece.view = ShapeView(frame: frame, piece: piece)
@@ -594,7 +594,7 @@ extension ViewController: ModelDelegate {
             
             if piece is Wall {
                 
-                piece.color = .lightGray
+//                piece.colors.append(UIColor.lightGray)
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 piece.view = ShapeView(frame: frame, piece: piece)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)

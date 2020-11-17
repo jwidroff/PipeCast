@@ -103,6 +103,7 @@ class Model {
             let entrance = Entrance()
             setPieceIndex(piece: entrance)
             entrance.isLocked = true
+            entrance.colors = [.black]
             entrance.opening = "top"
             board.pieces.append(entrance)
         }
@@ -114,6 +115,7 @@ class Model {
             
             let exit = Exit()
             setPieceIndex(piece: exit)
+            exit.colors = [.black]
             exit.isLocked = true
             exit.opening = "bottom"
             board.pieces.append(exit)
@@ -126,6 +128,7 @@ class Model {
 
             let wall = Wall()
             setPieceIndex(piece: wall)
+            wall.colors = [.lightGray]
             wall.isLocked = true
             board.pieces.append(wall)
         }
@@ -371,7 +374,15 @@ class Model {
     
     func setPieceColor(piece: Piece) {
         let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
-        piece.color = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+
+        piece.colors = [randomColor1, randomColor2]
+        
+        
+        
+        
+        
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
