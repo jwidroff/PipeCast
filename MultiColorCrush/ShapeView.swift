@@ -197,7 +197,7 @@ class ShapeView : UIView {
                     //TOP PIVOT
                     let width = bounds.width / 2
                     let x = (bounds.midX - (width / 2))
-                    let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 20)
+                    let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
 //                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
                     context.addRects([pivotRect])
                     context.fill(pivotRect)
@@ -221,7 +221,7 @@ class ShapeView : UIView {
                     //Left Pivot
                     let height = bounds.height / 2
                     let y = (bounds.midY - (height / 2))
-                    let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 20, height: height)
+                    let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
 //                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
                     context.addRects([pivotRect])
                     context.fill(pivotRect)
@@ -246,7 +246,7 @@ class ShapeView : UIView {
                     //Bottom pivot
                     let width = bounds.width / 2
                     let x = (bounds.midX - (width / 2))
-                    let pivotRect = CGRect(x: x, y: bounds.maxY - 5, width: width, height: bounds.height / 20)
+                    let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
 //                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
                     context.addRects([pivotRect])
                     context.fill(pivotRect)
@@ -272,7 +272,7 @@ class ShapeView : UIView {
                     
                     let height = bounds.height / 2
                     let y = (bounds.midY - (height / 2))
-                    let pivotRect = CGRect(x: bounds.maxX - 5, y: y, width: bounds.width / 20, height: height)
+                    let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
 //                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
                     context.addRects([pivotRect])
                     context.fill(pivotRect)
@@ -499,8 +499,8 @@ class ShapeView : UIView {
                     
                     let height = bounds.height / 2
                     let y = (bounds.midY - (height / 2))
-                    let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 20, height: height)
-                    let pivotRect = CGRect(x: bounds.maxX - 5, y: y, width: bounds.width / 20, height: height)
+                    let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+                    let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
                     let path2 = UIBezierPath()
 
                     
@@ -545,8 +545,8 @@ class ShapeView : UIView {
                     
                     let width = bounds.width / 2
                     let x = (bounds.midX - (width / 2))
-                    let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 20)
-                    let pivotRect = CGRect(x: x, y: bounds.maxY - 5, width: width, height: bounds.height / 20)
+                    let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+                    let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
                     let path2 = UIBezierPath()
 
                     if currentSwitch == 1 {
@@ -822,6 +822,11 @@ class ShapeView : UIView {
         path.addQuadCurve(to: endPoint, controlPoint: center)
         context.addPath(path.cgPath)
         context.strokePath()
+        
+        
+        
+        
+        
         
     }
     

@@ -247,7 +247,7 @@ class Top {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-    var center: CGPoint?
+//    var center: CGPoint?
 }
 
 class Bottom {
@@ -255,7 +255,7 @@ class Bottom {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-    var center: CGPoint?
+//    var center: CGPoint?
 }
 
 class Left {
@@ -263,7 +263,7 @@ class Left {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-    var center: CGPoint?
+//    var center: CGPoint?
 }
 
 class Right {
@@ -271,7 +271,7 @@ class Right {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-    var center: CGPoint?
+//    var center: CGPoint?
 }
 
 class Opening {
