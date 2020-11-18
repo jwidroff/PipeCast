@@ -373,16 +373,12 @@ class Model {
     }
     
     func setPieceColor(piece: Piece) {
-        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.white, UIColor.purple, UIColor.cyan, UIColor.yellow, UIColor.orange]
+        
+        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
 
         piece.colors = [randomColor1, randomColor2]
-        
-        
-        
-        
-        
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
