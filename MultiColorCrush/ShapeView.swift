@@ -748,14 +748,18 @@ class ShapeView : UIView {
                     
                     let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
                     context.setFillColor(colors[1])
-                    
                     context.addRects([rect1])
                     context.fill(rect1)
                     
-//                    let size = CGSize(width: 100, height: 100)
-////                    context.setShadow(offset: size, blur: 10.5)
-//                    context.setShadow(offset: size, blur: 50, color: UIColor.systemPink.cgColor)
-            
+                    let height3:CGFloat = 2.0
+                    context.setFillColor(UIColor.black.cgColor)
+
+                    let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2), width: frame.width, height: height3) //Finish this correctly
+                    let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
+                    context.addRects([borderline1, borderline2])
+                    context.fill(borderline1)
+                    context.fill(borderline2)
+
                     currentSwitch = 2
                     
                 case 2:
@@ -779,6 +783,15 @@ class ShapeView : UIView {
                     context.setFillColor(colors[0])
                     context.addRects([rect2])
                     context.fill(rect2)
+                    
+                    let width3:CGFloat = 2.0
+                    context.setFillColor(UIColor.black.cgColor)
+
+                    let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2), y: 0, width: width3, height: frame.height) //Finish this correctly
+                    let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
+                    context.addRects([borderline1, borderline2])
+                    context.fill(borderline1)
+                    context.fill(borderline2)
                     
                     currentSwitch = 1
                     
