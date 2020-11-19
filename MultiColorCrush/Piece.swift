@@ -127,6 +127,11 @@ class Piece {
                 break
             }
             
+            print("piece left side exitSide \(side.left.exitSide)")
+            print("piece right side exitSide \(side.right.exitSide)")
+            print("piece top side exitSide \(side.top.exitSide)")
+            print("piece bottom side exitSide \(side.bottom.exitSide)")
+            
         case .doubleElbow:
             
             if currentSwitch == 1 {
@@ -165,22 +170,34 @@ class Piece {
             
         case .cross:
 
-           if currentSwitch == 1 {
-        
-            side.right.exitSide = "left"
-            side.left.exitSide = "right"
-            
-           } else if currentSwitch == 2 {
-
-            side.top.exitSide = "bottom"
-            side.bottom.exitSide = "top"
-
-           }
+//           if currentSwitch == 1 {
+//
+//            side.right.exitSide = "left"
+//            side.left.exitSide = "right"
+//
+//           } else if currentSwitch == 2 {
+//
+//            side.top.exitSide = "bottom"
+//            side.bottom.exitSide = "top"
+//
+//           }
             
             side.left.closing.isOpen = !side.left.closing.isOpen
             side.right.closing.isOpen = !side.right.closing.isOpen
             side.top.closing.isOpen = !side.top.closing.isOpen
             side.bottom.closing.isOpen = !side.bottom.closing.isOpen
+            
+            print("version \(version)")
+            
+            print("currentSwitch \(currentSwitch)")
+
+            
+            print("piece left side closing \(side.left.closing.isOpen)")
+            print("piece right side closing \(side.right.closing.isOpen)")
+            print("piece top side closing \(side.top.closing.isOpen)")
+            print("piece bottom side closing \(side.bottom.closing.isOpen)")
+            
+            
             
         case .sword:
             print("TODO - Set this")
@@ -199,12 +216,25 @@ class Piece {
                     side.top.exitSide = "right"
                     side.bottom.exitSide = "left"
                     
+                    side.right.color = colors[0]
+                    side.top.color = colors[0]
+                    side.left.color = colors[1]
+                    side.bottom.color = colors[1]
+                    
+                    
                 } else if currentSwitch == 2 {
                     
                     side.top.exitSide = "left"
                     side.left.exitSide = "top"
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
+                    
+                    
+                    side.right.color = colors[0]
+                    side.top.color = colors[1]
+                    side.left.color = colors[1]
+                    side.bottom.color = colors[0]
+                    
                 }
                 
             case 2, 4:
@@ -216,6 +246,12 @@ class Piece {
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
                     
+                    side.right.color = colors[1]
+                    side.top.color = colors[0]
+                    side.left.color = colors[0]
+                    side.bottom.color = colors[1]
+                    
+                    
                 } else if currentSwitch == 2 {
                     
                     
@@ -223,11 +259,30 @@ class Piece {
                     side.left.exitSide = "bottom"
                     side.top.exitSide = "right"
                     side.bottom.exitSide = "left"
+                    
+                    
+                    side.right.color = colors[0]
+                    side.top.color = colors[0]
+                    side.left.color = colors[1]
+                    side.bottom.color = colors[1]
                 }
             
             default:
                 break
             }
+            
+            
+//            print("version \(version)")
+//
+//            print("currentSwitch \(currentSwitch)")
+//
+//
+//            print("piece left side color \(side.left.color)")
+//            print("piece right side color \(side.right.color)")
+//            print("piece top side color \(side.top.color)")
+//            print("piece bottom side color \(side.bottom.color)")
+            
+            
         default:
             break
         }
@@ -247,7 +302,7 @@ class Top {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-//    var center: CGPoint?
+    var color: UIColor?
 }
 
 class Bottom {
@@ -255,7 +310,7 @@ class Bottom {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-//    var center: CGPoint?
+    var color: UIColor?
 }
 
 class Left {
@@ -263,7 +318,7 @@ class Left {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-//    var center: CGPoint?
+    var color: UIColor?
 }
 
 class Right {
@@ -271,7 +326,7 @@ class Right {
     var opening = Opening()
     var closing  = Closing()
     var exitSide: String?
-//    var center: CGPoint?
+    var color: UIColor?
 }
 
 class Opening {

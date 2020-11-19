@@ -41,7 +41,6 @@ class ShapeView : UIView {
         for color in piece.colors {
             
             self.colors.append(color.cgColor)
-            print("ADDED A COLOR!")
         }
         
         
@@ -122,10 +121,6 @@ class ShapeView : UIView {
         context.setLineWidth(frame.height / 4)
         context.setFillColor(colors[0])
         context.setStrokeColor(colors[0])
-        
-        
-        print("COLORS! \(colors)")
-        
         
         
         switch name {
@@ -273,7 +268,6 @@ class ShapeView : UIView {
                     let height = bounds.height / 2
                     let y = (bounds.midY - (height / 2))
                     let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
-//                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
                     context.addRects([pivotRect])
                     context.fill(pivotRect)
 

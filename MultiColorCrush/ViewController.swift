@@ -599,6 +599,8 @@ extension ViewController: ModelDelegate {
                 piece.view = ShapeView(frame: frame, piece: piece)
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .lightGray
+                piece.view.layer.cornerRadius = piece.view.frame.height / 2
+                piece.view.clipsToBounds = true
                 addTapGestureRecognizer(view: piece.view)
                 self.piecesViews.append(piece)
                 model.board.view.addSubview(piece.view)
