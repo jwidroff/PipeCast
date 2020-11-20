@@ -53,28 +53,28 @@ class ShapeView : UIView {
         switch name {
         case .elbow:
             switches = 2
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
 //            self.version = piece.version
             
         case .doubleElbow:
             switches = 2
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
 
         case .sword:
             switches = 3
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
             
         case .cross:
             switches = 2
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
 
         case .quadBox:
             switches = 2
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
             
         case .diagElbow:
             switches = 2
-            currentSwitch = 1
+            currentSwitch = piece.currentSwitch
 //            self.version = piece.version
 
         default:
@@ -146,18 +146,6 @@ class ShapeView : UIView {
             
         case .elbow:
             
-            
-//            guard let context = UIGraphicsGetCurrentContext() else { return }
-//            let curve = UIBezierPath()
-//            let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-//            let topCenterPoint = CGPoint(x: frame.width / 2, y: 0)
-//            let bottomCenterPoint = CGPoint(x: frame.width / 2, y: frame.height)
-//            let leftCenterPoint = CGPoint(x: 0, y: frame.height / 2)
-//            let rightCenterPoint = CGPoint(x: frame.width, y: frame.height / 2)
-//
-//            context.setLineWidth(frame.height / 4)
-//            context.setStrokeColor(color!)
-            
                 switch version {
                 
                 case 1:
@@ -165,23 +153,13 @@ class ShapeView : UIView {
                     // TOP PIVOT TO LEFT SIDE
                     if currentSwitch == 1 {
                     
-//                        curve.move(to: topCenterPoint)
-//                        curve.addQuadCurve(to: leftCenterPoint, controlPoint: center)
-//                        context.addPath(curve.cgPath)
-//                        context.strokePath()
-                        
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
                         
                         
                         currentSwitch = 2
                     
                     // TOP PIVOT TO RIGHT SIDE
-                    } else {
-                        
-//                        curve.move(to: rightCenterPoint)
-//                        curve.addQuadCurve(to: topCenterPoint, controlPoint: center)
-//                        context.addPath(curve.cgPath)
-//                        context.strokePath()
+                    } else if currentSwitch == 2 {
                         
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
                         
@@ -205,7 +183,7 @@ class ShapeView : UIView {
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
                         
                         currentSwitch = 2
-                    } else {
+                    } else if currentSwitch == 2 {
                         
                         //LEFT PIVOT TO TOP
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
@@ -230,7 +208,7 @@ class ShapeView : UIView {
                         
                         currentSwitch = 2
                         
-                    } else {
+                    } else if currentSwitch == 2  {
                         
                         //BOTTOM PIVOT TO LEFT
                         drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
@@ -255,7 +233,7 @@ class ShapeView : UIView {
 
                         currentSwitch = 2
 
-                    } else {
+                    } else if currentSwitch == 2  {
                         
                         //RIGHT PIVOT TO BOTTOM
                         drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)

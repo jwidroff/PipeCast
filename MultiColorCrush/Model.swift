@@ -84,7 +84,7 @@ class Model {
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
-        level.numberOfPieces = 1
+        level.numberOfPieces = 20
     }
     
     func setBoard() {
@@ -219,61 +219,78 @@ class Model {
                 
                 //Top Pivot
                 
-                
-                
-                piece.side.top.opening.isOpen = true
-                piece.side.left.opening.isOpen = true
-                piece.side.top.closing.isOpen = true
-                piece.side.left.closing.isOpen = true
-                
-                
-                piece.side.top.color = piece.colors[0]
-                piece.side.left.color = piece.colors[0]
-
                 if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.top.closing.isOpen = true
+                    piece.side.left.closing.isOpen = true
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = nil
+                    piece.side.right.color = nil
+                    
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
                     piece.side.right.exitSide = nil
                     piece.side.bottom.exitSide = nil
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.top.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.bottom.color = nil
+                    piece.side.left.color = nil
+                    
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
                     piece.side.bottom.exitSide = nil
                     piece.side.left.exitSide = nil
-
-
-                    
                 }
                 
             case 2:
                 
                 //Left Pivot
                 
-                piece.side.bottom.opening.isOpen = true
-                piece.side.left.opening.isOpen = true
-                piece.side.bottom.closing.isOpen = true
-                piece.side.left.closing.isOpen = true
-                
-                
-                piece.side.bottom.color = piece.colors[0]
-                piece.side.left.color = piece.colors[0]
-                
                 if piece.currentSwitch == 1 {
+                    
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.left.closing.isOpen = true
+                    
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
                     piece.side.right.exitSide = nil
                     piece.side.top.exitSide = nil
-
-
+                    
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.top.color = nil
+                    piece.side.right.color = nil
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.top.closing.isOpen = true
+                    piece.side.left.closing.isOpen = true
+                    
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
                     piece.side.right.exitSide = nil
                     piece.side.bottom.exitSide = nil
 
-
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = nil
+                    piece.side.right.color = nil
                     
                 }
                 
@@ -281,63 +298,83 @@ class Model {
                 
                 //Bottom Pivot
                 
-                piece.side.bottom.opening.isOpen = true
-                piece.side.right.opening.isOpen = true
-                piece.side.bottom.closing.isOpen = true
-                piece.side.right.closing.isOpen = true
-                
-                
-                
-                piece.side.bottom.color = piece.colors[0]
-                piece.side.right.color = piece.colors[0]
-                
                 if piece.currentSwitch == 1 {
+                    
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.left.exitSide = nil
 
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = nil
+                    piece.side.left.color = nil
 
                 } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.left.closing.isOpen = true
+                    
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
                     piece.side.right.exitSide = nil
                     piece.side.top.exitSide = nil
                     
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.top.color = nil
+                    piece.side.right.color = nil
                 }
                 
             case 4:
                 
                 //Right Pivot
                 
-                piece.side.top.opening.isOpen = true
-                piece.side.right.opening.isOpen = true
-                piece.side.top.closing.isOpen = true
-                piece.side.right.closing.isOpen = true
-                
-                
-                
-                piece.side.top.color = piece.colors[0]
-                piece.side.right.color = piece.colors[0]
-                
                 if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.top.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
                     piece.side.bottom.exitSide = nil
+                    piece.side.left.exitSide = nil
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.bottom.color = nil
+                    piece.side.left.color = nil
 
                 } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
                     piece.side.top.exitSide = nil
-
+                    piece.side.left.exitSide = nil
+                    
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = nil
+                    piece.side.bottom.color = nil
                 }
                 
             default:
                 break
             }
-            
-            
-            
             
         case .doubleElbow:
             
@@ -476,10 +513,7 @@ class Model {
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[0]
-                    
-                    
-                    
-                    
+                     
                 }
                 
                 
@@ -536,32 +570,32 @@ class Model {
         
         case .elbow:
             piece.switches = 2
-            piece.currentSwitch = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .doubleElbow:
             
            piece.switches = 2
-           piece.currentSwitch = 1
+           piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .diagElbow:
             
             piece.switches = 2
-            piece.currentSwitch = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .quadBox:
             
             piece.switches = 2
-            piece.currentSwitch = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .sword:
             
             piece.switches = 3
-            piece.currentSwitch = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .cross:
             
             piece.switches = 2
-            piece.currentSwitch = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         default:
             break
@@ -586,7 +620,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.elbow]//.diagElbow]//, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     

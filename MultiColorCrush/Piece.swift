@@ -50,12 +50,24 @@ class Piece {
                     side.top.exitSide = "left"
                     side.left.exitSide = "top"
                     side.right.exitSide = nil
+                    side.bottom.exitSide = nil
+                    
+                    side.top.color = colors[0]
+                    side.left.color = colors[0]
+                    side.right.color = nil
+                    side.bottom.color = nil
                     
                 } else if currentSwitch == 2 {
 
                     side.top.exitSide = "right"
                     side.right.exitSide = "top"
                     side.left.exitSide = nil
+                    side.bottom.exitSide = nil
+                    
+                    side.top.color = colors[0]
+                    side.right.color = colors[0]
+                    side.left.color = nil
+                    side.bottom.color = nil
                 }
                 
                 side.left.opening.isOpen = !side.left.opening.isOpen
@@ -70,12 +82,24 @@ class Piece {
                     side.left.exitSide = "bottom"
                     side.bottom.exitSide = "left"
                     side.top.exitSide = nil
+                    side.right.exitSide = nil
+                    
+                    side.bottom.color = colors[0]
+                    side.left.color = colors[0]
+                    side.right.color = nil
+                    side.top.color = nil
                     
                 } else if currentSwitch == 2 {
 
                     side.left.exitSide = "top"
                     side.top.exitSide = "left"
                     side.bottom.exitSide = nil
+                    side.right.exitSide = nil
+                    
+                    side.top.color = colors[0]
+                    side.left.color = colors[0]
+                    side.right.color = nil
+                    side.bottom.color = nil
                 }
                 
                 side.top.opening.isOpen = !side.top.opening.isOpen
@@ -90,12 +114,24 @@ class Piece {
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
                     side.left.exitSide = nil
+                    side.top.exitSide = nil
+                    
+                    side.right.color = colors[0]
+                    side.bottom.color = colors[0]
+                    side.left.color = nil
+                    side.top.color = nil
                     
                 } else if currentSwitch == 2 {
 
                     side.bottom.exitSide = "left"
                     side.left.exitSide = "bottom"
                     side.right.exitSide = nil
+                    side.top.exitSide = nil
+
+                    side.bottom.color = colors[0]
+                    side.left.color = colors[0]
+                    side.right.color = nil
+                    side.top.color = nil
                 }
                 
                 side.left.opening.isOpen = !side.left.opening.isOpen
@@ -110,12 +146,24 @@ class Piece {
                     side.right.exitSide = "top"
                     side.top.exitSide = "right"
                     side.bottom.exitSide = nil
+                    side.left.exitSide = nil
+
+                    side.top.color = colors[0]
+                    side.right.color = colors[0]
+                    side.left.color = nil
+                    side.bottom.color = nil
                     
                 } else if currentSwitch == 2 {
 
                     side.right.exitSide = "bottom"
                     side.bottom.exitSide = "right"
                     side.top.exitSide = nil
+                    side.left.exitSide = nil
+
+                    side.bottom.color = colors[0]
+                    side.right.color = colors[0]
+                    side.top.color = nil
+                    side.left.color = nil
                 }
                 
                 side.top.opening.isOpen = !side.top.opening.isOpen
