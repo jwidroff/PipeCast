@@ -177,6 +177,7 @@ class Model {
     
     func printPieceProperties(piece: Piece) {
         
+        print("shape \(piece.shape)")
         print("version \(piece.version)")
         print("switch \(piece.currentSwitch)")
 
@@ -406,8 +407,6 @@ class Model {
             
         case .cross:
             
-            
-            
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             piece.side.top.exitSide = "bottom"
@@ -469,6 +468,69 @@ class Model {
             
             
             
+        case .stick:
+            
+           
+            switch piece.version {
+            case 1, 3:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.left.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.top.closing.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    
+                    
+                }
+                
+                
+            case 2, 4:
+                
+                if piece.currentSwitch == 1 {
+                    
+                   
+                    piece.side.top.closing.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.left.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    
+                    
+                }
+                
+            default:
+                break
+            }
             
             
             
@@ -597,6 +659,13 @@ class Model {
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
+            
+        case .stick:
+            
+            piece.switches = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+            
+            
         default:
             break
         }
@@ -620,7 +689,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     

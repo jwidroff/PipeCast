@@ -68,6 +68,11 @@ class ShapeView : UIView {
             switches = 2
             currentSwitch = piece.currentSwitch
 
+        case .stick:
+            switches = 1
+            currentSwitch = piece.currentSwitch
+            
+            
         case .quadBox:
             switches = 2
             currentSwitch = piece.currentSwitch
@@ -124,6 +129,48 @@ class ShapeView : UIView {
         
         
         switch name {
+        
+        
+        case .stick:
+            
+            switch version {
+            
+            case 1, 3:
+                
+                let width = frame.width
+                let height = frame.height / 4
+                let x1:CGFloat = 0.0
+                let y1 = ((frame.height - height) / 2)
+                
+                
+                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                context.setFillColor(colors[1])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                currentSwitch = 2
+                
+            case 2, 4:
+                
+                let width2 = frame.width / 4
+                let height2 = frame.height
+                let y2:CGFloat = 0.0
+                let x2 = ((frame.width - width2) / 2)
+                
+                
+                let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
+                context.setFillColor(colors[0])
+                context.addRects([rect2])
+                context.fill(rect2)
+                
+                currentSwitch = 1
+                
+            default:
+                break
+            }
+            
+            
+            
             
         case .regular:
             
@@ -844,6 +891,7 @@ enum Shape {
     case diagElbow
     case sword
     case cross
+    case stick
     case quadBox
     case regular
     case ball

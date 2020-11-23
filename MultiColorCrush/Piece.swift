@@ -218,18 +218,6 @@ class Piece {
             
         case .cross:
 
-//           if currentSwitch == 1 {
-//
-//            side.right.exitSide = "left"
-//            side.left.exitSide = "right"
-//
-//           } else if currentSwitch == 2 {
-//
-//            side.top.exitSide = "bottom"
-//            side.bottom.exitSide = "top"
-//
-//           }
-            
             side.left.closing.isOpen = !side.left.closing.isOpen
             side.right.closing.isOpen = !side.right.closing.isOpen
             side.top.closing.isOpen = !side.top.closing.isOpen
