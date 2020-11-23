@@ -21,6 +21,7 @@ class Board {
     var pieces = [Piece]()
     var heightSpaces = Int()
     var widthSpaces = Int()
+    var iceLocations = [Indexes]()
 }
 
 class BoardView : UIView {
@@ -28,6 +29,7 @@ class BoardView : UIView {
     var context = UIGraphicsGetCurrentContext()
     var xArray = [CGFloat]()
     var yArray = [CGFloat]()
+    var iceLocations = [Indexes]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,15 +41,18 @@ class BoardView : UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat]) {
+    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes]) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.xArray = xArray.sorted(by: { (x1, x2) -> Bool in
-            x1 > x2
+            x1 < x2
         })
         self.yArray = yArray.sorted(by: { (y1, y2) -> Bool in
-            y1 > y2
+            y1 < y2
         })
+        
+        self.iceLocations = iceLocations
+        
     }
     
     override func draw(_ rect: CGRect) {
@@ -87,6 +92,20 @@ class BoardView : UIView {
             context.move(to: CGPoint(x: xArray.first! + halfX, y: y + halfY))
             context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y + halfY))
             context.strokePath()
+        }
+        
+        for iceLocation in iceLocations {
+            
+            let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
+            
+            context.setFillColor(UIColor.cyan.cgColor)
+            context.fill(rect)
+            context.addRect(rect)
+        
+            
+            
+            
+            
         }
 
         setNeedsDisplay()

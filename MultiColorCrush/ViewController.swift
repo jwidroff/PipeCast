@@ -646,7 +646,7 @@ extension ViewController: ModelDelegate {
             }
         }
         
-        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray)
+        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations)
         self.model.board.view = boardView
         self.model.board.view.backgroundColor = .black
         view.addSubview(self.model.board.view)

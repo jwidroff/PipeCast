@@ -148,6 +148,16 @@ class ShapeView : UIView {
                 context.addRects([rect1])
                 context.fill(rect1)
                 
+                let height3:CGFloat = height / 10
+                context.setFillColor(UIColor.black.cgColor)
+
+                let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
+                let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
+                
+                
                 currentSwitch = 2
                 
             case 2, 4:
@@ -162,6 +172,16 @@ class ShapeView : UIView {
                 context.setFillColor(colors[0])
                 context.addRects([rect2])
                 context.fill(rect2)
+                
+                let width3:CGFloat = width2 / 10
+                context.setFillColor(UIColor.black.cgColor)
+
+                let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
+                let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
+                
                 
                 currentSwitch = 1
                 

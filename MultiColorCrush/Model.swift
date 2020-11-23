@@ -81,6 +81,8 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex2)
 //        level.pieceLocations.append(pieceLocationIndex3)
         
+        
+        level.iceLocations = [Indexes(x: 2, y: 2)]
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
@@ -89,12 +91,19 @@ class Model {
     
     func setBoard() {
         
+        setupIce()
         setupEntrances()
         setupExits()
         setupWalls()
         setupBalls()
         delegate?.setUpGame(board: board)
     }
+    
+    func setupIce() {
+        
+        board.iceLocations = level.iceLocations
+    }
+    
     
     func setupEntrances() {
         
