@@ -82,7 +82,7 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         
-        level.iceLocations = [Indexes(x: 2, y: 2)]
+        level.iceLocations = [Indexes(x: 2, y: 2), Indexes(x: 2, y: 3)]
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
@@ -778,6 +778,106 @@ class Model {
         return piece
     }
     
+    func checkForIce(piece: Piece) -> Bool {
+
+
+        var bool = false
+
+        if board.iceLocations.contains(where: { (index) -> Bool in
+            index == piece.indexes
+        }) {
+
+            bool = true
+        }
+
+        print("BOOL IS \(bool)")
+        
+        
+        return bool
+
+    }
+    
+    func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
+       
+        
+        switch direction {
+        
+        case .up:
+            
+            let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
+            
+            let notAtWall = piece.indexes.y != 0
+            if notAtWall {
+                if spaceIsntBlocked {
+                    piece.indexes.y = piece.indexes.y! - 1
+                    if checkForIce(piece: piece) == true {
+                        movePiecesHelper(piece: piece, direction: direction)
+                    }
+                    
+                }
+            }
+           
+        case .down:
+            
+            let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
+            
+            let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+                return int1 < int2
+            })
+            if notAtWall {
+                if spaceIsntBlocked{
+                    piece.indexes.y = piece.indexes.y! + 1
+                    if checkForIce(piece: piece) == true {
+                        movePiecesHelper(piece: piece, direction: direction)
+                    }
+                }
+            }
+            
+            
+            
+        case .left:
+            
+            let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
+            let notAtWall = piece.indexes.x != 0
+            if notAtWall {
+                if spaceIsntBlocked {
+                    piece.indexes.x = piece.indexes.x! - 1
+                    if checkForIce(piece: piece) == true {
+                        movePiecesHelper(piece: piece, direction: direction)
+                    }
+                }
+            }
+            
+            
+            
+        case .right:
+            
+            let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
+            let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
+                return int1 < int2
+            })
+            if notAtWall {
+                if spaceIsntBlocked {
+                    piece.indexes.x = piece.indexes.x! + 1
+                    if checkForIce(piece: piece) == true {
+                        movePiecesHelper(piece: piece, direction: direction)
+                    }
+                }
+            }
+            
+            
+            
+        default:
+            break
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
     func movePiece(direction: UISwipeGestureRecognizer.Direction) {
         
         switch direction {
@@ -789,13 +889,19 @@ class Model {
             }).filter({ (piece) -> Bool in
                 piece.isLocked == false
             }) {
-                let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
-                let notAtWall = piece.indexes.y != 0
-                if notAtWall {
-                    if spaceIsntBlocked {
-                        piece.indexes.y = piece.indexes.y! - 1
-                    }
-                }
+                
+                movePiecesHelper(piece: piece, direction: direction)
+//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
+//                let notAtWall = piece.indexes.y != 0
+//                if notAtWall {
+//                    if spaceIsntBlocked {
+//                        piece.indexes.y = piece.indexes.y! - 1
+//                        if checkForIce(piece: piece) == true {
+//                            movePiece(direction: direction)
+//                        }
+//
+//                    }
+//                }
             }
             delegate?.movePieces()
 
@@ -807,16 +913,21 @@ class Model {
                 piece.isLocked == false
             })  {
                 
-                let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
-                
-                let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
-                    return int1 < int2
-                })
-                if notAtWall {
-                    if spaceIsntBlocked{
-                        piece.indexes.y = piece.indexes.y! + 1
-                    }
-                }
+                movePiecesHelper(piece: piece, direction: direction)
+
+//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
+//
+//                let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+//                    return int1 < int2
+//                })
+//                if notAtWall {
+//                    if spaceIsntBlocked{
+//                        piece.indexes.y = piece.indexes.y! + 1
+//                        if checkForIce(piece: piece) == true {
+//                            movePiece(direction: direction)
+//                        }
+//                    }
+//                }
             }
             delegate?.movePieces()
 
@@ -826,13 +937,19 @@ class Model {
             }).filter({ (piece) -> Bool in
                 piece.isLocked == false
             })  {
-                let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
-                let notAtWall = piece.indexes.x != 0
-                if notAtWall {
-                    if spaceIsntBlocked {
-                        piece.indexes.x = piece.indexes.x! - 1
-                    }
-                }
+                
+                movePiecesHelper(piece: piece, direction: direction)
+
+//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
+//                let notAtWall = piece.indexes.x != 0
+//                if notAtWall {
+//                    if spaceIsntBlocked {
+//                        piece.indexes.x = piece.indexes.x! - 1
+//                        if checkForIce(piece: piece) == true {
+//                            movePiece(direction: direction)
+//                        }
+//                    }
+//                }
             }
             delegate?.movePieces()
 
@@ -842,15 +959,21 @@ class Model {
             }).filter({ (piece) -> Bool in
                 piece.isLocked == false
             })  {
-                let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
-                let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
-                    return int1 < int2
-                })
-                if notAtWall {
-                    if spaceIsntBlocked {
-                        piece.indexes.x = piece.indexes.x! + 1
-                    }
-                }
+                
+                movePiecesHelper(piece: piece, direction: direction)
+
+//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
+//                let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
+//                    return int1 < int2
+//                })
+//                if notAtWall {
+//                    if spaceIsntBlocked {
+//                        piece.indexes.x = piece.indexes.x! + 1
+//                        if checkForIce(piece: piece) == true {
+//                            movePiece(direction: direction)
+//                        }
+//                    }
+//                }
             }
             delegate?.movePieces()
 
