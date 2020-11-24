@@ -82,7 +82,7 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         
-        level.iceLocations = [Indexes(x: 2, y: 2), Indexes(x: 2, y: 3)]
+        level.iceLocations = [Indexes(x: 2, y: 0), Indexes(x: 2, y: 1)]
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
@@ -813,7 +813,6 @@ class Model {
                     if checkForIce(piece: piece) == true {
                         movePiecesHelper(piece: piece, direction: direction)
                     }
-                    
                 }
             }
            
