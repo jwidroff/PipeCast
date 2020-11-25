@@ -715,6 +715,88 @@ class ShapeView : UIView {
 
 //        default:
 //            break
+        case .entrance:
+            
+            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
+            
+            let w = frame.width / 10 * 9
+            let h = frame.height / 10 * 9
+            let x = (frame.width - w) / 2
+            let y = (frame.height - h) / 2
+            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+            context.setFillColor(colors[0])
+            context.addRects([rect1])
+            context.fill(rect1)
+
+            if isLocked == true {
+                
+                setLock(context: context)
+            }
+            
+            
+        case .exit:
+            
+            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
+            
+            let w = frame.width / 10 * 9
+            let h = frame.height / 10 * 9
+            let x = (frame.width - w) / 2
+            let y = (frame.height - h) / 2
+            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+            context.setFillColor(colors[0])
+            context.addRects([rect1])
+            context.fill(rect1)
+
+            if isLocked == true {
+                
+                setLock(context: context)
+            }
+            
+            
+            
+        case .wall:
+            
+            //Need to make a dark border color around it
+            
+            let w = frame.width / 10 * 9
+            let h = frame.height / 10 * 9
+            let x = (frame.width - w) / 2
+            let y = (frame.height - h) / 2
+            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+            context.setFillColor(colors[0])
+            context.addRects([rect1])
+//            context.addEllipse(in: rect1)
+            
+            context.fill(rect1)
+
+            if isLocked == true {
+                
+                setLock(context: context)
+            }
+            
+            layer.cornerRadius = h / 2
+            clipsToBounds = true
+
+            
+            
+        case .pieceMaker:
+            
+            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the pieces move.
+            
+            let w = frame.width / 10 * 9
+            let h = frame.height / 10 * 9
+            let x = (frame.width - w) / 2
+            let y = (frame.height - h) / 2
+            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+            context.setFillColor(colors[0])
+            context.addRects([rect1])
+            context.fill(rect1)
+
+            if isLocked == true {
+                
+                setLock(context: context)
+            }
+            
         }
     }
     
@@ -778,6 +860,13 @@ enum Shape {
     case quadBox
     case regular
     case ball
+    
+    case entrance
+    case exit
+    case wall
+    case pieceMaker
+    
+    
 }
 
 

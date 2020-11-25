@@ -9,24 +9,24 @@
 import Foundation
 import UIKit
 
-class Wall: Piece {
-    
-}
-
-
-class PieceMaker: Piece {
-    
-    var opening = String()
-}
-
-class Exit: Piece {
-    
-    var opening = String()
-
-}
-
-
-class Entrance: Piece {
-    
-    var opening = String()
-}
+//class Wall: Piece {
+//    
+//}
+//
+//
+//class PieceMaker: Piece {
+//    
+//    var opening = String()
+//}
+//
+//class Exit: Piece {
+//    
+//    var opening = String()
+//
+//}
+//
+//
+//class Entrance: Piece {
+//    
+//    var opening = String()
+//}

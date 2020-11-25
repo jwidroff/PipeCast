@@ -161,7 +161,7 @@ class ViewController: UIViewController {
         for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
             piece1.view.center.y < piece2.view.center.y
         }).filter({ (piece) -> Bool in
-            piece is Entrance == false
+            piece.shape != .entrance
         }) {
                         
             let height = (piece.view.frame.height / 9 * 10)
@@ -434,20 +434,23 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView() {
         
-        setupEntrances()  //ADD PIECEMAKER
+//        setupEntrances()
         
-        setupExits()
+//        setupExits()
         
-        setupWalls()
+//        setupWalls()
         
-        setupPieceMakers()
+//        setupPieceMakers()
         
         setupBalls()
                 
-        for piece in model.board.pieces.filter({ (piece) -> Bool in
-            piece is Entrance == false && piece is Exit == false && piece is Wall == false && piece is PieceMaker == false
-        }) {
+//        for piece in model.board.pieces.filter({ (piece) -> Bool in
+//            piece is Entrance == false && piece is Exit == false && piece is Wall == false && piece is PieceMaker == false
+//        }) {
             
+        for piece in model.board.pieces {
+        
+        
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, piece: piece)
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
@@ -466,7 +469,7 @@ extension ViewController: ModelDelegate {
                 
         for piece in self.model.board.pieces {
             
-            if piece is Entrance {
+            if piece.shape == .entrance {
                 
 //                piece.colors.append(UIColor.black)
 
@@ -484,7 +487,7 @@ extension ViewController: ModelDelegate {
                 var x = CGFloat()
                 var y = CGFloat()
                 
-                if let piece = piece as? Entrance {
+//                if let piece = piece as? Entrance {
                     
 
                     switch piece.opening {
@@ -526,7 +529,7 @@ extension ViewController: ModelDelegate {
                     piece.view.addSubview(textBox)
                     
                     self.model.board.view.addSubview(piece.view)
-                }
+//                }
             }
         }
     }
@@ -535,7 +538,7 @@ extension ViewController: ModelDelegate {
         
         for piece in self.model.board.pieces {
             
-            if piece is Exit {
+            if piece.shape == .exit {
                 
 //                piece.colors.append(UIColor.black)
                 
@@ -551,7 +554,10 @@ extension ViewController: ModelDelegate {
                 var x = CGFloat()
                 var y = CGFloat()
                 
-                if let piece = piece as? Exit {
+//                if let piece = piece as? Exit {
+                
+                
+                
 
                     switch piece.opening {
                     
@@ -593,7 +599,7 @@ extension ViewController: ModelDelegate {
                     
                     self.model.board.view.addSubview(piece.view)
                 
-                }
+//                }
             }
         }
     }
@@ -602,7 +608,7 @@ extension ViewController: ModelDelegate {
         
         for piece in self.model.board.pieces {
             
-            if piece is PieceMaker {
+            if piece.shape == .pieceMaker {
                 
 //                piece.colors.append(UIColor.lightGray)
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
@@ -632,7 +638,7 @@ extension ViewController: ModelDelegate {
         
         for piece in self.model.board.pieces {
             
-            if piece is Wall {
+            if piece.shape == .wall {
                 
 //                piece.colors.append(UIColor.lightGray)
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)

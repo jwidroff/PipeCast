@@ -22,6 +22,7 @@ class Piece {
     var side = Side()
     var version = Int()
     var isLocked = false
+    var opening = String()
     
     init(){
         

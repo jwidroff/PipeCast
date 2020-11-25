@@ -93,11 +93,7 @@ class Model {
     func setBoard() {
         
         setupIce()
-        setupPieceMakers()
-        setupEntrances()
-        setupExits()
-        setupWalls()
-        setupBalls()
+        
         delegate?.setUpGame(board: board)
     }
     
@@ -105,11 +101,12 @@ class Model {
         
         for _ in 1...1 {
             
-            let pieceMaker = PieceMaker()
+            let pieceMaker = Piece()
             setPieceIndex(piece: pieceMaker)
             pieceMaker.isLocked = true
-            pieceMaker.colors = [.blue]
-            pieceMaker.opening = "bottom"
+            pieceMaker.colors = [.yellow]
+            pieceMaker.side.bottom.opening.isOpen = true
+            pieceMaker.shape = .pieceMaker
             board.pieces.append(pieceMaker)
         }
     }
@@ -122,38 +119,72 @@ class Model {
     
     func setupEntrances() {
         
+//        for _ in 1...1 {
+//
+//            let entrance = Entrance()
+//            setPieceIndex(piece: entrance)
+//            entrance.isLocked = true
+//            entrance.colors = [.black]
+//            entrance.opening = "top"
+//            board.pieces.append(entrance)
+//        }
+        
         for _ in 1...1 {
             
-            let entrance = Entrance()
+            
+            //White box with lock
+            
+            let entrance = Piece()
             setPieceIndex(piece: entrance)
             entrance.isLocked = true
-            entrance.colors = [.black]
-            entrance.opening = "top"
+            entrance.colors = [.white]
+            entrance.side.top.opening.isOpen = true
+            entrance.shape = .entrance
             board.pieces.append(entrance)
         }
+        
+        
+        
     }
 
     func setupExits() {
         
+//        for _ in 1...1 {
+//
+//            let exit = Exit()
+//            setPieceIndex(piece: exit)
+//            exit.colors = [.black]
+//            exit.isLocked = true
+//            exit.opening = "bottom"
+//            board.pieces.append(exit)
+//        }
+        
         for _ in 1...1 {
             
-            let exit = Exit()
+            
+            //brown box with lock
+            
+            let exit = Piece()
             setPieceIndex(piece: exit)
-            exit.colors = [.black]
             exit.isLocked = true
-            exit.opening = "bottom"
+            exit.colors = [.brown]
+            exit.side.bottom.opening.isOpen = true
+            exit.shape = .exit
             board.pieces.append(exit)
         }
+        
+        
     }
     
     func setupWalls() {
         
         for _ in 0...0 {
 
-            let wall = Wall()
+            let wall = Piece()
             setPieceIndex(piece: wall)
-            wall.colors = [.lightGray]
             wall.isLocked = true
+            wall.colors = [.lightGray]
+            wall.shape = .wall
             board.pieces.append(wall)
         }
     }
@@ -162,9 +193,10 @@ class Model {
         
         for piece in board.pieces {
             
-            if piece is Entrance {
-                
-                let ball = Ball()
+            if piece.shape == .entrance {
+
+            
+            let ball = Ball()
                 ball.indexes = piece.indexes
                 board.balls.append(ball)
             }
@@ -173,6 +205,13 @@ class Model {
     }
     
     func setPieces() {
+        
+        setupPieceMakers()
+        setupEntrances()
+        setupExits()
+        setupWalls()
+        setupBalls()
+        
         
         for _ in 0..<level.numberOfPieces {
             
@@ -988,9 +1027,21 @@ class Model {
         
         case "unmoved":
             
-            let piece = getPieceInfo(index: ball.indexes) as! Entrance
+            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "center"
             let endSide = piece.opening
+            
+            
+            
+//            if piece.side.top.opening.isOpen == true {
+//                endSide = "top"
+//            } else if piece.side.bottom.opening.isOpen == true {
+//                endSide = "bottom"
+//            } else if piece.side.left.opening.isOpen == true {
+//                endSide = "left"
+//            } else if piece.side.right.opening.isOpen == true {
+//                endSide = "right"
+//            }
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
