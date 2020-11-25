@@ -82,7 +82,8 @@ class Model {
 //        level.pieceLocations.append(pieceLocationIndex3)
         
         
-        level.iceLocations = [Indexes(x: 2, y: 0), Indexes(x: 2, y: 1)]
+        level.iceLocations = [Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
+        level.pieceMakerLocations = [Indexes(x: 4, y: 4)]
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
@@ -92,11 +93,29 @@ class Model {
     func setBoard() {
         
         setupIce()
+        setupPieceMakers()
         setupEntrances()
         setupExits()
         setupWalls()
         setupBalls()
         delegate?.setUpGame(board: board)
+    }
+    
+    func setupPieceMakers() {
+        
+        //TODO: CONTINUE HERE
+        
+        for _ in 1...1 {
+            
+            let pieceMaker = PieceMaker()
+            setPieceIndex(piece: pieceMaker)
+//            pieceMaker.isLocked = true
+            pieceMaker.colors = [.blue]
+            pieceMaker.opening = "bottom"
+            board.pieces.append(pieceMaker)
+        }
+        
+        
     }
     
     func setupIce() {

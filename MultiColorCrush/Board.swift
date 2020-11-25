@@ -22,6 +22,7 @@ class Board {
     var heightSpaces = Int()
     var widthSpaces = Int()
     var iceLocations = [Indexes]()
+    var pieceMakerLocations = [Indexes]()
 }
 
 class BoardView : UIView {

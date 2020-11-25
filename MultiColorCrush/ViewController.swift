@@ -433,6 +433,16 @@ extension ViewController: ModelDelegate {
     }
     
     func setUpPiecesView() {
+        
+        setupEntrances()  //ADD PIECEMAKER
+        
+        setupExits()
+        
+        setupWalls()
+        
+        setupPieceMakers()
+        
+        setupBalls()
                 
         for piece in model.board.pieces.filter({ (piece) -> Bool in
             piece is Entrance == false && piece is Exit == false && piece is Wall == false
@@ -588,6 +598,36 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    func setupPieceMakers() {
+        
+        for piece in self.model.board.pieces {
+            
+            if piece is PieceMaker {
+                
+//                piece.colors.append(UIColor.lightGray)
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+                piece.view = ShapeView(frame: frame, piece: piece)
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+                piece.view.backgroundColor = .red
+//                piece.view.layer.cornerRadius = piece.view.frame.height / 2
+//                piece.view.clipsToBounds = true
+                
+                
+                
+                
+                
+                addTapGestureRecognizer(view: piece.view)
+                piecesViews.append(piece)
+                model.board.view.addSubview(piece.view)
+//                self.model.board.view.addSubview(piece.view)
+                
+                
+            }
+        }
+        
+        
+    }
+    
     func setupWalls() {
         
         for piece in self.model.board.pieces {
@@ -682,13 +722,13 @@ extension ViewController: ModelDelegate {
         
         setupBoard()
 
-        setupEntrances()
-        
-        setupExits()
-        
-        setupWalls()
-        
-        setupBalls()
+//        setupEntrances()
+//
+//        setupExits()
+//
+//        setupWalls()
+//
+//        setupBalls()
     }
     
     func setupGrid() {

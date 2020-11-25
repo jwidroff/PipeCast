@@ -18,7 +18,7 @@ class Level {
     var pieceLocations = [Indexes?]()
     var numberOfPieces = Int()
     var iceLocations = [Indexes]()
-    
+    var pieceMakerLocations = [Indexes]()
     
     init(){
         
