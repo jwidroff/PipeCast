@@ -103,19 +103,15 @@ class Model {
     
     func setupPieceMakers() {
         
-        //TODO: CONTINUE HERE
-        
         for _ in 1...1 {
             
             let pieceMaker = PieceMaker()
             setPieceIndex(piece: pieceMaker)
-//            pieceMaker.isLocked = true
+            pieceMaker.isLocked = true
             pieceMaker.colors = [.blue]
             pieceMaker.opening = "bottom"
             board.pieces.append(pieceMaker)
         }
-        
-        
     }
     
     func setupIce() {
@@ -640,15 +636,6 @@ class Model {
                 break
             }
             
-        case .sword:
-            
-            //TODO: Finish this
-            print("TODO - Set this")
-//            piece.side.top.opening.isOpen = true
-//            piece.side.bottom.opening.isOpen = true
-//            piece.side.left.opening.isOpen = true
-//            piece.side.right.opening.isOpen = true
-            
         default:
             break
         }
@@ -675,11 +662,6 @@ class Model {
         case .quadBox:
             
             piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .sword:
-            
-            piece.switches = 3
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
         case .cross:

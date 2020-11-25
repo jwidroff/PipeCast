@@ -13,12 +13,8 @@ class Wall: Piece {
     
 }
 
-class PieceMaker: Piece {
-    
-    var opening = String()
-}
 
-class Entrance: Piece {
+class PieceMaker: Piece {
     
     var opening = String()
 }
@@ -30,4 +26,7 @@ class Exit: Piece {
 }
 
 
-
+class Entrance: Piece {
+    
+    var opening = String()
+}

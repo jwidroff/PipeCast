@@ -233,10 +233,6 @@ class Piece {
             print("piece top side closing \(side.top.closing.isOpen)")
             print("piece bottom side closing \(side.bottom.closing.isOpen)")
             
-            
-            
-        case .sword:
-            print("TODO - Set this")
 
             
         case .diagElbow: // Nothing to set as far as openings and closings

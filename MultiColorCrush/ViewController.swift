@@ -445,7 +445,7 @@ extension ViewController: ModelDelegate {
         setupBalls()
                 
         for piece in model.board.pieces.filter({ (piece) -> Bool in
-            piece is Entrance == false && piece is Exit == false && piece is Wall == false
+            piece is Entrance == false && piece is Exit == false && piece is Wall == false && piece is PieceMaker == false
         }) {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
@@ -486,9 +486,9 @@ extension ViewController: ModelDelegate {
                 
                 if let piece = piece as? Entrance {
                     
+
                     switch piece.opening {
 
-                    
                     case "top":
                         
                         x = frame.midX - (widthAndHeight / 2)
