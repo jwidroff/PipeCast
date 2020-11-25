@@ -442,7 +442,7 @@ extension ViewController: ModelDelegate {
         
 //        setupPieceMakers()
         
-        setupBalls()
+
                 
 //        for piece in model.board.pieces.filter({ (piece) -> Bool in
 //            piece is Entrance == false && piece is Exit == false && piece is Wall == false && piece is PieceMaker == false
@@ -463,6 +463,9 @@ extension ViewController: ModelDelegate {
             //MARK: Change the pieces to bubbles
 //            piece.view.layer.cornerRadius = piece.view.frame.height / 2
         }
+        
+        setupBalls()
+        
     }
     
     func setupEntrances() {
@@ -524,7 +527,7 @@ extension ViewController: ModelDelegate {
                     let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
                     let textBox = UITextField(frame: halfFrame)
                     textBox.text = "Begin"
-                    textBox.textColor = .white
+                    textBox.textColor = .black
                     textBox.textAlignment = .center
                     piece.view.addSubview(textBox)
                     
@@ -556,9 +559,6 @@ extension ViewController: ModelDelegate {
                 
 //                if let piece = piece as? Exit {
                 
-                
-                
-
                     switch piece.opening {
                     
                     case "top":

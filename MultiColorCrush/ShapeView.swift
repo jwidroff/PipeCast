@@ -26,6 +26,8 @@ class ShapeView : UIView {
     
     var isLocked = false
     
+    var opening = String()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +51,7 @@ class ShapeView : UIView {
         self.name = piece.shape
         self.version = piece.version
         self.isLocked = piece.isLocked
+        self.opening = piece.opening
         
         switch name {
         case .elbow:
@@ -86,29 +89,34 @@ class ShapeView : UIView {
     }
     
     func setLock(context: CGContext) {
-        let w = frame.width * 0.3
-        let h = frame.height * 0.3
-        let x = (frame.width - w) / 2
-        let y = (frame.height - h) / 2
-        let rect1 = CGRect(x: x, y: y, width: w, height: h)
-
-        context.addRect(rect1)
-        context.setFillColor(UIColor.darkGray.cgColor)
-        context.fill(rect1)
         
-        let lineWidth:CGFloat = 8.0
-
-        let startPoint = CGPoint(x: ((frame.width - w) / 2) + lineWidth, y: (frame.height - h) / 2)
-        let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 6)
-        let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 6)
-        let point4 = CGPoint(x: ((frame.width + w) / 2) - lineWidth, y: (frame.height - h) / 2)
+        //MARK: TURNED OFF FOR NOW
         
-        context.setStrokeColor(UIColor.darkGray.cgColor)
-        context.setLineWidth(lineWidth)
-        context.beginPath()
-        context.move(to: startPoint)
-        context.addCurve(to: point4, control1: point2, control2: point3)
-        context.strokePath()
+        
+        
+//        let w = frame.width * 0.3
+//        let h = frame.height * 0.3
+//        let x = (frame.width - w) / 2
+//        let y = (frame.height - h) / 2
+//        let rect1 = CGRect(x: x, y: y, width: w, height: h)
+//
+//        context.addRect(rect1)
+//        context.setFillColor(UIColor.darkGray.cgColor)
+//        context.fill(rect1)
+//
+//        let lineWidth:CGFloat = 8.0
+//
+//        let startPoint = CGPoint(x: ((frame.width - w) / 2) + lineWidth, y: (frame.height - h) / 2)
+//        let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 6)
+//        let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 6)
+//        let point4 = CGPoint(x: ((frame.width + w) / 2) - lineWidth, y: (frame.height - h) / 2)
+//
+//        context.setStrokeColor(UIColor.darkGray.cgColor)
+//        context.setLineWidth(lineWidth)
+//        context.beginPath()
+//        context.move(to: startPoint)
+//        context.addCurve(to: point4, control1: point2, control2: point3)
+//        context.strokePath()
     }
     
     override func draw(_ rect: CGRect) {
@@ -706,51 +714,164 @@ class ShapeView : UIView {
         case .ball:
             
 //            guard let context = UIGraphicsGetCurrentContext() else { return }
-            let eclipseHeight1 = frame.height / 5
-            let eclipseWidth1 = frame.width / 5
+            let eclipseHeight1 = frame.height / 4
+            let eclipseWidth1 = frame.width / 4
             let rect1 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
             context.addEllipse(in: rect1)
-            context.setFillColor(UIColor.systemPink.cgColor)
+            context.setFillColor(UIColor.black.cgColor)
             context.fillEllipse(in: rect1)
 
+            guard let context2 = UIGraphicsGetCurrentContext() else { return }
+            let eclipseHeight2 = frame.height / 5
+            let eclipseWidth2 = frame.width / 5
+            let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+            context2.addEllipse(in: rect2)
+                context2.setFillColor(UIColor.black.cgColor)
+            context2.fillEllipse(in: rect2)
+            
+            
 //        default:
 //            break
-        case .entrance:
+        case .entrance, .exit:
             
             //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
             
-            let w = frame.width / 10 * 9
-            let h = frame.height / 10 * 9
-            let x = (frame.width - w) / 2
-            let y = (frame.height - h) / 2
-            let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(colors[0])
-            context.addRects([rect1])
-            context.fill(rect1)
+            
+            //MARK: Make this look like a spoon that the entrance sits on
+            
+            switch opening {
+            
+            
+            case "top":
+                
+                print("come back to this")
+                
+            case "bottom":
+                
+                print("come back to this")
+                
+            case "left":
+                
+                
+                let width = (frame.width / 2)
+                let height = frame.height / 4
+                let x1:CGFloat = 0
+                let y1 = ((frame.height - height) / 2)
+                
+                
+                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                let eclipseHeight1 = frame.height / 1.75
+                let eclipseWidth1 = frame.width / 1.75
+                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+                context.setFillColor(UIColor.black.cgColor)
+                context.addEllipse(in: rect2)
+                context.fillEllipse(in: rect2)
+                
+                let eclipseHeight2 = frame.height / 2
+                let eclipseWidth2 = frame.width / 2
+                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+                context.setFillColor(colors[0])
+                context.addEllipse(in: rect3)
+                context.fillEllipse(in: rect3)
+                
+                
+                let height3:CGFloat = height / 10
+                context.setFillColor(UIColor.black.cgColor)
 
+                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: (frame.width - eclipseWidth2) / 2, height: height3)
+                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: (frame.width - eclipseWidth2) / 2, height: height3)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
+                
+            case "right":
+                
+                
+                let width = (frame.width / 2)
+                let height = frame.height / 4
+                let x1 =  ((frame.width - height) / 2) + (frame.height / 4)
+                let y1 = ((frame.height - height) / 2)
+                
+                
+                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                let eclipseHeight1 = frame.height / 2
+                let eclipseWidth1 = frame.width / 2
+                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+                context.addEllipse(in: rect2)
+                context.fillEllipse(in: rect2)
+                
+                
+                let height3:CGFloat = height / 10
+                context.setFillColor(UIColor.black.cgColor)
+
+                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: frame.width / 2, height: height3)
+                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: frame.width / 2, height: height3)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
+                
+                
+                
+                
+                
+                
+            default:
+                
+                break
+            
+            }
+            
+            
+            
+            
+            
             if isLocked == true {
                 
                 setLock(context: context)
             }
             
             
-        case .exit:
             
-            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
+//            let w = frame.width / 10 * 9
+//            let h = frame.height / 10 * 9
+//            let x = (frame.width - w) / 2
+//            let y = (frame.height - h) / 2
+//            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+//            context.setFillColor(colors[0])
+//            context.addRects([rect1])
+//            context.fill(rect1)
+//
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
             
-            let w = frame.width / 10 * 9
-            let h = frame.height / 10 * 9
-            let x = (frame.width - w) / 2
-            let y = (frame.height - h) / 2
-            let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(colors[0])
-            context.addRects([rect1])
-            context.fill(rect1)
-
-            if isLocked == true {
-                
-                setLock(context: context)
-            }
+            
+//        case .exit:
+//
+//            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
+//
+//            let w = frame.width / 10 * 9
+//            let h = frame.height / 10 * 9
+//            let x = (frame.width - w) / 2
+//            let y = (frame.height - h) / 2
+//            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+//            context.setFillColor(colors[0])
+//            context.addRects([rect1])
+//            context.fill(rect1)
+//
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
             
             
             
@@ -839,13 +960,23 @@ class BallView : UIView {
     
     
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        let eclipseHeight1 = frame.height / 5
-        let eclipseWidth1 = frame.width / 5
+        let eclipseHeight1 = frame.height / 4
+        let eclipseWidth1 = frame.width / 4
         let rect1 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
         context.addEllipse(in: rect1)
-        context.setFillColor(UIColor.systemPink.cgColor)
+        context.setFillColor(UIColor.black.cgColor)
         context.fillEllipse(in: rect1)
     
+        let eclipseHeight2 = frame.height / 5
+        let eclipseWidth2 = frame.width / 5
+        let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+        context.addEllipse(in: rect2)
+        context.setFillColor(UIColor.systemPink.cgColor)
+        context.fillEllipse(in: rect2)
+        
+        
+        
+        
     }
     
 }

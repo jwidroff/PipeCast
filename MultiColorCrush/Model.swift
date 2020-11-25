@@ -136,9 +136,9 @@ class Model {
             
             let entrance = Piece()
             setPieceIndex(piece: entrance)
-            entrance.isLocked = true
+//            entrance.isLocked = true
             entrance.colors = [.white]
-            entrance.side.top.opening.isOpen = true
+            entrance.opening = "right"
             entrance.shape = .entrance
             board.pieces.append(entrance)
         }
@@ -168,7 +168,7 @@ class Model {
             setPieceIndex(piece: exit)
             exit.isLocked = true
             exit.colors = [.brown]
-            exit.side.bottom.opening.isOpen = true
+            exit.opening = "left"
             exit.shape = .exit
             board.pieces.append(exit)
         }
