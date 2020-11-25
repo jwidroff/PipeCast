@@ -739,21 +739,122 @@ class ShapeView : UIView {
             
             //MARK: Make this look like a spoon that the entrance sits on
             
+            let eclipseHeight1 = frame.height / 1.4
+            let eclipseWidth1 = frame.width / 1.4
+            let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+            context.setFillColor(UIColor.black.cgColor)
+            context.addEllipse(in: rect2)
+            context.fillEllipse(in: rect2)
+            
+            let eclipseHeight2 = frame.height / 1.5
+            let eclipseWidth2 = frame.width / 1.5
+            let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+            context.setFillColor(colors[0])
+            context.addEllipse(in: rect3)
+            context.fillEllipse(in: rect3)
+            
+            
+            
             switch opening {
             
             
             case "top":
                 
-                print("come back to this")
+//                let eclipseHeight1 = frame.height / 1.75
+//                let eclipseWidth1 = frame.width / 1.75
+//                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+//                context.setFillColor(UIColor.black.cgColor)
+//                context.addEllipse(in: rect2)
+//                context.fillEllipse(in: rect2)
+//
+//                let eclipseHeight2 = frame.height / 2
+//                let eclipseWidth2 = frame.width / 2
+//                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+//                context.setFillColor(colors[0])
+//                context.addEllipse(in: rect3)
+//                context.fillEllipse(in: rect3)
+                
+                let width = frame.width / 4
+                let height = frame.height / 2 - (eclipseHeight2 / 2)
+                let y1:CGFloat = 0
+                let x1 = ((frame.width - width) / 2)
+                
+                
+                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                
+                
+                
+                let width3:CGFloat = width / 10
+                context.setFillColor(UIColor.black.cgColor)
+
+                let borderline1 = CGRect(x: (frame.width / 2) - (width / 2) - width3, y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+                let borderline2 = CGRect(x: (frame.width / 2) + (width / 2), y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
                 
             case "bottom":
                 
-                print("come back to this")
+                //JUST COPIED FROM TOP - NEED TO EDIT FOR BOTTOM THEN COMMIT
+                
+//                let eclipseHeight1 = frame.height / 1.75
+//                let eclipseWidth1 = frame.width / 1.75
+//                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+//                context.setFillColor(UIColor.black.cgColor)
+//                context.addEllipse(in: rect2)
+//                context.fillEllipse(in: rect2)
+//
+//                let eclipseHeight2 = frame.height / 2
+//                let eclipseWidth2 = frame.width / 2
+//                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+//                context.setFillColor(colors[0])
+//                context.addEllipse(in: rect3)
+//                context.fillEllipse(in: rect3)
+                
+                let width = frame.width / 4
+                let height = frame.height / 2
+                let y1:CGFloat = (frame.height / 2) + (eclipseHeight2 / 2)
+                let x1 = ((frame.width - width) / 2)
+                
+                
+                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                
+                
+                
+                let width3:CGFloat = width / 10
+                context.setFillColor(UIColor.black.cgColor)
+
+                let borderline1 = CGRect(x: (frame.width / 2) - (width / 2) - width3, y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+                let borderline2 = CGRect(x: (frame.width / 2) + (width / 2), y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+                context.addRects([borderline1, borderline2])
+                context.fill(borderline1)
+                context.fill(borderline2)
                 
             case "left":
                 
+//                let eclipseHeight1 = frame.height / 1.75
+//                let eclipseWidth1 = frame.width / 1.75
+//                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+//                context.setFillColor(UIColor.black.cgColor)
+//                context.addEllipse(in: rect2)
+//                context.fillEllipse(in: rect2)
+//
+//                let eclipseHeight2 = frame.height / 2
+//                let eclipseWidth2 = frame.width / 2
+//                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+//                context.setFillColor(colors[0])
+//                context.addEllipse(in: rect3)
+//                context.fillEllipse(in: rect3)
                 
-                let width = (frame.width / 2)
+                let width = (frame.width / 2) - (eclipseWidth2 / 2)
                 let height = frame.height / 4
                 let x1:CGFloat = 0
                 let y1 = ((frame.height - height) / 2)
@@ -764,19 +865,7 @@ class ShapeView : UIView {
                 context.addRects([rect1])
                 context.fill(rect1)
                 
-                let eclipseHeight1 = frame.height / 1.75
-                let eclipseWidth1 = frame.width / 1.75
-                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
-                context.setFillColor(UIColor.black.cgColor)
-                context.addEllipse(in: rect2)
-                context.fillEllipse(in: rect2)
                 
-                let eclipseHeight2 = frame.height / 2
-                let eclipseWidth2 = frame.width / 2
-                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
-                context.setFillColor(colors[0])
-                context.addEllipse(in: rect3)
-                context.fillEllipse(in: rect3)
                 
                 
                 let height3:CGFloat = height / 10
@@ -791,9 +880,23 @@ class ShapeView : UIView {
             case "right":
                 
                 
+//                let eclipseHeight1 = frame.height / 1.75
+//                let eclipseWidth1 = frame.width / 1.75
+//                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+//                context.setFillColor(UIColor.black.cgColor)
+//                context.addEllipse(in: rect2)
+//                context.fillEllipse(in: rect2)
+//
+//                let eclipseHeight2 = frame.height / 2
+//                let eclipseWidth2 = frame.width / 2
+//                let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+//                context.setFillColor(colors[0])
+//                context.addEllipse(in: rect3)
+//                context.fillEllipse(in: rect3)
+                
                 let width = (frame.width / 2)
                 let height = frame.height / 4
-                let x1 =  ((frame.width - height) / 2) + (frame.height / 4)
+                let x1:CGFloat = (frame.width / 2) + (eclipseWidth2 / 2)
                 let y1 = ((frame.height - height) / 2)
                 
                 
@@ -802,24 +905,15 @@ class ShapeView : UIView {
                 context.addRects([rect1])
                 context.fill(rect1)
                 
-                let eclipseHeight1 = frame.height / 2
-                let eclipseWidth1 = frame.width / 2
-                let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
-                context.addEllipse(in: rect2)
-                context.fillEllipse(in: rect2)
-                
                 
                 let height3:CGFloat = height / 10
                 context.setFillColor(UIColor.black.cgColor)
 
-                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: frame.width / 2, height: height3)
-                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: frame.width / 2, height: height3)
+                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: (frame.width - eclipseWidth2) / 2, height: height3)
+                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: (frame.width - eclipseWidth2) / 2, height: height3)
                 context.addRects([borderline1, borderline2])
                 context.fill(borderline1)
                 context.fill(borderline2)
-                
-                
-                
                 
                 
                 
