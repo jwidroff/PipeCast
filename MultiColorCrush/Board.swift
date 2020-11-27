@@ -103,6 +103,12 @@ class BoardView : UIView {
             context.fill(rect)
             context.addRect(rect)
         
+            let halfFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height / 2)
+            let textBox = UITextField(frame: halfFrame)
+            textBox.text = "ICE"
+            textBox.textColor = .black
+            textBox.textAlignment = .center
+            addSubview(textBox)
             
             
             

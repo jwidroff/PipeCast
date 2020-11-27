@@ -90,7 +90,37 @@ class ShapeView : UIView {
     
     func setLock(context: CGContext) {
         
-        //MARK: TURNED OFF FOR NOW
+        let distanceFromSides = frame.width / 10
+        let screwWidthAndHeight = frame.width / 10
+        
+        
+        let topLeftCorner = CGPoint(x: distanceFromSides, y: distanceFromSides)
+        let topLeftRect = CGRect(x: topLeftCorner.x, y: topLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(topLeftRect)
+        context.setFillColor(UIColor.darkGray.cgColor)
+        context.fill(topLeftRect)
+        
+        
+        let topRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: distanceFromSides)
+        let topRightRect = CGRect(x: topRightCorner.x, y: topRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(topRightRect)
+        context.setFillColor(UIColor.darkGray.cgColor)
+        context.fill(topRightRect)
+        
+        
+        let bottomLeftCorner = CGPoint(x: distanceFromSides, y: frame.height - distanceFromSides - screwWidthAndHeight)
+        let bottomLeftRect = CGRect(x: bottomLeftCorner.x, y: bottomLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(bottomLeftRect)
+        context.setFillColor(UIColor.darkGray.cgColor)
+        context.fill(bottomLeftRect)
+        
+        
+        let bottomRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: frame.height - distanceFromSides - screwWidthAndHeight)
+        let bottomRightRect = CGRect(x: bottomRightCorner.x, y: bottomRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(bottomRightRect)
+        context.setFillColor(UIColor.darkGray.cgColor)
+        context.fill(bottomRightRect)
+        
         
         
         
@@ -734,6 +764,8 @@ class ShapeView : UIView {
 //            break
         case .entrance, .exit:
             
+            
+            
             //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
             
             
@@ -1065,7 +1097,7 @@ class BallView : UIView {
         let eclipseWidth2 = frame.width / 5
         let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
         context.addEllipse(in: rect2)
-        context.setFillColor(UIColor.systemPink.cgColor)
+        context.setFillColor(UIColor.white.cgColor)
         context.fillEllipse(in: rect2)
         
         

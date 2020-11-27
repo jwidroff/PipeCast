@@ -23,20 +23,22 @@ import UIKit
 //TODO: Make sure that all piece characteristics are chosen in the model (ultimately by the level)
 //TODO: Give pieces the ability to rotate
 //TODO: Make a piece that rotates pieces
-//TODO: Make all of the pieces move together once the start button is pressed
-//TODO: make a pivot line on the pivot pieces
-//TODO: Need to turn off gesture recognizers when the ball is moving
-//TODO: Make the pieces switch if the ball passes it
+
 //TODO: Make a piece that changes the balls color
 //TODO: Make it that the variables of each piece can be set on their own and create a level model
 //TODO: Make it that the pieces switch (if they have a switch) after the ball passes
-//TODO: Make it that the ball follows the curve better
 
 //TODO: Make it that the entrances cant open next to a wall
 //TODO: Add place that pieces get added from (in higher levels)
 //TODO: Make a retry button
 
+//TODO: Make a better lock - Something like making it look like the pieces are screwed in each corner
+//TODO: Make a pieceMaker view
+//TODO: Fix the way the walls look
+//TODO: Fix how ICE looks
+//TODO: Make black border around pieces
 
+//TODO: Make sure that walls cant be on ice and that entrances, exits, walls and other such things are unable to be added on top of eachother
 
 //TODO: Add number of moves left
 //TODO: Make the text box for the entrance lower when the ball initially moves
@@ -108,6 +110,7 @@ class Model {
             pieceMaker.side.bottom.opening.isOpen = true
             pieceMaker.shape = .pieceMaker
             board.pieces.append(pieceMaker)
+            
         }
     }
     
@@ -136,8 +139,8 @@ class Model {
             
             let entrance = Piece()
             setPieceIndex(piece: entrance)
-//            entrance.isLocked = true
-            entrance.colors = [.white]
+            entrance.isLocked = true
+            entrance.colors = [.red]
             entrance.opening = "top"
             entrance.shape = .entrance
             board.pieces.append(entrance)
@@ -167,7 +170,7 @@ class Model {
             let exit = Piece()
             setPieceIndex(piece: exit)
             exit.isLocked = true
-            exit.colors = [.brown]
+            exit.colors = [.red]
             exit.opening = "left"
             exit.shape = .exit
             board.pieces.append(exit)
@@ -744,7 +747,7 @@ class Model {
     
     func setPieceColor(piece: Piece) {
         
-        let randomColors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+        let randomColors:[UIColor] = [UIColor.red, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
 
@@ -1133,6 +1136,7 @@ class Model {
                 
                 for piece in board.pieces {
                     
+                    //TODO: Change this back
                     piece.view.isUserInteractionEnabled = false
                 }
                 
