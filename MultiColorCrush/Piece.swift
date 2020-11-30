@@ -176,64 +176,12 @@ class Piece {
                 break
             }
             
-            print("piece left side exitSide \(side.left.exitSide)")
-            print("piece right side exitSide \(side.right.exitSide)")
-            print("piece top side exitSide \(side.top.exitSide)")
-            print("piece bottom side exitSide \(side.bottom.exitSide)")
-            
-        case .doubleElbow:
-            
-            if currentSwitch == 1 {
-                
-                side.top.exitSide = "right"
-                side.right.exitSide = "top"
-                side.left.exitSide = nil
-                
-            } else if currentSwitch == 2 {
-
-                side.top.exitSide = "left"
-                side.left.exitSide = "top"
-                side.right.exitSide = nil
-            }
-            
-            side.left.closing.isOpen = !side.left.closing.isOpen
-            side.right.closing.isOpen = !side.right.closing.isOpen
-            
-        case .quadBox: // Nothing to set as far as openings and closings
-
-            if currentSwitch == 1 {
-                
-                side.top.exitSide = "left"
-                side.left.exitSide = "top"
-                side.bottom.exitSide = "right"
-                side.right.exitSide = "bottom"
-                
-            } else if currentSwitch == 2 {
-
-                side.top.exitSide = "right"
-                side.right.exitSide = "top"
-                side.bottom.exitSide = "left"
-                side.left.exitSide = "bottom"
-
-            }
-            
-        case .cross:
-
-            side.left.closing.isOpen = !side.left.closing.isOpen
-            side.right.closing.isOpen = !side.right.closing.isOpen
-            side.top.closing.isOpen = !side.top.closing.isOpen
-            side.bottom.closing.isOpen = !side.bottom.closing.isOpen
-            
-            print("version \(version)")
-            
-            print("currentSwitch \(currentSwitch)")
-
-            
-            print("piece left side closing \(side.left.closing.isOpen)")
-            print("piece right side closing \(side.right.closing.isOpen)")
-            print("piece top side closing \(side.top.closing.isOpen)")
-            print("piece bottom side closing \(side.bottom.closing.isOpen)")
-            
+//            print("piece left side exitSide \(side.left.exitSide)")
+//            print("piece right side exitSide \(side.right.exitSide)")
+//            print("piece top side exitSide \(side.top.exitSide)")
+//            print("piece bottom side exitSide \(side.bottom.exitSide)")
+//            
+//            
 
             
         case .diagElbow: // Nothing to set as far as openings and closings

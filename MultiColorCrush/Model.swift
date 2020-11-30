@@ -443,34 +443,6 @@ class Model {
                 break
             }
             
-        case .doubleElbow:
-            
-            piece.side.top.opening.isOpen = true
-            piece.side.top.closing.isOpen = true
-            piece.side.right.opening.isOpen = true
-            piece.side.right.closing.isOpen = true
-            piece.side.left.opening.isOpen = true
-            piece.side.left.closing.isOpen = false
-            
-            piece.side.top.exitSide = "right"
-            piece.side.right.exitSide = "top"
-            
-        case .quadBox:
-            
-            piece.side.top.opening.isOpen = true
-            piece.side.bottom.opening.isOpen = true
-            piece.side.left.opening.isOpen = true
-            piece.side.right.opening.isOpen = true
-            piece.side.top.closing.isOpen = true
-            piece.side.bottom.closing.isOpen = true
-            piece.side.left.closing.isOpen = true
-            piece.side.right.closing.isOpen = true
-            
-            piece.side.top.exitSide = "left"
-            piece.side.left.exitSide = "top"
-            piece.side.bottom.exitSide = "right"
-            piece.side.right.exitSide = "bottom"
-            
         case .cross:
             
             piece.side.right.exitSide = "left"
@@ -691,17 +663,7 @@ class Model {
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
-        case .doubleElbow:
-            
-           piece.switches = 2
-           piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
         case .diagElbow:
-            
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .quadBox:
             
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
