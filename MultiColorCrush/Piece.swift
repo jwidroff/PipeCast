@@ -16,13 +16,16 @@ class Piece {
     var shape: Shape = .regular
     var view = ShapeView()
     var colors = [UIColor()]
-    var opacity = Int()
+//    var opacity = Int()
     var switches = Int()
     var currentSwitch = Int()
     var side = Side()
     var version = Int()
     var isLocked = false
     var opening = String()
+    var nextPiece = NextPiece()
+    
+    
     
     init(){
         
@@ -347,6 +350,14 @@ enum PieceShape: String {
     case xShape = "xShape"
 }
 
+class NextPiece {
+    
+    var shape = Shape.regular
+    var colors = [UIColor]()
+    var version = Int()
+    var currentSwitch = Int()
+    
+}
 
 
 

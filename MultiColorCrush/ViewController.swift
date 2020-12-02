@@ -462,6 +462,7 @@ extension ViewController: ModelDelegate {
             
             //MARK: Change the pieces to bubbles
 //            piece.view.layer.cornerRadius = piece.view.frame.height / 2
+//            piece.view.clipsToBounds = true
         }
         
         setupBalls()
@@ -613,10 +614,17 @@ extension ViewController: ModelDelegate {
 //                piece.colors.append(UIColor.lightGray)
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 piece.view = ShapeView(frame: frame, piece: piece)
+                
+                
+                
+                
+                
+                
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .red
-//                piece.view.layer.cornerRadius = piece.view.frame.height / 2
-//                piece.view.clipsToBounds = true
+                
+                
+                
                 
                 
                 
@@ -625,7 +633,6 @@ extension ViewController: ModelDelegate {
                 addTapGestureRecognizer(view: piece.view)
                 piecesViews.append(piece)
                 model.board.view.addSubview(piece.view)
-//                self.model.board.view.addSubview(piece.view)
                 
                 
             }

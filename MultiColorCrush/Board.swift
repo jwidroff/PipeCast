@@ -59,7 +59,7 @@ class BoardView : UIView {
     override func draw(_ rect: CGRect) {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setStrokeColor(UIColor.gray.cgColor)
+        context.setStrokeColor(UIColor.lightGray.cgColor)
         context.setLineWidth(2.5)
         
         
@@ -98,7 +98,7 @@ class BoardView : UIView {
         for iceLocation in iceLocations {
             
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
-            let textBox = UITextField(frame: rect)
+//            let textBox = UITextField(frame: rect)
             context.setFillColor(UIColor.cyan.cgColor)
             context.fill(rect)
             context.addRect(rect)

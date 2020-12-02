@@ -28,6 +28,8 @@ class ShapeView : UIView {
     
     var opening = String()
     
+    var nextPiece: NextPiece?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,11 +49,12 @@ class ShapeView : UIView {
         
         
         super.init(frame: frame)
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.gray
         self.name = piece.shape
         self.version = piece.version
         self.isLocked = piece.isLocked
         self.opening = piece.opening
+        self.nextPiece = piece.nextPiece
         
         switch name {
         case .elbow:
@@ -174,7 +177,7 @@ class ShapeView : UIView {
                 context.fill(rect1)
                 
                 let height3:CGFloat = height / 10
-                context.setFillColor(UIColor.clear.cgColor)
+                context.setFillColor(UIColor.gray.cgColor)
 
                 let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
                 let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
@@ -199,7 +202,7 @@ class ShapeView : UIView {
                 context.fill(rect2)
                 
                 let width3:CGFloat = width2 / 10
-                context.setFillColor(UIColor.clear.cgColor)
+                context.setFillColor(UIColor.gray.cgColor)
 
                 let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
                 let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
@@ -475,7 +478,7 @@ class ShapeView : UIView {
                     context.fill(rect1)
                     
                     let height3:CGFloat = height / 10
-                    context.setFillColor(UIColor.black.cgColor)
+                    context.setFillColor(UIColor.gray.cgColor)
 
                     let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
                     let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
@@ -508,7 +511,7 @@ class ShapeView : UIView {
                     context.fill(rect2)
                     
                     let width3:CGFloat = width2 / 10
-                    context.setFillColor(UIColor.black.cgColor)
+                    context.setFillColor(UIColor.gray.cgColor)
 
                     let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
                     let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
@@ -810,21 +813,124 @@ class ShapeView : UIView {
             
         case .pieceMaker:
             
-            //TODO: NEED TO Give this the proper look. Also need to hook this up for when the pieces move.
             
-            let w = frame.width / 10 * 9
-            let h = frame.height / 10 * 9
+            
+            //MARK: CONTINUE HERE - JUST GOT THIS TO LOOK DECENT FOR SPITTING OUT OF BOTTOM. FIX FOR ALL DIRECTIONS
+            
+            
+            
+            
+//            layer.cornerRadius = frame.width / 2
+//            clipsToBounds = true
+            let w = frame.width / 10 * 6
+            let h = frame.height / 10 * 6
             let x = (frame.width - w) / 2
-            let y = (frame.height - h) / 2
+            let y = x
+
             let rect1 = CGRect(x: x, y: y, width: w, height: h)
             context.setFillColor(colors[0])
             context.addRects([rect1])
             context.fill(rect1)
 
-            if isLocked == true {
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
+            
+            version = 4
+            
+            
+            switch version {
+            case 1:
+                print("VERSION 1")
+                //Spits a new piece out of the bottom
                 
-                setLock(context: context)
+                
+                let point1 = CGPoint(x: w / 2, y: h + y)
+                let point2 = CGPoint(x: x, y: frame.height)
+                let point3 = CGPoint(x: frame.width - (x), y: frame.height)
+                let point4 = CGPoint(x: frame.width - (w / 2), y: h + y)
+                 
+                context.beginPath()
+                context.move(to: point1)
+                context.addLine(to: point2)
+                context.addLine(to: point3)
+                context.addLine(to: point4)
+                context.closePath()
+                context.setFillColor(colors[0])
+                context.fillPath()
+            
+                
+            case 2:
+                print("VERSION 2")
+            //Spits a new piece out of the left
+
+                let point1 = CGPoint(x: x, y: frame.height - (h))
+                let point2 = CGPoint(x: 0, y: y)
+                let point3 = CGPoint(x: 0, y: frame.height - y)
+                let point4 = CGPoint(x: frame.width - (h / 2), y: frame.width - (w + x))
+                
+                context.beginPath()
+                context.move(to: point1)
+                context.addLine(to: point2)
+                context.addLine(to: point3)
+                context.addLine(to: point4)
+                context.closePath()
+                context.setFillColor(colors[0])
+                context.fillPath()
+
+                
+                
+            case 3:
+                print("VERSION 3")
+
+            //Spits a new piece out of the top
+
+                let point1 = CGPoint(x: w / 2, y: frame.height - (h + y))
+                let point2 = CGPoint(x: x, y: 0)
+                let point3 = CGPoint(x: frame.width - x, y: 0)
+                let point4 = CGPoint(x: frame.width - (w / 2), y: frame.height - (h + y))
+                
+                context.beginPath()
+                context.move(to: point1)
+                context.addLine(to: point2)
+                context.addLine(to: point3)
+                context.addLine(to: point4)
+                context.closePath()
+                context.setFillColor(colors[0])
+                context.fillPath()
+            
+            
+            case 4:
+                print("VERSION 4")
+            //Spits a new piece out of the right
+            
+            
+                
+                
+                
+                let point1 = CGPoint(x: frame.width - x, y: frame.height - (h))
+                let point2 = CGPoint(x: frame.width, y: y)
+                let point3 = CGPoint(x: frame.width, y: frame.height - y)
+                let point4 = CGPoint(x: frame.width - x, y: frame.height - (frame.height - (h)))
+                
+                context.beginPath()
+                context.move(to: point1)
+                context.addLine(to: point2)
+                context.addLine(to: point3)
+                context.addLine(to: point4)
+                context.closePath()
+                context.setFillColor(colors[0])
+                context.fillPath()
+            
+            
+            
+            default:
+                break
             }
+            
+            
+            
             
         }
     }

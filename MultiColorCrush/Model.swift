@@ -109,6 +109,65 @@ class Model {
             pieceMaker.colors = [.yellow]
             pieceMaker.side.bottom.opening.isOpen = true
             pieceMaker.shape = .pieceMaker
+            
+            let version = Int(arc4random_uniform(UInt32(4))) + 1
+            pieceMaker.version = version
+            
+            
+            
+            
+            
+            let randomColors:[UIColor] = [UIColor.red, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+            let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            
+            pieceMaker.nextPiece.colors = [randomColor1, randomColor2]
+            
+            
+            let nextPieceVersion = Int(arc4random_uniform(UInt32(4))) + 1
+            pieceMaker.nextPiece.version = nextPieceVersion
+            let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+           
+            pieceMaker.nextPiece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
+            
+            
+            
+            switch pieceMaker.nextPiece.shape {
+            
+            case .elbow:
+//                pieceMaker.nextPiece.switches = 2
+                pieceMaker.nextPiece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .diagElbow:
+                
+//                pieceMaker.nextPiece.switches = 2
+                pieceMaker.nextPiece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .cross:
+                
+//                pieceMaker.nextPiece.switches = 2
+                pieceMaker.nextPiece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+                
+            case .stick:
+                
+//                pieceMaker.nextPiece.switches = 1
+                pieceMaker.nextPiece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                
+                
+            default:
+                break
+            }
+            
+            
+            
+            
+            
+            
+            
+            //TODO: COntinue here finishing adding the nextPiece properties (see nextpiece class)
+            
+            
             board.pieces.append(pieceMaker)
             
         }
@@ -247,17 +306,12 @@ class Model {
         print("version \(piece.version)")
         print("switch \(piece.currentSwitch)")
 
+
         
-//        print("piece left side color \(piece.side.left.color)")
-//        print("piece right side color \(piece.side.right.color)")
-//        print("piece top side color \(piece.side.top.color)")
-//        print("piece bottom side color \(piece.side.bottom.color)")
-        
-        
-        print("piece left side exitSide \(piece.side.left.exitSide)")
-        print("piece right side exitSide \(piece.side.right.exitSide)")
-        print("piece top side exitSide \(piece.side.top.exitSide)")
-        print("piece bottom side exitSide \(piece.side.bottom.exitSide)")
+//        print("piece left side exitSide \(piece.side.left.exitSide)")
+//        print("piece right side exitSide \(piece.side.right.exitSide)")
+//        print("piece top side exitSide \(piece.side.top.exitSide)")
+//        print("piece bottom side exitSide \(piece.side.bottom.exitSide)")
         
     }
     
