@@ -113,10 +113,6 @@ class Model {
             let version = Int(arc4random_uniform(UInt32(4))) + 1
             pieceMaker.version = version
             
-            
-            
-            
-            
             let randomColors:[UIColor] = [UIColor.red, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
             let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
             let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]

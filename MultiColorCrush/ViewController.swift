@@ -615,18 +615,8 @@ extension ViewController: ModelDelegate {
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
                 piece.view = ShapeView(frame: frame, piece: piece)
                 
-                
-                
-                
-                
-                
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 piece.view.backgroundColor = .red
-                
-                
-                
-                
-                
                 
                 
                 

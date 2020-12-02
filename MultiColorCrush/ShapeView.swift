@@ -813,15 +813,6 @@ class ShapeView : UIView {
             
         case .pieceMaker:
             
-            
-            
-            //MARK: CONTINUE HERE - JUST GOT THIS TO LOOK DECENT FOR SPITTING OUT OF BOTTOM. FIX FOR ALL DIRECTIONS
-            
-            
-            
-            
-//            layer.cornerRadius = frame.width / 2
-//            clipsToBounds = true
             let w = frame.width / 10 * 6
             let h = frame.height / 10 * 6
             let x = (frame.width - w) / 2
@@ -832,13 +823,11 @@ class ShapeView : UIView {
             context.addRects([rect1])
             context.fill(rect1)
 
-//            if isLocked == true {
-//
-//                setLock(context: context)
-//            }
-            
-            version = 4
-            
+            if isLocked == true {
+
+                setLock(context: context)
+            }
+                        
             
             switch version {
             case 1:
@@ -929,9 +918,16 @@ class ShapeView : UIView {
                 break
             }
             
+            let rect = CGRect(x: 0, y: 0, width: frame.width / 10 * 5, height: frame.height / 10 * 5)
             
-            
-            
+            let nextPieceX = Piece()
+            nextPieceX.colors = nextPiece!.colors
+            nextPieceX.currentSwitch = nextPiece!.currentSwitch
+            nextPieceX.shape = nextPiece!.shape
+            nextPieceX.version = nextPiece!.version
+            let nextPieceView = ShapeView(frame: rect, piece: nextPieceX)
+            addSubview(nextPieceView)
+            nextPieceView.center = center
         }
     }
     
