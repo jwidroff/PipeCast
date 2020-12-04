@@ -48,7 +48,6 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces()
-    func animatePiece(piece: Piece)
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
 }
@@ -298,9 +297,9 @@ class Model {
     
     func printPieceProperties(piece: Piece) {
         
-        print("shape \(piece.shape)")
-        print("version \(piece.version)")
-        print("switch \(piece.currentSwitch)")
+//        print("shape \(piece.shape)")
+//        print("version \(piece.version)")
+//        print("switch \(piece.currentSwitch)")
 
 
         
@@ -845,7 +844,7 @@ class Model {
             bool = true
         }
 
-        print("BOOL IS \(bool)")
+//        print("BOOL IS \(bool)")
         
         
         return bool

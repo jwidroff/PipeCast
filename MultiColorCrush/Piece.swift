@@ -24,6 +24,7 @@ class Piece {
     var isLocked = false
     var opening = String()
     var nextPiece = NextPiece()
+//    var next = Piece()
     
     
     
@@ -356,7 +357,7 @@ class NextPiece {
     var colors = [UIColor]()
     var version = Int()
     var currentSwitch = Int()
-    
+    var view = ShapeView()
 }
 
 

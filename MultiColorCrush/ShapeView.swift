@@ -49,7 +49,6 @@ class ShapeView : UIView {
         
         
         super.init(frame: frame)
-        self.backgroundColor = UIColor.gray
         self.name = piece.shape
         self.version = piece.version
         self.isLocked = piece.isLocked
@@ -60,21 +59,35 @@ class ShapeView : UIView {
         case .elbow:
             switches = 2
             currentSwitch = piece.currentSwitch
+            self.backgroundColor = UIColor.gray
+
 //            self.version = piece.version
             
         case .cross:
             switches = 2
             currentSwitch = piece.currentSwitch
+            self.backgroundColor = UIColor.gray
+
 
         case .stick:
             switches = 1
             currentSwitch = piece.currentSwitch
+            self.backgroundColor = UIColor.gray
+
             
         case .diagElbow:
             switches = 2
             currentSwitch = piece.currentSwitch
+            self.backgroundColor = UIColor.gray
+
 //            self.version = piece.version
 
+        case .entrance, .exit, .pieceMaker, .wall:
+            
+            
+            self.backgroundColor = UIColor.clear
+
+            
         default:
             break
         }
@@ -549,7 +562,7 @@ class ShapeView : UIView {
 //            break
         case .entrance, .exit:
             
-            
+//            backgroundColor = .darkGray
             
             //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
             
@@ -894,10 +907,6 @@ class ShapeView : UIView {
                 print("VERSION 4")
             //Spits a new piece out of the right
             
-            
-                
-                
-                
                 let point1 = CGPoint(x: frame.width - x, y: frame.height - (h))
                 let point2 = CGPoint(x: frame.width, y: y)
                 let point3 = CGPoint(x: frame.width, y: frame.height - y)
@@ -918,16 +927,18 @@ class ShapeView : UIView {
                 break
             }
             
-            let rect = CGRect(x: 0, y: 0, width: frame.width / 10 * 5, height: frame.height / 10 * 5)
+            let rect = CGRect(x: 0, y: 0, width: frame.width / 10 * 4.5, height: frame.height / 10 * 4.5)
             
             let nextPieceX = Piece()
             nextPieceX.colors = nextPiece!.colors
             nextPieceX.currentSwitch = nextPiece!.currentSwitch
             nextPieceX.shape = nextPiece!.shape
             nextPieceX.version = nextPiece!.version
-            let nextPieceView = ShapeView(frame: rect, piece: nextPieceX)
-            addSubview(nextPieceView)
-            nextPieceView.center = center
+            nextPiece!.view = ShapeView(frame: rect, piece: nextPieceX)
+            nextPiece!.view.center = CGPoint(x: frame.midX, y: frame.midY)
+            superview?.addSubview(nextPiece!.view)
+            
+            
         }
     }
     

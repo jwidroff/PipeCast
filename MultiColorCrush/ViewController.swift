@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     var model = Model()
-    var piecesViews = [Piece]()
+//    var piecesViews = [Piece]()
     var spaceViews = [UIView]()
     var pieceWidth = CGFloat()
     var pieceHeight = CGFloat()
@@ -32,6 +32,140 @@ class ViewController: UIViewController {
         model.delegate = self
         model.setUpGame()
         addSwipeGestureRecognizer(view: model.board.view)
+    }
+    
+    func setupGrid() {
+
+        let frameX = (self.model.board.view.frame.width - boardWidth) / 2
+        let frameY = (self.model.board.view.frame.height - boardHeight) / 2
+        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
+        self.model.board.widthSpaces = self.model.level.boardWidth
+        self.model.board.heightSpaces = self.model.level.boardHeight
+        self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
+    }
+
+    
+    
+    func setupBalls() {
+                
+        for ball in self.model.board.balls {
+            
+            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+
+            ball.view = BallView(frame: frame)
+            
+            ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
+            
+            addTapGestureRecognizer(view: ball.view)
+
+            self.model.board.view.addSubview(ball.view)
+        }
+    }
+    
+    func setupBoard() {
+        
+        let frameX = self.view.frame.midX - (boardWidth / 2)
+        let frameY = self.view.frame.midY - (boardHeight / 2)
+        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
+        var xArray = [CGFloat]()
+        var yArray = [CGFloat]()
+        
+        for point in self.model.board.grid.values {
+                        
+            if !xArray.contains(point.x) {
+                
+                xArray.append(point.x)
+            }
+            
+            if !yArray.contains(point.y) {
+                
+                yArray.append(point.y)
+            }
+        }
+        
+        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations)
+        self.model.board.view = boardView
+        self.model.board.view.backgroundColor = .black
+        view.addSubview(self.model.board.view)
+    }
+    
+    func setSizes() {
+
+        let widthCushion:CGFloat = (model.board.view.frame.width / 10)
+        let heightCushion:CGFloat = (model.board.view.frame.height / 10)
+        
+        if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
+            
+            boardHeight = (model.board.view.frame.width - widthCushion) * 2
+            boardWidth = model.board.view.frame.width - widthCushion
+
+        } else if self.model.board.view.frame.width > (self.model.board.view.frame.height / 2) {
+        
+            boardWidth = (model.board.view.frame.height - heightCushion) / 2
+            boardHeight = model.board.view.frame.height - heightCushion
+        }
+        
+        pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
+        pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
+        
+        distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
+    }
+    
+    
+    
+    
+    func addPieces() {
+        
+        
+        
+        for piece in model.board.pieces {
+            
+            if piece.shape == .pieceMaker {
+                                
+                let nextPiece = Piece()
+                nextPiece.colors = piece.nextPiece.colors
+                nextPiece.currentSwitch = piece.nextPiece.currentSwitch
+                nextPiece.shape = piece.nextPiece.shape
+                nextPiece.version = piece.nextPiece.version
+                nextPiece.view = piece.nextPiece.view
+                model.board.pieces.append(nextPiece)
+                
+                                
+                switch piece.version {
+
+                case 1:
+                    nextPiece.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1)
+                case 2:
+                    nextPiece.indexes = Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y)
+
+                case 3:
+                    nextPiece.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1)
+                case 4:
+
+                    nextPiece.indexes = Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y)
+
+
+                default:
+                    break
+                }
+                                
+                
+                UIView.animate(withDuration: 0.25) {
+                    
+                    let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
+                    
+                    nextPiece.view.transform = transform
+                    
+                    
+                    
+                    nextPiece.view.center = self.model.board.grid[nextPiece.indexes]!
+                    
+                    
+                } completion: { (false) in
+                    print()
+                }
+            }
+        }
     }
     
     func addSwipeGestureRecognizer(view: UIView) {
@@ -158,7 +292,7 @@ class ViewController: UIViewController {
         guard piecesWereEnlarged == false else { return }
 
         piecesWereEnlarged = true
-        for piece in piecesViews.sorted(by: { (piece1, piece2) -> Bool in
+        for piece in model.board.pieces.sorted(by: { (piece1, piece2) -> Bool in
             piece1.view.center.y < piece2.view.center.y
         }).filter({ (piece) -> Bool in
             piece.shape != .entrance
@@ -200,6 +334,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ModelDelegate {
+
+    
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
@@ -407,46 +543,27 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func animatePiece(piece: Piece) {
-        
-        UIView.animate(withDuration: 1.0, animations: {
-            for spaceView in self.spaceViews {
-                
-                if spaceView.center == CGPoint(x: self.model.board.grid[piece.indexes]!.x, y: self.model.board.grid[piece.indexes]!.y) {
-                    
-                    spaceView.backgroundColor = .purple
-                }
-            }
-        }) { (true) in
-            self.resetSpaces()
-        }
-    }
     
     func movePieces() {
-        
+                
         for piece in model.board.pieces {
             
             UIView.animate(withDuration: 0.25) {
                 piece.view.center = self.model.board.grid[piece.indexes]!
             }
         }
+        
+        
+        //Need to make sure that pieces are only added when the direction is correct
+        addPieces()
+        
+        
+        
+        
     }
     
     func setUpPiecesView() {
         
-//        setupEntrances()
-        
-//        setupExits()
-        
-//        setupWalls()
-        
-//        setupPieceMakers()
-        
-
-                
-//        for piece in model.board.pieces.filter({ (piece) -> Bool in
-//            piece is Entrance == false && piece is Exit == false && piece is Wall == false && piece is PieceMaker == false
-//        }) {
             
         for piece in model.board.pieces {
         
@@ -457,7 +574,7 @@ extension ViewController: ModelDelegate {
 //            piece.view.layer.borderColor = UIColor.white.cgColor
 //            piece.view.layer.borderWidth = 2.0
             addTapGestureRecognizer(view: piece.view)
-            self.piecesViews.append(piece)
+//            self.piecesViews.append(piece)
             model.board.view.addSubview(piece.view)
             
             //MARK: Change the pieces to bubbles
@@ -469,254 +586,8 @@ extension ViewController: ModelDelegate {
         
     }
     
-    func setupEntrances() {
-                
-        for piece in self.model.board.pieces {
-            
-            if piece.shape == .entrance {
-                
-//                piece.colors.append(UIColor.black)
-
-                
-                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                
-                piece.view = ShapeView(frame: frame, piece: piece)
-                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-                piece.view.backgroundColor = .blue
-                addTapGestureRecognizer(view: piece.view)
-                self.piecesViews.append(piece)
-                model.board.view.addSubview(piece.view)
-                
-                let widthAndHeight = pieceWidth / 4.5
-                var x = CGFloat()
-                var y = CGFloat()
-                
-//                if let piece = piece as? Entrance {
-                    
-
-                    switch piece.opening {
-
-                    case "top":
-                        
-                        x = frame.midX - (widthAndHeight / 2)
-                        y = 0
-                        
-                    case "bottom":
-                        
-                        x = frame.midX - (widthAndHeight / 2)
-                        y = frame.maxY - widthAndHeight
-                        
-                    case "left":
-                        
-                        x = 0
-                        y = frame.midY - (widthAndHeight / 2)
-                        
-                    case "right":
-                        
-                        x = frame.maxX - widthAndHeight
-                        y = frame.midY - (widthAndHeight / 2)
-                        
-                    default:
-                        break
-                    }
-                    
-                    let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
-                    let openingView = UIView(frame: rect)
-                    openingView.backgroundColor = .black
-                    piece.view.addSubview(openingView)
-                    
-                    let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
-                    let textBox = UITextField(frame: halfFrame)
-                    textBox.text = "Begin"
-                    textBox.textColor = .black
-                    textBox.textAlignment = .center
-                    piece.view.addSubview(textBox)
-                    
-                    self.model.board.view.addSubview(piece.view)
-//                }
-            }
-        }
-    }
     
-    func setupExits() {
-        
-        for piece in self.model.board.pieces {
-            
-            if piece.shape == .exit {
-                
-//                piece.colors.append(UIColor.black)
-                
-                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                piece.view = ShapeView(frame: frame, piece: piece)
-                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-                piece.view.backgroundColor = .blue
-                addTapGestureRecognizer(view: piece.view)
-                self.piecesViews.append(piece)
-                model.board.view.addSubview(piece.view)
-                
-                let widthAndHeight = pieceWidth / 4.5
-                var x = CGFloat()
-                var y = CGFloat()
-                
-//                if let piece = piece as? Exit {
-                
-                    switch piece.opening {
-                    
-                    case "top":
-                        
-                        x = frame.midX - (widthAndHeight / 2)
-                        y = 0
-                        
-                    case "bottom":
-                        
-                        x = frame.midX - (widthAndHeight / 2)
-                        y = frame.maxY - widthAndHeight
-                        
-                    case "left":
-                        
-                        x = 0
-                        y = frame.midY - (widthAndHeight / 2)
-                        
-                    case "right":
-                        
-                        x = frame.maxX - widthAndHeight
-                        y = frame.midY - (widthAndHeight / 2)
-                        
-                    default:
-                        break
-                    }
-                    
-                    let rect = CGRect(x: x, y: y, width: widthAndHeight, height: widthAndHeight)
-                    let openingView = UIView(frame: rect)
-                    openingView.backgroundColor = .black
-                    piece.view.addSubview(openingView)
-                    
-                    let halfFrame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight / 2)
-                    let textBox = UITextField(frame: halfFrame)
-                    textBox.text = "End"
-                    textBox.textColor = .white
-                    textBox.textAlignment = .center
-                    piece.view.addSubview(textBox)
-                    
-                    self.model.board.view.addSubview(piece.view)
-                
-//                }
-            }
-        }
-    }
-    
-    func setupPieceMakers() {
-        
-        for piece in self.model.board.pieces {
-            
-            if piece.shape == .pieceMaker {
-                
-//                piece.colors.append(UIColor.lightGray)
-                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                piece.view = ShapeView(frame: frame, piece: piece)
-                
-                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-                piece.view.backgroundColor = .red
-                
-                
-                
-                addTapGestureRecognizer(view: piece.view)
-                piecesViews.append(piece)
-                model.board.view.addSubview(piece.view)
-                
-                
-            }
-        }
-        
-        
-    }
-    
-    func setupWalls() {
-        
-        for piece in self.model.board.pieces {
-            
-            if piece.shape == .wall {
-                
-//                piece.colors.append(UIColor.lightGray)
-                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-                piece.view = ShapeView(frame: frame, piece: piece)
-                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-                piece.view.backgroundColor = .lightGray
-                piece.view.layer.cornerRadius = piece.view.frame.height / 2
-                piece.view.clipsToBounds = true
-                addTapGestureRecognizer(view: piece.view)
-                self.piecesViews.append(piece)
-                model.board.view.addSubview(piece.view)
-                self.model.board.view.addSubview(piece.view)
-            }
-        }
-    }
-    
-    func setupBalls() {
-                
-        for ball in self.model.board.balls {
-            
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
 
-            ball.view = BallView(frame: frame)
-            
-            ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
-            
-            addTapGestureRecognizer(view: ball.view)
-
-            self.model.board.view.addSubview(ball.view)
-        }
-    }
-    
-    func setupBoard() {
-        
-        let frameX = self.view.frame.midX - (boardWidth / 2)
-        let frameY = self.view.frame.midY - (boardHeight / 2)
-        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
-        var xArray = [CGFloat]()
-        var yArray = [CGFloat]()
-        
-        for point in self.model.board.grid.values {
-                        
-            if !xArray.contains(point.x) {
-                
-                xArray.append(point.x)
-            }
-            
-            if !yArray.contains(point.y) {
-                
-                yArray.append(point.y)
-            }
-        }
-        
-        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations)
-        self.model.board.view = boardView
-        self.model.board.view.backgroundColor = .black
-        view.addSubview(self.model.board.view)
-    }
-    
-    func setSizes() {
-
-        let widthCushion:CGFloat = (model.board.view.frame.width / 10)
-        let heightCushion:CGFloat = (model.board.view.frame.height / 10)
-        
-        if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
-            
-            boardHeight = (model.board.view.frame.width - widthCushion) * 2
-            boardWidth = model.board.view.frame.width - widthCushion
-
-        } else if self.model.board.view.frame.width > (self.model.board.view.frame.height / 2) {
-        
-            boardWidth = (model.board.view.frame.height - heightCushion) / 2
-            boardHeight = model.board.view.frame.height - heightCushion
-        }
-        
-        pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
-        pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
-        
-        distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
-    }
-    
     func setUpGame(board: Board) {
                 
         setSizes()
@@ -724,26 +595,9 @@ extension ViewController: ModelDelegate {
         setupGrid()
         
         setupBoard()
-
-//        setupEntrances()
-//
-//        setupExits()
-//
-//        setupWalls()
-//
-//        setupBalls()
     }
     
-    func setupGrid() {
-
-        let frameX = (self.model.board.view.frame.width - boardWidth) / 2
-        let frameY = (self.model.board.view.frame.height - boardHeight) / 2
-        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
-        self.model.board.widthSpaces = self.model.level.boardWidth
-        self.model.board.heightSpaces = self.model.level.boardHeight
-        self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
-    }
-
+    
     
     func pieceWasTapped(piece: Piece) {
         
