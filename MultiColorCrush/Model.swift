@@ -47,7 +47,7 @@ import UIKit
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
-    func movePieces()
+    func movePieces(direction: UISwipeGestureRecognizer.Direction)
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
 }
@@ -122,8 +122,6 @@ class Model {
             pieceMaker.nextPiece = nextPiece
             
             
-            
-            //TODO: COntinue here finishing adding the nextPiece properties (see nextpiece class)
             
             
             board.pieces.append(pieceMaker)
@@ -911,19 +909,10 @@ class Model {
             }) {
                 
                 movePiecesHelper(piece: piece, direction: direction)
-//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
-//                let notAtWall = piece.indexes.y != 0
-//                if notAtWall {
-//                    if spaceIsntBlocked {
-//                        piece.indexes.y = piece.indexes.y! - 1
-//                        if checkForIce(piece: piece) == true {
-//                            movePiece(direction: direction)
-//                        }
-//
-//                    }
-//                }
+                
+
             }
-            delegate?.movePieces()
+            delegate?.movePieces(direction: direction)
 
         case .down:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -935,21 +924,9 @@ class Model {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 
-//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
-//
-//                let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
-//                    return int1 < int2
-//                })
-//                if notAtWall {
-//                    if spaceIsntBlocked{
-//                        piece.indexes.y = piece.indexes.y! + 1
-//                        if checkForIce(piece: piece) == true {
-//                            movePiece(direction: direction)
-//                        }
-//                    }
-//                }
+
             }
-            delegate?.movePieces()
+            delegate?.movePieces(direction: direction)
 
         case .left:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -960,18 +937,8 @@ class Model {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 
-//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
-//                let notAtWall = piece.indexes.x != 0
-//                if notAtWall {
-//                    if spaceIsntBlocked {
-//                        piece.indexes.x = piece.indexes.x! - 1
-//                        if checkForIce(piece: piece) == true {
-//                            movePiece(direction: direction)
-//                        }
-//                    }
-//                }
             }
-            delegate?.movePieces()
+            delegate?.movePieces(direction: direction)
 
         case .right:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -982,20 +949,9 @@ class Model {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 
-//                let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
-//                let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
-//                    return int1 < int2
-//                })
-//                if notAtWall {
-//                    if spaceIsntBlocked {
-//                        piece.indexes.x = piece.indexes.x! + 1
-//                        if checkForIce(piece: piece) == true {
-//                            movePiece(direction: direction)
-//                        }
-//                    }
-//                }
+
             }
-            delegate?.movePieces()
+            delegate?.movePieces(direction: direction)
 
         default:
             break
