@@ -121,28 +121,36 @@ class ViewController: UIViewController {
         for piece in model.board.pieces {
             
             if piece.shape == .pieceMaker {
-                                
-                let nextPiece = Piece()
-                nextPiece.colors = piece.nextPiece.colors
-                nextPiece.currentSwitch = piece.nextPiece.currentSwitch
-                nextPiece.shape = piece.nextPiece.shape
-                nextPiece.version = piece.nextPiece.version
-                nextPiece.view = piece.nextPiece.view
-                model.board.pieces.append(nextPiece)
+                           
+                
+                
+                
+                print("pieceMakers next piece \(piece.nextPiece)")
+                print("pieceMakers next piece shape \(piece.nextPiece!.shape)")
+                print("pieceMakers next piece index \(piece.nextPiece!.indexes)")
+                print("pieceMakers next piece frame \(piece.nextPiece!.view.frame)")
+                print("pieceMakers version \(piece.version)")
+//                let nextPiece = Piece()
+//                nextPiece.colors = piece.nextPiece!.colors
+//                nextPiece.currentSwitch = piece.nextPiece!.currentSwitch
+//                nextPiece.shape = piece.nextPiece!.shape
+//                nextPiece.version = piece.nextPiece!.version
+//                nextPiece.view = piece.nextPiece!.view
+//                model.board.pieces.append(nextPiece)
                 
                                 
                 switch piece.version {
 
                 case 1:
-                    nextPiece.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1)
+                    piece.nextPiece!.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1)
                 case 2:
-                    nextPiece.indexes = Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y)
+                    piece.nextPiece!.indexes = Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y)
 
                 case 3:
-                    nextPiece.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1)
+                    piece.nextPiece!.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1)
                 case 4:
 
-                    nextPiece.indexes = Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y)
+                    piece.nextPiece!.indexes = Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y)
 
 
                 default:
@@ -154,11 +162,12 @@ class ViewController: UIViewController {
                     
                     let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
                     
-                    nextPiece.view.transform = transform
+                    piece.nextPiece!.view.transform = transform
                     
                     
                     
-                    nextPiece.view.center = self.model.board.grid[nextPiece.indexes]!
+                    piece.nextPiece!.view.center = self.model.board.grid[piece.nextPiece!.indexes]!
+                    
                     
                     
                 } completion: { (false) in
@@ -554,8 +563,23 @@ extension ViewController: ModelDelegate {
         }
         
         
-        //Need to make sure that pieces are only added when the direction is correct
+        
+        
+        //MARK: SEE BELOW
+        
+        
+        //Need to make sure that pieces are only added when the direction is correct. Also need to figure out why the pieces view doesnt move for movePieces
         addPieces()
+        
+        
+        
+        
+        
+        
+        //TODO: Load next piece //SOMETHING LIKE THIS BUT ONLY THE PART THAT ADDS THE NEXTPIECE AND NOT THE PIECEMAKER
+//        model.setupPieceMakers()
+        
+        
         
         
         
@@ -576,6 +600,23 @@ extension ViewController: ModelDelegate {
             addTapGestureRecognizer(view: piece.view)
 //            self.piecesViews.append(piece)
             model.board.view.addSubview(piece.view)
+            
+            if piece.shape == .pieceMaker {
+ 
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth / 2, height: pieceHeight / 2)
+                piece.nextPiece!.view = ShapeView(frame: frame, piece: piece.nextPiece!)
+                
+                piece.nextPiece!.view.frame = frame
+                piece.nextPiece!.view.center = CGPoint(x: model.board.grid[piece.nextPiece!.indexes]?.x ?? piece.nextPiece!.view.center.x, y: model.board.grid[piece.nextPiece!.indexes]?.y ?? piece.nextPiece!.view.center.y)
+    //            piece.view.layer.borderColor = UIColor.white.cgColor
+    //            piece.view.layer.borderWidth = 2.0
+                addTapGestureRecognizer(view: piece.nextPiece!.view)
+    //            self.piecesViews.append(piece)
+                model.board.view.addSubview(piece.nextPiece!.view)
+                
+
+            }
+            
             
             //MARK: Change the pieces to bubbles
 //            piece.view.layer.cornerRadius = piece.view.frame.height / 2

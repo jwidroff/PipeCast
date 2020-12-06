@@ -23,8 +23,10 @@ class Piece {
     var version = Int()
     var isLocked = false
     var opening = String()
-    var nextPiece = NextPiece()
+    var nextPiece: Piece?
 //    var next = Piece()
+    
+//    var nextPieceX: Piece?
     
     
     

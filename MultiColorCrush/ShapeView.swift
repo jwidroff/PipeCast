@@ -14,7 +14,7 @@ import UIKit
 
 class ShapeView : UIView {
     
-    var name:Shape = .regular
+    var shape:Shape = .regular
     
     var version = Int()
     
@@ -28,7 +28,9 @@ class ShapeView : UIView {
     
     var opening = String()
     
-    var nextPiece: NextPiece?
+    var nextPiece: Piece?
+    
+//    var piece = Piece()
     
     
     override init(frame: CGRect) {
@@ -49,13 +51,18 @@ class ShapeView : UIView {
         
         
         super.init(frame: frame)
-        self.name = piece.shape
+        self.shape = piece.shape
         self.version = piece.version
         self.isLocked = piece.isLocked
         self.opening = piece.opening
-        self.nextPiece = piece.nextPiece
         
-        switch name {
+//        if let nextPieceX = piece.nextPiece {
+//            self.nextPiece = nextPieceX
+//        }
+//        self.piece = piece
+        
+        
+        switch shape {
         case .elbow:
             switches = 2
             currentSwitch = piece.currentSwitch
@@ -169,7 +176,7 @@ class ShapeView : UIView {
         context.setStrokeColor(colors[0])
         
         
-        switch name {
+        switch shape {
         
         
         case .stick:
@@ -926,18 +933,6 @@ class ShapeView : UIView {
             default:
                 break
             }
-            
-            let rect = CGRect(x: 0, y: 0, width: frame.width / 10 * 4.5, height: frame.height / 10 * 4.5)
-            
-            let nextPieceX = Piece()
-            nextPieceX.colors = nextPiece!.colors
-            nextPieceX.currentSwitch = nextPiece!.currentSwitch
-            nextPieceX.shape = nextPiece!.shape
-            nextPieceX.version = nextPiece!.version
-            nextPiece!.view = ShapeView(frame: rect, piece: nextPieceX)
-            nextPiece!.view.center = CGPoint(x: frame.midX, y: frame.midY)
-            superview?.addSubview(nextPiece!.view)
-            
             
         }
     }
