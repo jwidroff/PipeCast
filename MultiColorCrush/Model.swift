@@ -106,30 +106,19 @@ class Model {
             setPieceIndex(piece: pieceMaker)
             pieceMaker.isLocked = true
             pieceMaker.colors = [.yellow]
-//            pieceMaker.side.bottom.opening.isOpen = true
             pieceMaker.shape = .pieceMaker
             let version = Int(arc4random_uniform(UInt32(4))) + 1
             pieceMaker.version = version
             
-            
             let nextPiece = Piece()
-            
             nextPiece.indexes = pieceMaker.indexes
             setPieceShape(piece: nextPiece)
             setPieceColor(piece: nextPiece)
             setPieceSwitches(piece: nextPiece)
             setPieceSides(piece: nextPiece)
             pieceMaker.nextPiece = nextPiece
-            
-            
-            
-            
             board.pieces.append(pieceMaker)
-            
-//            board.pieces.append(nextPiece)
-
-            
-            
+            board.pieces.append(nextPiece)
         }
     }
     
@@ -138,23 +127,9 @@ class Model {
         board.iceLocations = level.iceLocations
     }
     
-    
     func setupEntrances() {
         
-//        for _ in 1...1 {
-//
-//            let entrance = Entrance()
-//            setPieceIndex(piece: entrance)
-//            entrance.isLocked = true
-//            entrance.colors = [.black]
-//            entrance.opening = "top"
-//            board.pieces.append(entrance)
-//        }
-        
         for _ in 1...1 {
-            
-            
-            //White box with lock
             
             let entrance = Piece()
             setPieceIndex(piece: entrance)
@@ -164,27 +139,11 @@ class Model {
             entrance.shape = .entrance
             board.pieces.append(entrance)
         }
-        
-        
-        
     }
 
     func setupExits() {
         
-//        for _ in 1...1 {
-//
-//            let exit = Exit()
-//            setPieceIndex(piece: exit)
-//            exit.colors = [.black]
-//            exit.isLocked = true
-//            exit.opening = "bottom"
-//            board.pieces.append(exit)
-//        }
-        
         for _ in 1...1 {
-            
-            
-            //brown box with lock
             
             let exit = Piece()
             setPieceIndex(piece: exit)
@@ -194,8 +153,6 @@ class Model {
             exit.shape = .exit
             board.pieces.append(exit)
         }
-        
-        
     }
     
     func setupWalls() {
@@ -234,56 +191,22 @@ class Model {
         setupWalls()
         setupBalls()
         
-        
         for _ in 0..<level.numberOfPieces {
             
-            let piece = Piece()
-            setPieceIndex(piece: piece)
-            setPieceShape(piece: piece)
-            setPieceColor(piece: piece)
-            setPieceSwitches(piece: piece)
-            setPieceSides(piece: piece)
-            
-            
-            printPieceProperties(piece: piece)
-            
-            
-            //Print all properties of each piece and see if the pieces side colors were set correctly
-            //Consider putting all info for sides in the setPieceSides func
-            
-            
-            
-            
-            
-            board.pieces.append(piece)
+            setupPieces()
         }
         delegate?.setUpPiecesView()
     }
     
-    func printPieceProperties(piece: Piece) {
+    func setupPieces() {
         
-//        print("shape \(piece.shape)")
-//        print("version \(piece.version)")
-//        print("switch \(piece.currentSwitch)")
-
-
-        
-//        print("piece left side exitSide \(piece.side.left.exitSide)")
-//        print("piece right side exitSide \(piece.side.right.exitSide)")
-//        print("piece top side exitSide \(piece.side.top.exitSide)")
-//        print("piece bottom side exitSide \(piece.side.bottom.exitSide)")
-        
-    }
-    
-    
-    func setPieceLock(piece: Piece) {
-        
-        if piece.isLocked {
-            
-            
-            
-            
-        }
+        let piece = Piece()
+        setPieceIndex(piece: piece)
+        setPieceShape(piece: piece)
+        setPieceColor(piece: piece)
+        setPieceSwitches(piece: piece)
+        setPieceSides(piece: piece)
+        board.pieces.append(piece)
     }
     
     func setPieceSides(piece: Piece) {
@@ -490,11 +413,8 @@ class Model {
                     piece.side.right.closing.isOpen = false
                     piece.side.top.closing.isOpen = true
                     piece.side.bottom.closing.isOpen = true
-                    
-                    
                 }
-                
-                
+
             case 2, 4:
                 
                 if piece.currentSwitch == 1 {
@@ -510,19 +430,14 @@ class Model {
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
                     piece.side.bottom.closing.isOpen = false
-                    
-                    
                 }
                 
             default:
                 break
             }
             
-            
-            
         case .stick:
             
-           
             switch piece.version {
             case 1, 3:
                 
@@ -547,10 +462,7 @@ class Model {
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.top.opening.isOpen = true
                     piece.side.bottom.opening.isOpen = true
-                    
-                    
                 }
-                
                 
             case 2, 4:
                 
@@ -576,15 +488,11 @@ class Model {
                     piece.side.left.color = piece.colors[1]
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    
-                    
                 }
                 
             default:
                 break
             }
-            
-            
             
         case .diagElbow:
             
@@ -629,7 +537,6 @@ class Model {
                     piece.side.bottom.color = piece.colors[0]
                      
                 }
-                
                 
             case 2, 4:
                 
@@ -726,21 +633,8 @@ class Model {
         let randomColors:[UIColor] = [UIColor.red, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-
-        
-        
-        
         
         piece.colors = [randomColor1, randomColor2]
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     func isNextSpaceBlocked(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
@@ -790,8 +684,6 @@ class Model {
             if pieceX.indexes == index {
                 
                 piece = pieceX
-                
-                print("piece found index = \(piece.indexes)")
             }
         }
         return piece
@@ -799,25 +691,29 @@ class Model {
     
     func checkForIce(piece: Piece) -> Bool {
 
-
         var bool = false
 
         if board.iceLocations.contains(where: { (index) -> Bool in
             index == piece.indexes
         }) {
-
             bool = true
         }
-
-//        print("BOOL IS \(bool)")
-        
-        
         return bool
-
+    }
+    
+    func isNotOnAPieceMaker(piece: Piece) -> Bool {
+        
+        var bool = true
+        
+        if board.pieces.contains(where: { (pieceX) -> Bool in
+            pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
+        }) {
+            bool = false
+        }
+        return bool
     }
     
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
-       
         
         switch direction {
         
@@ -828,9 +724,30 @@ class Model {
             let notAtWall = piece.indexes.y != 0
             if notAtWall {
                 if spaceIsntBlocked {
-                    piece.indexes.y = piece.indexes.y! - 1
-                    if checkForIce(piece: piece) == true {
-                        movePiecesHelper(piece: piece, direction: direction)
+                    
+                    if isNotOnAPieceMaker(piece: piece) {
+                        piece.indexes.y = piece.indexes.y! - 1
+                        if checkForIce(piece: piece) == true {
+                            movePiecesHelper(piece: piece, direction: direction)
+                        }
+                    } else {
+                        
+                        for pieceX in board.pieces {
+                            
+                            if pieceX.indexes == piece.indexes {
+                                
+                                if pieceX.shape == .pieceMaker {
+                                    
+                                    if pieceX.version == 3 {
+                                        
+                                        piece.indexes.y = piece.indexes.y! - 1
+                                        if checkForIce(piece: piece) == true {
+                                            movePiecesHelper(piece: piece, direction: direction)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -844,14 +761,32 @@ class Model {
             })
             if notAtWall {
                 if spaceIsntBlocked{
-                    piece.indexes.y = piece.indexes.y! + 1
-                    if checkForIce(piece: piece) == true {
-                        movePiecesHelper(piece: piece, direction: direction)
+                    if isNotOnAPieceMaker(piece: piece) {
+                        piece.indexes.y = piece.indexes.y! + 1
+                        if checkForIce(piece: piece) == true {
+                            movePiecesHelper(piece: piece, direction: direction)
+                        }
+                    } else {
+                        
+                        for pieceX in board.pieces {
+                            
+                            if pieceX.indexes == piece.indexes {
+                                
+                                if pieceX.shape == .pieceMaker {
+                                    
+                                    if pieceX.version == 1 {
+                                        
+                                        piece.indexes.y = piece.indexes.y! + 1
+                                        if checkForIce(piece: piece) == true {
+                                            movePiecesHelper(piece: piece, direction: direction)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            
-            
             
         case .left:
             
@@ -859,14 +794,33 @@ class Model {
             let notAtWall = piece.indexes.x != 0
             if notAtWall {
                 if spaceIsntBlocked {
-                    piece.indexes.x = piece.indexes.x! - 1
-                    if checkForIce(piece: piece) == true {
-                        movePiecesHelper(piece: piece, direction: direction)
+                    if isNotOnAPieceMaker(piece: piece) {
+                        piece.indexes.x = piece.indexes.x! - 1
+                        if checkForIce(piece: piece) == true {
+                            movePiecesHelper(piece: piece, direction: direction)
+                        }
+                        
+                    } else {
+                        
+                        for pieceX in board.pieces {
+                            
+                            if pieceX.indexes == piece.indexes {
+                                
+                                if pieceX.shape == .pieceMaker {
+                                    
+                                    if pieceX.version == 2 {
+                                        
+                                        piece.indexes.x = piece.indexes.x! - 1
+                                        if checkForIce(piece: piece) == true {
+                                            movePiecesHelper(piece: piece, direction: direction)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            
-            
             
         case .right:
             
@@ -876,23 +830,37 @@ class Model {
             })
             if notAtWall {
                 if spaceIsntBlocked {
-                    piece.indexes.x = piece.indexes.x! + 1
-                    if checkForIce(piece: piece) == true {
-                        movePiecesHelper(piece: piece, direction: direction)
+                    if isNotOnAPieceMaker(piece: piece) {
+                        piece.indexes.x = piece.indexes.x! + 1
+                        if checkForIce(piece: piece) == true {
+                            movePiecesHelper(piece: piece, direction: direction)
+                        }
+                        
+                    } else {
+                        
+                        for pieceX in board.pieces {
+                            
+                            if pieceX.indexes == piece.indexes {
+                                
+                                if pieceX.shape == .pieceMaker {
+                                    
+                                    if pieceX.version == 4 {
+                                        
+                                        piece.indexes.x = piece.indexes.x! + 1
+                                        if checkForIce(piece: piece) == true {
+                                            movePiecesHelper(piece: piece, direction: direction)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
             
-            
-            
         default:
             break
         }
-        
-        
-        
-        
-        
     }
     
     

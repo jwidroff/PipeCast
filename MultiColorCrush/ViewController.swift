@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
 
     var model = Model()
-//    var piecesViews = [Piece]()
     var spaceViews = [UIView]()
     var pieceWidth = CGFloat()
     var pieceHeight = CGFloat()
@@ -22,7 +21,6 @@ class ViewController: UIViewController {
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,140 +108,7 @@ class ViewController: UIViewController {
         
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
     }
-    
-    
-    
-    
-    func addPieces(direction: UISwipeGestureRecognizer.Direction) {
-        
-        
-        
-        for piece in model.board.pieces {
-            
-            
-            //THE PROBLEM IS PROBABLY HERE. WE ARE DEALING WITH THE SAME PIECE WHEN WE TKE ABOUT THE PIECEMAKERS NEXT PIECE AND THE PIECES THAT WERE ALREADY ADDED TO THE MODEL>BOARD
-            
-            
-            
-            
-            if piece.shape == .pieceMaker {
-                           
-                
-                
-
-
-                switch piece.version {
-
-                case 1:
-
-                    if direction == .down {
-                        
-                        model.board.pieces.append(piece.nextPiece!)
-
-                        
-                        UIView.animate(withDuration: 0.25) {
-                            
-                            let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
-                            
-                            
-                            piece.nextPiece!.view.transform = transform
-                            
-//                            piece.nextPiece!.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1)
-                            
-                            piece.nextPiece!.view.center = self.model.board.grid[piece.nextPiece!.indexes]!
-                            
-                            
-                            
-                        } completion: { (false) in
-                            print()
-
-                        }
-                    }
-                    
-                case 2:
-                    if direction == .left {
-                        
-                        model.board.pieces.append(piece.nextPiece!)
-
-                        UIView.animate(withDuration: 0.25) {
-                            
-                            let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
-                            
-                            piece.nextPiece!.view.transform = transform
-                            
-//                            piece.nextPiece!.indexes = Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y)
-                            
-                            
-                            piece.nextPiece!.view.center = self.model.board.grid[piece.nextPiece!.indexes]!
-                            
-                            
-                            
-                        } completion: { (false) in
-                            print()
-
-                        }
-                    }
-                    
-                    
-
-                case 3:
-                    
-                    if direction == .up {
-                        
-                        model.board.pieces.append(piece.nextPiece!)
-
-                        UIView.animate(withDuration: 0.25) {
-                            
-                            let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
-                            
-                            piece.nextPiece!.view.transform = transform
-                            
-//                            piece.nextPiece!.indexes = Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1)
-                            
-                            piece.nextPiece!.view.center = self.model.board.grid[piece.nextPiece!.indexes]!
-                            
-                            
-                            
-                        } completion: { (false) in
-                            print()
-
-                        }
-                    }
-                    
-                    
-                case 4:
-
-                    if direction == .right {
-                        
-                        model.board.pieces.append(piece.nextPiece!)
-
-                        UIView.animate(withDuration: 0.25) {
-                            
-                            let transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
-                            
-                            piece.nextPiece!.view.transform = transform
-                            
-//                            piece.nextPiece!.indexes = Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y)
-                            
-                            piece.nextPiece!.view.center = self.model.board.grid[piece.nextPiece!.indexes]!
-                            
-                            
-                            
-                        } completion: { (false) in
-                            print()
-
-                        }
-                    }
-                    
-
-
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
+  
     func addSwipeGestureRecognizer(view: UIView) {
         
         var upSwipe = UISwipeGestureRecognizer()
@@ -629,82 +494,40 @@ extension ViewController: ModelDelegate {
             
             UIView.animate(withDuration: 0.25) {
                 piece.view.center = self.model.board.grid[piece.indexes]!
+                
+                if piece.view.frame.width != self.pieceWidth {
+                    
+                    let center = piece.view.center
+                    let frame = CGRect(x: 0, y: 0, width: self.pieceWidth, height: self.pieceHeight)
+                    piece.view.frame = frame
+                    piece.view.center = center
+                }
             }
-            
-            
         }
-        
-        
-        
-        
-        //MARK: SEE BELOW
-        
-        
-        //Need to make sure that pieces are only added when the direction is correct. Also need to figure out why the pieces view doesnt move for movePieces
-        addPieces(direction: direction)
-        
-        
-        
-        
-        
-        
-        //TODO: Load next piece //SOMETHING LIKE THIS BUT ONLY THE PART THAT ADDS THE NEXTPIECE AND NOT THE PIECEMAKER
-//        model.setupPieceMakers()
-        
-        
-        
-        
-        
-        
     }
     
     func setUpPiecesView() {
         
-            
         for piece in model.board.pieces {
-        
         
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             piece.view = ShapeView(frame: frame, piece: piece)
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-//            piece.view.layer.borderColor = UIColor.white.cgColor
-//            piece.view.layer.borderWidth = 2.0
             addTapGestureRecognizer(view: piece.view)
-//            self.piecesViews.append(piece)
             model.board.view.addSubview(piece.view)
             
-            if piece.shape == .pieceMaker {
-
+            if model.board.pieces.contains(where: { (pieceX) -> Bool in
+                pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
+            }) {
+                
                 let frame = CGRect(x: 0, y: 0, width: pieceWidth / 2, height: pieceHeight / 2)
-                piece.nextPiece!.view = ShapeView(frame: frame, piece: piece.nextPiece!)
-
-                piece.nextPiece!.view.frame = frame
-                piece.nextPiece!.view.center = CGPoint(x: model.board.grid[piece.nextPiece!.indexes]?.x ?? piece.nextPiece!.view.center.x, y: model.board.grid[piece.nextPiece!.indexes]?.y ?? piece.nextPiece!.view.center.y)
-    //            piece.view.layer.borderColor = UIColor.white.cgColor
-    //            piece.view.layer.borderWidth = 2.0
-                addTapGestureRecognizer(view: piece.nextPiece!.view)
-    //            self.piecesViews.append(piece)
-                model.board.view.addSubview(piece.nextPiece!.view)
-                
-                
-//                let pieceX = piece.nextPiece!
-//                model.board.pieces.append(pieceX)
-
-
+                piece.view.frame = frame
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
             }
-            
-            
-            //MARK: Change the pieces to bubbles
-//            piece.view.layer.cornerRadius = piece.view.frame.height / 2
-//            piece.view.clipsToBounds = true
         }
-        
         setupBalls()
-        
     }
     
-    
-
     func setUpGame(board: Board) {
                 
         setSizes()
@@ -713,8 +536,6 @@ extension ViewController: ModelDelegate {
         
         setupBoard()
     }
-    
-    
     
     func pieceWasTapped(piece: Piece) {
         
