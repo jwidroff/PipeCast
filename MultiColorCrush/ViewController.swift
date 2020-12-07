@@ -275,26 +275,28 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ModelDelegate {
-    func enlargeNewPieces(piece: Piece) {
-        
-        UIView.animate(withDuration: 0.25) {
-            let center = piece.view.center
-            let frame = CGRect(x: 0, y: 0, width: self.pieceWidth, height: self.pieceHeight)
-            piece.view.frame = frame
-            piece.view.center = center
-            
-        } completion: { (false) in
-            print()
-        }
-    }
+
     
     
 
-    func addPiece() {
+    func addPieceView(piece: Piece) {
+        
+        piece.view.center = self.model.board.grid[piece.indexes]!
+        addTapGestureRecognizer(view: piece.view)
         
         
+        UIView.animate(withDuration: 0.25) {
+            
+            let rect = CGRect(x: piece.view.frame.minX, y: piece.view.frame.minY, width: self.pieceWidth, height: self.pieceHeight)
+
+            piece.view.frame = rect
+            self.model.board.view.addSubview(piece.view)
+            
+            
+        }
         
-        
+       
+
     }
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {

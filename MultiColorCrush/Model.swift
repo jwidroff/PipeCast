@@ -52,8 +52,8 @@ protocol ModelDelegate {
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
-    func addPiece()
-    func enlargeNewPieces(piece: Piece)
+    func addPieceView(piece: Piece)
+//    func enlargeNewPieces(piece: Piece)
 }
 
 class Model {
@@ -754,7 +754,7 @@ class Model {
                                 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
-                                board.view.addSubview(newPiece.view)
+                                delegate?.addPieceView(piece: newPiece)
 
                                 
                                 board.pieces.append(newPiece)
@@ -811,7 +811,9 @@ class Model {
 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
 
-                                board.view.addSubview(newPiece.view)
+//                                board.view.addSubview(newPiece.view)
+                                delegate?.addPieceView(piece: newPiece)
+                                
                                 
                                 board.pieces.append(newPiece)
                                 
@@ -862,7 +864,7 @@ class Model {
 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
-                                board.view.addSubview(newPiece.view)
+                                delegate?.addPieceView(piece: newPiece)
 
                                 
                                 board.pieces.append(newPiece)
@@ -923,9 +925,10 @@ class Model {
                                 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
+                                
                             
                                 
-                                board.view.addSubview(newPiece.view)
+                                delegate?.addPieceView(piece: newPiece)
 
                                 
                                 board.pieces.append(newPiece)
@@ -1025,22 +1028,6 @@ class Model {
         }
         
 //        delegate?.addPiece()
-    }
-    
-
-    
-    func addPieces() {
-        
-        
-//        var indexes = [Indexes()]
-        
-        for piece in board.pieces {
-            
-//            if piece.shape == .pieceMaker
-            
-        
-            
-        }
     }
     
         
