@@ -28,7 +28,7 @@ class ShapeView : UIView {
     
     var opening = String()
     
-    var nextPiece: Piece?
+//    var nextPiece: Piece?
     
 //    var piece = Piece()
     
@@ -51,6 +51,9 @@ class ShapeView : UIView {
         
         
         super.init(frame: frame)
+        
+        
+        
         self.shape = piece.shape
         self.version = piece.version
         self.isLocked = piece.isLocked

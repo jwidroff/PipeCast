@@ -43,6 +43,8 @@ import UIKit
 //TODO: Add number of moves left
 //TODO: Make the text box for the entrance lower when the ball initially moves
 
+//TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -50,6 +52,8 @@ protocol ModelDelegate {
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
+    func addPiece()
+    func enlargeNewPieces(piece: Piece)
 }
 
 class Model {
@@ -741,6 +745,11 @@ class Model {
                                     if pieceX.version == 3 {
                                         
                                         piece.indexes.y = piece.indexes.y! - 1
+                                        
+                                        //ENLARGE DELEGATE HERE
+                                        
+                                        delegate?.enlargeNewPieces(piece: piece)
+                                        
                                         if checkForIce(piece: piece) == true {
                                             movePiecesHelper(piece: piece, direction: direction)
                                         }
@@ -777,6 +786,9 @@ class Model {
                                     if pieceX.version == 1 {
                                         
                                         piece.indexes.y = piece.indexes.y! + 1
+                                        
+                                        delegate?.enlargeNewPieces(piece: piece)
+                                        
                                         if checkForIce(piece: piece) == true {
                                             movePiecesHelper(piece: piece, direction: direction)
                                         }
@@ -811,6 +823,9 @@ class Model {
                                     if pieceX.version == 2 {
                                         
                                         piece.indexes.x = piece.indexes.x! - 1
+                                        
+                                        delegate?.enlargeNewPieces(piece: piece)
+                                        
                                         if checkForIce(piece: piece) == true {
                                             movePiecesHelper(piece: piece, direction: direction)
                                         }
@@ -847,6 +862,9 @@ class Model {
                                     if pieceX.version == 4 {
                                         
                                         piece.indexes.x = piece.indexes.x! + 1
+                                        
+                                        delegate?.enlargeNewPieces(piece: piece)
+                                        
                                         if checkForIce(piece: piece) == true {
                                             movePiecesHelper(piece: piece, direction: direction)
                                         }
@@ -924,7 +942,26 @@ class Model {
         default:
             break
         }
+        
+//        delegate?.addPiece()
     }
+    
+
+    
+    func addPieces() {
+        
+        
+//        var indexes = [Indexes()]
+        
+        for piece in board.pieces {
+            
+//            if piece.shape == .pieceMaker
+            
+        
+            
+        }
+    }
+    
         
     func moveBall(ball: Ball, startSide: String) {
         
