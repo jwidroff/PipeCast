@@ -122,7 +122,7 @@ class Model {
             setPieceSides(piece: nextPiece)
             pieceMaker.nextPiece = nextPiece
             board.pieces.append(pieceMaker)
-            board.pieces.append(nextPiece)
+//            board.pieces.append(nextPiece)
         }
     }
     
@@ -705,17 +705,17 @@ class Model {
         return bool
     }
     
-    func isNotOnAPieceMaker(piece: Piece) -> Bool {
-        
-        var bool = true
-        
-        if board.pieces.contains(where: { (pieceX) -> Bool in
-            pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
-        }) {
-            bool = false
-        }
-        return bool
-    }
+//    func isNotOnAPieceMaker(piece: Piece) -> Bool {
+//
+//        var bool = true
+//
+//        if board.pieces.contains(where: { (pieceX) -> Bool in
+//            pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
+//        }) {
+//            bool = false
+//        }
+//        return bool
+//    }
     
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
@@ -729,33 +729,47 @@ class Model {
             if notAtWall {
                 if spaceIsntBlocked {
                     
-                    if isNotOnAPieceMaker(piece: piece) {
+//                    if isNotOnAPieceMaker(piece: piece) {
+                    
+                    if piece.isLocked == false {
+                        
                         piece.indexes.y = piece.indexes.y! - 1
                         if checkForIce(piece: piece) == true {
                             movePiecesHelper(piece: piece, direction: direction)
                         }
+                        
+                        
                     } else {
                         
-                        for pieceX in board.pieces {
+                        if piece.shape == .pieceMaker && piece.version == 3 {
                             
-                            if pieceX.indexes == piece.indexes {
+                            print("WORKING!!!!!!")
+                            
+                            if piece.nextPiece != nil {
                                 
-                                if pieceX.shape == .pieceMaker {
-                                    
-                                    if pieceX.version == 3 {
-                                        
-                                        piece.indexes.y = piece.indexes.y! - 1
-                                        
-                                        //ENLARGE DELEGATE HERE
-                                        
-                                        delegate?.enlargeNewPieces(piece: piece)
-                                        
-                                        if checkForIce(piece: piece) == true {
-                                            movePiecesHelper(piece: piece, direction: direction)
-                                        }
-                                    }
+                                let newPiece = piece.nextPiece!
+                                
+                                piece.nextPiece = nil
+
+                                
+                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                
+                                board.view.addSubview(newPiece.view)
+
+                                
+                                board.pieces.append(newPiece)
+                                
+                                newPiece.indexes.y = newPiece.indexes.y! - 1
+                                if checkForIce(piece: newPiece) == true {
+                                    movePiecesHelper(piece: newPiece, direction: direction)
                                 }
+                                
+                                
                             }
+                            
+                            
+                            
+                            
                         }
                     }
                 }
@@ -770,31 +784,48 @@ class Model {
             })
             if notAtWall {
                 if spaceIsntBlocked{
-                    if isNotOnAPieceMaker(piece: piece) {
+//                    if isNotOnAPieceMaker(piece: piece) {
+                    if piece.isLocked == false {
+                        
                         piece.indexes.y = piece.indexes.y! + 1
                         if checkForIce(piece: piece) == true {
                             movePiecesHelper(piece: piece, direction: direction)
                         }
+                        
+                        
                     } else {
                         
-                        for pieceX in board.pieces {
+                        if piece.shape == .pieceMaker && piece.version == 1 {
                             
-                            if pieceX.indexes == piece.indexes {
+                            
+                            if piece.nextPiece != nil {
+
+                                print("WORKING!!!!!!")
+
                                 
-                                if pieceX.shape == .pieceMaker {
-                                    
-                                    if pieceX.version == 1 {
-                                        
-                                        piece.indexes.y = piece.indexes.y! + 1
-                                        
-                                        delegate?.enlargeNewPieces(piece: piece)
-                                        
-                                        if checkForIce(piece: piece) == true {
-                                            movePiecesHelper(piece: piece, direction: direction)
-                                        }
-                                    }
+                                
+                                let newPiece = piece.nextPiece!
+
+                                
+                                piece.nextPiece = nil
+
+                                newPiece.view = piece.view.subviews.first as! ShapeView
+
+                                board.view.addSubview(newPiece.view)
+                                
+                                board.pieces.append(newPiece)
+                                
+                                newPiece.indexes.y = newPiece.indexes.y! + 1
+                                if checkForIce(piece: newPiece) == true {
+                                    movePiecesHelper(piece: newPiece, direction: direction)
                                 }
+                                
+                                
+                                
                             }
+                           
+                            
+                            
                         }
                     }
                 }
@@ -806,34 +837,53 @@ class Model {
             let notAtWall = piece.indexes.x != 0
             if notAtWall {
                 if spaceIsntBlocked {
-                    if isNotOnAPieceMaker(piece: piece) {
+//                    if isNotOnAPieceMaker(piece: piece) {
+                    if piece.isLocked == false {
+                        
                         piece.indexes.x = piece.indexes.x! - 1
                         if checkForIce(piece: piece) == true {
                             movePiecesHelper(piece: piece, direction: direction)
                         }
                         
+                        
                     } else {
                         
-                        for pieceX in board.pieces {
+                        if piece.shape == .pieceMaker && piece.version == 2 {
                             
-                            if pieceX.indexes == piece.indexes {
+                            if piece.nextPiece != nil {
+
+                                print("WORKING!!!!!!")
                                 
-                                if pieceX.shape == .pieceMaker {
-                                    
-                                    if pieceX.version == 2 {
-                                        
-                                        piece.indexes.x = piece.indexes.x! - 1
-                                        
-                                        delegate?.enlargeNewPieces(piece: piece)
-                                        
-                                        if checkForIce(piece: piece) == true {
-                                            movePiecesHelper(piece: piece, direction: direction)
-                                        }
-                                    }
+                                
+                                let newPiece = piece.nextPiece!
+
+                                
+                                piece.nextPiece = nil
+
+                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                
+                                board.view.addSubview(newPiece.view)
+
+                                
+                                board.pieces.append(newPiece)
+                                
+                                newPiece.indexes.x = newPiece.indexes.x! - 1
+                                if checkForIce(piece: newPiece) == true {
+                                    movePiecesHelper(piece: newPiece, direction: direction)
                                 }
+                                
+                                
+                                
                             }
+                            
+                           
+                            
+                            
                         }
+                        
+                        
                     }
+
                 }
             }
             
@@ -845,34 +895,58 @@ class Model {
             })
             if notAtWall {
                 if spaceIsntBlocked {
-                    if isNotOnAPieceMaker(piece: piece) {
+//                    if isNotOnAPieceMaker(piece: piece) {
+                    
+                    
+                    if piece.isLocked == false {
+                        
                         piece.indexes.x = piece.indexes.x! + 1
                         if checkForIce(piece: piece) == true {
                             movePiecesHelper(piece: piece, direction: direction)
                         }
                         
+                        
                     } else {
                         
-                        for pieceX in board.pieces {
+                        if piece.nextPiece != nil {
+                           
                             
-                            if pieceX.indexes == piece.indexes {
+                            if piece.shape == .pieceMaker && piece.version == 4 {
                                 
-                                if pieceX.shape == .pieceMaker {
-                                    
-                                    if pieceX.version == 4 {
-                                        
-                                        piece.indexes.x = piece.indexes.x! + 1
-                                        
-                                        delegate?.enlargeNewPieces(piece: piece)
-                                        
-                                        if checkForIce(piece: piece) == true {
-                                            movePiecesHelper(piece: piece, direction: direction)
-                                        }
-                                    }
+                                print("WORKING!!!!!!")
+                                
+                                
+                                let newPiece = piece.nextPiece!
+
+                                
+                                piece.nextPiece = nil
+                                
+                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                
+                            
+                                
+                                board.view.addSubview(newPiece.view)
+
+                                
+                                board.pieces.append(newPiece)
+                                
+                                newPiece.indexes.x = newPiece.indexes.x! + 1
+                                if checkForIce(piece: newPiece) == true {
+                                    movePiecesHelper(piece: newPiece, direction: direction)
                                 }
+                                
+                                
                             }
+                            
+                            
                         }
+                        
+                        
+                        
+                        
+                        
                     }
+
                 }
             }
             
@@ -890,23 +964,26 @@ class Model {
                         
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! < piece2.indexes.y!
-            }).filter({ (piece) -> Bool in
-                piece.isLocked == false
-            }) {
-                
+            })
+//            .filter({ (piece) -> Bool in
+//                piece.isLocked == false
+//            })
+            {
                 movePiecesHelper(piece: piece, direction: direction)
-                
-
             }
+            
             delegate?.movePieces(direction: direction)
 
         case .down:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.y! > piece2.indexes.y!
                 
-            }).filter({ (piece) -> Bool in
-                piece.isLocked == false
-            })  {
+            })
+//            .filter({ (piece) -> Bool in
+//                piece.isLocked == false
+//            })
+            
+            {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 
@@ -917,9 +994,11 @@ class Model {
         case .left:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! < piece2.indexes.x!
-            }).filter({ (piece) -> Bool in
-                piece.isLocked == false
-            })  {
+            })
+//            .filter({ (piece) -> Bool in
+//                piece.isLocked == false
+//            })
+            {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 
@@ -929,9 +1008,11 @@ class Model {
         case .right:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
                 piece1.indexes.x! > piece2.indexes.x!
-            }).filter({ (piece) -> Bool in
-                piece.isLocked == false
-            })  {
+            })
+//            .filter({ (piece) -> Bool in
+//                piece.isLocked == false
+//            })
+            {
                 
                 movePiecesHelper(piece: piece, direction: direction)
 

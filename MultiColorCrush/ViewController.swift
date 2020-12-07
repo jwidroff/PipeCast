@@ -534,14 +534,14 @@ extension ViewController: ModelDelegate {
             addTapGestureRecognizer(view: piece.view)
             model.board.view.addSubview(piece.view)
             
-            if model.board.pieces.contains(where: { (pieceX) -> Bool in
-                pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
-            }) {
-                
-                let frame = CGRect(x: 0, y: 0, width: pieceWidth / 2, height: pieceHeight / 2)
-                piece.view.frame = frame
-                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-            }
+//            if model.board.pieces.contains(where: { (pieceX) -> Bool in
+//                pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
+//            }) {
+//                
+//                let frame = CGRect(x: 0, y: 0, width: pieceWidth / 2, height: pieceHeight / 2)
+//                piece.view.frame = frame
+//                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+//            }
         }
         setupBalls()
     }

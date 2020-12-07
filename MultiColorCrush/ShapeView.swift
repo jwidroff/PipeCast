@@ -28,7 +28,7 @@ class ShapeView : UIView {
     
     var opening = String()
     
-//    var nextPiece: Piece?
+    var nextPiece: Piece?
     
 //    var piece = Piece()
     
@@ -59,9 +59,9 @@ class ShapeView : UIView {
         self.isLocked = piece.isLocked
         self.opening = piece.opening
         
-//        if let nextPieceX = piece.nextPiece {
-//            self.nextPiece = nextPieceX
-//        }
+        if let nextPieceX = piece.nextPiece {
+            self.nextPiece = nextPieceX
+        }
 //        self.piece = piece
         
         
@@ -936,6 +936,24 @@ class ShapeView : UIView {
             default:
                 break
             }
+            
+            //Show Next Piece
+        
+        
+        //WORK ON GETTING THE NEXT PIECES VIEW HERE. USE NEXTPIECE VAR. SEE IF ITS BEING SET. THE CODE BELOW IS WHAT IS USED IN THE VC CURRENTLY FOR THE NEXT PIECE FRAME-WISE
+        
+        
+            let w2 = frame.width / 10 * 4
+            let h2 = frame.height / 10 * 4
+            let x2 = (frame.width - w2) / 2
+            let y2 = x2
+
+        
+            let frameX = CGRect(x: x2, y: y2, width: w2, height: h2)
+            
+            let nextPieceView = ShapeView(frame: frameX, piece: nextPiece!)
+//            nextPieceView.center = center
+            addSubview(nextPieceView)
             
         }
     }
