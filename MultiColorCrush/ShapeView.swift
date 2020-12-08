@@ -953,6 +953,7 @@ class ShapeView : UIView {
             
             let nextPieceView = ShapeView(frame: frameX, piece: nextPiece!)
 //            nextPieceView.center = center
+            
             addSubview(nextPieceView)
             
         }

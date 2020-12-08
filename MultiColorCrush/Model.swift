@@ -53,6 +53,7 @@ protocol ModelDelegate {
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
+    func resetPieceMaker(piece: Piece)
 //    func enlargeNewPieces(piece: Piece)
 }
 
@@ -711,6 +712,7 @@ class Model {
         //FIX THIS TO MAKE SURE THAT THE CORRECT VIEW FOR THE NEXT PIECE IS BEING DISPLAYED
         
         
+        
         let nextPiece = Piece()
         nextPiece.indexes = piece.indexes
         setPieceShape(piece: nextPiece)
@@ -718,8 +720,14 @@ class Model {
         setPieceSwitches(piece: nextPiece)
         setPieceSides(piece: nextPiece)
         piece.nextPiece = nextPiece
+//        piece.nextPiece?.view = ShapeView(frame: piece.view.frame, piece: piece.nextPiece!)
+//        piece.view = nextPiece.view
 //        piece.view = ShapeView(frame: piece.view.frame, piece: piece)
-        piece.view.setNeedsDisplay()
+//        piece.nextPiece?.view.setNeedsDisplay()
+        
+        
+        
+        delegate?.resetPieceMaker(piece: piece)
     }
     
     
@@ -756,11 +764,20 @@ class Model {
                                 
 //                                piece.nextPiece = nil
                                 
-                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                
+                                //Problem may lie here?
+                                
+                                
+//                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
+                                
+//                                newPiece.view = piece.nextPiece!.view
                                 
                                 delegate?.addPieceView(piece: newPiece)
                                 
                                 board.pieces.append(newPiece)
+                                
+                                
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! - 1
                                 
@@ -809,7 +826,9 @@ class Model {
 
 //                                piece.nextPiece = nil
 
-                                newPiece.view = piece.view.subviews.first as! ShapeView
+//                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
+//                                newPiece.view = piece.nextPiece!.view
 
                                 delegate?.addPieceView(piece: newPiece)
                                 
@@ -859,8 +878,10 @@ class Model {
                                 
 //                                piece.nextPiece = nil
 
-                                newPiece.view = piece.view.subviews.first as! ShapeView
-                                
+//                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
+//                                newPiece.view = piece.nextPiece!.view
+
                                 delegate?.addPieceView(piece: newPiece)
 
                                 board.pieces.append(newPiece)
@@ -911,8 +932,11 @@ class Model {
                                 
 //                                piece.nextPiece = nil
                                 
-                                newPiece.view = piece.view.subviews.first as! ShapeView
-                                
+//                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
+
+//                                newPiece.view = piece.nextPiece!.view
+
                                 delegate?.addPieceView(piece: newPiece)
                                 
                                 board.pieces.append(newPiece)
@@ -1115,18 +1139,16 @@ class Model {
         }
         
         for ball in board.balls {
-            
-            print("begin was tapped. Moving ball now \(board.balls.count)")
-            
+                        
             if board.grid[ball.indexes] == center {
                 
                 for piece in board.pieces {
                     
                     //TODO: Change this back
-                    piece.view.isUserInteractionEnabled = false
+                    piece.view.isUserInteractionEnabled = true
                 }
                 
-                board.view.isUserInteractionEnabled = false
+                board.view.isUserInteractionEnabled = true
                 
                 moveBall(ball: ball, startSide: "unmoved")
             }

@@ -276,7 +276,54 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
 
+    func resetPieceMaker(piece: Piece) {
+ 
+        
+        //figure out how to have the correct piece on the piecemaker after moving
+        
+        
+        
+        
+//        var view = ShapeView(frame: <#T##CGRect#>, piece: <#T##Piece#>)
+        
+        
+        
+//        piece.view.subviews.first!.removeFromSuperview()
+
+        let w2 = piece.view.frame.width / 10 * 4
+        let h2 = piece.view.frame.height / 10 * 4
+        let x2 = (piece.view.frame.width - w2) / 2
+        let y2 = x2
+
     
+        let frameX = CGRect(x: x2, y: y2, width: w2, height: h2)
+        
+        let nextPieceView = ShapeView(frame: frameX, piece: piece.nextPiece!)
+        nextPieceView.center = piece.view.center
+        
+        model.board.view.addSubview(nextPieceView)
+        
+        
+        
+        
+        
+        //MARK: TURN BACK ON
+//        piece.view.setNeedsDisplay()
+//        piece.nextPiece?.view.setNeedsDisplay()
+//        piece.view.subviews[0].setNeedsDisplay()
+
+        
+        
+        
+        
+        
+   
+
+        
+        
+        
+        
+    }
     
 
     func addPieceView(piece: Piece) {
@@ -287,7 +334,6 @@ extension ViewController: ModelDelegate {
         
         
         //TODO: MAKE IT THAT A NEW PIECE GETS LOADED ON TO THE PIECEMAKER
-        
         
         
         
