@@ -718,7 +718,7 @@ class Model {
         setPieceSwitches(piece: nextPiece)
         setPieceSides(piece: nextPiece)
         piece.nextPiece = nextPiece
-        piece.view = ShapeView(frame: piece.view.frame, piece: piece)
+//        piece.view = ShapeView(frame: piece.view.frame, piece: piece)
         piece.view.setNeedsDisplay()
     }
     
