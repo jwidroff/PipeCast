@@ -281,6 +281,19 @@ extension ViewController: ModelDelegate {
 
     func addPieceView(piece: Piece) {
         
+        
+        
+        
+        
+        
+        //TODO: MAKE IT THAT A NEW PIECE GETS LOADED ON TO THE PIECEMAKER
+        
+        
+        
+        
+        
+        
+        
         piece.view.center = self.model.board.grid[piece.indexes]!
         addTapGestureRecognizer(view: piece.view)
         

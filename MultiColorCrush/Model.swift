@@ -705,17 +705,23 @@ class Model {
         return bool
     }
     
-//    func isNotOnAPieceMaker(piece: Piece) -> Bool {
-//
-//        var bool = true
-//
-//        if board.pieces.contains(where: { (pieceX) -> Bool in
-//            pieceX.indexes == piece.indexes && pieceX.shape == Shape.pieceMaker && piece.shape != Shape.pieceMaker
-//        }) {
-//            bool = false
-//        }
-//        return bool
-//    }
+    func resetPieceMaker(piece: Piece) {
+                
+        
+        //FIX THIS TO MAKE SURE THAT THE CORRECT VIEW FOR THE NEXT PIECE IS BEING DISPLAYED
+        
+        
+        let nextPiece = Piece()
+        nextPiece.indexes = piece.indexes
+        setPieceShape(piece: nextPiece)
+        setPieceColor(piece: nextPiece)
+        setPieceSwitches(piece: nextPiece)
+        setPieceSides(piece: nextPiece)
+        piece.nextPiece = nextPiece
+        piece.view = ShapeView(frame: piece.view.frame, piece: piece)
+        piece.view.setNeedsDisplay()
+    }
+    
     
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
@@ -726,50 +732,47 @@ class Model {
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
             
             let notAtWall = piece.indexes.y != 0
+            
             if notAtWall {
+                
                 if spaceIsntBlocked {
-                    
-//                    if isNotOnAPieceMaker(piece: piece) {
-                    
+                                        
                     if piece.isLocked == false {
                         
                         piece.indexes.y = piece.indexes.y! - 1
+                        
                         if checkForIce(piece: piece) == true {
+                            
                             movePiecesHelper(piece: piece, direction: direction)
                         }
-                        
                         
                     } else {
                         
                         if piece.shape == .pieceMaker && piece.version == 3 {
-                            
-                            print("WORKING!!!!!!")
-                            
+                                                        
                             if piece.nextPiece != nil {
                                 
                                 let newPiece = piece.nextPiece!
                                 
-                                piece.nextPiece = nil
-
+//                                piece.nextPiece = nil
                                 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
                                 delegate?.addPieceView(piece: newPiece)
-
                                 
                                 board.pieces.append(newPiece)
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! - 1
+                                
                                 if checkForIce(piece: newPiece) == true {
+                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
+                                //Reset the pieceMaker
+                                resetPieceMaker(piece: piece)
                                 
                             }
-                            
-                            
-                            
-                            
                         }
                     }
                 }
@@ -782,52 +785,46 @@ class Model {
             let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
                 return int1 < int2
             })
+            
             if notAtWall {
+                
                 if spaceIsntBlocked{
-//                    if isNotOnAPieceMaker(piece: piece) {
+                    
                     if piece.isLocked == false {
                         
                         piece.indexes.y = piece.indexes.y! + 1
+                        
                         if checkForIce(piece: piece) == true {
+                            
                             movePiecesHelper(piece: piece, direction: direction)
                         }
-                        
                         
                     } else {
                         
                         if piece.shape == .pieceMaker && piece.version == 1 {
                             
-                            
                             if piece.nextPiece != nil {
 
-                                print("WORKING!!!!!!")
-
-                                
-                                
                                 let newPiece = piece.nextPiece!
 
-                                
-                                piece.nextPiece = nil
+//                                piece.nextPiece = nil
 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
 
-//                                board.view.addSubview(newPiece.view)
                                 delegate?.addPieceView(piece: newPiece)
-                                
                                 
                                 board.pieces.append(newPiece)
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! + 1
+                                
                                 if checkForIce(piece: newPiece) == true {
+                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                
-                                
+                                //Reset the pieceMaker
+                                resetPieceMaker(piece: piece)
                             }
-                           
-                            
-                            
                         }
                     }
                 }
@@ -836,120 +833,102 @@ class Model {
         case .left:
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
+            
             let notAtWall = piece.indexes.x != 0
+            
             if notAtWall {
+                
                 if spaceIsntBlocked {
-//                    if isNotOnAPieceMaker(piece: piece) {
+                    
                     if piece.isLocked == false {
                         
                         piece.indexes.x = piece.indexes.x! - 1
+                        
                         if checkForIce(piece: piece) == true {
+                            
                             movePiecesHelper(piece: piece, direction: direction)
                         }
-                        
                         
                     } else {
                         
                         if piece.shape == .pieceMaker && piece.version == 2 {
                             
                             if piece.nextPiece != nil {
-
-                                print("WORKING!!!!!!")
-                                
                                 
                                 let newPiece = piece.nextPiece!
-
                                 
-                                piece.nextPiece = nil
+//                                piece.nextPiece = nil
 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
                                 delegate?.addPieceView(piece: newPiece)
 
-                                
                                 board.pieces.append(newPiece)
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! - 1
+                                
                                 if checkForIce(piece: newPiece) == true {
+                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                
-                                
+                                //Reset the pieceMaker
+                                resetPieceMaker(piece: piece)
                             }
-                            
-                           
-                            
-                            
                         }
-                        
-                        
                     }
-
                 }
             }
             
         case .right:
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
+            
             let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
                 return int1 < int2
             })
+            
             if notAtWall {
+                
                 if spaceIsntBlocked {
-//                    if isNotOnAPieceMaker(piece: piece) {
-                    
                     
                     if piece.isLocked == false {
                         
                         piece.indexes.x = piece.indexes.x! + 1
+                        
                         if checkForIce(piece: piece) == true {
+                            
                             movePiecesHelper(piece: piece, direction: direction)
                         }
-                        
                         
                     } else {
                         
                         if piece.nextPiece != nil {
-                           
                             
                             if piece.shape == .pieceMaker && piece.version == 4 {
                                 
-                                print("WORKING!!!!!!")
-                                
-                                
                                 let newPiece = piece.nextPiece!
-
                                 
-                                piece.nextPiece = nil
+//                                piece.nextPiece = nil
                                 
                                 newPiece.view = piece.view.subviews.first as! ShapeView
                                 
-                                
-                            
-                                
                                 delegate?.addPieceView(piece: newPiece)
-
                                 
                                 board.pieces.append(newPiece)
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! + 1
+                                
                                 if checkForIce(piece: newPiece) == true {
+                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                
+                                //Reset the pieceMaker
+                                resetPieceMaker(piece: piece)
                             }
-                            
-                            
                         }
-                        
-                        
-                        
-                        
-                        
                     }
-
                 }
             }
             
