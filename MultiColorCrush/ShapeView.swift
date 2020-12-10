@@ -168,6 +168,10 @@ class ShapeView : UIView {
     override func draw(_ rect: CGRect) {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        
+        
+        
         let path = UIBezierPath()
         let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         let topCenterPoint = CGPoint(x: frame.width / 2, y: 0)
@@ -175,9 +179,27 @@ class ShapeView : UIView {
         let leftCenterPoint = CGPoint(x: 0, y: frame.height / 2)
         let rightCenterPoint = CGPoint(x: frame.width, y: frame.height / 2)
         
+        context.setLineWidth(frame.height / 20)
+        context.setStrokeColor(UIColor.black.cgColor)
+        
+        
+        context.beginPath()
+        context.move(to: CGPoint(x: bounds.minX, y: bounds.minY))
+        context.addLine(to: CGPoint(x: bounds.minX, y: bounds.maxY))
+        context.addLine(to: CGPoint(x: bounds.maxX, y: bounds.maxY))
+        context.addLine(to: CGPoint(x: bounds.maxX, y: bounds.minY))
+        context.closePath()
+        context.strokePath()
+        
+        
+        
+        
         context.setLineWidth(frame.height / 4)
         context.setFillColor(colors[0])
         context.setStrokeColor(colors[0])
+        
+        
+        
         
         
         switch shape {
@@ -836,8 +858,8 @@ class ShapeView : UIView {
             
         case .pieceMaker:
             
-            let w = frame.width / 10 * 7
-            let h = frame.height / 10 * 7
+            let w = frame.width / 10 * 5
+            let h = frame.height / 10 * 5
             let x = (frame.width - w) / 2
             let y = x
 
@@ -944,8 +966,8 @@ class ShapeView : UIView {
         
         
             
-            let w2 = frame.width / 10 * 5
-            let h2 = frame.height / 10 * 5
+            let w2 = frame.width / 10 * 4
+            let h2 = frame.height / 10 * 4
             let x2 = (frame.width - w2) / 2
             let y2 = x2
 
