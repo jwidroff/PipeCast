@@ -278,71 +278,17 @@ extension ViewController: ModelDelegate {
 
     func resetPieceMaker(piece: Piece) {
  
-        
-        //figure out how to have the correct piece on the piecemaker after moving
-        
-        
-        
-        
-//        var view = ShapeView(frame: <#T##CGRect#>, piece: <#T##Piece#>)
-        
-        
-        
-//        piece.view.subviews.first!.removeFromSuperview()
-
-        let w2 = piece.view.frame.width / 10 * 4
-        let h2 = piece.view.frame.height / 10 * 4
-        let x2 = (piece.view.frame.width - w2) / 2
-        let y2 = x2
-
-    
-        let frameX = CGRect(x: x2, y: y2, width: w2, height: h2)
-        
-        let nextPieceView = ShapeView(frame: frameX, piece: piece.nextPiece!)
-        nextPieceView.center = piece.view.center
-        
-        model.board.view.addSubview(nextPieceView)
-        
-        
-        
-        
-        
-        //MARK: TURN BACK ON
-//        piece.view.setNeedsDisplay()
-//        piece.nextPiece?.view.setNeedsDisplay()
-//        piece.view.subviews[0].setNeedsDisplay()
-
-        
-        
-        
-        
-        
-   
-
-        
-        
-        
-        
+        let frame = piece.view.subviews.first!.frame
+        let nextPieceView = ShapeView(frame: frame, piece: piece.nextPiece!)
+        piece.view.subviews.first!.removeFromSuperview()
+        piece.view.addSubview(nextPieceView)
     }
     
 
     func addPieceView(piece: Piece) {
         
-        
-        
-        
-        
-        
-        //TODO: MAKE IT THAT A NEW PIECE GETS LOADED ON TO THE PIECEMAKER
-        
-        
-        
-        
-        
-        
         piece.view.center = self.model.board.grid[piece.indexes]!
         addTapGestureRecognizer(view: piece.view)
-        
         
         UIView.animate(withDuration: 0.25) {
             
@@ -351,11 +297,7 @@ extension ViewController: ModelDelegate {
             piece.view.frame = rect
             self.model.board.view.addSubview(piece.view)
             
-            
         }
-        
-       
-
     }
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {

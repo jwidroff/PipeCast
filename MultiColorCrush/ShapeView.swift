@@ -943,6 +943,7 @@ class ShapeView : UIView {
         //WORK ON GETTING THE NEXT PIECES VIEW HERE. USE NEXTPIECE VAR. SEE IF ITS BEING SET. THE CODE BELOW IS WHAT IS USED IN THE VC CURRENTLY FOR THE NEXT PIECE FRAME-WISE
         
         
+            
             let w2 = frame.width / 10 * 4
             let h2 = frame.height / 10 * 4
             let x2 = (frame.width - w2) / 2
