@@ -236,7 +236,7 @@ class ViewController: UIViewController {
         for piece in model.board.pieces.sorted(by: { (piece1, piece2) -> Bool in
             piece1.view.center.y < piece2.view.center.y
         }).filter({ (piece) -> Bool in
-            piece.shape != .entrance
+            piece.shape != .entrance && piece.shape != .exit && piece.shape != .pieceMaker && piece.shape != .wall
         }) {
                         
             let height = (piece.view.frame.height / 9 * 10)
