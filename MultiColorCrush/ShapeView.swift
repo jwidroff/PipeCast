@@ -279,7 +279,7 @@ class ShapeView : UIView {
             context.fill(rect1)
 
             if isLocked == true {
-                
+
                 setLock(context: context)
             }
             
@@ -790,7 +790,7 @@ class ShapeView : UIView {
             
             
             if isLocked == true {
-                
+
                 setLock(context: context)
             }
             
@@ -847,7 +847,7 @@ class ShapeView : UIView {
             context.fill(rect1)
 
             if isLocked == true {
-                
+
                 setLock(context: context)
             }
             
@@ -858,8 +858,8 @@ class ShapeView : UIView {
             
         case .pieceMaker:
             
-            let w = frame.width / 10 * 5
-            let h = frame.height / 10 * 5
+            let w = frame.width / 10 * 6
+            let h = frame.height / 10 * 6
             let x = (frame.width - w) / 2
             let y = x
 
@@ -868,10 +868,12 @@ class ShapeView : UIView {
             context.addRects([rect1])
             context.fill(rect1)
 
-            if isLocked == true {
-
-                setLock(context: context)
-            }
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
+            
+//            version = 4
                         
             
             switch version {
@@ -880,11 +882,11 @@ class ShapeView : UIView {
                 //Spits a new piece out of the bottom
                 
                 
-                let point1 = CGPoint(x: w / 2, y: h + y)
-                let point2 = CGPoint(x: x, y: frame.height)
-                let point3 = CGPoint(x: frame.width - (x), y: frame.height)
-                let point4 = CGPoint(x: frame.width - (w / 2), y: h + y)
-                 
+                let point1 = CGPoint(x: x, y: h + y)
+                let point2 = CGPoint(x: 0, y: frame.height)
+                let point3 = CGPoint(x: frame.width, y: frame.height)
+                let point4 = CGPoint(x: frame.width - (x), y: h + y)
+
                 context.beginPath()
                 context.move(to: point1)
                 context.addLine(to: point2)
@@ -894,15 +896,26 @@ class ShapeView : UIView {
                 context.setFillColor(colors[0])
                 context.fillPath()
             
+//                let rect = CGRect(x: x, y: y + h, width: w, height: y)
+//                context.addRect(rect)
+//                context.setFillColor(UIColor.black.cgColor)
+//                context.fill(rect)
+                
+                
                 
             case 2:
                 print("VERSION 2")
             //Spits a new piece out of the left
 
-                let point1 = CGPoint(x: x, y: frame.height - (h))
-                let point2 = CGPoint(x: 0, y: y)
-                let point3 = CGPoint(x: 0, y: frame.height - y)
-                let point4 = CGPoint(x: frame.width - (h / 2), y: frame.width - (w + x))
+                
+                let point1 = CGPoint(x: frame.width - (x + w), y: y)
+                let point2 = CGPoint(x: 0, y: 0)
+                let point3 = CGPoint(x: 0, y: frame.height)
+                let point4 = CGPoint(x: frame.width - (x + w), y: frame.height - ((y)))
+                    
+                
+                
+                
                 
                 context.beginPath()
                 context.move(to: point1)
@@ -920,10 +933,10 @@ class ShapeView : UIView {
 
             //Spits a new piece out of the top
 
-                let point1 = CGPoint(x: w / 2, y: frame.height - (h + y))
-                let point2 = CGPoint(x: x, y: 0)
-                let point3 = CGPoint(x: frame.width - x, y: 0)
-                let point4 = CGPoint(x: frame.width - (w / 2), y: frame.height - (h + y))
+                let point1 = CGPoint(x: x, y: frame.height - (h + y))
+                let point2 = CGPoint(x: 0, y: 0)
+                let point3 = CGPoint(x: frame.width, y: 0)
+                let point4 = CGPoint(x: frame.width - (x), y: frame.height - (h + y))
                 
                 context.beginPath()
                 context.move(to: point1)
@@ -938,11 +951,13 @@ class ShapeView : UIView {
             case 4:
                 print("VERSION 4")
             //Spits a new piece out of the right
-            
-                let point1 = CGPoint(x: frame.width - x, y: frame.height - (h))
-                let point2 = CGPoint(x: frame.width, y: y)
-                let point3 = CGPoint(x: frame.width, y: frame.height - y)
-                let point4 = CGPoint(x: frame.width - x, y: frame.height - (frame.height - (h)))
+                
+                
+                let point1 = CGPoint(x: x + w, y: y)
+                let point2 = CGPoint(x: frame.width, y: 0)
+                let point3 = CGPoint(x: frame.width, y: frame.height)
+                let point4 = CGPoint(x: x + w, y: frame.width - (y))
+                
                 
                 context.beginPath()
                 context.move(to: point1)
@@ -966,8 +981,8 @@ class ShapeView : UIView {
         
         
             
-            let w2 = frame.width / 10 * 4
-            let h2 = frame.height / 10 * 4
+            let w2 = frame.width / 10 * 5
+            let h2 = frame.height / 10 * 5
             let x2 = (frame.width - w2) / 2
             let y2 = x2
 
