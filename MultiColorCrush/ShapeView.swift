@@ -69,33 +69,33 @@ class ShapeView : UIView {
         case .elbow:
             switches = 2
             currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.gray
+            self.backgroundColor = UIColor.clear
 
 //            self.version = piece.version
             
         case .cross:
             switches = 2
             currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.gray
+            self.backgroundColor = UIColor.clear
 
 
         case .stick:
             switches = 1
             currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.gray
+            self.backgroundColor = UIColor.clear
 
             
         case .diagElbow:
             switches = 2
             currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.gray
+            self.backgroundColor = UIColor.clear
 
 //            self.version = piece.version
 
         case .entrance, .exit, .pieceMaker, .wall:
             
             
-            self.backgroundColor = UIColor.clear
+            self.backgroundColor = UIColor.darkGray
 
             
         default:
@@ -107,33 +107,34 @@ class ShapeView : UIView {
         
         let distanceFromSides = frame.width / 10
         let screwWidthAndHeight = frame.width / 10
+        let color = UIColor.black.cgColor
         
         
         let topLeftCorner = CGPoint(x: distanceFromSides, y: distanceFromSides)
         let topLeftRect = CGRect(x: topLeftCorner.x, y: topLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
         context.addRect(topLeftRect)
-        context.setFillColor(UIColor.darkGray.cgColor)
+        context.setFillColor(color)
         context.fill(topLeftRect)
         
         
         let topRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: distanceFromSides)
         let topRightRect = CGRect(x: topRightCorner.x, y: topRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
         context.addRect(topRightRect)
-        context.setFillColor(UIColor.darkGray.cgColor)
+        context.setFillColor(color)
         context.fill(topRightRect)
         
         
         let bottomLeftCorner = CGPoint(x: distanceFromSides, y: frame.height - distanceFromSides - screwWidthAndHeight)
         let bottomLeftRect = CGRect(x: bottomLeftCorner.x, y: bottomLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
         context.addRect(bottomLeftRect)
-        context.setFillColor(UIColor.darkGray.cgColor)
+        context.setFillColor(color)
         context.fill(bottomLeftRect)
         
         
         let bottomRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: frame.height - distanceFromSides - screwWidthAndHeight)
         let bottomRightRect = CGRect(x: bottomRightCorner.x, y: bottomRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
         context.addRect(bottomRightRect)
-        context.setFillColor(UIColor.darkGray.cgColor)
+        context.setFillColor(color)
         context.fill(bottomRightRect)
         
         
@@ -200,7 +201,7 @@ class ShapeView : UIView {
                 context.fill(rect1)
                 
                 let height3:CGFloat = height / 10
-                context.setFillColor(UIColor.gray.cgColor)
+                context.setFillColor(UIColor.black.cgColor)
 
                 let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
                 let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
@@ -225,7 +226,7 @@ class ShapeView : UIView {
                 context.fill(rect2)
                 
                 let width3:CGFloat = width2 / 10
-                context.setFillColor(UIColor.gray.cgColor)
+                context.setFillColor(UIColor.black.cgColor)
 
                 let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
                 let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
@@ -501,7 +502,7 @@ class ShapeView : UIView {
                     context.fill(rect1)
                     
                     let height3:CGFloat = height / 10
-                    context.setFillColor(UIColor.gray.cgColor)
+                    context.setFillColor(UIColor.black.cgColor)
 
                     let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
                     let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
@@ -534,7 +535,7 @@ class ShapeView : UIView {
                     context.fill(rect2)
                     
                     let width3:CGFloat = width2 / 10
-                    context.setFillColor(UIColor.gray.cgColor)
+                    context.setFillColor(UIColor.black.cgColor)
 
                     let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
                     let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
@@ -572,7 +573,6 @@ class ShapeView : UIView {
 //            break
         case .entrance, .exit:
             
-//            backgroundColor = .darkGray
             
             //TODO: NEED TO Give this the proper look. Also need to hook this up for when the ball noves.
             
@@ -818,7 +818,7 @@ class ShapeView : UIView {
             let x = (frame.width - w) / 2
             let y = (frame.height - h) / 2
             let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(colors[0])
+            context.setFillColor(UIColor.darkGray.cgColor)
             context.addRects([rect1])
 //            context.addEllipse(in: rect1)
             
@@ -829,15 +829,15 @@ class ShapeView : UIView {
                 setLock(context: context)
             }
             
-            layer.cornerRadius = h / 2
-            clipsToBounds = true
+//            layer.cornerRadius = h / 2
+//            clipsToBounds = true
 
             
             
         case .pieceMaker:
             
-            let w = frame.width / 10 * 6
-            let h = frame.height / 10 * 6
+            let w = frame.width / 10 * 7
+            let h = frame.height / 10 * 7
             let x = (frame.width - w) / 2
             let y = x
 
@@ -944,8 +944,8 @@ class ShapeView : UIView {
         
         
             
-            let w2 = frame.width / 10 * 4
-            let h2 = frame.height / 10 * 4
+            let w2 = frame.width / 10 * 5
+            let h2 = frame.height / 10 * 5
             let x2 = (frame.width - w2) / 2
             let y2 = x2
 
@@ -956,6 +956,7 @@ class ShapeView : UIView {
 //            nextPieceView.center = center
             
             addSubview(nextPieceView)
+            
             
         }
     }

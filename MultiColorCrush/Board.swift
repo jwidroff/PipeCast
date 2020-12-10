@@ -45,6 +45,15 @@ class BoardView : UIView {
     init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes]) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
+        
+//        let gradient = CAGradientLayer()
+//        gradient.startPoint = .init(x: 0.0, y: -0.1)
+//        gradient.endPoint = .init(x: 0.0, y: 1.0)
+//        gradient.locations = [0.0, 0.7]
+//        gradient.frame = bounds
+//        gradient.colors = [UIColor.cyan.cgColor, UIColor.blue.cgColor]
+//        layer.insertSublayer(gradient, at: 0)
+        
         self.xArray = xArray.sorted(by: { (x1, x2) -> Bool in
             x1 < x2
         })
@@ -99,9 +108,22 @@ class BoardView : UIView {
             
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
 //            let textBox = UITextField(frame: rect)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             context.setFillColor(UIColor.cyan.cgColor)
             context.fill(rect)
             context.addRect(rect)
+            
+            
+            
             
             
             

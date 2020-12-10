@@ -110,7 +110,7 @@ class Model {
             let pieceMaker = Piece()
             setPieceIndex(piece: pieceMaker)
             pieceMaker.isLocked = true
-            pieceMaker.colors = [.yellow]
+            pieceMaker.colors = [.lightGray]
             pieceMaker.shape = .pieceMaker
             let version = Int(arc4random_uniform(UInt32(4))) + 1
             pieceMaker.version = version
