@@ -137,8 +137,8 @@ class Model {
         for _ in 1...1 {
             
             let entrance = Piece()
-//            setPieceIndex(piece: entrance)
-            entrance.indexes = Indexes(x: 3, y: 4)
+            setPieceIndex(piece: entrance)
+//            entrance.indexes = Indexes(x: 3, y: 4)
             entrance.isLocked = true
             entrance.colors = [.red]
             
@@ -155,8 +155,8 @@ class Model {
         for _ in 1...1 {
             
             let exit = Piece()
-//            setPieceIndex(piece: exit)
-            exit.indexes = Indexes(x: 3, y: 3)
+            setPieceIndex(piece: exit)
+//            exit.indexes = Indexes(x: 3, y: 3)
 
             exit.isLocked = true
             exit.colors = [.red]
@@ -1092,9 +1092,10 @@ class Model {
 
             let startSide = "top"
             if let endSide = piece.side.top.exitSide {
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) {
+                })  && piece.side.top.closing.isOpen == true {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     if endSide == "center" {
@@ -1119,7 +1120,7 @@ class Model {
             if let endSide = piece.side.bottom.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) {
+                }) && piece.side.bottom.closing.isOpen == true {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     if endSide == "center" {
                         
@@ -1142,7 +1143,7 @@ class Model {
             if let endSide = piece.side.left.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) {
+                }) && piece.side.left.closing.isOpen == true {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     if endSide == "center" {
                         
@@ -1164,7 +1165,7 @@ class Model {
             if let endSide = piece.side.right.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) {
+                }) && piece.side.right.closing.isOpen == true {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     if endSide == "center" {
                         
