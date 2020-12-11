@@ -379,10 +379,10 @@ class Model {
                     piece.side.top.exitSide = nil
                     piece.side.left.exitSide = nil
                     
-                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = nil
-                    piece.side.bottom.color = nil
+                    piece.side.left.color = nil
                 }
                 
             default:
@@ -633,7 +633,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.elbow]//, .stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -1098,7 +1098,11 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.top.color != ball.onColor { return }
+            if piece.side.top.color != ball.onColor {
+                print("NOO")
+                return
+                
+            }
 
             let startSide = "top"
             if let endSide = piece.side.top.exitSide {
@@ -1116,7 +1120,11 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.bottom.color != ball.onColor { return }
+            if piece.side.bottom.color != ball.onColor {
+                print("NOO")
+                return
+                
+            }
             
             let startSide = "bottom"
             if let endSide = piece.side.bottom.exitSide {
@@ -1135,7 +1143,11 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.left.color != ball.onColor { return }
+            if piece.side.left.color != ball.onColor {
+                print("NOO")
+                return
+                
+            }
             
             let startSide = "left"
             if let endSide = piece.side.left.exitSide {
@@ -1153,7 +1165,11 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.right.color != ball.onColor { return }
+            if piece.side.right.color != ball.onColor {
+                print("NOO")
+                return
+                
+            }
             
             let startSide = "right"
             if let endSide = piece.side.right.exitSide {
