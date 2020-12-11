@@ -222,14 +222,14 @@ class ShapeView : UIView {
                 context.addRects([rect1])
                 context.fill(rect1)
                 
-                let height3:CGFloat = height / 10
-                context.setFillColor(UIColor.black.cgColor)
-
-                let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
-                let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
-                context.addRects([borderline1, borderline2])
-                context.fill(borderline1)
-                context.fill(borderline2)
+//                let height3:CGFloat = height / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
+//                let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
                 
                 
                 currentSwitch = 2
@@ -247,14 +247,14 @@ class ShapeView : UIView {
                 context.addRects([rect2])
                 context.fill(rect2)
                 
-                let width3:CGFloat = width2 / 10
-                context.setFillColor(UIColor.black.cgColor)
-
-                let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
-                let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
-                context.addRects([borderline1, borderline2])
-                context.fill(borderline1)
-                context.fill(borderline2)
+//                let width3:CGFloat = width2 / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
+//                let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
                 
                 
                 currentSwitch = 1
@@ -523,14 +523,39 @@ class ShapeView : UIView {
                     context.addRects([rect1])
                     context.fill(rect1)
                     
-                    let height3:CGFloat = height / 10
-                    context.setFillColor(UIColor.black.cgColor)
+                    
+                    let strokeWidth = height / 15
+                    let point1 = CGPoint(x: ((width - width2) / 2), y: ((height2 + height) / 2))
+                    let point2 = CGPoint(x: ((width + width2) / 2), y: ((height2 + height) / 2))
 
-                    let borderline1 = CGRect(x: 0, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
-                    let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
-                    context.addRects([borderline1, borderline2])
-                    context.fill(borderline1)
-                    context.fill(borderline2)
+                    context.setStrokeColor(UIColor.black.cgColor)
+                    context.setLineWidth(strokeWidth)
+                    context.beginPath()
+                    context.move(to: point1)
+                    context.addLine(to: point2)
+                    context.strokePath()
+                    
+                    let point3 = CGPoint(x: ((width - width2) / 2), y: ((height2 - height) / 2))
+                    let point4 = CGPoint(x: ((width + width2) / 2), y: ((height2 - height) / 2))
+                    context.setStrokeColor(UIColor.black.cgColor)
+                    context.setLineWidth(strokeWidth)
+                    context.beginPath()
+                    context.move(to: point3)
+                    context.addLine(to: point4)
+                    context.strokePath()
+                    
+                    
+                    
+//                    let height3:CGFloat = height / 10
+//                    context.setFillColor(UIColor.black.cgColor)
+//
+//                    let borderline1 = CGRect(x: (width - width2) / 2, y: (frame.height / 2) - (height / 2) - height3, width: frame.width, height: height3)
+//                    let borderline2 = CGRect(x: 0, y: (frame.height / 2) + (height / 2), width: frame.width, height: height3)
+//                    context.addRects([borderline1, borderline2])
+//
+//
+//                    context.fill(borderline1)
+//                    context.fill(borderline2)
 
                     currentSwitch = 2
                     
@@ -556,14 +581,39 @@ class ShapeView : UIView {
                     context.addRects([rect2])
                     context.fill(rect2)
                     
-                    let width3:CGFloat = width2 / 10
-                    context.setFillColor(UIColor.black.cgColor)
-
-                    let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
-                    let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
-                    context.addRects([borderline1, borderline2])
-                    context.fill(borderline1)
-                    context.fill(borderline2)
+                    
+                    let strokeWidth = height / 15
+                    let point1 = CGPoint(x: ((width - width2) / 2), y: (height2 - height) / 2)
+                    let point2 = CGPoint(x: ((width - width2) / 2), y: (height2 + height) / 2)
+                    context.setStrokeColor(UIColor.black.cgColor)
+                    context.setLineWidth(strokeWidth)
+                    context.beginPath()
+                    context.move(to: point1)
+                    context.addLine(to: point2)
+                    context.strokePath()
+                    
+                    let point3 = CGPoint(x: ((width + width2) / 2), y: (height2 - height) / 2)
+                    let point4 = CGPoint(x: ((width + width2) / 2), y: (height2 + height) / 2)
+                    context.setStrokeColor(UIColor.black.cgColor)
+                    context.setLineWidth(strokeWidth)
+                    context.beginPath()
+                    context.move(to: point3)
+                    context.addLine(to: point4)
+                    context.strokePath()
+                    
+                    
+                    
+                    
+                    
+                    
+//                    let width3:CGFloat = width2 / 10
+//                    context.setFillColor(UIColor.black.cgColor)
+//
+//                    let borderline1 = CGRect(x: (frame.width / 2) - (width2 / 2) - width3, y: 0, width: width3, height: frame.height)
+//                    let borderline2 = CGRect(x: (frame.width / 2) + (width2 / 2), y: 0, width: width3, height: frame.height)
+//                    context.addRects([borderline1, borderline2])
+//                    context.fill(borderline1)
+//                    context.fill(borderline2)
                     
                     currentSwitch = 1
                     

@@ -302,7 +302,7 @@ extension ViewController: ModelDelegate {
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
-        enlargePieces()
+//        enlargePieces()
         
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
