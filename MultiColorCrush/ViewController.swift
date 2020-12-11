@@ -303,20 +303,15 @@ extension ViewController: ModelDelegate {
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
 //        enlargePieces()
-        
-        print("ball on color \(ball.onColor.description)")
-        
-        
+                
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
         self.model.board.view.bringSubviewToFront(ball.view)
+        
         switch startSide {
         
         case "center":
-            
-           
-            
             
             if endSide == "left" {
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
@@ -369,6 +364,9 @@ extension ViewController: ModelDelegate {
             } else if endSide == "bottom" {
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
+            } else if endSide == "center" {
+                endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
+                ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
             }
             
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
@@ -406,6 +404,9 @@ extension ViewController: ModelDelegate {
             } else if endSide == "top" {
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
+            } else if endSide == "center" {
+                endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
+                ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
             }
             
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
@@ -443,6 +444,9 @@ extension ViewController: ModelDelegate {
             } else if endSide == "right" {
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
+            } else if endSide == "center" {
+                endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
+                ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
             }
             
             beginPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
@@ -481,6 +485,9 @@ extension ViewController: ModelDelegate {
             } else if endSide == "left" {
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
+            } else if endSide == "center" {
+                endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
+                ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
             }
             
             beginPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)

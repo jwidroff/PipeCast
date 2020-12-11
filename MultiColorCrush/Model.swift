@@ -137,7 +137,8 @@ class Model {
         for _ in 1...1 {
             
             let entrance = Piece()
-            setPieceIndex(piece: entrance)
+//            setPieceIndex(piece: entrance)
+            entrance.indexes = Indexes(x: 3, y: 5)
             entrance.isLocked = true
             entrance.colors = [.red]
             
@@ -154,10 +155,15 @@ class Model {
         for _ in 1...1 {
             
             let exit = Piece()
-            setPieceIndex(piece: exit)
+//            setPieceIndex(piece: exit)
+            exit.indexes = Indexes(x: 3, y: 3)
+
             exit.isLocked = true
             exit.colors = [.red]
-            exit.opening = "left"
+            exit.opening = "bottom"
+            exit.side.bottom.color = exit.colors[0]
+            exit.side.bottom.opening.isOpen = true
+            exit.side.bottom.exitSide = "center" //TODO: Change
             exit.shape = .exit
             board.pieces.append(exit)
         }
@@ -633,7 +639,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.elbow]//, .stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -1040,6 +1046,9 @@ class Model {
         
     func moveBall(ball: Ball, startSide: String) {
         
+        //TODO: Make it that when the "endSide" is center, it wins the level and prompts a dialog box etc
+        
+        
         switch startSide {
         
         case "unmoved":
@@ -1048,67 +1057,34 @@ class Model {
             let startSide = "center"
             let endSide = piece.opening
             
-            
-            
             switch piece.opening {
             
-            
-            
             case "top":
-                
                 ball.onColor = piece.side.top.color!
-
-                
             case "bottom":
-                
                 ball.onColor = piece.side.bottom.color!
-                
             case "left":
-                
                 ball.onColor = piece.side.left.color!
-                
             case "right":
-                
                 ball.onColor = piece.side.right.color!
-                
-                
-                
             default:
                 break
             }
-            
-            
-//            ball.onColor = piece.colors[0]
-            
-//            if piece.side.top.opening.isOpen == true {
-//                endSide = "top"
-//            } else if piece.side.bottom.opening.isOpen == true {
-//                endSide = "bottom"
-//            } else if piece.side.left.opening.isOpen == true {
-//                endSide = "left"
-//            } else if piece.side.right.opening.isOpen == true {
-//                endSide = "right"
-//            }
-            
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-
             return
         
         case "top":
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.top.color != ball.onColor {
-                print("NOO")
-                return
-                
-            }
+            if piece.side.top.color != ball.onColor { return }
 
             let startSide = "top"
             if let endSide = piece.side.top.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 }
             } else {
@@ -1120,11 +1096,7 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.bottom.color != ball.onColor {
-                print("NOO")
-                return
-                
-            }
+            if piece.side.bottom.color != ball.onColor { return }
             
             let startSide = "bottom"
             if let endSide = piece.side.bottom.exitSide {
@@ -1143,11 +1115,7 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.left.color != ball.onColor {
-                print("NOO")
-                return
-                
-            }
+            if piece.side.left.color != ball.onColor { return }
             
             let startSide = "left"
             if let endSide = piece.side.left.exitSide {
@@ -1165,11 +1133,7 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             
-            if piece.side.right.color != ball.onColor {
-                print("NOO")
-                return
-                
-            }
+            if piece.side.right.color != ball.onColor { return }
             
             let startSide = "right"
             if let endSide = piece.side.right.exitSide {
