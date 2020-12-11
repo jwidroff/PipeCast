@@ -138,7 +138,7 @@ class Model {
             
             let entrance = Piece()
 //            setPieceIndex(piece: entrance)
-            entrance.indexes = Indexes(x: 3, y: 5)
+            entrance.indexes = Indexes(x: 3, y: 4)
             entrance.isLocked = true
             entrance.colors = [.red]
             
@@ -1043,6 +1043,11 @@ class Model {
 //        delegate?.addPiece()
     }
     
+    func winner() {
+        
+        print("you win")
+        
+    }
         
     func moveBall(ball: Ball, startSide: String) {
         
@@ -1071,6 +1076,12 @@ class Model {
                 break
             }
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+            
+            if endSide == "center" {
+                
+                winner()
+            }
+            
             return
         
         case "top":
@@ -1086,10 +1097,16 @@ class Model {
                 }) {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    if endSide == "center" {
+                        
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
+            
+            
             return
             
         case "bottom":
@@ -1104,6 +1121,10 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    if endSide == "center" {
+                        
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
@@ -1123,6 +1144,10 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    if endSide == "center" {
+                        
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
@@ -1141,6 +1166,10 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    if endSide == "center" {
+                        
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
