@@ -95,7 +95,7 @@ class ShapeView : UIView {
         case .entrance, .exit, .pieceMaker, .wall:
             
             
-            self.backgroundColor = UIColor.darkGray
+            self.backgroundColor = UIColor.lightGray
 
             
         default:
@@ -136,34 +136,61 @@ class ShapeView : UIView {
         context.addRect(bottomRightRect)
         context.setFillColor(color)
         context.fill(bottomRightRect)
-        
-        
-        
-        
-//        let w = frame.width * 0.3
-//        let h = frame.height * 0.3
-//        let x = (frame.width - w) / 2
-//        let y = (frame.height - h) / 2
-//        let rect1 = CGRect(x: x, y: y, width: w, height: h)
-//
-//        context.addRect(rect1)
-//        context.setFillColor(UIColor.darkGray.cgColor)
-//        context.fill(rect1)
-//
-//        let lineWidth:CGFloat = 8.0
-//
-//        let startPoint = CGPoint(x: ((frame.width - w) / 2) + lineWidth, y: (frame.height - h) / 2)
-//        let point2 = CGPoint(x: (frame.width - w) / 2, y: frame.height / 6)
-//        let point3 = CGPoint(x: (frame.width + w) / 2, y: frame.height / 6)
-//        let point4 = CGPoint(x: ((frame.width + w) / 2) - lineWidth, y: (frame.height - h) / 2)
-//
-//        context.setStrokeColor(UIColor.darkGray.cgColor)
-//        context.setLineWidth(lineWidth)
-//        context.beginPath()
-//        context.move(to: startPoint)
-//        context.addCurve(to: point4, control1: point2, control2: point3)
-//        context.strokePath()
     }
+    
+    func setLock2(context: CGContext) {
+        
+        let distanceFromSides = frame.width / 15
+        let screwWidthAndHeight = frame.width / 10
+        let color = UIColor.black.cgColor
+        
+        
+        let topSide = CGPoint(x: (frame.width - screwWidthAndHeight) / 2, y: distanceFromSides)
+        let topRect = CGRect(x: topSide.x, y: topSide.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(topRect)
+        context.setFillColor(color)
+        context.fill(topRect)
+        
+        let leftSide = CGPoint(x: distanceFromSides, y: (frame.width - screwWidthAndHeight) / 2)
+        let leftRect = CGRect(x: leftSide.x, y: leftSide.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(leftRect)
+        context.setFillColor(color)
+        context.fill(leftRect)
+        
+        let bottomSide = CGPoint(x: (frame.width - screwWidthAndHeight) / 2, y: (frame.height - distanceFromSides) - screwWidthAndHeight)
+        let bottomRect = CGRect(x: bottomSide.x, y: bottomSide.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(bottomRect)
+        context.setFillColor(color)
+        context.fill(bottomRect)
+        
+        let rightSide = CGPoint(x: (frame.width - distanceFromSides) - screwWidthAndHeight, y: (frame.height - screwWidthAndHeight) / 2)
+        let rightRect = CGRect(x: rightSide.x, y: rightSide.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+        context.addRect(rightRect)
+        context.setFillColor(color)
+        context.fill(rightRect)
+        
+        
+//        let topRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: distanceFromSides)
+//        let topRightRect = CGRect(x: topRightCorner.x, y: topRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+//        context.addRect(topRightRect)
+//        context.setFillColor(color)
+//        context.fill(topRightRect)
+//
+//
+//        let bottomLeftCorner = CGPoint(x: distanceFromSides, y: frame.height - distanceFromSides - screwWidthAndHeight)
+//        let bottomLeftRect = CGRect(x: bottomLeftCorner.x, y: bottomLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+//        context.addRect(bottomLeftRect)
+//        context.setFillColor(color)
+//        context.fill(bottomLeftRect)
+//
+//
+//        let bottomRightCorner = CGPoint(x: frame.width - distanceFromSides - screwWidthAndHeight, y: frame.height - distanceFromSides - screwWidthAndHeight)
+//        let bottomRightRect = CGRect(x: bottomRightCorner.x, y: bottomRightCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
+//        context.addRect(bottomRightRect)
+//        context.setFillColor(color)
+//        context.fill(bottomRightRect)
+    }
+    
     
     override func draw(_ rect: CGRect) {
         
@@ -890,7 +917,7 @@ class ShapeView : UIView {
             let x = (frame.width - w) / 2
             let y = (frame.height - h) / 2
             let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(UIColor.darkGray.cgColor)
+//            context.setFillColor(UIColor.darkGray.cgColor)
             context.addRects([rect1])
 //            context.addEllipse(in: rect1)
             
@@ -918,10 +945,10 @@ class ShapeView : UIView {
             context.addRects([rect1])
             context.fill(rect1)
 
-//            if isLocked == true {
-//
-//                setLock(context: context)
-//            }
+            if isLocked == true {
+
+                setLock2(context: context)
+            }
             
 //            version = 4
                         
