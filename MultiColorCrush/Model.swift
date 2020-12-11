@@ -1095,13 +1095,24 @@ class Model {
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                })  && piece.side.top.closing.isOpen == true {
-                    
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    if endSide == "center" {
+                }) {
+                    if piece.side.top.closing.isOpen == true {
                         
-                        winner()
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+                        if piece.shape == .cross {
+                            piece.switch4Tap()
+                            delegate?.pieceWasTapped(piece: piece)
+                        }
+                        
+                        if endSide == "center" {
+                            
+                            winner()
+                        }
+                    } else {
+                        print("Make piece move close to center of next piece")
                     }
+                    
                 }
             } else {
                 print("crashed into a wall, or no track in place")
@@ -1120,12 +1131,30 @@ class Model {
             if let endSide = piece.side.bottom.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) && piece.side.bottom.closing.isOpen == true {
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    if endSide == "center" {
+                }) {
+                    
+                    if piece.side.bottom.closing.isOpen == true {
                         
-                        winner()
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+                        if piece.shape == .cross {
+                            piece.switch4Tap()
+                            delegate?.pieceWasTapped(piece: piece)
+                        }
+
+                        if endSide == "center" {
+                            
+                            winner()
+                        }
+                        
+                    } else {
+                        print("Make piece move close to center of next piece")
+
+                        
                     }
+                    
+                    
+                    
                 }
             } else {
                 print("crashed into a wall, or no track in place")
@@ -1143,12 +1172,24 @@ class Model {
             if let endSide = piece.side.left.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) && piece.side.left.closing.isOpen == true {
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    if endSide == "center" {
-                        
-                        winner()
+                }) {
+                    
+                    if piece.side.left.closing.isOpen == true {
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        if piece.shape == .cross {
+                            piece.switch4Tap()
+                            delegate?.pieceWasTapped(piece: piece)
+                        }
+                        if endSide == "center" {
+                            
+                            winner()
+                        }
+                    } else {
+                        print("Make piece move close to center of next piece")
+
                     }
+                    
+                    
                 }
             } else {
                 print("crashed into a wall, or no track in place")
@@ -1165,12 +1206,24 @@ class Model {
             if let endSide = piece.side.right.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
-                }) && piece.side.right.closing.isOpen == true {
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    if endSide == "center" {
-                        
-                        winner()
+                }) {
+                    
+                    if piece.side.right.closing.isOpen == true {
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        if piece.shape == .cross {
+                            piece.switch4Tap()
+                            delegate?.pieceWasTapped(piece: piece)
+                        }
+
+                        if endSide == "center" {
+                            
+                            winner()
+                        }
+                    } else {
+                        print("Make piece move close to center of next piece")
+
                     }
+                    
                 }
             } else {
                 print("crashed into a wall, or no track in place")

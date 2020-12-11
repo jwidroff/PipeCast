@@ -555,8 +555,10 @@ extension ViewController: ModelDelegate {
     }
     
     func pieceWasTapped(piece: Piece) {
-        
-        piece.view.setNeedsDisplay()
+        UIView.animate(withDuration: 0.25) {
+            piece.view.setNeedsDisplay()
+
+        }
     }
 }
 
