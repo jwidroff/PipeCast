@@ -331,6 +331,7 @@ class Ball {
     var view = BallView()
     var indexes = Indexes()
     var startSide = "unmoved"
+    var onColor = UIColor()
 }
 
 enum Direction {

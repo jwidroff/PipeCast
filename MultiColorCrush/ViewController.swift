@@ -304,6 +304,9 @@ extension ViewController: ModelDelegate {
         
 //        enlargePieces()
         
+        print("ball on color \(ball.onColor.description)")
+        
+        
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
@@ -311,6 +314,9 @@ extension ViewController: ModelDelegate {
         switch startSide {
         
         case "center":
+            
+           
+            
             
             if endSide == "left" {
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)

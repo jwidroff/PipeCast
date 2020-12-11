@@ -140,7 +140,10 @@ class Model {
             setPieceIndex(piece: entrance)
             entrance.isLocked = true
             entrance.colors = [.red]
+            
+            //TODO - Make this different per side
             entrance.opening = "top"
+            entrance.side.top.color = entrance.colors[0]
             entrance.shape = .entrance
             board.pieces.append(entrance)
         }
@@ -182,6 +185,7 @@ class Model {
             
             let ball = Ball()
                 ball.indexes = piece.indexes
+//                ball.onColor = piece.colors[0]
                 board.balls.append(ball)
             }
         }
@@ -1046,6 +1050,36 @@ class Model {
             
             
             
+            switch piece.opening {
+            
+            
+            
+            case "top":
+                
+                ball.onColor = piece.side.top.color!
+
+                
+            case "bottom":
+                
+                ball.onColor = piece.side.bottom.color!
+                
+            case "left":
+                
+                ball.onColor = piece.side.left.color!
+                
+            case "right":
+                
+                ball.onColor = piece.side.right.color!
+                
+                
+                
+            default:
+                break
+            }
+            
+            
+//            ball.onColor = piece.colors[0]
+            
 //            if piece.side.top.opening.isOpen == true {
 //                endSide = "top"
 //            } else if piece.side.bottom.opening.isOpen == true {
@@ -1063,6 +1097,9 @@ class Model {
         case "top":
             
             let piece = getPieceInfo(index: ball.indexes)
+            
+            if piece.side.top.color != ball.onColor { return }
+
             let startSide = "top"
             if let endSide = piece.side.top.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
@@ -1078,6 +1115,9 @@ class Model {
         case "bottom":
             
             let piece = getPieceInfo(index: ball.indexes)
+            
+            if piece.side.bottom.color != ball.onColor { return }
+            
             let startSide = "bottom"
             if let endSide = piece.side.bottom.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
@@ -1094,6 +1134,9 @@ class Model {
         case "left":
             
             let piece = getPieceInfo(index: ball.indexes)
+            
+            if piece.side.left.color != ball.onColor { return }
+            
             let startSide = "left"
             if let endSide = piece.side.left.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
@@ -1109,6 +1152,9 @@ class Model {
         case "right":
             
             let piece = getPieceInfo(index: ball.indexes)
+            
+            if piece.side.right.color != ball.onColor { return }
+            
             let startSide = "right"
             if let endSide = piece.side.right.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
