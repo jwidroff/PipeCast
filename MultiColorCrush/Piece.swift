@@ -45,6 +45,58 @@ class Piece {
         }
         
         switch shape {
+        
+        case .cross:
+            
+            switch version {
+            
+            case 1, 3:
+                
+                if currentSwitch == 1 {
+                    
+                    
+                    side.left.closing.isOpen = true
+                    side.right.closing.isOpen = true
+                    side.top.closing.isOpen = false
+                    side.bottom.closing.isOpen = false
+                    
+                } else if currentSwitch == 2 {
+                    
+                    side.left.closing.isOpen = false
+                    side.right.closing.isOpen = false
+                    side.top.closing.isOpen = true
+                    side.bottom.closing.isOpen = true
+                    
+                    
+                    
+                }
+
+            case 2, 4:
+                
+                if currentSwitch == 1 {
+                    
+                    side.left.closing.isOpen = true
+                    side.right.closing.isOpen = true
+                    side.top.closing.isOpen = false
+                    side.bottom.closing.isOpen = false
+                    
+                } else if currentSwitch == 2 {
+                    
+                    side.left.closing.isOpen = false
+                    side.right.closing.isOpen = false
+                    side.top.closing.isOpen = true
+                    side.bottom.closing.isOpen = true
+                }
+                
+            default:
+                break
+                
+            }
+            
+            
+            
+            
+            
             
         case .elbow:
             

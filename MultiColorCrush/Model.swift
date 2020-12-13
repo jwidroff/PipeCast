@@ -143,8 +143,8 @@ class Model {
             entrance.colors = [.red]
             
             //TODO - Make this different per side
-            entrance.opening = "top"
-            entrance.side.top.color = entrance.colors[0]
+            entrance.opening = "right"
+            entrance.side.right.color = entrance.colors[0]
             entrance.shape = .entrance
             board.pieces.append(entrance)
         }
@@ -160,10 +160,10 @@ class Model {
 
             exit.isLocked = true
             exit.colors = [.red]
-            exit.opening = "bottom"
-            exit.side.bottom.color = exit.colors[0]
-            exit.side.bottom.opening.isOpen = true
-            exit.side.bottom.exitSide = "center" //TODO: Change
+            exit.opening = "left"
+            exit.side.left.color = exit.colors[0]
+            exit.side.left.opening.isOpen = true
+            exit.side.left.exitSide = "center" //TODO: Change
             exit.shape = .exit
             board.pieces.append(exit)
         }
@@ -191,7 +191,7 @@ class Model {
             
             let ball = Ball()
                 ball.indexes = piece.indexes
-//                ball.onColor = piece.colors[0]
+                ball.onColor = piece.colors[0]
                 board.balls.append(ball)
             }
         }
@@ -200,7 +200,7 @@ class Model {
     
     func setPieces() {
         
-        setupPieceMakers()
+//        setupPieceMakers()
         setupEntrances()
         setupExits()
         setupWalls()
@@ -225,9 +225,7 @@ class Model {
     }
     
     func setPieceSides(piece: Piece) {
-        
-        //MARK: Perhaps this should include the entrances and exits.
-        
+      
         switch piece.shape {
             
         case .elbow:
@@ -468,12 +466,19 @@ class Model {
                 break
                 
             }
-            
-            print(piece.colors)
-            print(piece.version)
-            print(piece.currentSwitch)
-            print(piece.side.top.closing.isOpen)
-            
+//
+//            print("piece.colors \(piece.colors)")
+//            print("piece.version \(piece.version)")
+//            print("piece.currentSwitch \(piece.currentSwitch)")
+//            print("piece.side.top.closing.isOpen \(piece.side.top.closing.isOpen)")
+//            print("piece.side.bottom.closing.isOpen \(piece.side.bottom.closing.isOpen)")
+//            print("piece.side.left.closing.isOpen \(piece.side.left.closing.isOpen)")
+//            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
+//            print("piece.side.top.color \(piece.side.top.color)")
+//            print("piece.side.bottom.color \(piece.side.bottom.color)")
+//            print("piece.side.left.color \(piece.side.left.color)")
+//            print("piece.side.right.color \(piece.side.right.color)")
+
         case .stick:
             
             switch piece.version {
@@ -483,8 +488,8 @@ class Model {
                     
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
-                    piece.side.right.exitSide = "left"
-                    piece.side.left.exitSide = "right"
+//                    piece.side.right.exitSide = "left"
+//                    piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.left.opening.isOpen = true
@@ -494,8 +499,8 @@ class Model {
                     
                     piece.side.top.closing.isOpen = true
                     piece.side.bottom.closing.isOpen = true
-                    piece.side.top.exitSide = "bottom"
-                    piece.side.bottom.exitSide = "top"
+//                    piece.side.top.exitSide = "bottom"
+//                    piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.top.opening.isOpen = true
@@ -662,7 +667,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.cross]//.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
