@@ -396,12 +396,6 @@ class Model {
         case .cross:
             
             
-            
-          
-            
-            
-            
-            
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             piece.side.top.exitSide = "bottom"
@@ -416,11 +410,6 @@ class Model {
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
             piece.side.right.opening.isOpen = true
-            
-            
-            
-            
-            
             
             switch piece.version {
             
@@ -488,8 +477,8 @@ class Model {
                     
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
-//                    piece.side.right.exitSide = "left"
-//                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.left.opening.isOpen = true
@@ -499,8 +488,8 @@ class Model {
                     
                     piece.side.top.closing.isOpen = true
                     piece.side.bottom.closing.isOpen = true
-//                    piece.side.top.exitSide = "bottom"
-//                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.top.opening.isOpen = true
@@ -667,7 +656,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.cross]//.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -1124,7 +1113,7 @@ class Model {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
-                    if piece.side.top.closing.isOpen == true {
+//                    if piece.side.top.closing.isOpen == true {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
@@ -1136,9 +1125,9 @@ class Model {
                         if endSide == "center" {
                             winner()
                         }
-                    } else {
-                        print("Make ball move close to center of next piece")
-                    }
+//                    } else {
+//                        print("Make ball move close to center of next piece")
+//                    }
                     
                 }
             } else {
@@ -1160,7 +1149,7 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.side.bottom.closing.isOpen == true {
+//                    if piece.side.bottom.closing.isOpen == true {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
@@ -1174,11 +1163,11 @@ class Model {
                             winner()
                         }
                         
-                    } else {
-                        print("Make piece move close to center of next piece")
+//                    } else {
+//                        print("Make piece move close to center of next piece")
 
                         
-                    }
+//                    }
                     
                     
                     
@@ -1201,7 +1190,7 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.side.left.closing.isOpen == true {
+//                    if piece.side.left.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                        if piece.shape == .cross {
 //                            piece.switch4Tap()
@@ -1211,10 +1200,10 @@ class Model {
                             
                             winner()
                         }
-                    } else {
-                        print("Make piece move close to center of next piece")
+//                    } else {
+//                        print("Make piece move close to center of next piece")
 
-                    }
+//                    }
                     
                     
                 }
@@ -1235,7 +1224,7 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.side.right.closing.isOpen == true {
+//                    if piece.side.right.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                        if piece.shape == .cross {
 //                            piece.switch4Tap()
@@ -1246,10 +1235,10 @@ class Model {
                             
                             winner()
                         }
-                    } else {
-                        print("Make piece move close to center of next piece")
+//                    } else {
+//                        print("Make piece move close to center of next piece")
 
-                    }
+//                    }
                     
                 }
             } else {
