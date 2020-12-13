@@ -530,6 +530,8 @@ class ShapeView : UIView {
                 
                 case 1:
                     
+                    
+                    
                     let width = frame.width
                     let height = frame.height / 4
                     let x1:CGFloat = 0.0
@@ -955,7 +957,7 @@ class ShapeView : UIView {
             
             switch version {
             case 1:
-                print("VERSION 1")
+//                print("VERSION 1")
                 //Spits a new piece out of the bottom
                 
                 
@@ -981,7 +983,7 @@ class ShapeView : UIView {
                 
                 
             case 2:
-                print("VERSION 2")
+//                print("VERSION 2")
             //Spits a new piece out of the left
 
                 
@@ -1006,7 +1008,7 @@ class ShapeView : UIView {
                 
                 
             case 3:
-                print("VERSION 3")
+//                print("VERSION 3")
 
             //Spits a new piece out of the top
 
@@ -1026,7 +1028,7 @@ class ShapeView : UIView {
             
             
             case 4:
-                print("VERSION 4")
+//                print("VERSION 4")
             //Spits a new piece out of the right
                 
                 

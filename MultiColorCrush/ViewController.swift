@@ -554,11 +554,34 @@ extension ViewController: ModelDelegate {
         setupBoard()
     }
     
-    func pieceWasTapped(piece: Piece) {
-        UIView.animate(withDuration: 0.25) {
-            piece.view.setNeedsDisplay()
+    func pieceWasTapped(piece: Piece, wait: Bool) {
+        
+        
+        //UP TO HERE. MAKE SURE THAT THE ANIMATION IS HAPPENING PROPERLY
+        
+        
+        if wait == false {
+            UIView.animate(withDuration: 0.25) {
+                piece.view.setNeedsDisplay()
 
+            }
+        } else {
+            UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn) {
+//                piece.switch4Tap()
+
+                piece.view.setNeedsDisplay()
+
+            } completion: { (false) in
+                print()
+            }
+
+            
+            
         }
+        
+        
+        
+        
     }
 }
 

@@ -50,7 +50,7 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
-    func pieceWasTapped(piece: Piece)
+    func pieceWasTapped(piece: Piece, wait: Bool)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -93,7 +93,7 @@ class Model {
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
-        level.numberOfPieces = 20
+        level.numberOfPieces = 10
     }
     
     func setBoard() {
@@ -397,6 +397,13 @@ class Model {
             
         case .cross:
             
+            
+            
+          
+            
+            
+            
+            
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             piece.side.top.exitSide = "bottom"
@@ -412,10 +419,17 @@ class Model {
             piece.side.left.opening.isOpen = true
             piece.side.right.opening.isOpen = true
             
+            
+            
+            
+            
+            
             switch piece.version {
+            
             case 1, 3:
                 
                 if piece.currentSwitch == 1 {
+                    
                     
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
@@ -428,28 +442,37 @@ class Model {
                     piece.side.right.closing.isOpen = false
                     piece.side.top.closing.isOpen = true
                     piece.side.bottom.closing.isOpen = true
+                    
+                    
+                    
                 }
 
             case 2, 4:
                 
                 if piece.currentSwitch == 1 {
                     
-                    piece.side.left.closing.isOpen = false
-                    piece.side.right.closing.isOpen = false
-                    piece.side.top.closing.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    
-                } else if piece.currentSwitch == 2 {
-                    
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
                     piece.side.bottom.closing.isOpen = false
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.left.closing.isOpen = false
+                    piece.side.right.closing.isOpen = false
+                    piece.side.top.closing.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
                 }
                 
             default:
                 break
+                
             }
+            
+            print(piece.colors)
+            print(piece.version)
+            print(piece.currentSwitch)
+            print(piece.side.top.closing.isOpen)
             
         case .stick:
             
@@ -1100,17 +1123,16 @@ class Model {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
-                        if piece.shape == .cross {
-                            piece.switch4Tap()
-                            delegate?.pieceWasTapped(piece: piece)
-                        }
+//                        if piece.shape == .cross {
+//                            piece.switch4Tap()
+//                            delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        }
                         
                         if endSide == "center" {
-                            
                             winner()
                         }
                     } else {
-                        print("Make piece move close to center of next piece")
+                        print("Make ball move close to center of next piece")
                     }
                     
                 }
@@ -1137,10 +1159,10 @@ class Model {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
-                        if piece.shape == .cross {
-                            piece.switch4Tap()
-                            delegate?.pieceWasTapped(piece: piece)
-                        }
+//                        if piece.shape == .cross {
+//                            piece.switch4Tap()
+//                            delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        }
 
                         if endSide == "center" {
                             
@@ -1176,10 +1198,10 @@ class Model {
                     
                     if piece.side.left.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        if piece.shape == .cross {
-                            piece.switch4Tap()
-                            delegate?.pieceWasTapped(piece: piece)
-                        }
+//                        if piece.shape == .cross {
+//                            piece.switch4Tap()
+//                            delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        }
                         if endSide == "center" {
                             
                             winner()
@@ -1210,10 +1232,10 @@ class Model {
                     
                     if piece.side.right.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        if piece.shape == .cross {
-                            piece.switch4Tap()
-                            delegate?.pieceWasTapped(piece: piece)
-                        }
+//                        if piece.shape == .cross {
+//                            piece.switch4Tap()
+//                            delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        }
 
                         if endSide == "center" {
                             
@@ -1243,7 +1265,7 @@ class Model {
                 
                 piece.switch4Tap()
                 
-                delegate?.pieceWasTapped(piece: piece)
+                delegate?.pieceWasTapped(piece: piece, wait: false)
             }
         }
         
