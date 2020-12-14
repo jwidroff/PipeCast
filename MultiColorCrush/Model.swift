@@ -50,7 +50,7 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
-    func pieceWasTapped(piece: Piece, wait: Bool)
+    func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -1116,11 +1116,10 @@ class Model {
 //                    if piece.side.top.closing.isOpen == true {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        
-//                        if piece.shape == .cross {
-//                            piece.switch4Tap()
-//                            delegate?.pieceWasTapped(piece: piece, wait: true)
-//                        }
+//                    if piece.switches > 1 {
+////                        piece.switch4Tap()
+//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                    }
                         
                         if endSide == "center" {
                             winner()
@@ -1152,11 +1151,10 @@ class Model {
 //                    if piece.side.bottom.closing.isOpen == true {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        
-//                        if piece.shape == .cross {
-//                            piece.switch4Tap()
-//                            delegate?.pieceWasTapped(piece: piece, wait: true)
-//                        }
+//                    if piece.switches > 1 {
+////                        piece.switch4Tap()
+//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                    }
 
                         if endSide == "center" {
                             
@@ -1192,10 +1190,10 @@ class Model {
                     
 //                    if piece.side.left.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                        if piece.shape == .cross {
-//                            piece.switch4Tap()
-//                            delegate?.pieceWasTapped(piece: piece, wait: true)
-//                        }
+//                    if piece.switches > 1 {
+////                        piece.switch4Tap()
+//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                    }
                         if endSide == "center" {
                             
                             winner()
@@ -1226,8 +1224,8 @@ class Model {
                     
 //                    if piece.side.right.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                        if piece.shape == .cross {
-//                            piece.switch4Tap()
+//                        if piece.switches > 1 {
+////                            piece.switch4Tap()
 //                            delegate?.pieceWasTapped(piece: piece, wait: true)
 //                        }
 
@@ -1257,9 +1255,9 @@ class Model {
             
             if board.grid[piece.indexes] == center {
                 
-                piece.switch4Tap()
+                switch4Tap(piece: piece)
                 
-                delegate?.pieceWasTapped(piece: piece, wait: false)
+                delegate?.pieceWasTapped(piece: piece)
             }
         }
         
@@ -1279,4 +1277,301 @@ class Model {
             }
         }
     }
+    
+    func switch4Tap(piece: Piece) {
+        
+        if piece.currentSwitch != piece.switches{
+            
+            piece.currentSwitch += 1
+        } else {
+            
+            piece.currentSwitch = 1
+        }
+        
+        switch piece.shape {
+        
+        case .cross:
+            
+            switch piece.version {
+            
+            case 1, 3:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    
+                    piece.side.left.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    piece.side.top.closing.isOpen = false
+                    piece.side.bottom.closing.isOpen = false
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.left.closing.isOpen = false
+                    piece.side.right.closing.isOpen = false
+                    piece.side.top.closing.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                    
+                    
+                    
+                }
+
+            case 2, 4:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.left.closing.isOpen = true
+                    piece.side.right.closing.isOpen = true
+                    piece.side.top.closing.isOpen = false
+                    piece.side.bottom.closing.isOpen = false
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.left.closing.isOpen = false
+                    piece.side.right.closing.isOpen = false
+                    piece.side.top.closing.isOpen = true
+                    piece.side.bottom.closing.isOpen = true
+                }
+                
+            default:
+                break
+                
+            }
+            
+            
+            
+            
+            
+            
+        case .elbow:
+            
+            switch piece.version {
+            
+            case 1:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.exitSide = "left"
+                    piece.side.left.exitSide = "top"
+                    piece.side.right.exitSide = nil
+                    piece.side.bottom.exitSide = nil
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = nil
+                    piece.side.bottom.color = nil
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.top.exitSide = "right"
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = nil
+                    piece.side.bottom.exitSide = nil
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.color = nil
+                    piece.side.bottom.color = nil
+                }
+                
+                piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
+                piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
+                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+
+            case 2:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "left"
+                    piece.side.top.exitSide = nil
+                    piece.side.right.exitSide = nil
+                    
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = nil
+                    piece.side.top.color = nil
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.left.exitSide = "top"
+                    piece.side.top.exitSide = "left"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.right.exitSide = nil
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = nil
+                    piece.side.bottom.color = nil
+                }
+                
+                piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
+                piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
+                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+                
+            case 3:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.exitSide = "bottom"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = nil
+                    
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.left.color = nil
+                    piece.side.top.color = nil
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.bottom.exitSide = "left"
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.right.exitSide = nil
+                    piece.side.top.exitSide = nil
+
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = nil
+                    piece.side.top.color = nil
+                }
+                
+                piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
+                piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
+                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+                
+            case 4:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.right.exitSide = "top"
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.left.exitSide = nil
+
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.color = nil
+                    piece.side.bottom.color = nil
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.right.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.top.exitSide = nil
+                    piece.side.left.exitSide = nil
+
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = nil
+                    piece.side.left.color = nil
+                }
+                
+                piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
+                piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
+                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+                
+            default:
+                break
+            }
+            
+//            print("piece left side exitSide \(side.left.exitSide)")
+//            print("piece right side exitSide \(side.right.exitSide)")
+//            print("piece top side exitSide \(side.top.exitSide)")
+//            print("piece bottom side exitSide \(side.bottom.exitSide)")
+//
+//
+
+            
+        case .diagElbow: // Nothing to set as far as openings and closings
+                    
+            switch piece.version {
+            
+            case 1, 3:
+                
+                if piece.currentSwitch == 1 {
+                
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = "left"
+                    
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[1]
+                    
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    piece.side.top.exitSide = "left"
+                    piece.side.left.exitSide = "top"
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.exitSide = "bottom"
+                    
+                    
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
+                    
+                }
+                
+            case 2, 4:
+                
+                if piece.currentSwitch == 1 {
+                
+                    piece.side.top.exitSide = "left"
+                    piece.side.left.exitSide = "top"
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.exitSide = "bottom"
+                    
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = "left"
+                    
+                    
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[1]
+                }
+            
+            default:
+                break
+            }
+            
+            
+//            print("version \(version)")
+//
+//            print("currentSwitch \(currentSwitch)")
+//
+//
+//            print("piece left side color \(side.left.color)")
+//            print("piece right side color \(side.right.color)")
+//            print("piece top side color \(side.top.color)")
+//            print("piece bottom side color \(side.bottom.color)")
+            
+            
+        default:
+            break
+        }
+    }
+    
+    
+    
+    
 }

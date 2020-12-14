@@ -94,16 +94,17 @@ class ShapeView : UIView {
 
         case .entrance, .exit, .pieceMaker, .wall:
             
-            
-            self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.lightGray
 
             
         default:
             break
         }
+        
     }
     
     func setLock(context: CGContext) {
+        
         
         let distanceFromSides = frame.width / 10
         let screwWidthAndHeight = frame.width / 10
