@@ -50,7 +50,7 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
-    func pieceWasTapped(piece: Piece)
+    func pieceWasTapped(piece: Piece, wait: Bool)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -662,7 +662,7 @@ class Model {
     
     func setPieceColor(piece: Piece) {
         
-        let randomColors:[UIColor] = [UIColor.red, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+        let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         
@@ -1065,6 +1065,8 @@ class Model {
         print("you win")
         
     }
+    
+    var waitAmount = 0.25
         
     func moveBall(ball: Ball, startSide: String) {
         
@@ -1117,8 +1119,14 @@ class Model {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                    if piece.switches > 1 {
-////                        piece.switch4Tap()
-//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        switch4Tap(piece: piece) { (true) in
+//                            
+//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+//                                self.waitAmount += 0.25
+//                            }
+//                        }
 //                    }
                         
                         if endSide == "center" {
@@ -1152,8 +1160,14 @@ class Model {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                    if piece.switches > 1 {
-////                        piece.switch4Tap()
-//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        switch4Tap(piece: piece) { (true) in
+//
+//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+//                                self.waitAmount += 0.25
+//                            }
+//                        }
 //                    }
 
                         if endSide == "center" {
@@ -1191,8 +1205,14 @@ class Model {
 //                    if piece.side.left.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                    if piece.switches > 1 {
-////                        piece.switch4Tap()
-//                        delegate?.pieceWasTapped(piece: piece, wait: true)
+//                        switch4Tap(piece: piece) { (true) in
+//
+//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+//                                self.waitAmount += 0.25
+//                            }
+//                        }
 //                    }
                         if endSide == "center" {
                             
@@ -1224,10 +1244,16 @@ class Model {
                     
 //                    if piece.side.right.closing.isOpen == true {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                        if piece.switches > 1 {
-////                            piece.switch4Tap()
-//                            delegate?.pieceWasTapped(piece: piece, wait: true)
+//                    if piece.switches > 1 {
+//                        switch4Tap(piece: piece) { (true) in
+//
+//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+//                                self.waitAmount += 0.25
+//                            }
 //                        }
+//                    }
 
                         if endSide == "center" {
                             
@@ -1255,9 +1281,11 @@ class Model {
             
             if board.grid[piece.indexes] == center {
                 
-                switch4Tap(piece: piece)
+                switch4Tap(piece: piece) { (false) in
+                    print()
+                }
                 
-                delegate?.pieceWasTapped(piece: piece)
+                delegate?.pieceWasTapped(piece: piece, wait: false)
             }
         }
         
@@ -1278,7 +1306,7 @@ class Model {
         }
     }
     
-    func switch4Tap(piece: Piece) {
+    func switch4Tap(piece: Piece, completion:(Bool) -> Void) {
         
         if piece.currentSwitch != piece.switches{
             
@@ -1569,6 +1597,10 @@ class Model {
         default:
             break
         }
+        
+        completion(true)
+        
+        
     }
     
     

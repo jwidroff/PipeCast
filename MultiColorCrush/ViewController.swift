@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
+    var delayAmount = 0.25
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -300,6 +302,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
 //        enlargePieces()
@@ -331,7 +334,19 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                                
+                           
+                if piece.switches > 1 {
+                    model.switch4Tap(piece: piece) { (true) in
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        self.delayAmount += 0.25
+
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            self.pieceWasTapped(piece: piece, wait: true)
+                        }
+                    }
+                }
+                
                 ballPath = UIBezierPath()
                 
                 switch endSide {
@@ -374,6 +389,19 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
 
+                
+                if piece.switches > 1 {
+                    model.switch4Tap(piece: piece) { (true) in
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        self.delayAmount += 0.25
+
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            self.pieceWasTapped(piece: piece, wait: true)
+                        }
+                    }
+                }
+                
                 switch endSide {
                 
                 case "top":
@@ -413,6 +441,19 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+                
+                if piece.switches > 1 {
+                    model.switch4Tap(piece: piece) { (true) in
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        self.delayAmount += 0.25
+
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            self.pieceWasTapped(piece: piece, wait: true)
+
+                        }
+                    }
+                }
                 
                 switch endSide {
                 
@@ -454,7 +495,18 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
+                if piece.switches > 1 {
+                    model.switch4Tap(piece: piece) { (true) in
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        self.delayAmount += 0.25
 
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            self.pieceWasTapped(piece: piece, wait: true)
+                        }
+                    }
+                }
+                
                 switch endSide {
                 
                 case "top":
@@ -494,6 +546,16 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+                
+                if piece.switches > 1 {
+                    model.switch4Tap(piece: piece) { (true) in
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(0.50 * 1000))
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            self.pieceWasTapped(piece: piece, wait: true)
+                        }
+                    }
+                }
                 
                 switch endSide {
                 
@@ -554,12 +616,24 @@ extension ViewController: ModelDelegate {
         setupBoard()
     }
     
-    func pieceWasTapped(piece: Piece) {
+    func pieceWasTapped(piece: Piece, wait: Bool) {
         
         
         //UP TO HERE. MAKE SURE THAT THE ANIMATION IS HAPPENING PROPERLY
         
-        piece.view.setNeedsDisplay()
+        
+        if wait == false {
+            
+            piece.view.setNeedsDisplay()
+
+        } else {
+            
+//            sleep(UInt32(1.25))
+            piece.view.setNeedsDisplay()
+
+        }
+        
+        
     }
 }
 
