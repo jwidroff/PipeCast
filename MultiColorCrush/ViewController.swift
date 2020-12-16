@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
-    var delayAmount = 0.25
+    var delayAmount = 0.0
 
     
     override func viewDidLoad() {
@@ -335,14 +335,15 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                            
+                self.delayAmount += 0.25
+                
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        self.delayAmount += 0.25
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece, wait: true)
+                            self.pieceWasTapped(piece: piece)
                         }
                     }
                 }
@@ -389,15 +390,15 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
 
+                self.delayAmount += 0.25
                 
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        self.delayAmount += 0.25
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece, wait: true)
+                            self.pieceWasTapped(piece: piece)
                         }
                     }
                 }
@@ -442,14 +443,15 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
+                self.delayAmount += 0.25
+                
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        self.delayAmount += 0.25
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece, wait: true)
+                            self.pieceWasTapped(piece: piece)
 
                         }
                     }
@@ -495,14 +497,15 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
+                self.delayAmount += 0.25
+                
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        self.delayAmount += 0.25
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece, wait: true)
+                            self.pieceWasTapped(piece: piece)
                         }
                     }
                 }
@@ -547,12 +550,14 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
+                self.delayAmount += 0.25
+                
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(0.50 * 1000))
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece, wait: true)
+                            self.pieceWasTapped(piece: piece)
                         }
                     }
                 }
@@ -616,24 +621,9 @@ extension ViewController: ModelDelegate {
         setupBoard()
     }
     
-    func pieceWasTapped(piece: Piece, wait: Bool) {
+    func pieceWasTapped(piece: Piece) {
         
-        
-        //UP TO HERE. MAKE SURE THAT THE ANIMATION IS HAPPENING PROPERLY
-        
-        
-        if wait == false {
-            
-            piece.view.setNeedsDisplay()
-
-        } else {
-            
-//            sleep(UInt32(1.25))
-            piece.view.setNeedsDisplay()
-
-        }
-        
-        
+        piece.view.setNeedsDisplay()
     }
 }
 

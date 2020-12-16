@@ -50,7 +50,7 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(direction: UISwipeGestureRecognizer.Direction)
-    func pieceWasTapped(piece: Piece, wait: Bool)
+    func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -93,7 +93,7 @@ class Model {
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
-        level.numberOfPieces = 10
+        level.numberOfPieces = 30
     }
     
     func setBoard() {
@@ -1285,7 +1285,7 @@ class Model {
                     print()
                 }
                 
-                delegate?.pieceWasTapped(piece: piece, wait: false)
+                delegate?.pieceWasTapped(piece: piece)
             }
         }
         
