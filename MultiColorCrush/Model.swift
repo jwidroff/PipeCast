@@ -240,8 +240,8 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    piece.side.top.closing.isOpen = true
-                    piece.side.left.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
@@ -257,8 +257,8 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.top.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
@@ -279,8 +279,8 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    piece.side.left.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -296,8 +296,8 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    piece.side.top.closing.isOpen = true
-                    piece.side.left.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
@@ -319,8 +319,8 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -336,8 +336,8 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    piece.side.left.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -358,8 +358,8 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.top.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
@@ -375,8 +375,8 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -395,6 +395,8 @@ class Model {
             
         case .cross:
             
+            print(piece.version)
+            print(piece.currentSwitch)
             
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
@@ -413,11 +415,15 @@ class Model {
             
             switch piece.version {
             
+            
+
+            
             case 1, 3:
                 
                 if piece.currentSwitch == 1 {
                     
-                    
+                    //Horizontal Pipe on top
+
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
@@ -425,25 +431,28 @@ class Model {
                     
                 } else if piece.currentSwitch == 2 {
                     
+                    //Vertical Pipe on top
+
                     piece.side.left.closing.isOpen = false
                     piece.side.right.closing.isOpen = false
                     piece.side.top.closing.isOpen = true
                     piece.side.bottom.closing.isOpen = true
-                    
-                    
-                    
                 }
 
             case 2, 4:
                 
                 if piece.currentSwitch == 1 {
                     
+                    //Horizontal Pipe on top
+
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
                     piece.side.bottom.closing.isOpen = false
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    //Vertical Pipe on top
                     
                     piece.side.left.closing.isOpen = false
                     piece.side.right.closing.isOpen = false
@@ -475,8 +484,8 @@ class Model {
                 
                 if piece.currentSwitch == 1 {
                     
-                    piece.side.left.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -486,8 +495,8 @@ class Model {
                     
                 } else if piece.currentSwitch == 2 {
                     
-                    piece.side.top.closing.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -501,8 +510,8 @@ class Model {
                 if piece.currentSwitch == 1 {
                     
                    
-                    piece.side.top.closing.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -512,8 +521,8 @@ class Model {
                     
                 } else if piece.currentSwitch == 2 {
                     
-                    piece.side.left.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
+//                    piece.side.left.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -532,10 +541,10 @@ class Model {
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
             piece.side.right.opening.isOpen = true
-            piece.side.top.closing.isOpen = true
-            piece.side.bottom.closing.isOpen = true
-            piece.side.left.closing.isOpen = true
-            piece.side.right.closing.isOpen = true
+//            piece.side.top.closing.isOpen = true
+//            piece.side.bottom.closing.isOpen = true
+//            piece.side.left.closing.isOpen = true
+//            piece.side.right.closing.isOpen = true
             
             switch piece.version {
             
@@ -656,7 +665,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.diagElbow, .cross]//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.cross, .diagElbow]//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -1322,50 +1331,57 @@ class Model {
         
         case .cross:
             
-            switch piece.version {
+            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+            piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+            piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
             
-            case 1, 3:
-                
-                if piece.currentSwitch == 1 {
-                    
-                    
-                    piece.side.left.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
-                    piece.side.top.closing.isOpen = false
-                    piece.side.bottom.closing.isOpen = false
-                    
-                } else if piece.currentSwitch == 2 {
-                    
-                    piece.side.left.closing.isOpen = false
-                    piece.side.right.closing.isOpen = false
-                    piece.side.top.closing.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                    
-                    
-                    
-                }
-
-            case 2, 4:
-                
-                if piece.currentSwitch == 1 {
-                    
-                    piece.side.left.closing.isOpen = true
-                    piece.side.right.closing.isOpen = true
-                    piece.side.top.closing.isOpen = false
-                    piece.side.bottom.closing.isOpen = false
-                    
-                } else if piece.currentSwitch == 2 {
-                    
-                    piece.side.left.closing.isOpen = false
-                    piece.side.right.closing.isOpen = false
-                    piece.side.top.closing.isOpen = true
-                    piece.side.bottom.closing.isOpen = true
-                }
-                
-            default:
-                break
-                
-            }
+            
+            
+//            switch piece.version {
+//
+//            case 1, 3:
+//
+//                if piece.currentSwitch == 1 {
+//
+//
+//                    piece.side.left.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = false
+//                    piece.side.bottom.closing.isOpen = false
+//
+//                } else if piece.currentSwitch == 2 {
+//
+//                    piece.side.left.closing.isOpen = false
+//                    piece.side.right.closing.isOpen = false
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//
+//
+//
+//                }
+//
+//            case 2, 4:
+//
+//                if piece.currentSwitch == 1 {
+//
+//                    piece.side.left.closing.isOpen = true
+//                    piece.side.right.closing.isOpen = true
+//                    piece.side.top.closing.isOpen = false
+//                    piece.side.bottom.closing.isOpen = false
+//
+//                } else if piece.currentSwitch == 2 {
+//
+//                    piece.side.left.closing.isOpen = false
+//                    piece.side.right.closing.isOpen = false
+//                    piece.side.top.closing.isOpen = true
+//                    piece.side.bottom.closing.isOpen = true
+//                }
+//
+//            default:
+//                break
+//
+//            }
             
             
             
@@ -1405,8 +1421,8 @@ class Model {
                 
                 piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
                 piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+//                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+//                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
 
             case 2:
                 
@@ -1437,8 +1453,8 @@ class Model {
                 
                 piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
                 piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+//                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+//                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
                 
             case 3:
                 
@@ -1469,8 +1485,8 @@ class Model {
                 
                 piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
                 piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+//                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+//                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
                 
             case 4:
                 
@@ -1501,8 +1517,8 @@ class Model {
                 
                 piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
                 piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+//                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+//                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
                 
             default:
                 break
