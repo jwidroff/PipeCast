@@ -1079,9 +1079,6 @@ class Model {
         
     func moveBall(ball: Ball, startSide: String) {
         
-        //TODO: Make it that when the "endSide" is center, it wins the level and prompts a dialog box etc
-        
-        
         switch startSide {
         
         case "unmoved":
@@ -1103,22 +1100,22 @@ class Model {
             default:
                 break
             }
+            
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
             if endSide == "center" {
-                
                 winner()
             }
             
             return
-        
+            
         case "top":
             
             let piece = getPieceInfo(index: ball.indexes)
-            
-            if piece.side.top.color != ball.onColor { return }
-
             let startSide = "top"
+
+            if piece.side.top.color != ball.onColor { return }
+            
             if let endSide = piece.side.top.exitSide {
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
@@ -1130,44 +1127,30 @@ class Model {
                         if piece.side.top.closing.isOpen == true {
                             
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-    //                    if piece.switches > 1 {
-    //                        switch4Tap(piece: piece) { (true) in
-    //
-    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-    //                                self.waitAmount += 0.25
-    //                            }
-    //                        }
+                        } else {
+                            print("set up func to move ball close to center")
                         }
-                        
                     } else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
                     
-                        
-                        if endSide == "center" {
-                            winner()
-                        }
-//                    } else {
-//                        print("Make ball move close to center of next piece")
-//                    }
-                    
+                    if endSide == "center" {
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
-            
             
             return
             
         case "bottom":
             
             let piece = getPieceInfo(index: ball.indexes)
-            
+            let startSide = "bottom"
+
             if piece.side.bottom.color != ball.onColor { return }
             
-            let startSide = "bottom"
             if let endSide = piece.side.bottom.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
@@ -1178,51 +1161,31 @@ class Model {
                         if piece.side.bottom.closing.isOpen == true {
                             
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-    //                    if piece.switches > 1 {
-    //                        switch4Tap(piece: piece) { (true) in
-    //
-    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-    //                                self.waitAmount += 0.25
-    //                            }
-    //                        }
+                        } else {
+                            print("set up func to move ball close to center")
                         }
-                        
-                        
                     } else {
+                        
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
                     
-            
-
-                        if endSide == "center" {
-                            
-                            winner()
-                        }
-                        
-//                    } else {
-//                        print("Make piece move close to center of next piece")
-
-                        
-//                    }
-                    
-                    
-                    
+                    if endSide == "center" {
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
+            
             return
-
             
         case "left":
             
             let piece = getPieceInfo(index: ball.indexes)
-            
+            let startSide = "left"
+
             if piece.side.left.color != ball.onColor { return }
             
-            let startSide = "left"
             if let endSide = piece.side.left.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
@@ -1231,46 +1194,33 @@ class Model {
                     if piece.shape == .cross {
                         
                         if piece.side.left.closing.isOpen == true {
+                            
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-    //                    if piece.switches > 1 {
-    //                        switch4Tap(piece: piece) { (true) in
-    //
-    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-    //                                self.waitAmount += 0.25
-    //                            }
-    //                        }
+                        } else {
+                            print("set up func to move ball close to center")
                         }
-                        
                     } else {
+                        
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
                     
-                    
-                        if endSide == "center" {
-                            
-                            winner()
-                        }
-//                    } else {
-//                        print("Make piece move close to center of next piece")
-
-//                    }
-                    
-                    
+                    if endSide == "center" {
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
+            
             return
             
         case "right":
             
             let piece = getPieceInfo(index: ball.indexes)
-            
+            let startSide = "right"
+
             if piece.side.right.color != ball.onColor { return }
             
-            let startSide = "right"
             if let endSide = piece.side.right.exitSide {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
@@ -1279,40 +1229,23 @@ class Model {
                     if piece.shape == .cross {
                         
                         if piece.side.right.closing.isOpen == true {
-                            
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-    //                    if piece.switches > 1 {
-    //                        switch4Tap(piece: piece) { (true) in
-    //
-    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-    //                                self.waitAmount += 0.25
-    //                            }
-    //                        }
+                        } else {
+                            print("set up func to move ball close to center")
                         }
-
-                        
                     } else {
+                        
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
-                    
-                    
-                        if endSide == "center" {
-                            
-                            winner()
-                        }
-//                    } else {
-//                        print("Make piece move close to center of next piece")
-
-//                    }
-                    
+                    if endSide == "center" {
+                        winner()
+                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
             return
-
+            
         default:
             break
         }
