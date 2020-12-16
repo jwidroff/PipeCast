@@ -42,7 +42,6 @@ class ShapeView : UIView {
     }
     
     init(frame: CGRect, piece: Piece) {
-
         
         for color in piece.colors {
             
@@ -194,6 +193,8 @@ class ShapeView : UIView {
     
     
     override func draw(_ rect: CGRect) {
+                
+        
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
@@ -554,7 +555,7 @@ class ShapeView : UIView {
                     context.fill(rect1)
                     
                     
-                    let strokeWidth = height / 15
+                    let strokeWidth = height / 5
                     let point1 = CGPoint(x: ((width - width2) / 2), y: ((height2 + height) / 2))
                     let point2 = CGPoint(x: ((width + width2) / 2), y: ((height2 + height) / 2))
 
@@ -612,7 +613,7 @@ class ShapeView : UIView {
                     context.fill(rect2)
                     
                     
-                    let strokeWidth = height / 15
+                    let strokeWidth = height / 5
                     let point1 = CGPoint(x: ((width - width2) / 2), y: (height2 - height) / 2)
                     let point2 = CGPoint(x: ((width - width2) / 2), y: (height2 + height) / 2)
                     context.setStrokeColor(UIColor.black.cgColor)

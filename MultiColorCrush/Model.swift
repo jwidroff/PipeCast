@@ -93,7 +93,7 @@ class Model {
         level.number = 1
         level.boardHeight = 10
         level.boardWidth = 5
-        level.numberOfPieces = 30
+        level.numberOfPieces = 45
     }
     
     func setBoard() {
@@ -656,7 +656,7 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.stick, .diagElbow, .cross, .elbow]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = [.diagElbow, .cross]//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
@@ -1279,13 +1279,15 @@ class Model {
                 
         for piece in board.pieces {
             
-            if board.grid[piece.indexes] == center {
+            if board.grid[piece.indexes] == center && piece.shape != .entrance {
                 
                 switch4Tap(piece: piece) { (false) in
-                    print()
+                    piece.view.setNeedsDisplay()
                 }
                 
-                delegate?.pieceWasTapped(piece: piece)
+                
+//                piece.view.backgroundColor = .white
+//                delegate?.pieceWasTapped(piece: piece)
             }
         }
         
@@ -1306,7 +1308,7 @@ class Model {
         }
     }
     
-    func switch4Tap(piece: Piece, completion:(Bool) -> Void) {
+    func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
         
         if piece.currentSwitch != piece.switches{
             
@@ -1315,7 +1317,7 @@ class Model {
             
             piece.currentSwitch = 1
         }
-        
+
         switch piece.shape {
         
         case .cross:
@@ -1598,6 +1600,7 @@ class Model {
             break
         }
         
+//        piece.view.setNeedsDisplay()
         completion(true)
         
         

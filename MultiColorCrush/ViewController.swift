@@ -210,7 +210,7 @@ class ViewController: UIViewController {
     
 
     
-    func curveAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: (Bool) -> Void) {
+    func curveAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
 //
 //        print("beginPoint \(beginPoint)")
 //        print("controlPoint \(controlPoint)")
@@ -335,29 +335,30 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                            
-                self.delayAmount += 0.25 //Mat need to take out
+//                self.delayAmount += 0.25
                 
-                if piece.switches > 1 {
-                    model.switch4Tap(piece: piece) { (true) in
-                        
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        let backgroundColor = piece.view.backgroundColor
-
-                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                            self.pieceWasTapped(piece: piece)
-                            piece.view.backgroundColor = .lightGray
-
-                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                                
-                                piece.view.backgroundColor = backgroundColor
-
-                                
-                            }
-                        }
-                    }
-                }
+//                if piece.switches > 1 {
+//                    model.switch4Tap(piece: piece) { (true) in
+//
+//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+//                        let backgroundColor = piece.view.backgroundColor
+//
+//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+////                            self.pieceWasTapped(piece: piece)
+//                            piece.view.backgroundColor = .lightGray
+//
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                                piece.view.backgroundColor = backgroundColor
+//
+//                                piece.view.setNeedsDisplay()
+//
+//                            }
+//                        }
+//                    }
+//                }
                 
-                ballPath = UIBezierPath()
+                self.ballPath = UIBezierPath()
                 
                 switch endSide {
                 
@@ -401,19 +402,24 @@ extension ViewController: ModelDelegate {
 
                 self.delayAmount += 0.25
                 
-                if piece.switches > 1 {
-                    model.switch4Tap(piece: piece) { (true) in
+                if piece.shape == .cross {
+                    self.model.switch4Tap(piece: piece) { (true) in
+                        
+                        
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        let backgroundColor = piece.view.backgroundColor
+                        let backgroundColor = piece.view.backgroundColor?.cgColor
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 //                            self.pieceWasTapped(piece: piece)
-                            piece.view.backgroundColor = .lightGray
+                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+
+//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
-                                piece.view.backgroundColor = backgroundColor
+                                piece.view.layer.backgroundColor = backgroundColor
+                                piece.view.setNeedsDisplay()
 
                                 
                             }
@@ -463,21 +469,22 @@ extension ViewController: ModelDelegate {
                 
                 self.delayAmount += 0.25
                 
-                if piece.switches > 1 {
-                    model.switch4Tap(piece: piece) { (true) in
+                if piece.shape == .cross {
+                    self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        let backgroundColor = piece.view.backgroundColor
+                        let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 //                            self.pieceWasTapped(piece: piece)
-                            piece.view.backgroundColor = .lightGray
+                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
-                                piece.view.backgroundColor = backgroundColor
+                                piece.view.layer.backgroundColor = backgroundColor
+                                piece.view.setNeedsDisplay()
 
-                                
+
                             }
                         }
                     }
@@ -525,19 +532,21 @@ extension ViewController: ModelDelegate {
                 
                 self.delayAmount += 0.25
                 
-                if piece.switches > 1 {
-                    model.switch4Tap(piece: piece) { (true) in
+                if piece.shape == .cross {
+                    self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        let backgroundColor = piece.view.backgroundColor
+                        let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 //                            self.pieceWasTapped(piece: piece)
-                            piece.view.backgroundColor = .lightGray
+                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
-                                piece.view.backgroundColor = backgroundColor
+                                piece.view.layer.backgroundColor = backgroundColor
+                                piece.view.setNeedsDisplay()
 
                                 
                             }
@@ -587,20 +596,21 @@ extension ViewController: ModelDelegate {
                 
                 self.delayAmount += 0.25
                 
-                if piece.switches > 1 {
-                    model.switch4Tap(piece: piece) { (true) in
+                if piece.shape == .cross {
+                    self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-                        let backgroundColor = piece.view.backgroundColor
+                        let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 //                            self.pieceWasTapped(piece: piece)
-                            piece.view.backgroundColor = .lightGray
+                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
-                                piece.view.backgroundColor = backgroundColor
-
+                                piece.view.layer.backgroundColor = backgroundColor
+                                piece.view.setNeedsDisplay()
                                 
                             }
                         }
@@ -670,35 +680,6 @@ extension ViewController: ModelDelegate {
         
         
         piece.view.setNeedsDisplay()
-
-//        let backgroundColor = piece.view.backgroundColor
-//
-//        UIView.animate(withDuration: 0.25) {
-//            piece.view.backgroundColor = .darkGray
-//
-//        } completion: { (true) in
-//            piece.view.backgroundColor = backgroundColor
-//
-//        }
-
-//        func animatePiece(piece: Piece) {
-            
-//            UIView.animate(withDuration: 1.0, animations: {
-////                for spaceView in self.spaceViews {
-//
-////                    if spaceView.center == CGPoint(x: self.board.grid[piece.indexes]!.x, y: self.board.grid[piece.indexes]!.y) {
-//
-//
-//                    piece.view.backgroundColor = .purple
-//
-//
-//
-////                    }
-////                }
-//            }) { (true) in
-//                piece.view.backgroundColor = .yellow
-//            }
-//        }
 
         
         
