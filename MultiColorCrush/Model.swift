@@ -781,7 +781,7 @@ class Model {
                 
                 if spaceIsntBlocked {
                                         
-                    if piece.isLocked == false {
+                    if piece.shape != .pieceMaker {
                         
                         piece.indexes.y = piece.indexes.y! - 1
                         
@@ -843,7 +843,7 @@ class Model {
                 
                 if spaceIsntBlocked{
                     
-                    if piece.isLocked == false {
+                    if piece.shape != .pieceMaker {
                         
                         piece.indexes.y = piece.indexes.y! + 1
                         
@@ -895,7 +895,7 @@ class Model {
                 
                 if spaceIsntBlocked {
                     
-                    if piece.isLocked == false {
+                    if piece.shape != .pieceMaker {
                         
                         piece.indexes.x = piece.indexes.x! - 1
                         
@@ -949,7 +949,7 @@ class Model {
                 
                 if spaceIsntBlocked {
                     
-                    if piece.isLocked == false {
+                    if piece.shape != .pieceMaker {
                         
                         piece.indexes.x = piece.indexes.x! + 1
                         
@@ -1124,19 +1124,27 @@ class Model {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
-//                    if piece.side.top.closing.isOpen == true {
+                    
+                    if piece.shape == .cross {
                         
+                        if piece.side.top.closing.isOpen == true {
+                            
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+    //                    if piece.switches > 1 {
+    //                        switch4Tap(piece: piece) { (true) in
+    //
+    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+    //                                self.waitAmount += 0.25
+    //                            }
+    //                        }
+                        }
+                        
+                    } else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                    if piece.switches > 1 {
-//                        switch4Tap(piece: piece) { (true) in
-//                            
-//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-//                                self.waitAmount += 0.25
-//                            }
-//                        }
-//                    }
+                    }
+                    
                         
                         if endSide == "center" {
                             winner()
@@ -1165,19 +1173,28 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-//                    if piece.side.bottom.closing.isOpen == true {
+                    if piece.shape == .cross {
                         
+                        if piece.side.bottom.closing.isOpen == true {
+                            
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+    //                    if piece.switches > 1 {
+    //                        switch4Tap(piece: piece) { (true) in
+    //
+    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+    //                                self.waitAmount += 0.25
+    //                            }
+    //                        }
+                        }
+                        
+                        
+                    } else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                    if piece.switches > 1 {
-//                        switch4Tap(piece: piece) { (true) in
-//
-//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-//                                self.waitAmount += 0.25
-//                            }
-//                        }
-//                    }
+                    }
+                    
+            
 
                         if endSide == "center" {
                             
@@ -1211,18 +1228,26 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-//                    if piece.side.left.closing.isOpen == true {
+                    if piece.shape == .cross {
+                        
+                        if piece.side.left.closing.isOpen == true {
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+    //                    if piece.switches > 1 {
+    //                        switch4Tap(piece: piece) { (true) in
+    //
+    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+    //                                self.waitAmount += 0.25
+    //                            }
+    //                        }
+                        }
+                        
+                    } else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                    if piece.switches > 1 {
-//                        switch4Tap(piece: piece) { (true) in
-//
-//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-//                                self.waitAmount += 0.25
-//                            }
-//                        }
-//                    }
+                    }
+                    
+                    
                         if endSide == "center" {
                             
                             winner()
@@ -1251,19 +1276,28 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-//                    if piece.side.right.closing.isOpen == true {
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-//                    if piece.switches > 1 {
-//                        switch4Tap(piece: piece) { (true) in
-//
-//                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
-//                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
-//                                self.waitAmount += 0.25
-//                            }
-//                        }
-//                    }
+                    if piece.shape == .cross {
+                        
+                        if piece.side.right.closing.isOpen == true {
+                            
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+    //                    if piece.switches > 1 {
+    //                        switch4Tap(piece: piece) { (true) in
+    //
+    //                            let delayedTime = DispatchTime.now() + .milliseconds(Int(waitAmount * 1000))
+    //                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+    //                                self.delegate?.pieceWasTapped(piece: piece, wait: true)
+    //                                self.waitAmount += 0.25
+    //                            }
+    //                        }
+                        }
 
+                        
+                    } else {
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    }
+                    
+                    
                         if endSide == "center" {
                             
                             winner()

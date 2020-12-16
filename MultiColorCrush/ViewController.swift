@@ -405,8 +405,6 @@ extension ViewController: ModelDelegate {
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
                         
-                        
-                        
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
 
