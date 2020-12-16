@@ -335,15 +335,24 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                            
-                self.delayAmount += 0.25
+                self.delayAmount += 0.25 //Mat need to take out
                 
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let backgroundColor = piece.view.backgroundColor
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece)
+//                            self.pieceWasTapped(piece: piece)
+                            piece.view.backgroundColor = .lightGray
+
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                                
+                                piece.view.backgroundColor = backgroundColor
+
+                                
+                            }
                         }
                     }
                 }
@@ -396,9 +405,18 @@ extension ViewController: ModelDelegate {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let backgroundColor = piece.view.backgroundColor
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece)
+//                            self.pieceWasTapped(piece: piece)
+                            piece.view.backgroundColor = .lightGray
+
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                                
+                                piece.view.backgroundColor = backgroundColor
+
+                                
+                            }
                         }
                     }
                 }
@@ -449,10 +467,18 @@ extension ViewController: ModelDelegate {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-
+                        let backgroundColor = piece.view.backgroundColor
+                        
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece)
+//                            self.pieceWasTapped(piece: piece)
+                            piece.view.backgroundColor = .lightGray
 
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                                
+                                piece.view.backgroundColor = backgroundColor
+
+                                
+                            }
                         }
                     }
                 }
@@ -503,9 +529,18 @@ extension ViewController: ModelDelegate {
                     model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-
+                        let backgroundColor = piece.view.backgroundColor
+                        
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece)
+//                            self.pieceWasTapped(piece: piece)
+                            piece.view.backgroundColor = .lightGray
+
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                                
+                                piece.view.backgroundColor = backgroundColor
+
+                                
+                            }
                         }
                     }
                 }
@@ -555,9 +590,19 @@ extension ViewController: ModelDelegate {
                 if piece.switches > 1 {
                     model.switch4Tap(piece: piece) { (true) in
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(0.50 * 1000))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let backgroundColor = piece.view.backgroundColor
+                        
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            self.pieceWasTapped(piece: piece)
+//                            self.pieceWasTapped(piece: piece)
+                            piece.view.backgroundColor = .lightGray
+
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                                
+                                piece.view.backgroundColor = backgroundColor
+
+                                
+                            }
                         }
                     }
                 }
@@ -623,7 +668,42 @@ extension ViewController: ModelDelegate {
     
     func pieceWasTapped(piece: Piece) {
         
+        
         piece.view.setNeedsDisplay()
+
+//        let backgroundColor = piece.view.backgroundColor
+//
+//        UIView.animate(withDuration: 0.25) {
+//            piece.view.backgroundColor = .darkGray
+//
+//        } completion: { (true) in
+//            piece.view.backgroundColor = backgroundColor
+//
+//        }
+
+//        func animatePiece(piece: Piece) {
+            
+//            UIView.animate(withDuration: 1.0, animations: {
+////                for spaceView in self.spaceViews {
+//
+////                    if spaceView.center == CGPoint(x: self.board.grid[piece.indexes]!.x, y: self.board.grid[piece.indexes]!.y) {
+//
+//
+//                    piece.view.backgroundColor = .purple
+//
+//
+//
+////                    }
+////                }
+//            }) { (true) in
+//                piece.view.backgroundColor = .yellow
+//            }
+//        }
+
+        
+        
+        
+        
     }
 }
 
