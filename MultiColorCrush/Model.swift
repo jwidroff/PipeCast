@@ -75,25 +75,17 @@ class Model {
         
         setLevel()
         setBoard()
-        setPieces()
+        
+//        setPieces()
     }
     
     func setLevel() {
         
-//        let pieceLocationIndex1 = Indexes(x: 3, y: 7)
-//        let pieceLocationIndex2 = Indexes(x: 1, y: 7)
-//        let pieceLocationIndex3 = Indexes(x: 1, y: 4)
-//        level.pieceLocations.append(pieceLocationIndex1)
-//        level.pieceLocations.append(pieceLocationIndex2)
-//        level.pieceLocations.append(pieceLocationIndex3)
-        
-        
-        level.iceLocations = [Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
-        level.pieceMakerLocations = [Indexes(x: 4, y: 4)]
-        level.number = 1
-        level.boardHeight = 10
-        level.boardWidth = 5
-        level.numberOfPieces = 45
+        let levelModel = LevelModel()
+        level = levelModel.returnLevel(levelNumber: 1)
+        board.pieces = level.pieces
+        board.balls = level.balls
+//        board.pieceMakerLocations
     }
     
     func setBoard() {
@@ -101,128 +93,130 @@ class Model {
         setupIce()
         
         delegate?.setUpGame(board: board)
+        
+        delegate?.setUpPiecesView()
     }
     
-    func setupPieceMakers() {
-        
-        for _ in 1...1 {
-            
-            let pieceMaker = Piece()
-            setPieceIndex(piece: pieceMaker)
-            pieceMaker.isLocked = true
-            pieceMaker.colors = [.black]
-            pieceMaker.shape = .pieceMaker
-            let version = Int(arc4random_uniform(UInt32(4))) + 1
-            pieceMaker.version = version
-            
-            let nextPiece = Piece()
-            nextPiece.indexes = pieceMaker.indexes
-            setPieceShape(piece: nextPiece)
-            setPieceColor(piece: nextPiece)
-            setPieceSwitches(piece: nextPiece)
-            setPieceSides(piece: nextPiece)
-            pieceMaker.nextPiece = nextPiece
-            board.pieces.append(pieceMaker)
-//            board.pieces.append(nextPiece)
-        }
-    }
+//    func setupPieceMakers() {
+//
+//        for _ in 1...1 {
+//
+//            let pieceMaker = Piece()
+//            setPieceIndex(piece: pieceMaker)
+//            pieceMaker.isLocked = true
+//            pieceMaker.colors = [.black]
+//            pieceMaker.shape = .pieceMaker
+//            let version = Int(arc4random_uniform(UInt32(4))) + 1
+//            pieceMaker.version = version
+//
+//            let nextPiece = Piece()
+//            nextPiece.indexes = pieceMaker.indexes
+//            setPieceShape(piece: nextPiece)
+//            setPieceColor(piece: nextPiece)
+//            setPieceSwitches(piece: nextPiece)
+//            setPieceSides(piece: nextPiece)
+//            pieceMaker.nextPiece = nextPiece
+//            board.pieces.append(pieceMaker)
+//
+//        }
+//    }
     
     func setupIce() {
         
         board.iceLocations = level.iceLocations
     }
     
-    func setupEntrances() {
-        
-        for _ in 1...1 {
-            
-            let entrance = Piece()
-            setPieceIndex(piece: entrance)
-//            entrance.indexes = Indexes(x: 3, y: 4)
-            entrance.isLocked = true
-            entrance.colors = [.red]
-            
-            //TODO - Make this different per side
-            entrance.opening = "right"
-            entrance.side.right.color = entrance.colors[0]
-            entrance.shape = .entrance
-            board.pieces.append(entrance)
-        }
-    }
+//    func setupEntrances() {
+//
+//        for _ in 1...1 {
+//
+//            let entrance = Piece()
+//            setPieceIndex(piece: entrance)
+////            entrance.indexes = Indexes(x: 3, y: 4)
+//            entrance.isLocked = true
+//            entrance.colors = [.red]
+//
+//            //TODO - Make this different per side
+//            entrance.opening = "right"
+//            entrance.side.right.color = entrance.colors[0]
+//            entrance.shape = .entrance
+//            board.pieces.append(entrance)
+//        }
+//    }
 
-    func setupExits() {
-        
-        for _ in 1...1 {
-            
-            let exit = Piece()
-            setPieceIndex(piece: exit)
-//            exit.indexes = Indexes(x: 3, y: 3)
-
-            exit.isLocked = true
-            exit.colors = [.red]
-            exit.opening = "left"
-            exit.side.left.color = exit.colors[0]
-            exit.side.left.opening.isOpen = true
-            exit.side.left.exitSide = "center" //TODO: Change
-            exit.shape = .exit
-            board.pieces.append(exit)
-        }
-    }
+//    func setupExits() {
+//
+//        for _ in 1...1 {
+//
+//            let exit = Piece()
+//            setPieceIndex(piece: exit)
+////            exit.indexes = Indexes(x: 3, y: 3)
+//
+//            exit.isLocked = true
+//            exit.colors = [.red]
+//            exit.opening = "left"
+//            exit.side.left.color = exit.colors[0]
+//            exit.side.left.opening.isOpen = true
+//            exit.side.left.exitSide = "center" //TODO: Change
+//            exit.shape = .exit
+//            board.pieces.append(exit)
+//        }
+//    }
     
-    func setupWalls() {
-        
-        for _ in 0...0 {
-
-            let wall = Piece()
-            setPieceIndex(piece: wall)
-            wall.isLocked = true
-            wall.colors = [.lightGray]
-            wall.shape = .wall
-            board.pieces.append(wall)
-        }
-    }
+//    func setupWalls() {
+//
+//        for _ in 0...0 {
+//
+//            let wall = Piece()
+//            setPieceIndex(piece: wall)
+//            wall.isLocked = true
+//            wall.colors = [.lightGray]
+//            wall.shape = .wall
+//            board.pieces.append(wall)
+//        }
+//    }
     
-    func setupBalls() {
-        
-        for piece in board.pieces {
-            
-            if piece.shape == .entrance {
-
-            
-            let ball = Ball()
-                ball.indexes = piece.indexes
-                ball.onColor = piece.colors[0]
-                board.balls.append(ball)
-            }
-        }
-        board.balls = board.balls
-    }
+//    func setupBalls() {
+//
+//        for piece in board.pieces {
+//
+//            if piece.shape == .entrance {
+//
+//
+//            let ball = Ball()
+//                ball.indexes = piece.indexes
+//                ball.onColor = piece.colors[0]
+//                board.balls.append(ball)
+//            }
+//        }
+////        board.balls = board.balls
+//    }
     
-    func setPieces() {
-        
+//    func setPieces() {
+//
 //        setupPieceMakers()
-        setupEntrances()
-        setupExits()
-        setupWalls()
-        setupBalls()
-        
-        for _ in 0..<level.numberOfPieces {
-            
-            setupPieces()
-        }
-        delegate?.setUpPiecesView()
-    }
+//        setupEntrances()
+//        setupExits()
+//        setupWalls()
+//        setupBalls()
+//
+//        for _ in 0..<level.numberOfPieces {
+//
+//            setupPieces()
+//        }
+//        delegate?.setUpPiecesView()
+//    }
     
-    func setupPieces() {
-        
-        let piece = Piece()
-        setPieceIndex(piece: piece)
-        setPieceShape(piece: piece)
-        setPieceColor(piece: piece)
-        setPieceSwitches(piece: piece)
-        setPieceSides(piece: piece)
-        board.pieces.append(piece)
-    }
+//    func setupPieces() {
+//
+//        let piece = Piece()
+//        setPieceIndex(piece: piece)
+//        setPieceShape(piece: piece)
+//        setPieceColor(piece: piece)
+//        setPieceSwitches(piece: piece)
+//        setPieceSides(piece: piece)
+//        board.pieces.append(piece)
+//    }
     
     func setPieceSides(piece: Piece) {
       
@@ -647,19 +641,19 @@ class Model {
         }
     }
     
-    func setPieceIndex(piece: Piece) {
-        
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-        
-        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
-        if board.pieces.contains(where: { (pieceX) -> Bool in
-            pieceX.indexes == index
-        }){
-            setPieceIndex(piece: piece)
-        } else {
-            piece.indexes = index
-        }
-    }
+//    func setPieceIndex(piece: Piece) {
+//
+//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+//
+//        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
+//        if board.pieces.contains(where: { (pieceX) -> Bool in
+//            pieceX.indexes == index
+//        }){
+//            setPieceIndex(piece: piece)
+//        } else {
+//            piece.indexes = index
+//        }
+//    }
     
     func setPieceShape(piece: Piece) {
         
@@ -1278,7 +1272,7 @@ class Model {
             }
         }
         
-        for ball in board.balls {
+        for ball in level.balls {
                         
             if board.grid[ball.indexes] == center {
                 

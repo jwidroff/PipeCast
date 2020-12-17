@@ -34,6 +34,22 @@ class Piece {
         
     }
     
+    init(indexes: Indexes, shape: Shape, colors: [UIColor], version: Int, currentSwitch: Int, side: Side, isLocked: Bool, opening: String?) {
+        
+        self.indexes = indexes
+        self.shape = shape
+        self.colors = colors
+        self.version = version
+        self.currentSwitch = currentSwitch
+        self.side = side
+        self.isLocked = isLocked
+        if let opening = opening {
+            self.opening = opening
+        }
+        
+        
+    }
+    
 
 }
 
