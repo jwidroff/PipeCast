@@ -783,12 +783,16 @@ class Model {
                                         
                     if piece.shape != .pieceMaker {
                         
-                        piece.indexes.y = piece.indexes.y! - 1
-                        
-                        if checkForIce(piece: piece) == true {
+                        if piece.isLocked == false {
                             
-                            movePiecesHelper(piece: piece, direction: direction)
+                            piece.indexes.y = piece.indexes.y! - 1
+                            
+                            if checkForIce(piece: piece) == true {
+                                
+                                movePiecesHelper(piece: piece, direction: direction)
+                            }
                         }
+                        
                         
                     } else {
                         
@@ -845,11 +849,14 @@ class Model {
                     
                     if piece.shape != .pieceMaker {
                         
-                        piece.indexes.y = piece.indexes.y! + 1
-                        
-                        if checkForIce(piece: piece) == true {
+                        if piece.isLocked == false {
                             
-                            movePiecesHelper(piece: piece, direction: direction)
+                            piece.indexes.y = piece.indexes.y! + 1
+                            
+                            if checkForIce(piece: piece) == true {
+                                
+                                movePiecesHelper(piece: piece, direction: direction)
+                            }
                         }
                         
                     } else {
@@ -897,11 +904,14 @@ class Model {
                     
                     if piece.shape != .pieceMaker {
                         
-                        piece.indexes.x = piece.indexes.x! - 1
-                        
-                        if checkForIce(piece: piece) == true {
+                        if piece.isLocked == false {
                             
-                            movePiecesHelper(piece: piece, direction: direction)
+                            piece.indexes.x = piece.indexes.x! - 1
+                            
+                            if checkForIce(piece: piece) == true {
+                                
+                                movePiecesHelper(piece: piece, direction: direction)
+                            }
                         }
                         
                     } else {
@@ -951,11 +961,14 @@ class Model {
                     
                     if piece.shape != .pieceMaker {
                         
-                        piece.indexes.x = piece.indexes.x! + 1
-                        
-                        if checkForIce(piece: piece) == true {
+                        if piece.isLocked == false {
+                           
+                            piece.indexes.x = piece.indexes.x! + 1
                             
-                            movePiecesHelper(piece: piece, direction: direction)
+                            if checkForIce(piece: piece) == true {
+                                
+                                movePiecesHelper(piece: piece, direction: direction)
+                            }
                         }
                         
                     } else {
@@ -1230,8 +1243,6 @@ class Model {
                         
                         if piece.side.right.closing.isOpen == true {
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        } else {
-                            print("set up func to move ball close to center")
                         }
                     } else {
                         
