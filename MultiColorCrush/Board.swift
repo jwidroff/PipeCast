@@ -21,7 +21,7 @@ class Board {
     var pieces = [Piece]()
     var heightSpaces = Int()
     var widthSpaces = Int()
-    var iceLocations = [Indexes]()
+//    var iceLocations = [Indexes]()
 //    var pieceMakerLocations = [Indexes]()
 }
 

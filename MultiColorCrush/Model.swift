@@ -73,13 +73,13 @@ class Model {
     
     func setUpGame() {
         
-        setLevel()
+        getLevel()
         setBoard()
         
 //        setPieces()
     }
     
-    func setLevel() {
+    func getLevel() {
         
         let levelModel = LevelModel()
         level = levelModel.returnLevel(levelNumber: 1)
@@ -90,7 +90,7 @@ class Model {
     
     func setBoard() {
         
-        setupIce()
+//        setupIce()
         
         delegate?.setUpGame(board: board)
         
@@ -121,10 +121,10 @@ class Model {
 //        }
 //    }
     
-    func setupIce() {
-        
-        board.iceLocations = level.iceLocations
-    }
+//    func setupIce() {
+//        
+//        board.iceLocations = level.iceLocations
+//    }
     
 //    func setupEntrances() {
 //
@@ -728,7 +728,7 @@ class Model {
 
         var bool = false
 
-        if board.iceLocations.contains(where: { (index) -> Bool in
+        if level.iceLocations.contains(where: { (index) -> Bool in
             index == piece.indexes
         }) {
             bool = true

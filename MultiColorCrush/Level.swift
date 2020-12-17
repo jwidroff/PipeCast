@@ -16,6 +16,7 @@ class Level {
     var boardHeight = Int()
     var boardWidth = Int()
     var numberOfPieces = Int()
+    var board = Board()
     var iceLocations = [Indexes]()
     var pieceMakerLocations = [Indexes]()
     var walls = [Indexes]()
@@ -37,31 +38,45 @@ class LevelModel {
     
     private var pieces = [Piece]()
     
+    //MARK: Make this spit out a board, not a level!
     func returnLevel(levelNumber: Int) -> Level {
+        
         
         switch levelNumber {
             
         case 1:
             
-            level.number = 1
-            level.iceLocations = [Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
+//            level.number = 1
 //            level.pieceMakerLocations = [Indexes(x: 4, y: 4)]
+//            level.numberOfPieces = 30
+
             
-            level.boardHeight = 10
-            level.boardWidth = 5
-            level.numberOfPieces = 30
+            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom")
+            level.pieces.append(piece)
             
             
-            setupPieceMakers()
-            setupEntrances()
-            setupExits()
-            setupWalls()
-            setupBalls()
             
-            for _ in 0..<level.numberOfPieces {
-                
-                setupPieces()
-            }
+            
+            
+            
+            //UP TO HERE: MAKE THE ABOVE POSSIBLE FOR ALL TYPES OF PIECES INCLUDING WALLS, PIECEMAKERS, ENTRANCES AND EXITS. WILL NEED TO SET SIDES FOR ENTRANCES AND EXITS SO THAT THEIR COLORS ARE CORRECT
+            
+            
+            
+            
+            
+            
+            
+            
+//            let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right")
+//
+//            level.pieces.append(entrance)
+
+            
+            setUpLevelDefaults()
+            
+            
+            
             
             
 //            let side = Side()
@@ -108,31 +123,59 @@ class LevelModel {
 
     }
     
+    private func setUpLevelDefaults() {
+        setupGrid()
+//        setupEntrances()
+        setupExits()
+        setupPieceMakers()
+        setupWalls()
+        setupBalls()
+        setupPieces()
+    }
+    
+    private func setupGrid() {
+        
+        if level.boardHeight == Int() {
+            level.boardHeight = 10
+        }
+        
+        if level.boardWidth == Int() {
+            level.boardWidth = 5
+        }
+        if level.iceLocations == [Indexes()] {
+            level.iceLocations = [Indexes()]
+        }
+        //[Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
+    }
+    
     private func setupPieceMakers() {
 
-        for _ in 1...1 {
-
-            let pieceMaker = Piece()
-            setPieceIndex(piece: pieceMaker)
-            pieceMaker.isLocked = true
-            pieceMaker.colors = [.black]
-            pieceMaker.shape = .pieceMaker
-            let version = Int(arc4random_uniform(UInt32(4))) + 1
-            pieceMaker.version = version
-
-            let nextPiece = Piece()
-            nextPiece.indexes = pieceMaker.indexes
-            setPieceShape(piece: nextPiece)
-            setPieceColor(piece: nextPiece)
-            setPieceSwitches(piece: nextPiece)
-            setPieceSides(piece: nextPiece)
-            pieceMaker.nextPiece = nextPiece
-            level.pieces.append(pieceMaker)
-
-
-
-
-        }
+        //Continue here
+        
+        
+//        for _ in 1...1 {
+//
+//            let pieceMaker = Piece()
+//            setPieceIndex(piece: pieceMaker)
+//            pieceMaker.isLocked = true
+//            pieceMaker.colors = [.black]
+//            pieceMaker.shape = .pieceMaker
+//            let version = Int(arc4random_uniform(UInt32(4))) + 1
+//            pieceMaker.version = version
+//
+//            let nextPiece = Piece()
+//            nextPiece.indexes = pieceMaker.indexes
+//            setPieceShape(piece: nextPiece)
+//            setPieceColor(piece: nextPiece)
+//            setPieceSwitches(piece: nextPiece)
+//            setPieceSides(piece: nextPiece)
+//            pieceMaker.nextPiece = nextPiece
+//            level.pieces.append(pieceMaker)
+//
+//
+//
+//
+//        }
     }
     
     private func setPieceIndex(piece: Piece) {
@@ -167,7 +210,7 @@ class LevelModel {
         piece.colors = [randomColor1, randomColor2]
     }
     
-    func setPieceSwitches(piece: Piece) {
+    private func setPieceSwitches(piece: Piece) {
         
         switch piece.shape {
         
@@ -197,7 +240,7 @@ class LevelModel {
         }
     }
     
-    func setPieceSides(piece: Piece) {
+    private func setPieceSides(piece: Piece) {
       
         switch piece.shape {
             
@@ -657,14 +700,39 @@ class LevelModel {
     }
     private func setupPieces() {
         
-        let piece = Piece()
-        setPieceIndex(piece: piece)
-        setPieceShape(piece: piece)
-        setPieceColor(piece: piece)
-        setPieceSwitches(piece: piece)
-        setPieceSides(piece: piece)
-        level.pieces.append(piece)
+        if level.numberOfPieces == Int() {
+            
+            for _ in 0...1 {
+                
+                let piece = Piece()
+                setPieceIndex(piece: piece)
+                setPieceShape(piece: piece)
+                setPieceColor(piece: piece)
+                setPieceSwitches(piece: piece)
+                setPieceSides(piece: piece)
+                level.pieces.append(piece)
+                
+            }
+            
+        } else {
+                
+            for _ in 0..<level.numberOfPieces {
+                
+                let piece = Piece()
+                setPieceIndex(piece: piece)
+                setPieceShape(piece: piece)
+                setPieceColor(piece: piece)
+                setPieceSwitches(piece: piece)
+                setPieceSides(piece: piece)
+                level.pieces.append(piece)
+                
+            }
+            
+        }
+        
+        
     }
+    
 }
 
 
