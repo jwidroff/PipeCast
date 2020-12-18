@@ -46,7 +46,7 @@ class Piece {
             self.opening = opening
         }
         setPieceSwitches()
-        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors)
+        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
         
     }
     
@@ -76,9 +76,72 @@ class Piece {
         }
     }
     
-    private func setPieceSides(shape: Shape, version: Int, currentSwitch: Int, colors: [UIColor]) {
+    private func setPieceSides(shape: Shape, version: Int, currentSwitch: Int, colors: [UIColor], opening: String?) {
         
         switch shape {
+        
+        case .entrance:
+            
+            switch opening {
+            
+            
+            case "top":
+                
+                side.top.color = colors[0]
+
+                
+            case "bottom":
+                
+                side.bottom.color = colors[0]
+
+                
+            case "left":
+                
+                side.left.color = colors[0]
+
+                
+            case "right":
+                
+                side.right.color = colors[0]
+
+                
+            default:
+                break
+            }
+        
+        case .exit:
+            
+            
+            switch opening {
+            
+            
+            case "top":
+                
+                side.top.color = colors[0]
+                side.top.exitSide = "center"
+                side.top.opening.isOpen = true
+                
+            case "bottom":
+                
+                side.bottom.color = colors[0]
+                side.bottom.exitSide = "center"
+                side.bottom.opening.isOpen = true
+                
+            case "left":
+                
+                side.left.color = colors[0]
+                side.left.exitSide = "center"
+                side.left.opening.isOpen = true
+                
+            case "right":
+                
+                side.right.color = colors[0]
+                side.right.exitSide = "center"
+                side.right.opening.isOpen = true
+                
+            default:
+                break
+            }
             
         case .elbow:
             

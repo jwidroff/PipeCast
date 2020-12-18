@@ -50,8 +50,13 @@ class LevelModel {
 //            level.pieceMakerLocations = [Indexes(x: 4, y: 4)]
 //            level.numberOfPieces = 30
 
+            let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            level.pieces.append(entrance)
+
+            let exit = Piece(indexes: Indexes(x: 0, y: 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
+            level.pieces.append(exit)
             
-            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom")
+            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil)
             level.pieces.append(piece)
             
             
@@ -59,7 +64,25 @@ class LevelModel {
             
             
             
-            //UP TO HERE: MAKE THE ABOVE POSSIBLE FOR ALL TYPES OF PIECES INCLUDING WALLS, PIECEMAKERS, ENTRANCES AND EXITS. WILL NEED TO SET SIDES FOR ENTRANCES AND EXITS SO THAT THEIR COLORS ARE CORRECT
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            //UP TO HERE: MAKE THE ABOVE POSSIBLE FOR ALL TYPES OF PIECES INCLUDING WALLS, PIECEMAKERS. 
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -126,7 +149,7 @@ class LevelModel {
     private func setUpLevelDefaults() {
         setupGrid()
 //        setupEntrances()
-        setupExits()
+//        setupExits()
         setupPieceMakers()
         setupWalls()
         setupBalls()
