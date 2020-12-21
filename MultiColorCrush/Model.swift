@@ -45,6 +45,8 @@ import UIKit
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
 
+//TODO: Make it that the balls follow the entrances when they move
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -54,7 +56,6 @@ protocol ModelDelegate {
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
-//    func enlargeNewPieces(piece: Piece)
 }
 
 class Model {
@@ -86,127 +87,6 @@ class Model {
         delegate?.setUpPiecesView()
     }
     
-//    func setupPieceMakers() {
-//
-//        for _ in 1...1 {
-//
-//            let pieceMaker = Piece()
-//            setPieceIndex(piece: pieceMaker)
-//            pieceMaker.isLocked = true
-//            pieceMaker.colors = [.black]
-//            pieceMaker.shape = .pieceMaker
-//            let version = Int(arc4random_uniform(UInt32(4))) + 1
-//            pieceMaker.version = version
-//
-//            let nextPiece = Piece()
-//            nextPiece.indexes = pieceMaker.indexes
-//            setPieceShape(piece: nextPiece)
-//            setPieceColor(piece: nextPiece)
-//            setPieceSwitches(piece: nextPiece)
-//            setPieceSides(piece: nextPiece)
-//            pieceMaker.nextPiece = nextPiece
-//            board.pieces.append(pieceMaker)
-//
-//        }
-//    }
-    
-//    func setupIce() {
-//        
-//        board.iceLocations = level.iceLocations
-//    }
-    
-//    func setupEntrances() {
-//
-//        for _ in 1...1 {
-//
-//            let entrance = Piece()
-//            setPieceIndex(piece: entrance)
-////            entrance.indexes = Indexes(x: 3, y: 4)
-//            entrance.isLocked = true
-//            entrance.colors = [.red]
-//
-//            //TODO - Make this different per side
-//            entrance.opening = "right"
-//            entrance.side.right.color = entrance.colors[0]
-//            entrance.shape = .entrance
-//            board.pieces.append(entrance)
-//        }
-//    }
-
-//    func setupExits() {
-//
-//        for _ in 1...1 {
-//
-//            let exit = Piece()
-//            setPieceIndex(piece: exit)
-////            exit.indexes = Indexes(x: 3, y: 3)
-//
-//            exit.isLocked = true
-//            exit.colors = [.red]
-//            exit.opening = "left"
-//            exit.side.left.color = exit.colors[0]
-//            exit.side.left.opening.isOpen = true
-//            exit.side.left.exitSide = "center" //TODO: Change
-//            exit.shape = .exit
-//            board.pieces.append(exit)
-//        }
-//    }
-    
-//    func setupWalls() {
-//
-//        for _ in 0...0 {
-//
-//            let wall = Piece()
-//            setPieceIndex(piece: wall)
-//            wall.isLocked = true
-//            wall.colors = [.lightGray]
-//            wall.shape = .wall
-//            board.pieces.append(wall)
-//        }
-//    }
-    
-//    func setupBalls() {
-//
-//        for piece in board.pieces {
-//
-//            if piece.shape == .entrance {
-//
-//
-//            let ball = Ball()
-//                ball.indexes = piece.indexes
-//                ball.onColor = piece.colors[0]
-//                board.balls.append(ball)
-//            }
-//        }
-////        board.balls = board.balls
-//    }
-    
-//    func setPieces() {
-//
-//        setupPieceMakers()
-//        setupEntrances()
-//        setupExits()
-//        setupWalls()
-//        setupBalls()
-//
-//        for _ in 0..<level.numberOfPieces {
-//
-//            setupPieces()
-//        }
-//        delegate?.setUpPiecesView()
-//    }
-    
-//    func setupPieces() {
-//
-//        let piece = Piece()
-//        setPieceIndex(piece: piece)
-//        setPieceShape(piece: piece)
-//        setPieceColor(piece: piece)
-//        setPieceSwitches(piece: piece)
-//        setPieceSides(piece: piece)
-//        board.pieces.append(piece)
-//    }
-    
     func setPieceSides(piece: Piece) {
       
         switch piece.shape {
@@ -223,8 +103,6 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
@@ -240,8 +118,6 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
@@ -262,8 +138,6 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -279,8 +153,6 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
@@ -291,7 +163,6 @@ class Model {
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = nil
                     piece.side.right.color = nil
-                    
                 }
                 
             case 3:
@@ -302,8 +173,6 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -319,8 +188,6 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -341,8 +208,6 @@ class Model {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
@@ -358,8 +223,6 @@ class Model {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -397,9 +260,6 @@ class Model {
             piece.side.right.opening.isOpen = true
             
             switch piece.version {
-            
-            
-
             
             case 1, 3:
                 
@@ -467,8 +327,6 @@ class Model {
                 
                 if piece.currentSwitch == 1 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -478,8 +336,6 @@ class Model {
                     
                 } else if piece.currentSwitch == 2 {
                     
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -492,9 +348,6 @@ class Model {
                 
                 if piece.currentSwitch == 1 {
                     
-                   
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -504,8 +357,6 @@ class Model {
                     
                 } else if piece.currentSwitch == 2 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -524,10 +375,6 @@ class Model {
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
             piece.side.right.opening.isOpen = true
-//            piece.side.top.closing.isOpen = true
-//            piece.side.bottom.closing.isOpen = true
-//            piece.side.left.closing.isOpen = true
-//            piece.side.right.closing.isOpen = true
             
             switch piece.version {
             
@@ -537,7 +384,6 @@ class Model {
 
                 if piece.currentSwitch == 1 {
 
-                
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = "right"
@@ -559,7 +405,6 @@ class Model {
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[0]
-                     
                 }
                 
             case 2, 4:
@@ -618,31 +463,15 @@ class Model {
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
-            
         case .stick:
             
             piece.switches = 1
             piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
             
-            
         default:
             break
         }
     }
-    
-//    func setPieceIndex(piece: Piece) {
-//
-//        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
-//
-//        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
-//        if board.pieces.contains(where: { (pieceX) -> Bool in
-//            pieceX.indexes == index
-//        }){
-//            setPieceIndex(piece: piece)
-//        } else {
-//            piece.indexes = index
-//        }
-//    }
     
     func setPieceShape(piece: Piece) {
         
@@ -727,11 +556,6 @@ class Model {
     
     func resetPieceMaker(piece: Piece) {
                 
-        
-        //FIX THIS TO MAKE SURE THAT THE CORRECT VIEW FOR THE NEXT PIECE IS BEING DISPLAYED
-        
-        
-        
         let nextPiece = Piece()
         nextPiece.indexes = piece.indexes
         setPieceShape(piece: nextPiece)
@@ -739,16 +563,8 @@ class Model {
         setPieceSwitches(piece: nextPiece)
         setPieceSides(piece: nextPiece)
         piece.nextPiece = nextPiece
-//        piece.nextPiece?.view = ShapeView(frame: piece.view.frame, piece: piece.nextPiece!)
-//        piece.view = nextPiece.view
-//        piece.view = ShapeView(frame: piece.view.frame, piece: piece)
-//        piece.nextPiece?.view.setNeedsDisplay()
-        
-        
-        
         delegate?.resetPieceMaker(piece: piece)
     }
-    
     
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
@@ -776,7 +592,6 @@ class Model {
                             }
                         }
                         
-                        
                     } else {
                         
                         if piece.shape == .pieceMaker && piece.version == 3 {
@@ -785,22 +600,11 @@ class Model {
                                 
                                 let newPiece = piece.nextPiece!
                                 
-//                                piece.nextPiece = nil
-                                
-                                
-                                //Problem may lie here?
-                                
-                                
-//                                newPiece.view = piece.view.subviews.first as! ShapeView
                                 newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
-                                
-//                                newPiece.view = piece.nextPiece!.view
-                                
+                                                                
                                 delegate?.addPieceView(piece: newPiece)
                                 
                                 board.pieces.append(newPiece)
-                                
-                                
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! - 1
                                 
@@ -809,9 +613,7 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                //Reset the pieceMaker
                                 resetPieceMaker(piece: piece)
-                                
                             }
                         }
                     }
@@ -849,12 +651,8 @@ class Model {
                             if piece.nextPiece != nil {
 
                                 let newPiece = piece.nextPiece!
-
-//                                piece.nextPiece = nil
-
-//                                newPiece.view = piece.view.subviews.first as! ShapeView
+                                
                                 newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
-//                                newPiece.view = piece.nextPiece!.view
 
                                 delegate?.addPieceView(piece: newPiece)
                                 
@@ -867,7 +665,6 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                //Reset the pieceMaker
                                 resetPieceMaker(piece: piece)
                             }
                         }
@@ -905,11 +702,7 @@ class Model {
                                 
                                 let newPiece = piece.nextPiece!
                                 
-//                                piece.nextPiece = nil
-
-//                                newPiece.view = piece.view.subviews.first as! ShapeView
                                 newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
-//                                newPiece.view = piece.nextPiece!.view
 
                                 delegate?.addPieceView(piece: newPiece)
 
@@ -922,7 +715,6 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                //Reset the pieceMaker
                                 resetPieceMaker(piece: piece)
                             }
                         }
@@ -962,12 +754,7 @@ class Model {
                                 
                                 let newPiece = piece.nextPiece!
                                 
-//                                piece.nextPiece = nil
-                                
-//                                newPiece.view = piece.view.subviews.first as! ShapeView
                                 newPiece.view = ShapeView(frame: piece.view.frame, piece: newPiece)
-
-//                                newPiece.view = piece.nextPiece!.view
 
                                 delegate?.addPieceView(piece: newPiece)
                                 
@@ -980,7 +767,6 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                //Reset the pieceMaker
                                 resetPieceMaker(piece: piece)
                             }
                         }
@@ -1020,13 +806,10 @@ class Model {
 //            .filter({ (piece) -> Bool in
 //                piece.isLocked == false
 //            })
-            
             {
-                
                 movePiecesHelper(piece: piece, direction: direction)
-
-
             }
+            
             delegate?.movePieces(direction: direction)
 
         case .left:
@@ -1037,10 +820,9 @@ class Model {
 //                piece.isLocked == false
 //            })
             {
-                
                 movePiecesHelper(piece: piece, direction: direction)
-
             }
+            
             delegate?.movePieces(direction: direction)
 
         case .right:
@@ -1051,18 +833,13 @@ class Model {
 //                piece.isLocked == false
 //            })
             {
-                
                 movePiecesHelper(piece: piece, direction: direction)
-
-
             }
             delegate?.movePieces(direction: direction)
 
         default:
             break
         }
-        
-//        delegate?.addPiece()
     }
     
     func winner() {
@@ -1254,10 +1031,6 @@ class Model {
                 switch4Tap(piece: piece) { (false) in
                     piece.view.setNeedsDisplay()
                 }
-                
-                
-//                piece.view.backgroundColor = .white
-//                delegate?.pieceWasTapped(piece: piece)
             }
         }
         
@@ -1268,10 +1041,10 @@ class Model {
                 for piece in board.pieces {
                     
                     //TODO: Change this back
-                    piece.view.isUserInteractionEnabled = true
+                    piece.view.isUserInteractionEnabled = false
                 }
                 
-                board.view.isUserInteractionEnabled = true
+                board.view.isUserInteractionEnabled = false
                 
                 moveBall(ball: ball, startSide: "unmoved")
             }
@@ -1296,59 +1069,7 @@ class Model {
             piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
             piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
             piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
-            
-            
-            
-//            switch piece.version {
-//
-//            case 1, 3:
-//
-//                if piece.currentSwitch == 1 {
-//
-//
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
-//                    piece.side.top.closing.isOpen = false
-//                    piece.side.bottom.closing.isOpen = false
-//
-//                } else if piece.currentSwitch == 2 {
-//
-//                    piece.side.left.closing.isOpen = false
-//                    piece.side.right.closing.isOpen = false
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//
-//
-//
-//                }
-//
-//            case 2, 4:
-//
-//                if piece.currentSwitch == 1 {
-//
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
-//                    piece.side.top.closing.isOpen = false
-//                    piece.side.bottom.closing.isOpen = false
-//
-//                } else if piece.currentSwitch == 2 {
-//
-//                    piece.side.left.closing.isOpen = false
-//                    piece.side.right.closing.isOpen = false
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                }
-//
-//            default:
-//                break
-//
-//            }
-            
-            
-            
-            
-            
-            
+
         case .elbow:
             
             switch piece.version {
@@ -1382,8 +1103,6 @@ class Model {
                 
                 piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
                 piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-//                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-//                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
 
             case 2:
                 
@@ -1414,8 +1133,6 @@ class Model {
                 
                 piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
                 piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-//                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-//                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
                 
             case 3:
                 
@@ -1446,8 +1163,6 @@ class Model {
                 
                 piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
                 piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-//                piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-//                piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
                 
             case 4:
                 
@@ -1478,22 +1193,12 @@ class Model {
                 
                 piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
                 piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-//                piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-//                piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
                 
             default:
                 break
             }
             
-//            print("piece left side exitSide \(side.left.exitSide)")
-//            print("piece right side exitSide \(side.right.exitSide)")
-//            print("piece top side exitSide \(side.top.exitSide)")
-//            print("piece bottom side exitSide \(side.bottom.exitSide)")
-//
-//
-
-            
-        case .diagElbow: // Nothing to set as far as openings and closings
+        case .diagElbow:
                     
             switch piece.version {
             
@@ -1511,7 +1216,6 @@ class Model {
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[1]
                     
-                    
                 } else if piece.currentSwitch == 2 {
                     
                     piece.side.top.exitSide = "left"
@@ -1519,12 +1223,10 @@ class Model {
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
                     
-                    
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[0]
-                    
                 }
                 
             case 2, 4:
@@ -1541,15 +1243,12 @@ class Model {
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
                     
-                    
                 } else if piece.currentSwitch == 2 {
-                    
                     
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = "left"
-                    
                     
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
@@ -1561,29 +1260,10 @@ class Model {
                 break
             }
             
-            
-//            print("version \(version)")
-//
-//            print("currentSwitch \(currentSwitch)")
-//
-//
-//            print("piece left side color \(side.left.color)")
-//            print("piece right side color \(side.right.color)")
-//            print("piece top side color \(side.top.color)")
-//            print("piece bottom side color \(side.bottom.color)")
-            
-            
         default:
             break
         }
         
-//        piece.view.setNeedsDisplay()
         completion(true)
-        
-        
     }
-    
-    
-    
-    
 }

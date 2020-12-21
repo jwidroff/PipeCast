@@ -16,7 +16,6 @@ class Piece {
     var shape: Shape = .regular
     var view = ShapeView()
     var colors = [UIColor()]
-//    var opacity = Int()
     var switches = Int()
     var currentSwitch = Int()
     var side = Side()
@@ -24,11 +23,6 @@ class Piece {
     var isLocked = false
     var opening = String()
     var nextPiece: Piece?
-//    var next = Piece()
-    
-//    var nextPieceX: Piece?
-    
-    
     
     init(){
         
@@ -42,11 +36,13 @@ class Piece {
         self.version = version
         self.currentSwitch = currentSwitch
         self.isLocked = isLocked
+        
         if let opening = opening {
             self.opening = opening
         }
-        setPieceSwitches()
+        
         setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
+        
         if shape == .pieceMaker {
             
             let nextPiece = Piece()
@@ -56,8 +52,6 @@ class Piece {
             setPieceSwitches(piece: nextPiece)
             setPieceSides(shape: nextPiece.shape, version: 1, currentSwitch: 1, colors: nextPiece.colors, opening: nil)
             self.nextPiece = nextPiece
-//            level.pieces.append(pieceMaker)
-            
         }
     }
     
@@ -79,12 +73,10 @@ class Piece {
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
-            
         case .stick:
             
             piece.switches = 1
             piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
-            
             
         default:
             break
@@ -108,32 +100,6 @@ class Piece {
         piece.colors = [randomColor1, randomColor2]
     }
     
-    private func setPieceSwitches() {
-        
-        switch shape {
-        
-        case .elbow:
-            switches = 2
-            
-        case .diagElbow:
-            
-            switches = 2
-            
-        case .cross:
-            
-            switches = 2
-            
-            
-        case .stick:
-            
-            switches = 1
-            
-            
-        default:
-            break
-        }
-    }
-    
     private func setPieceSides(shape: Shape, version: Int, currentSwitch: Int, colors: [UIColor], opening: String?) {
         
         switch shape {
@@ -142,36 +108,29 @@ class Piece {
             
             switch opening {
             
-            
             case "top":
                 
                 side.top.color = colors[0]
 
-                
             case "bottom":
                 
                 side.bottom.color = colors[0]
 
-                
             case "left":
                 
                 side.left.color = colors[0]
 
-                
             case "right":
                 
                 side.right.color = colors[0]
 
-                
             default:
                 break
             }
         
         case .exit:
             
-            
             switch opening {
-            
             
             case "top":
                 
@@ -213,8 +172,6 @@ class Piece {
                     
                     side.top.opening.isOpen = true
                     side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     side.top.color = colors[0]
                     side.left.color = colors[0]
@@ -230,8 +187,6 @@ class Piece {
                     
                     side.top.opening.isOpen = true
                     side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     side.top.color = colors[0]
                     side.right.color = colors[0]
@@ -252,8 +207,6 @@ class Piece {
                     
                     side.bottom.opening.isOpen = true
                     side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     side.bottom.exitSide = "left"
                     side.left.exitSide = "bottom"
@@ -269,8 +222,6 @@ class Piece {
                     
                     side.top.opening.isOpen = true
                     side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     side.top.exitSide = "left"
                     side.left.exitSide = "top"
@@ -281,7 +232,6 @@ class Piece {
                     side.left.color = colors[0]
                     side.bottom.color = nil
                     side.right.color = nil
-                    
                 }
                 
             case 3:
@@ -292,8 +242,6 @@ class Piece {
                     
                     side.bottom.opening.isOpen = true
                     side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
@@ -309,8 +257,6 @@ class Piece {
                     
                     side.bottom.opening.isOpen = true
                     side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     side.bottom.exitSide = "left"
                     side.left.exitSide = "bottom"
@@ -331,8 +277,6 @@ class Piece {
                     
                     side.top.opening.isOpen = true
                     side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     side.top.exitSide = "right"
                     side.right.exitSide = "top"
@@ -348,8 +292,6 @@ class Piece {
                     
                     side.bottom.opening.isOpen = true
                     side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     side.bottom.exitSide = "right"
                     side.right.exitSide = "bottom"
@@ -367,7 +309,6 @@ class Piece {
             }
             
         case .cross:
-            
             
             side.right.exitSide = "left"
             side.left.exitSide = "right"
@@ -432,19 +373,7 @@ class Piece {
                 break
                 
             }
-//
-//            print("piece.colors \(piece.colors)")
-//            print("piece.version \(piece.version)")
-//            print("piece.currentSwitch \(piece.currentSwitch)")
-//            print("piece.side.top.closing.isOpen \(piece.side.top.closing.isOpen)")
-//            print("piece.side.bottom.closing.isOpen \(piece.side.bottom.closing.isOpen)")
-//            print("piece.side.left.closing.isOpen \(piece.side.left.closing.isOpen)")
-//            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
-//            print("piece.side.top.color \(piece.side.top.color)")
-//            print("piece.side.bottom.color \(piece.side.bottom.color)")
-//            print("piece.side.left.color \(piece.side.left.color)")
-//            print("piece.side.right.color \(piece.side.right.color)")
-
+            
         case .stick:
             
             switch version {
@@ -452,8 +381,6 @@ class Piece {
                 
                 if currentSwitch == 1 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     side.right.exitSide = "left"
                     side.left.exitSide = "right"
                     side.right.color = colors[1]
@@ -463,8 +390,6 @@ class Piece {
                     
                 } else if currentSwitch == 2 {
                     
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     side.top.exitSide = "bottom"
                     side.bottom.exitSide = "top"
                     side.top.color = colors[0]
@@ -477,9 +402,6 @@ class Piece {
                 
                 if currentSwitch == 1 {
                     
-                   
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     side.top.exitSide = "bottom"
                     side.bottom.exitSide = "top"
                     side.top.color = colors[0]
@@ -489,8 +411,6 @@ class Piece {
                     
                 } else if currentSwitch == 2 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     side.right.exitSide = "left"
                     side.left.exitSide = "right"
                     side.right.color = colors[1]
@@ -509,10 +429,6 @@ class Piece {
             side.bottom.opening.isOpen = true
             side.left.opening.isOpen = true
             side.right.opening.isOpen = true
-//            piece.side.top.closing.isOpen = true
-//            piece.side.bottom.closing.isOpen = true
-//            piece.side.left.closing.isOpen = true
-//            piece.side.right.closing.isOpen = true
             
             switch version {
             
@@ -521,8 +437,7 @@ class Piece {
                 //Pivots on left and right
 
                 if currentSwitch == 1 {
-
-                
+                    
                     side.right.exitSide = "top"
                     side.left.exitSide = "bottom"
                     side.top.exitSide = "right"
@@ -544,7 +459,6 @@ class Piece {
                     side.top.color = colors[1]
                     side.left.color = colors[1]
                     side.bottom.color = colors[0]
-                     
                 }
                 
             case 2, 4:
@@ -584,8 +498,6 @@ class Piece {
             break
         }
     }
-    
-
 }
 
 class Side {

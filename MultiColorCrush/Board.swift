@@ -15,15 +15,10 @@ class Board {
     var grid = [Indexes: CGPoint]()
     var view = UIView()
     var iceLocations = [Indexes]()
-//    var walls = [Wall]()
-//    var entrances = [Entrance]()
-//    var exits = [Exit]()
     var balls = [Ball]()
     var pieces = [Piece]()
     var heightSpaces = Int()
     var widthSpaces = Int()
-//    var iceLocations = [Indexes]()
-//    var pieceMakerLocations = [Indexes]()
 }
 
 class BoardView : UIView {
@@ -72,7 +67,6 @@ class BoardView : UIView {
         context.setStrokeColor(UIColor.lightGray.cgColor)
         context.setLineWidth(2.5)
         
-        
         let point1 = CGPoint(x: xArray[0], y: yArray[0])
         let point2 = CGPoint(x: xArray[1], y: yArray[1])
         
@@ -108,36 +102,13 @@ class BoardView : UIView {
         for iceLocation in iceLocations {
             
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
-//            let textBox = UITextField(frame: rect)
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             context.setFillColor(UIColor.cyan.cgColor)
             context.fill(rect)
             context.addRect(rect)
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
 
         setNeedsDisplay()
-        
         self.context = context
-
     }
 }
 

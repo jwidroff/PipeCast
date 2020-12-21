@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BA273E8E24FE7FD500D84D3D /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA273E8D24FE7FD500D84D3D /* Wall.swift */; };
 		BA28284324EC10980022AD9E /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28284224EC10980022AD9E /* Board.swift */; };
 		BA28284524EC13850022AD9E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28284424EC13850022AD9E /* Model.swift */; };
 		BA28284724EC149F0022AD9E /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28284624EC149F0022AD9E /* Level.swift */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BA273E8D24FE7FD500D84D3D /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		BA28284224EC10980022AD9E /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		BA28284424EC13850022AD9E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA28284624EC149F0022AD9E /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 				BA28284424EC13850022AD9E /* Model.swift */,
 				BA28284624EC149F0022AD9E /* Level.swift */,
 				BA348F6924EB529C001EFEF2 /* Piece.swift */,
-				BA273E8D24FE7FD500D84D3D /* Wall.swift */,
 				BA28284224EC10980022AD9E /* Board.swift */,
 				BA2B370524E214AC00274DF4 /* GridPoints.swift */,
 				BA2B36F724E188B300274DF4 /* Main.storyboard */,
@@ -166,7 +163,6 @@
 				BA28284324EC10980022AD9E /* Board.swift in Sources */,
 				BA348F6A24EB529C001EFEF2 /* Piece.swift in Sources */,
 				BA2B370624E214AC00274DF4 /* GridPoints.swift in Sources */,
-				BA273E8E24FE7FD500D84D3D /* Wall.swift in Sources */,
 				BA28284724EC149F0022AD9E /* Level.swift in Sources */,
 				BA2B36F424E188B300274DF4 /* SceneDelegate.swift in Sources */,
 			);

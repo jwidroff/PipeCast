@@ -13,66 +13,37 @@ import UIKit
 class Level {
     
     var number = Int()
-    var boardHeight = Int()
-    var boardWidth = Int()
-//    var numberOfRandomPieces = Int()
     var board = Board()
-    var iceLocations = [Indexes]()
-//    var pieceMakerLocations = [Indexes]()
-    var walls = [Indexes]()
-    var balls = [Ball]()
-    
-    var pieces = [Piece]()
-    
-    init(){
-        
-    }
-    
-    
 }
-
 
 class LevelModel {
     
-    let level = Level()
     let board = Board()
-    
-    private var pieces = [Piece]()
-    
-    //MARK: Make this spit out a board, not a level!
-    func returnBoard(levelNumber: Int) -> Board {
         
+    func returnBoard(levelNumber: Int) -> Board {
         
         switch levelNumber {
             
         case 1:
             
             let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            level.pieces.append(entrance)
             board.pieces.append(entrance)
 
 
             let exit = Piece(indexes: Indexes(x: 0, y: 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
-//            level.pieces.append(exit)
             board.pieces.append(exit)
 
             
             let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil)
-//            level.pieces.append(piece)
             board.pieces.append(piece)
 
             let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
-//            level.pieces.append(wall)
             board.pieces.append(wall)
 
             let pieceMaker = Piece(indexes: Indexes(x: 3, y: 5), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
-//            level.pieces.append(pieceMaker)
             board.pieces.append(pieceMaker)
 
-            
             setUpLevelDefaults(gridWidth: 5, gridHeight: 10, iceLocations: [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)], numberOfRandomPieces: 10)
-            
-            
             
             
             
@@ -107,36 +78,6 @@ class LevelModel {
             board.iceLocations = iceLocations
         }
         //[Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
-    }
-    
-    private func setupPieceMakers() {
-
-        //Continue here
-        
-        
-//        for _ in 1...1 {
-//
-//            let pieceMaker = Piece()
-//            setPieceIndex(piece: pieceMaker)
-//            pieceMaker.isLocked = true
-//            pieceMaker.colors = [.black]
-//            pieceMaker.shape = .pieceMaker
-//            let version = Int(arc4random_uniform(UInt32(4))) + 1
-//            pieceMaker.version = version
-//
-//            let nextPiece = Piece()
-//            nextPiece.indexes = pieceMaker.indexes
-//            setPieceShape(piece: nextPiece)
-//            setPieceColor(piece: nextPiece)
-//            setPieceSwitches(piece: nextPiece)
-//            setPieceSides(piece: nextPiece)
-//            pieceMaker.nextPiece = nextPiece
-//            level.pieces.append(pieceMaker)
-//
-//
-//
-//
-//        }
     }
     
     private func setPieceIndex(piece: Piece) {
@@ -217,8 +158,6 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
@@ -234,8 +173,6 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
@@ -256,8 +193,6 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -273,8 +208,6 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
@@ -296,8 +229,6 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -313,8 +244,6 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.left.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
@@ -335,8 +264,6 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
@@ -352,8 +279,6 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
@@ -372,9 +297,6 @@ class LevelModel {
             
         case .cross:
             
-            print(piece.version)
-            print(piece.currentSwitch)
-            
             piece.side.right.exitSide = "left"
             piece.side.left.exitSide = "right"
             piece.side.top.exitSide = "bottom"
@@ -391,9 +313,6 @@ class LevelModel {
             piece.side.right.opening.isOpen = true
             
             switch piece.version {
-            
-            
-
             
             case 1, 3:
                 
@@ -441,19 +360,7 @@ class LevelModel {
                 break
                 
             }
-//
-//            print("piece.colors \(piece.colors)")
-//            print("piece.version \(piece.version)")
-//            print("piece.currentSwitch \(piece.currentSwitch)")
-//            print("piece.side.top.closing.isOpen \(piece.side.top.closing.isOpen)")
-//            print("piece.side.bottom.closing.isOpen \(piece.side.bottom.closing.isOpen)")
-//            print("piece.side.left.closing.isOpen \(piece.side.left.closing.isOpen)")
-//            print("piece.side.right.closing.isOpen \(piece.side.right.closing.isOpen)")
-//            print("piece.side.top.color \(piece.side.top.color)")
-//            print("piece.side.bottom.color \(piece.side.bottom.color)")
-//            print("piece.side.left.color \(piece.side.left.color)")
-//            print("piece.side.right.color \(piece.side.right.color)")
-
+            
         case .stick:
             
             switch piece.version {
@@ -461,8 +368,6 @@ class LevelModel {
                 
                 if piece.currentSwitch == 1 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -472,8 +377,6 @@ class LevelModel {
                     
                 } else if piece.currentSwitch == 2 {
                     
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -486,9 +389,6 @@ class LevelModel {
                 
                 if piece.currentSwitch == 1 {
                     
-                   
-//                    piece.side.top.closing.isOpen = true
-//                    piece.side.bottom.closing.isOpen = true
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
                     piece.side.top.color = piece.colors[0]
@@ -498,8 +398,6 @@ class LevelModel {
                     
                 } else if piece.currentSwitch == 2 {
                     
-//                    piece.side.left.closing.isOpen = true
-//                    piece.side.right.closing.isOpen = true
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -518,10 +416,6 @@ class LevelModel {
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
             piece.side.right.opening.isOpen = true
-//            piece.side.top.closing.isOpen = true
-//            piece.side.bottom.closing.isOpen = true
-//            piece.side.left.closing.isOpen = true
-//            piece.side.right.closing.isOpen = true
             
             switch piece.version {
             
@@ -531,7 +425,6 @@ class LevelModel {
 
                 if piece.currentSwitch == 1 {
 
-                
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = "right"
@@ -553,7 +446,6 @@ class LevelModel {
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[0]
-                     
                 }
                 
             case 2, 4:
@@ -594,70 +486,18 @@ class LevelModel {
         }
     }
     
-//    private func setupEntrances() {
-//
-//        for _ in 1...1 {
-//
-//            let entrance = Piece()
-//            setPieceIndex(piece: entrance)
-////            entrance.indexes = Indexes(x: 3, y: 4)
-//            entrance.isLocked = true
-//            entrance.colors = [.red]
-//
-//            //TODO - Make this different per side
-//            entrance.opening = "right"
-//            entrance.side.right.color = entrance.colors[0]
-//            entrance.shape = .entrance
-//            level.pieces.append(entrance)
-//        }
-//    }
-//
-//    private func setupExits() {
-//
-//        for _ in 1...1 {
-//
-//            let exit = Piece()
-//            setPieceIndex(piece: exit)
-////            exit.indexes = Indexes(x: 3, y: 3)
-//
-//            exit.isLocked = true
-//            exit.colors = [.red]
-//            exit.opening = "left"
-//            exit.side.left.color = exit.colors[0]
-//            exit.side.left.opening.isOpen = true
-//            exit.side.left.exitSide = "center" //TODO: Change
-//            exit.shape = .exit
-//            level.pieces.append(exit)
-//        }
-//    }
-//
-//    private func setupWalls() {
-//
-//        for _ in 0...0 {
-//
-//            let wall = Piece()
-//            setPieceIndex(piece: wall)
-//            wall.isLocked = true
-//            wall.colors = [.lightGray]
-//            wall.shape = .wall
-//            level.pieces.append(wall)
-//        }
-//    }
-    
     private func setupBalls() {
         
         for piece in board.pieces {
             
             if piece.shape == .entrance {
 
-            
                 let ball = Ball()
                 ball.indexes = piece.indexes
                 ball.onColor = piece.colors[0]
                 board.balls.append(ball)
             }
         }
-//        board.balls = board.balls
     }
     
     private func setupPieces(numberOfRandomPieces: Int?) {
@@ -675,10 +515,8 @@ class LevelModel {
                 board.pieces.append(piece)
                 
             }
-            
         }
     }
-    
 }
 
 

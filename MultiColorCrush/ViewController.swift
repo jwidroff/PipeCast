@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
 
     var model = Model()
-    var spaceViews = [UIView]()
     var pieceWidth = CGFloat()
     var pieceHeight = CGFloat()
     var boardWidth = CGFloat()
@@ -22,11 +21,10 @@ class ViewController: UIViewController {
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
     var delayAmount = 0.0
-
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         self.view.backgroundColor = .lightGray
         model = Model()
         model.delegate = self
@@ -39,25 +37,17 @@ class ViewController: UIViewController {
         let frameX = (self.model.board.view.frame.width - boardWidth) / 2
         let frameY = (self.model.board.view.frame.height - boardHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
-//        self.model.board.widthSpaces = self.model.level.boardWidth
-//        self.model.board.heightSpaces = self.model.level.boardHeight
         self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
     }
-
-    
     
     func setupBalls() {
                 
         for ball in self.model.board.balls {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-
             ball.view = BallView(frame: frame)
-            
             ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
-            
             addTapGestureRecognizer(view: ball.view)
-
             self.model.board.view.addSubview(ball.view)
         }
     }
@@ -90,8 +80,6 @@ class ViewController: UIViewController {
     }
     
     func setSizes() {
-
-//        model.board.view = self.view
         
         let widthCushion:CGFloat = (self.view.frame.width / 10)
         let heightCushion:CGFloat = (self.view.frame.height / 10)
@@ -101,16 +89,11 @@ class ViewController: UIViewController {
             boardHeight = (self.view.frame.width - widthCushion) * 2
             boardWidth = self.view.frame.width - widthCushion
 
-            print("board height \(boardHeight)")
-            print("board width \(boardWidth)")
-
         } else if self.view.frame.width > (self.view.frame.height / 2) {
         
             boardWidth = (self.view.frame.height - heightCushion) / 2
             boardHeight = self.view.frame.height - heightCushion
             
-            print("board height \(boardHeight)")
-            print("board width \(boardWidth)")
         }
         
         pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
@@ -153,15 +136,6 @@ class ViewController: UIViewController {
         
         let pieceCenter = sender.view?.center
         model.handleTap(center: pieceCenter!)
-    
-    }
-    
-    func resetSpaces() {
-        
-        for space in spaceViews {
-            
-            space.backgroundColor = .black
-        }
     }
     
     func checkIfBallCanMove(direction: UISwipeGestureRecognizer.Direction, indexes: Indexes) -> Bool {
@@ -219,11 +193,7 @@ class ViewController: UIViewController {
 
     
     func curveAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
-//
-//        print("beginPoint \(beginPoint)")
-//        print("controlPoint \(controlPoint)")
-//        print("endPoint \(endPoint)")
-//
+
         ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
         ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
         
@@ -249,8 +219,8 @@ class ViewController: UIViewController {
             piece.shape != .entrance && piece.shape != .exit && piece.shape != .pieceMaker && piece.shape != .wall
         }) {
                         
-            let height = (piece.view.frame.height / 9 * 10)
-            let width = (piece.view.frame.width / 9 * 10)
+            let height = (piece.view.frame.height / 9 * 9.75)
+            let width = (piece.view.frame.width / 9 * 9.75)
             let x = piece.view.center.x - (width / 2)
             let y = piece.view.center.y - (height / 2)
             piece.view.frame = CGRect(x: x, y: y, width: width, height: height)
@@ -303,18 +273,16 @@ extension ViewController: ModelDelegate {
         UIView.animate(withDuration: 0.25) {
             
             let rect = CGRect(x: piece.view.frame.minX, y: piece.view.frame.minY, width: self.pieceWidth, height: self.pieceHeight)
-
             piece.view.frame = rect
             self.model.board.view.addSubview(piece.view)
-            
         }
     }
     
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
-//        enlargePieces()
-                
+        enlargePieces()
+        
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
@@ -342,29 +310,6 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                           
-//                self.delayAmount += 0.25
-                
-//                if piece.switches > 1 {
-//                    model.switch4Tap(piece: piece) { (true) in
-//
-//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
-//                        let backgroundColor = piece.view.backgroundColor
-//
-//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-////                            self.pieceWasTapped(piece: piece)
-//                            piece.view.backgroundColor = .lightGray
-//
-//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-//
-//                                piece.view.backgroundColor = backgroundColor
-//
-//                                piece.view.setNeedsDisplay()
-//
-//                            }
-//                        }
-//                    }
-//                }
                 
                 self.ballPath = UIBezierPath()
                 
@@ -417,17 +362,13 @@ extension ViewController: ModelDelegate {
                         let backgroundColor = piece.view.backgroundColor?.cgColor
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                            self.pieceWasTapped(piece: piece)
+                            
                             piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-
-//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
                                 piece.view.layer.backgroundColor = backgroundColor
                                 piece.view.setNeedsDisplay()
-
-                                
                             }
                         }
                     }
@@ -482,15 +423,13 @@ extension ViewController: ModelDelegate {
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                            self.pieceWasTapped(piece: piece)
+                            
                             piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
                                 piece.view.layer.backgroundColor = backgroundColor
                                 piece.view.setNeedsDisplay()
-
-
                             }
                         }
                     }
@@ -545,16 +484,13 @@ extension ViewController: ModelDelegate {
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                            self.pieceWasTapped(piece: piece)
+
                             piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
                                 piece.view.layer.backgroundColor = backgroundColor
                                 piece.view.setNeedsDisplay()
-
-                                
                             }
                         }
                     }
@@ -617,7 +553,6 @@ extension ViewController: ModelDelegate {
                                 
                                 piece.view.layer.backgroundColor = backgroundColor
                                 piece.view.setNeedsDisplay()
-                                
                             }
                         }
                     }
@@ -684,13 +619,7 @@ extension ViewController: ModelDelegate {
     
     func pieceWasTapped(piece: Piece) {
         
-        
         piece.view.setNeedsDisplay()
-
-        
-        
-        
-        
     }
 }
 
