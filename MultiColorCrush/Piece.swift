@@ -47,7 +47,65 @@ class Piece {
         }
         setPieceSwitches()
         setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
+        if shape == .pieceMaker {
+            
+            let nextPiece = Piece()
+            nextPiece.indexes = indexes
+            setPieceShape(piece: nextPiece)
+            setPieceColor(piece: nextPiece)
+            setPieceSwitches(piece: nextPiece)
+            setPieceSides(shape: nextPiece.shape, version: 1, currentSwitch: 1, colors: nextPiece.colors, opening: nil)
+            self.nextPiece = nextPiece
+//            level.pieces.append(pieceMaker)
+            
+        }
+    }
+    
+    private func setPieceSwitches(piece: Piece) {
         
+        switch piece.shape {
+        
+        case .elbow:
+            piece.switches = 2
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+            
+        case .diagElbow:
+            
+            piece.switches = 2
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+            
+        case .cross:
+            
+            piece.switches = 2
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+            
+            
+        case .stick:
+            
+            piece.switches = 1
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+            
+            
+        default:
+            break
+        }
+    }
+    
+    private func setPieceShape(piece: Piece) {
+        
+        let version = Int(arc4random_uniform(UInt32(4))) + 1
+        piece.version = version
+        let randomShapes:[Shape] = [.cross, .diagElbow]//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
+    }
+    
+    private func setPieceColor(piece: Piece) {
+        
+        let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+        let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        
+        piece.colors = [randomColor1, randomColor2]
     }
     
     private func setPieceSwitches() {

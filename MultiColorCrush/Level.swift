@@ -46,10 +46,9 @@ class LevelModel {
             
         case 1:
             
-//            level.number = 1
-//            level.pieceMakerLocations = [Indexes(x: 4, y: 4)]
-//            level.numberOfPieces = 30
+            setupGrid() //TODO: Add Perimeters
 
+            
             let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
             level.pieces.append(entrance)
 
@@ -60,66 +59,18 @@ class LevelModel {
             level.pieces.append(piece)
             
             
+            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //UP TO HERE: MAKE THE ABOVE POSSIBLE FOR ALL TYPES OF PIECES INCLUDING WALLS, PIECEMAKERS. 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right")
-//
-//            level.pieces.append(entrance)
+            level.pieces.append(wall)
+
+            let pieceMaker = Piece(indexes: Indexes(x: 3, y: 5), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
+
+
+            level.pieces.append(pieceMaker)
 
             
             setUpLevelDefaults()
             
-            
-            
-            
-            
-//            let side = Side()
-//            let index = Indexes(x: 2, y: 6)
-//            let piece = Piece(indexes: index, shape: .elbow, colors: [UIColor.blue], version: 2, currentSwitch: 1, side: side, isLocked: false, opening: nil)
-//
-//
-//            let index2 = Indexes(x: 3, y: 5)
-//
-//            let pieceMaker = Piece(indexes: index2, shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 2, side: side, isLocked: true, opening: "right")
-//
-//            let nextPiece = Piece()
-//            nextPiece.indexes = pieceMaker.indexes
-//            nextPiece.shape = .elbow
-//            nextPiece.colors = [UIColor.blue]
-//            nextPiece.currentSwitch = 1
-//            nextPiece.side = side
-//            pieceMaker.nextPiece = nextPiece
-//
-//            level.pieces = [piece, pieceMaker]
             
             
             
@@ -147,11 +98,10 @@ class LevelModel {
     }
     
     private func setUpLevelDefaults() {
-        setupGrid()
 //        setupEntrances()
 //        setupExits()
-        setupPieceMakers()
-        setupWalls()
+//        setupPieceMakers()
+//        setupWalls()
         setupBalls()
         setupPieces()
     }
