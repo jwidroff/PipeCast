@@ -15,10 +15,10 @@ class Level {
     var number = Int()
     var boardHeight = Int()
     var boardWidth = Int()
-    var numberOfRandomPieces = Int()
+//    var numberOfRandomPieces = Int()
     var board = Board()
     var iceLocations = [Indexes]()
-    var pieceMakerLocations = [Indexes]()
+//    var pieceMakerLocations = [Indexes]()
     var walls = [Indexes]()
     var balls = [Ball]()
     
@@ -35,11 +35,12 @@ class Level {
 class LevelModel {
     
     let level = Level()
+    let board = Board()
     
     private var pieces = [Piece]()
     
     //MARK: Make this spit out a board, not a level!
-    func returnLevel(levelNumber: Int) -> Level {
+    func returnBoard(levelNumber: Int) -> Board {
         
         
         switch levelNumber {
@@ -47,19 +48,26 @@ class LevelModel {
         case 1:
             
             let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-            level.pieces.append(entrance)
+//            level.pieces.append(entrance)
+            board.pieces.append(entrance)
+
 
             let exit = Piece(indexes: Indexes(x: 0, y: 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
-            level.pieces.append(exit)
+//            level.pieces.append(exit)
+            board.pieces.append(exit)
+
             
             let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil)
-            level.pieces.append(piece)
-            
+//            level.pieces.append(piece)
+            board.pieces.append(piece)
+
             let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
-            level.pieces.append(wall)
+//            level.pieces.append(wall)
+            board.pieces.append(wall)
 
             let pieceMaker = Piece(indexes: Indexes(x: 3, y: 5), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
-            level.pieces.append(pieceMaker)
+//            level.pieces.append(pieceMaker)
+            board.pieces.append(pieceMaker)
 
             
             setUpLevelDefaults(gridWidth: 5, gridHeight: 10, iceLocations: [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)], numberOfRandomPieces: 10)
@@ -70,23 +78,14 @@ class LevelModel {
             
         case 2:
             
-            level.number = 2
-            level.iceLocations = [Indexes(x: 1, y: 2), Indexes(x: 2, y: 1)]
-            level.pieceMakerLocations = [Indexes(x: 3, y: 3)]
-            level.boardHeight = 10
-            level.boardWidth = 5
-            level.numberOfRandomPieces = 3
-            
-            
-            setupPieceMakers()
-            
+           print()
             
             
         default:
             break
             
         }
-        return level
+        return board
 
     }
     
@@ -101,15 +100,11 @@ class LevelModel {
     
     private func setupGrid(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?) {
         
-        if level.boardHeight == Int() {
-            level.boardHeight = 10
-        }
+        board.widthSpaces = gridWidth
+        board.heightSpaces = gridHeight
         
-        if level.boardWidth == Int() {
-            level.boardWidth = 5
-        }
         if let iceLocations = iceLocations {
-            level.iceLocations = iceLocations
+            board.iceLocations = iceLocations
         }
         //[Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
     }
@@ -146,10 +141,10 @@ class LevelModel {
     
     private func setPieceIndex(piece: Piece) {
 
-        let index = Indexes(x: Int(arc4random_uniform(UInt32(level.boardWidth))), y: Int(arc4random_uniform(UInt32(level.boardHeight))))
+        let index = Indexes(x: Int(arc4random_uniform(UInt32(board.widthSpaces))), y: Int(arc4random_uniform(UInt32(board.heightSpaces))))
 
         // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
-        if level.pieces.contains(where: { (pieceX) -> Bool in
+        if board.pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == index
         }){
             setPieceIndex(piece: piece)
@@ -651,7 +646,7 @@ class LevelModel {
     
     private func setupBalls() {
         
-        for piece in level.pieces {
+        for piece in board.pieces {
             
             if piece.shape == .entrance {
 
@@ -659,7 +654,7 @@ class LevelModel {
                 let ball = Ball()
                 ball.indexes = piece.indexes
                 ball.onColor = piece.colors[0]
-                level.balls.append(ball)
+                board.balls.append(ball)
             }
         }
 //        board.balls = board.balls
@@ -677,7 +672,7 @@ class LevelModel {
                 setPieceColor(piece: piece)
                 setPieceSwitches(piece: piece)
                 setPieceSides(piece: piece)
-                level.pieces.append(piece)
+                board.pieces.append(piece)
                 
             }
             

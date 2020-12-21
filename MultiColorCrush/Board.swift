@@ -14,6 +14,7 @@ class Board {
     
     var grid = [Indexes: CGPoint]()
     var view = UIView()
+    var iceLocations = [Indexes]()
 //    var walls = [Wall]()
 //    var entrances = [Entrance]()
 //    var exits = [Exit]()

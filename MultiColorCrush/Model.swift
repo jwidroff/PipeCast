@@ -67,32 +67,21 @@ class Model {
         
     }
     
-    init(view: UIView){
-        self.board.view = view
-    }
-    
     func setUpGame() {
         
         getLevel()
         setBoard()
-        
-//        setPieces()
     }
     
     func getLevel() {
         
         let levelModel = LevelModel()
-        level = levelModel.returnLevel(levelNumber: 1)
-        board.pieces = level.pieces
-        board.balls = level.balls
-//        board.pieceMakerLocations
+        self.board = levelModel.returnBoard(levelNumber: 1)
     }
     
     func setBoard() {
         
-//        setupIce()
-        
-        delegate?.setUpGame(board: board)
+        delegate?.setUpGame(board: self.board)
         
         delegate?.setUpPiecesView()
     }
@@ -728,7 +717,7 @@ class Model {
 
         var bool = false
 
-        if level.iceLocations.contains(where: { (index) -> Bool in
+        if board.iceLocations.contains(where: { (index) -> Bool in
             index == piece.indexes
         }) {
             bool = true
@@ -1272,7 +1261,7 @@ class Model {
             }
         }
         
-        for ball in level.balls {
+        for ball in board.balls {
                         
             if board.grid[ball.indexes] == center {
                 

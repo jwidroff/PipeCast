@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .lightGray
-        model = Model(view: self.view)
+        model = Model()
         model.delegate = self
         model.setUpGame()
         addSwipeGestureRecognizer(view: model.board.view)
@@ -39,8 +39,8 @@ class ViewController: UIViewController {
         let frameX = (self.model.board.view.frame.width - boardWidth) / 2
         let frameY = (self.model.board.view.frame.height - boardHeight) / 2
         let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
-        self.model.board.widthSpaces = self.model.level.boardWidth
-        self.model.board.heightSpaces = self.model.level.boardHeight
+//        self.model.board.widthSpaces = self.model.level.boardWidth
+//        self.model.board.heightSpaces = self.model.level.boardHeight
         self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
     }
 
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             }
         }
         
-        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.level.iceLocations)
+        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations)
         self.model.board.view = boardView
         self.model.board.view.backgroundColor = .black
         view.addSubview(self.model.board.view)
@@ -91,22 +91,30 @@ class ViewController: UIViewController {
     
     func setSizes() {
 
-        let widthCushion:CGFloat = (model.board.view.frame.width / 10)
-        let heightCushion:CGFloat = (model.board.view.frame.height / 10)
+//        model.board.view = self.view
         
-        if self.model.board.view.frame.width < (self.model.board.view.frame.height / 2) {
+        let widthCushion:CGFloat = (self.view.frame.width / 10)
+        let heightCushion:CGFloat = (self.view.frame.height / 10)
+        
+        if self.view.frame.width < (self.view.frame.height / 2) {
             
-            boardHeight = (model.board.view.frame.width - widthCushion) * 2
-            boardWidth = model.board.view.frame.width - widthCushion
+            boardHeight = (self.view.frame.width - widthCushion) * 2
+            boardWidth = self.view.frame.width - widthCushion
 
-        } else if self.model.board.view.frame.width > (self.model.board.view.frame.height / 2) {
+            print("board height \(boardHeight)")
+            print("board width \(boardWidth)")
+
+        } else if self.view.frame.width > (self.view.frame.height / 2) {
         
-            boardWidth = (model.board.view.frame.height - heightCushion) / 2
-            boardHeight = model.board.view.frame.height - heightCushion
+            boardWidth = (self.view.frame.height - heightCushion) / 2
+            boardHeight = self.view.frame.height - heightCushion
+            
+            print("board height \(boardHeight)")
+            print("board width \(boardWidth)")
         }
         
-        pieceWidth = boardWidth / CGFloat(model.level.boardWidth) / 10 * 9
-        pieceHeight = boardHeight / CGFloat(model.level.boardHeight) / 10 * 9
+        pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
+        pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9
         
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
     }
