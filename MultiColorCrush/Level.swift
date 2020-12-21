@@ -15,7 +15,7 @@ class Level {
     var number = Int()
     var boardHeight = Int()
     var boardWidth = Int()
-    var numberOfPieces = Int()
+    var numberOfRandomPieces = Int()
     var board = Board()
     var iceLocations = [Indexes]()
     var pieceMakerLocations = [Indexes]()
@@ -46,9 +46,6 @@ class LevelModel {
             
         case 1:
             
-            setupGrid() //TODO: Add Perimeters
-
-            
             let entrance = Piece(indexes: Indexes(x: 0, y: 0), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
             level.pieces.append(entrance)
 
@@ -58,18 +55,14 @@ class LevelModel {
             let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil)
             level.pieces.append(piece)
             
-            
             let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
-            
             level.pieces.append(wall)
 
             let pieceMaker = Piece(indexes: Indexes(x: 3, y: 5), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
-
-
             level.pieces.append(pieceMaker)
 
             
-            setUpLevelDefaults()
+            setUpLevelDefaults(gridWidth: 5, gridHeight: 10, iceLocations: [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)], numberOfRandomPieces: 10)
             
             
             
@@ -82,7 +75,7 @@ class LevelModel {
             level.pieceMakerLocations = [Indexes(x: 3, y: 3)]
             level.boardHeight = 10
             level.boardWidth = 5
-            level.numberOfPieces = 3
+            level.numberOfRandomPieces = 3
             
             
             setupPieceMakers()
@@ -97,16 +90,16 @@ class LevelModel {
 
     }
     
-    private func setUpLevelDefaults() {
-//        setupEntrances()
-//        setupExits()
-//        setupPieceMakers()
-//        setupWalls()
+    private func setUpLevelDefaults(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?, numberOfRandomPieces: Int?) {
+
+        setupGrid(gridWidth: gridWidth, gridHeight: gridHeight, iceLocations: iceLocations)
+        
+        setupPieces(numberOfRandomPieces: numberOfRandomPieces)
+        
         setupBalls()
-        setupPieces()
     }
     
-    private func setupGrid() {
+    private func setupGrid(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?) {
         
         if level.boardHeight == Int() {
             level.boardHeight = 10
@@ -115,8 +108,8 @@ class LevelModel {
         if level.boardWidth == Int() {
             level.boardWidth = 5
         }
-        if level.iceLocations == [Indexes()] {
-            level.iceLocations = [Indexes()]
+        if let iceLocations = iceLocations {
+            level.iceLocations = iceLocations
         }
         //[Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
     }
@@ -606,55 +599,55 @@ class LevelModel {
         }
     }
     
-    private func setupEntrances() {
-        
-        for _ in 1...1 {
-            
-            let entrance = Piece()
-            setPieceIndex(piece: entrance)
-//            entrance.indexes = Indexes(x: 3, y: 4)
-            entrance.isLocked = true
-            entrance.colors = [.red]
-            
-            //TODO - Make this different per side
-            entrance.opening = "right"
-            entrance.side.right.color = entrance.colors[0]
-            entrance.shape = .entrance
-            level.pieces.append(entrance)
-        }
-    }
-    
-    private func setupExits() {
-        
-        for _ in 1...1 {
-            
-            let exit = Piece()
-            setPieceIndex(piece: exit)
-//            exit.indexes = Indexes(x: 3, y: 3)
-
-            exit.isLocked = true
-            exit.colors = [.red]
-            exit.opening = "left"
-            exit.side.left.color = exit.colors[0]
-            exit.side.left.opening.isOpen = true
-            exit.side.left.exitSide = "center" //TODO: Change
-            exit.shape = .exit
-            level.pieces.append(exit)
-        }
-    }
-    
-    private func setupWalls() {
-        
-        for _ in 0...0 {
-
-            let wall = Piece()
-            setPieceIndex(piece: wall)
-            wall.isLocked = true
-            wall.colors = [.lightGray]
-            wall.shape = .wall
-            level.pieces.append(wall)
-        }
-    }
+//    private func setupEntrances() {
+//
+//        for _ in 1...1 {
+//
+//            let entrance = Piece()
+//            setPieceIndex(piece: entrance)
+////            entrance.indexes = Indexes(x: 3, y: 4)
+//            entrance.isLocked = true
+//            entrance.colors = [.red]
+//
+//            //TODO - Make this different per side
+//            entrance.opening = "right"
+//            entrance.side.right.color = entrance.colors[0]
+//            entrance.shape = .entrance
+//            level.pieces.append(entrance)
+//        }
+//    }
+//
+//    private func setupExits() {
+//
+//        for _ in 1...1 {
+//
+//            let exit = Piece()
+//            setPieceIndex(piece: exit)
+////            exit.indexes = Indexes(x: 3, y: 3)
+//
+//            exit.isLocked = true
+//            exit.colors = [.red]
+//            exit.opening = "left"
+//            exit.side.left.color = exit.colors[0]
+//            exit.side.left.opening.isOpen = true
+//            exit.side.left.exitSide = "center" //TODO: Change
+//            exit.shape = .exit
+//            level.pieces.append(exit)
+//        }
+//    }
+//
+//    private func setupWalls() {
+//
+//        for _ in 0...0 {
+//
+//            let wall = Piece()
+//            setPieceIndex(piece: wall)
+//            wall.isLocked = true
+//            wall.colors = [.lightGray]
+//            wall.shape = .wall
+//            level.pieces.append(wall)
+//        }
+//    }
     
     private func setupBalls() {
         
@@ -663,7 +656,7 @@ class LevelModel {
             if piece.shape == .entrance {
 
             
-            let ball = Ball()
+                let ball = Ball()
                 ball.indexes = piece.indexes
                 ball.onColor = piece.colors[0]
                 level.balls.append(ball)
@@ -671,25 +664,12 @@ class LevelModel {
         }
 //        board.balls = board.balls
     }
-    private func setupPieces() {
+    
+    private func setupPieces(numberOfRandomPieces: Int?) {
         
-        if level.numberOfPieces == Int() {
+        if let numberOfRandomPieces = numberOfRandomPieces {
             
-            for _ in 0...1 {
-                
-                let piece = Piece()
-                setPieceIndex(piece: piece)
-                setPieceShape(piece: piece)
-                setPieceColor(piece: piece)
-                setPieceSwitches(piece: piece)
-                setPieceSides(piece: piece)
-                level.pieces.append(piece)
-                
-            }
-            
-        } else {
-                
-            for _ in 0..<level.numberOfPieces {
+            for _ in 0..<numberOfRandomPieces {
                 
                 let piece = Piece()
                 setPieceIndex(piece: piece)
@@ -702,8 +682,6 @@ class LevelModel {
             }
             
         }
-        
-        
     }
     
 }
