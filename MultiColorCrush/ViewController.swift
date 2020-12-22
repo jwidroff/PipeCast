@@ -647,6 +647,53 @@ extension ViewController: ModelDelegate {
             UIView.animate(withDuration: 0.25) {
                 
                 piece.view.center = self.model.board.grid[piece.indexes]!
+                
+                if piece.shape == .entrance {
+                    
+                    var indexWereLooking4 = Indexes()
+                    
+                    switch direction {
+                    
+                    
+                    case .up:
+                        
+                        indexWereLooking4 = Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1)
+                        
+                    case .down:
+                        indexWereLooking4 = Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1)
+
+                        
+                    case .left:
+                        indexWereLooking4 = Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y)
+
+                        
+                    case .right:
+                        indexWereLooking4 = Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y)
+
+                        
+                    default:
+                        break
+                    }
+                    
+                    
+                    for ball in self.model.board.balls {
+                        
+                        if ball.indexes == indexWereLooking4 {
+                            
+                            ball.indexes = piece.indexes
+                            ball.view.center = self.model.board.grid[piece.indexes]!
+                            
+                            
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                
             }
         }
     }

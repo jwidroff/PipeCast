@@ -53,8 +53,7 @@ import UIKit
 
 //TODO: Swipes left label
 
-//TODO: make it that pieces can lock into place and the lock appears on it otherwise there shouldnt be a lock
-
+//TODO: Make it that the ball follows the entrance
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
