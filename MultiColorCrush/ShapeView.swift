@@ -851,13 +851,14 @@ enum Shape {
     case diagElbow
     case cross
     case stick
-    case regular
-    case ball
     
     case entrance
     case exit
     case wall
     case pieceMaker
+    
+    case ball
+    case regular
 }
 
 

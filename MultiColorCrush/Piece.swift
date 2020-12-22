@@ -621,16 +621,16 @@ enum Direction {
     case none
 }
 
-enum PieceShape: String {
-    
-    case square = "square"
-    case triangle = "triangle"
-    case hexigon = "hexigon"
-    case circle = "circle"
-    case star = "star"
-    case cross = "cross"
-    case xShape = "xShape"
-}
+//enum PieceShape: String {
+//    
+//    case square = "square"
+//    case triangle = "triangle"
+//    case hexigon = "hexigon"
+//    case circle = "circle"
+//    case star = "star"
+//    case cross = "cross"
+//    case xShape = "xShape"
+//}
 
 class NextPiece {
     

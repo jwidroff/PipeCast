@@ -34,7 +34,7 @@ class LevelModel {
             board.widthSpaces = 5
             
             
-            let entrance = Piece(indexes: Indexes(x: 0, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right")
+            let entrance = Piece(indexes: Indexes(x: 0, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right")
             board.pieces.append(entrance)
 
 
@@ -42,26 +42,26 @@ class LevelModel {
             board.pieces.append(exit)
 
             
-            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil)
+            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
             board.pieces.append(piece)
 
             let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
             board.pieces.append(wall)
 
             let pieceMaker = Piece(indexes: Indexes(x: 0, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            board.pieces.append(pieceMaker)
+            board.pieces.append(pieceMaker)
             
             let pieceMaker1 = Piece(indexes: Indexes(x: 1, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            board.pieces.append(pieceMaker1)
+            board.pieces.append(pieceMaker1)
             
             let pieceMaker2 = Piece(indexes: Indexes(x: 2, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            board.pieces.append(pieceMaker2)
+            board.pieces.append(pieceMaker2)
             
             let pieceMaker3 = Piece(indexes: Indexes(x: 3, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            board.pieces.append(pieceMaker3)
+            board.pieces.append(pieceMaker3)
             
             let pieceMaker4 = Piece(indexes: Indexes(x: 4, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
-//            board.pieces.append(pieceMaker4)
+            board.pieces.append(pieceMaker4)
             
             setUpLevelDefaults()
             

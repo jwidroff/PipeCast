@@ -32,20 +32,7 @@ import UIKit
 //TODO: Add place that pieces get added from (in higher levels)
 //TODO: Make a retry button
 
-//TODO: Make a better lock - Something like making it look like the pieces are screwed in each corner
-//TODO: Make a pieceMaker view
-//TODO: Fix the way the walls look
-//TODO: Fix how ICE looks
-//TODO: Make black border around pieces
-
-//TODO: Make sure that walls cant be on ice and that entrances, exits, walls and other such things are unable to be added on top of eachother
-
-//TODO: Add number of moves left
-//TODO: Make the text box for the entrance lower when the ball initially moves
-
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
-
-//TODO: Make it that the balls follow the entrances when they move
 
 //TODO: Make fireLocations that get rid of pieces
 
@@ -53,7 +40,13 @@ import UIKit
 
 //TODO: Swipes left label
 
-//TODO: Make it that the ball follows the entrance
+
+//TODO: Make an option for pieces to not be able to pivot
+
+//TODO: Make a ball stopper piece
+//TODO: Make a colorChanger piece
+
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -1113,6 +1106,8 @@ class Model {
     }
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
+        
+        if piece.isLocked { return }
         
         if piece.currentSwitch != piece.switches {
             
