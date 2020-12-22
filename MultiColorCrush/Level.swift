@@ -230,10 +230,38 @@ class LevelModel {
         
         case 2: //Pivot unallowed
         
-            piece.switches = 1
-            piece.currentSwitch = 1
-            piece.doesPivot = false
+//            piece.switches = 1
+//            piece.currentSwitch = 1
         
+            switch piece.shape {
+            
+            case .elbow:
+                
+                piece.doesPivot = false
+                piece.switches = 1
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .diagElbow:
+                
+                piece.doesPivot = false
+                piece.switches = 1
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .cross:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+                
+            case .stick:
+                
+                piece.switches = 1
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                
+                
+            default:
+                break
+            }
         
         
         default:
