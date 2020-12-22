@@ -23,12 +23,13 @@ class Piece {
     var isLocked = false
     var opening = String()
     var nextPiece: Piece?
+    var doesPivot = true
     
     init(){
         
     }
     
-    init(indexes: Indexes, shape: Shape, colors: [UIColor], version: Int, currentSwitch: Int, isLocked: Bool, opening: String?) {
+    init(indexes: Indexes, shape: Shape, colors: [UIColor], version: Int, currentSwitch: Int, isLocked: Bool, opening: String?, doesPivot: Bool?) {
         
         self.indexes = indexes
         self.shape = shape
@@ -36,6 +37,10 @@ class Piece {
         self.version = version
         self.currentSwitch = currentSwitch
         self.isLocked = isLocked
+        
+        if let doesPivot = doesPivot {
+            self.doesPivot = doesPivot
+        }
         
         if let opening = opening {
             self.opening = opening
@@ -87,26 +92,39 @@ class Piece {
     private func setPieceSwitches() {
         //DO NOT DELETE. THIS IS NEEDED FOR THE MANUALLY ADDED PIECES
         
-        switch shape {
         
-        case .elbow:
-            switches = 2
+        
+        //Just put this in
+        if doesPivot == true {
             
-        case .diagElbow:
+            switch shape {
             
-            switches = 2
+            case .elbow:
+                switches = 2
+                
+            case .diagElbow:
+                
+                switches = 2
+                
+            case .cross:
+                
+                switches = 2
+                
+            case .stick:
+                
+                switches = 1
+                
+            default:
+                break
+            }
             
-        case .cross:
             
-            switches = 2
-            
-        case .stick:
+        } else {
             
             switches = 1
-            
-        default:
-            break
         }
+        
+
     }
     
     private func setPieceSwitches(piece: Piece) {

@@ -27,40 +27,40 @@ class LevelModel {
         case 1:
             
             board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red, UIColor.blue, UIColor.purple]
-            board.randomPieceShapes = [.diagElbow, .cross, .stick]
+            board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
             board.amountOfRandomPieces = 10
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.heightSpaces = 10
             board.widthSpaces = 5
             
             
-            let entrance = Piece(indexes: Indexes(x: 0, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right")
+            let entrance = Piece(indexes: Indexes(x: 0, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
             board.pieces.append(entrance)
 
 
-            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: board.heightSpaces - 1), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
+            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: board.heightSpaces - 1), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
             board.pieces.append(exit)
 
             
-            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
+            let piece = Piece(indexes: Indexes(x: 1, y: 1), shape: .diagElbow, colors: [UIColor.green, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
             board.pieces.append(piece)
 
-            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil)
+            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
             board.pieces.append(wall)
 
-            let pieceMaker = Piece(indexes: Indexes(x: 0, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            let pieceMaker = Piece(indexes: Indexes(x: 0, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
             board.pieces.append(pieceMaker)
             
-            let pieceMaker1 = Piece(indexes: Indexes(x: 1, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            let pieceMaker1 = Piece(indexes: Indexes(x: 1, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
             board.pieces.append(pieceMaker1)
             
-            let pieceMaker2 = Piece(indexes: Indexes(x: 2, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            let pieceMaker2 = Piece(indexes: Indexes(x: 2, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
             board.pieces.append(pieceMaker2)
             
-            let pieceMaker3 = Piece(indexes: Indexes(x: 3, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            let pieceMaker3 = Piece(indexes: Indexes(x: 3, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
             board.pieces.append(pieceMaker3)
             
-            let pieceMaker4 = Piece(indexes: Indexes(x: 4, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom")
+            let pieceMaker4 = Piece(indexes: Indexes(x: 4, y: 0), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
             board.pieces.append(pieceMaker4)
             
             setUpLevelDefaults()
@@ -190,32 +190,62 @@ class LevelModel {
     
     private func setPieceSwitches(piece: Piece) {
         
-        switch piece.shape {
+        let pivotDecision = Int(arc4random_uniform(UInt32(2))) + 1
         
-        case .elbow:
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+        switch pivotDecision {
+        
+        
+        case 1: //Pivot allowed
+        
             
-        case .diagElbow:
+            switch piece.shape {
             
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .cross:
-            
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-            
-        case .stick:
-            
+            case .elbow:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .diagElbow:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .cross:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+                
+            case .stick:
+                
+                piece.switches = 1
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                
+                
+            default:
+                break
+            }
+        
+        
+        
+        case 2: //Pivot unallowed
+        
             piece.switches = 1
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
-            
-            
+            piece.currentSwitch = 1
+            piece.doesPivot = false
+        
+        
+        
         default:
             break
+        
+        
+        
+        
         }
+        
+        
+
     }
     
     private func setPieceSides(piece: Piece) {

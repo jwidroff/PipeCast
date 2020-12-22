@@ -28,6 +28,8 @@ class ShapeView : UIView {
     
     var opening = String()
     
+    var doesPivot = true
+    
     var nextPiece: Piece?
         
     
@@ -53,40 +55,58 @@ class ShapeView : UIView {
         self.isLocked = piece.isLocked
         self.opening = piece.opening
         
+        self.doesPivot = piece.doesPivot
+        
+        
         if let nextPieceX = piece.nextPiece {
             self.nextPiece = nextPieceX
         }
         
-        switch shape {
-        case .elbow:
-            switches = 2
-            currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.clear
-            
-        case .cross:
-            switches = 2
-            currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.clear
 
-        case .stick:
-            switches = 1
-            currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.clear
-            
-        case .diagElbow:
-            switches = 2
-            currentSwitch = piece.currentSwitch
-            self.backgroundColor = UIColor.clear
-
-        case .entrance, .exit, .pieceMaker, .wall:
-            
-//            self.backgroundColor = UIColor.lightGray
-
-        print()
         
-        default:
-            break
+        if doesPivot == true && isLocked == false {
+           
+            
+            switch shape {
+            
+            
+            case .elbow:
+                switches = 2
+                currentSwitch = piece.currentSwitch
+                
+            case .cross:
+                switches = 2
+                currentSwitch = piece.currentSwitch
+    //            self.backgroundColor = UIColor.clear
+
+            case .stick:
+                switches = 1
+                currentSwitch = piece.currentSwitch
+    //            self.backgroundColor = UIColor.clear
+                
+            case .diagElbow:
+                switches = 2
+                currentSwitch = piece.currentSwitch
+    //            self.backgroundColor = UIColor.clear
+
+            case .entrance, .exit, .pieceMaker, .wall:
+                
+    //            self.backgroundColor = UIColor.lightGray
+
+            print()
+            
+            default:
+                break
+            }
+            
+            
+        } else {
+            
+            switches = 1
+            currentSwitch = 1
         }
+
     }
     
     func setLock(context: CGContext) {
@@ -258,6 +278,8 @@ class ShapeView : UIView {
             
         case .elbow:
             
+            context.setStrokeColor(colors[0])
+            
                 switch version {
                 
                 case 1:
@@ -276,12 +298,15 @@ class ShapeView : UIView {
                     }
                     
                     //TOP PIVOT
-                    let width = bounds.width / 2
-                    let x = (bounds.midX - (width / 2))
-                    let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
-//                    context.setFillColor(colors?[0] ?? UIColor.systemTeal.cgColor)
-                    context.addRects([pivotRect])
-                    context.fill(pivotRect)
+                    
+                    if isLocked == false && doesPivot == true {
+                        let width = bounds.width / 2
+                        let x = (bounds.midX - (width / 2))
+                        let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+                        context.addRects([pivotRect])
+                        context.fill(pivotRect)
+                    }
+                    
                     
                 case 2:
                     
@@ -299,11 +324,15 @@ class ShapeView : UIView {
                     }
                     
                     //Left Pivot
-                    let height = bounds.height / 2
-                    let y = (bounds.midY - (height / 2))
-                    let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
-                    context.addRects([pivotRect])
-                    context.fill(pivotRect)
+                    
+                    if isLocked == false && doesPivot == true {
+                        let height = bounds.height / 2
+                        let y = (bounds.midY - (height / 2))
+                        let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+                        context.addRects([pivotRect])
+                        context.fill(pivotRect)
+                    }
+                    
                     
                 case 3:
                     
@@ -321,12 +350,14 @@ class ShapeView : UIView {
                     }
                     
                     //Bottom pivot
-                    let width = bounds.width / 2
-                    let x = (bounds.midX - (width / 2))
-                    let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
-                    context.addRects([pivotRect])
-                    context.fill(pivotRect)
-                    
+                    if isLocked == false && doesPivot == true {
+
+                        let width = bounds.width / 2
+                        let x = (bounds.midX - (width / 2))
+                        let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
+                        context.addRects([pivotRect])
+                        context.fill(pivotRect)
+                    }
                 case 4:
                     
                     if currentSwitch == 1 {
@@ -343,12 +374,14 @@ class ShapeView : UIView {
                     }
                     
                     //Right Pivot
+                    if isLocked == false && doesPivot == true {
+                        let height = bounds.height / 2
+                        let y = (bounds.midY - (height / 2))
+                        let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
+                        context.addRects([pivotRect])
+                        context.fill(pivotRect)
+                    }
                     
-                    let height = bounds.height / 2
-                    let y = (bounds.midY - (height / 2))
-                    let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
-                    context.addRects([pivotRect])
-                    context.fill(pivotRect)
 
                 default:
                     break
@@ -376,15 +409,21 @@ class ShapeView : UIView {
                         context.setFillColor(colors[0])
                         context.setStrokeColor(colors[0])
                         drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+                        if isLocked == false && doesPivot == true {
+                            context.addRects([pivotRect])
+                            context.fill(pivotRect)
+                        }
+                        
                         
                         //LEFT PIVOT TO BOTTOM SIDE
                         context2.setFillColor(colors[1])
                         context2.setStrokeColor(colors[1])
                         drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
-                        context2.addRects([pivotRect2])
-                        context2.fill(pivotRect2)
+                        if isLocked == false && doesPivot == true {
+                            context2.addRects([pivotRect2])
+                            context2.fill(pivotRect2)
+                        }
+                       
                         
                         currentSwitch = 2
                         
@@ -394,15 +433,23 @@ class ShapeView : UIView {
                         context.setFillColor(colors[1])
                         context.setStrokeColor(colors[1])
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
-                        context.addRects([pivotRect2])
-                        context.fill(pivotRect2)
+                        
+                        if isLocked == false && doesPivot == true {
+                            context.addRects([pivotRect2])
+                            context.fill(pivotRect2)
+                        }
+                        
 
                         //RIGHT PIVOT TO BOTTOM SIDE
                         context2.setFillColor(colors[0])
                         context2.setStrokeColor(colors[0])
                         drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)
-                        context2.addRects([pivotRect])
-                        context2.fill(pivotRect)
+                        
+                        if isLocked == false && doesPivot == true {
+                            context2.addRects([pivotRect])
+                            context2.fill(pivotRect)
+                        }
+                        
                         
                         currentSwitch = 1
                      }
@@ -421,15 +468,25 @@ class ShapeView : UIView {
                         context.setFillColor(colors[0])
                         context.setStrokeColor(colors[0])
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
-                        context.addRects([pivotRect2])
-                        context.fill(pivotRect2)
+                        
+                        if isLocked == false && doesPivot == true {
+                            
+                            context.addRects([pivotRect2])
+                            context.fill(pivotRect2)
+                            
+                        }
                         
                         //BOTTOM PIVOT TO RIGHT SIDE
                         context2.setFillColor(colors[1])
                         context2.setStrokeColor(colors[1])
                         drawPath(path: path2, context: context2, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint)
-                        context2.addRects([pivotRect])
-                        context2.fill(pivotRect)
+                        
+                        if isLocked == false && doesPivot == true {
+                            context2.addRects([pivotRect])
+                            context2.fill(pivotRect)
+                        }
+                        
+                        
                         
                         currentSwitch = 2
 
@@ -440,15 +497,26 @@ class ShapeView : UIView {
                         context.setFillColor(colors[1])
                         context.setStrokeColor(colors[1])
                         drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+                        
+                        if isLocked == false && doesPivot == true {
+                            context.addRects([pivotRect])
+                            context.fill(pivotRect)
+                        }
+                        
+                        
                         
                         //TOP PIVOT TO RIGHT SIDE
                         context2.setFillColor(colors[0])
                         context2.setStrokeColor(colors[0])
                         drawPath(path: path2, context: context2, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
-                        context2.addRects([pivotRect2])
-                        context2.fill(pivotRect2)
+                        
+                        if isLocked == false && doesPivot == true {
+                            context2.addRects([pivotRect2])
+                            context2.fill(pivotRect2)
+                            
+                        }
+                        
+                        
                         
                         currentSwitch = 1
                      }

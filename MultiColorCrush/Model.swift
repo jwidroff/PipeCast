@@ -447,30 +447,89 @@ class Model {
     
     func setPieceSwitches(piece: Piece) {
         
-        switch piece.shape {
+//        switch piece.shape {
+//        
+//        case .elbow:
+//            piece.switches = 2
+//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+//            
+//        case .diagElbow:
+//            
+//            piece.switches = 2
+//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+//            
+//        case .cross:
+//            
+//            piece.switches = 2
+//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+//            
+//        case .stick:
+//            
+//            piece.switches = 1
+//            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+//            
+//        default:
+//            break
+//        }
         
-        case .elbow:
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+        
+        let pivotDecision = Int(arc4random_uniform(UInt32(2))) + 1
+        
+        switch pivotDecision {
+        
+        
+        case 1: //Pivot allowed
+        
             
-        case .diagElbow:
+            switch piece.shape {
             
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .cross:
-            
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .stick:
-            
+            case .elbow:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .diagElbow:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+            case .cross:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
+                
+            case .stick:
+                
+                piece.switches = 1
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                
+                
+            default:
+                break
+            }
+        
+        
+        
+        case 2: //Pivot unallowed
+        
             piece.switches = 1
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
-            
+            piece.currentSwitch = 1
+            piece.doesPivot = false
+        
+        
+        
         default:
             break
+        
+        
+        
+        
         }
+        
+        
+        
+        
     }
     
     func setPieceShape(piece: Piece) {
@@ -1107,7 +1166,7 @@ class Model {
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
         
-        if piece.isLocked { return }
+        if piece.isLocked || piece.doesPivot == false { return }
         
         if piece.currentSwitch != piece.switches {
             
