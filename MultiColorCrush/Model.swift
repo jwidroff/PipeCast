@@ -593,10 +593,25 @@ class Model {
                             
                             piece.indexes.y = piece.indexes.y! - 1
                             
+                            if piece.shape == .entrance {
+                                
+                                for ball in board.balls {
+                                    
+                                    if ball.indexes == Indexes(x: piece.indexes.x, y: piece.indexes.y! + 1) {
+                                        
+                                        ball.indexes = piece.indexes
+                                        
+                                    }
+                                    
+                                }
+                            }
+                            
                             if checkForIce(piece: piece) == true {
                                 
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
+                            
+                            
                         }
                         
                     } else {
@@ -644,6 +659,19 @@ class Model {
                         if piece.isLocked == false {
                             
                             piece.indexes.y = piece.indexes.y! + 1
+                            
+                            if piece.shape == .entrance {
+                                
+                                for ball in board.balls {
+                                    
+                                    if ball.indexes == Indexes(x: piece.indexes.x, y: piece.indexes.y! - 1) {
+                                        
+                                        ball.indexes = piece.indexes
+                                        
+                                    }
+                                    
+                                }
+                            }
                             
                             if checkForIce(piece: piece) == true {
                                 
@@ -694,6 +722,19 @@ class Model {
                         if piece.isLocked == false {
                             
                             piece.indexes.x = piece.indexes.x! - 1
+                            
+                            if piece.shape == .entrance {
+                                
+                                for ball in board.balls {
+                                    
+                                    if ball.indexes == Indexes(x: piece.indexes.x! + 1, y: piece.indexes.y) {
+                                        
+                                        ball.indexes = piece.indexes
+                                        
+                                    }
+                                    
+                                }
+                            }
                             
                             if checkForIce(piece: piece) == true {
                                 
@@ -746,6 +787,19 @@ class Model {
                         if piece.isLocked == false {
                            
                             piece.indexes.x = piece.indexes.x! + 1
+                            
+                            if piece.shape == .entrance {
+                                
+                                for ball in board.balls {
+                                    
+                                    if ball.indexes == Indexes(x: piece.indexes.x! - 1, y: piece.indexes.y) {
+                                        
+                                        ball.indexes = piece.indexes
+                                        
+                                    }
+                                    
+                                }
+                            }
                             
                             if checkForIce(piece: piece) == true {
                                 
