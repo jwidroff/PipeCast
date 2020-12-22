@@ -42,6 +42,7 @@ class Piece {
         }
         
         setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
+        setPieceSwitches()
         
         if shape == .pieceMaker {
             
@@ -52,6 +53,31 @@ class Piece {
             setPieceSwitches(piece: nextPiece)
             setPieceSides(shape: nextPiece.shape, version: 1, currentSwitch: 1, colors: nextPiece.colors, opening: nil)
             self.nextPiece = nextPiece
+        }
+    }
+    
+    private func setPieceSwitches() {
+        //DO NOT DELETE. THIS IS NEEDED FOR THE MANUALLY ADDED PIECES
+        
+        switch shape {
+        
+        case .elbow:
+            switches = 2
+            
+        case .diagElbow:
+            
+            switches = 2
+            
+        case .cross:
+            
+            switches = 2
+            
+        case .stick:
+            
+            switches = 1
+            
+        default:
+            break
         }
     }
     

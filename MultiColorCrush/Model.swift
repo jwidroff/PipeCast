@@ -921,7 +921,7 @@ class Model {
             
             let piece = getPieceInfo(index: ball.indexes)
             let startSide = "bottom"
-
+            
             if piece.side.bottom.color != ball.onColor { return }
             
             if let endSide = piece.side.bottom.exitSide {
@@ -1053,9 +1053,22 @@ class Model {
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
         
-        if piece.currentSwitch != piece.switches{
+//        print("before")
+//        print("piece top \(piece.side.top.color)")
+//        print("piece bottom \(piece.side.bottom.color)")
+//        print("piece left \(piece.side.left.color)")
+//        print("piece right \(piece.side.right.color)")
+//
+//        print("piece top exit \(piece.side.top.exitSide)")
+//        print("piece bottom exit \(piece.side.bottom.exitSide)")
+//        print("piece left exit \(piece.side.left.exitSide)")
+//        print("piece right exit \(piece.side.right.exitSide)")
+        
+        
+        if piece.currentSwitch != piece.switches {
             
             piece.currentSwitch += 1
+            
         } else {
             
             piece.currentSwitch = 1
@@ -1199,10 +1212,12 @@ class Model {
             }
             
         case .diagElbow:
-                    
+            
             switch piece.version {
             
             case 1, 3:
+                
+                //Pivots on right and left
                 
                 if piece.currentSwitch == 1 {
                 
@@ -1231,6 +1246,8 @@ class Model {
                 
             case 2, 4:
                 
+                //Pivots on top and bottom
+
                 if piece.currentSwitch == 1 {
                 
                     piece.side.top.exitSide = "left"
@@ -1263,6 +1280,18 @@ class Model {
         default:
             break
         }
+        
+//        print("after")
+//        print("piece top \(piece.side.top.color)")
+//        print("piece bottom \(piece.side.bottom.color)")
+//        print("piece left \(piece.side.left.color)")
+//        print("piece right \(piece.side.right.color)")
+//
+//        print("piece top exit \(piece.side.top.exitSide)")
+//        print("piece bottom exit \(piece.side.bottom.exitSide)")
+//        print("piece left exit \(piece.side.left.exitSide)")
+//        print("piece right exit \(piece.side.right.exitSide)")
+        
         
         completion(true)
     }
