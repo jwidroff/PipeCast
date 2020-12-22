@@ -1053,18 +1053,6 @@ class Model {
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
         
-//        print("before")
-//        print("piece top \(piece.side.top.color)")
-//        print("piece bottom \(piece.side.bottom.color)")
-//        print("piece left \(piece.side.left.color)")
-//        print("piece right \(piece.side.right.color)")
-//
-//        print("piece top exit \(piece.side.top.exitSide)")
-//        print("piece bottom exit \(piece.side.bottom.exitSide)")
-//        print("piece left exit \(piece.side.left.exitSide)")
-//        print("piece right exit \(piece.side.right.exitSide)")
-        
-        
         if piece.currentSwitch != piece.switches {
             
             piece.currentSwitch += 1
@@ -1280,18 +1268,6 @@ class Model {
         default:
             break
         }
-        
-//        print("after")
-//        print("piece top \(piece.side.top.color)")
-//        print("piece bottom \(piece.side.bottom.color)")
-//        print("piece left \(piece.side.left.color)")
-//        print("piece right \(piece.side.right.color)")
-//
-//        print("piece top exit \(piece.side.top.exitSide)")
-//        print("piece bottom exit \(piece.side.bottom.exitSide)")
-//        print("piece left exit \(piece.side.left.exitSide)")
-//        print("piece right exit \(piece.side.right.exitSide)")
-        
         
         completion(true)
     }

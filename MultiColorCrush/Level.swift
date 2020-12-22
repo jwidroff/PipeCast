@@ -43,7 +43,8 @@ class LevelModel {
             let pieceMaker = Piece(indexes: Indexes(x: 3, y: 5), shape: .pieceMaker, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: "top")
             board.pieces.append(pieceMaker)
 
-            setUpLevelDefaults(gridWidth: 5, gridHeight: 10, iceLocations: [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)], numberOfRandomPieces: 10)
+            
+            setUpLevelDefaults(gridWidth: 5, gridHeight: 10, iceLocations: [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)], numberOfRandomPieces: 10, colors: [UIColor.red, UIColor.red, UIColor.red, UIColor.blue, UIColor.purple])
             
             
             
@@ -60,11 +61,11 @@ class LevelModel {
 
     }
     
-    private func setUpLevelDefaults(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?, numberOfRandomPieces: Int?) {
+    private func setUpLevelDefaults(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?, numberOfRandomPieces: Int?, colors: [UIColor]?) {
 
         setupGrid(gridWidth: gridWidth, gridHeight: gridHeight, iceLocations: iceLocations)
         
-        setupPieces(numberOfRandomPieces: numberOfRandomPieces)
+        setupPieces(numberOfRandomPieces: numberOfRandomPieces, randomColors: colors)
         
         setupBalls()
     }
@@ -103,13 +104,36 @@ class LevelModel {
     }
     
     
-    private func setPieceColor(piece: Piece) {
+    private func setPieceColor(piece: Piece, colors: [UIColor]?) {
+                
         
-        let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
-        let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        //commit above
         
-        piece.colors = [randomColor1, randomColor2]
+        
+        
+        if let randomColors = colors {
+            
+//            let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+            let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            
+            piece.colors = [randomColor1, randomColor2]
+            
+        } else {
+            
+            
+            let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+            let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+            
+            piece.colors = [randomColor1, randomColor2]
+            
+        }
+        
+        
+       
+        
+       
     }
     
     private func setPieceSwitches(piece: Piece) {
@@ -500,7 +524,7 @@ class LevelModel {
         }
     }
     
-    private func setupPieces(numberOfRandomPieces: Int?) {
+    private func setupPieces(numberOfRandomPieces: Int?, randomColors: [UIColor]?) {
         
         if let numberOfRandomPieces = numberOfRandomPieces {
             
@@ -509,7 +533,7 @@ class LevelModel {
                 let piece = Piece()
                 setPieceIndex(piece: piece)
                 setPieceShape(piece: piece)
-                setPieceColor(piece: piece)
+                setPieceColor(piece: piece, colors: randomColors)
                 setPieceSwitches(piece: piece)
                 setPieceSides(piece: piece)
                 board.pieces.append(piece)

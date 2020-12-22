@@ -15,6 +15,7 @@ class Board {
     var grid = [Indexes: CGPoint]()
     var view = UIView()
     var iceLocations = [Indexes]()
+    var randomPieceColors = [UIColor]()
     var balls = [Ball]()
     var pieces = [Piece]()
     var heightSpaces = Int()
