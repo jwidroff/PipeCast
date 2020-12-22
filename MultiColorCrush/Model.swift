@@ -477,13 +477,13 @@ class Model {
         
         let version = Int(arc4random_uniform(UInt32(4))) + 1
         piece.version = version
-        let randomShapes:[Shape] = [.cross, .diagElbow]//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
+        let randomShapes:[Shape] = board.randomPieceShapes//, .elbow, .stick]// .doubleElbow, .quadBox, .diagElbow]//, "sword"]
         piece.shape = randomShapes[Int(arc4random_uniform(UInt32(randomShapes.count)))]
     }
     
     func setPieceColor(piece: Piece) {
         
-        let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
+        let randomColors:[UIColor] = board.randomPieceColors//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
         

@@ -16,6 +16,8 @@ class Board {
     var view = UIView()
     var iceLocations = [Indexes]()
     var randomPieceColors = [UIColor]()
+    var randomPieceShapes = [Shape]()
+    var amountOfRandomPieces = Int()
     var balls = [Ball]()
     var pieces = [Piece]()
     var heightSpaces = Int()

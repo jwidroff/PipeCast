@@ -44,16 +44,44 @@ class Piece {
         setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
         setPieceSwitches()
         
-        if shape == .pieceMaker {
-            
-            let nextPiece = Piece()
-            nextPiece.indexes = indexes
-            setPieceShape(piece: nextPiece)
-            setPieceColor(piece: nextPiece)
-            setPieceSwitches(piece: nextPiece)
-            setPieceSides(shape: nextPiece.shape, version: 1, currentSwitch: 1, colors: nextPiece.colors, opening: nil)
-            self.nextPiece = nextPiece
-        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //TODO: THIS NEEDS TO BE DONE IN THE LEVEL MODEL SO THAT THE RANDOM PIECE CHOSEN FOR THE PIECEMAKER WILL BE ONE OF THE CORRECT RANDOM PIECES
+//        if shape == .pieceMaker {
+//            
+//            let nextPiece = Piece()
+//            nextPiece.indexes = indexes
+//            setPieceShape(piece: nextPiece)
+//            setPieceColor(piece: nextPiece)
+//            setPieceSwitches(piece: nextPiece)
+//            setPieceSides(shape: nextPiece.shape, version: 1, currentSwitch: 1, colors: nextPiece.colors, opening: nil)
+//            self.nextPiece = nextPiece
+//        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     private func setPieceSwitches() {
