@@ -80,14 +80,26 @@ class ShapeView : UIView {
 
         case .entrance, .exit, .pieceMaker, .wall:
             
-            self.backgroundColor = UIColor.lightGray
+//            self.backgroundColor = UIColor.lightGray
 
+        print()
+        
         default:
             break
         }
     }
     
     func setLock(context: CGContext) {
+        
+        
+        let w = frame.width / 10 * 9
+        let h = frame.height / 10 * 9
+        let x = (frame.width - w) / 2
+        let y = (frame.height - h) / 2
+        let rect1 = CGRect(x: x, y: y, width: w, height: h)
+        context.setFillColor(UIColor.lightGray.cgColor)
+        context.addRects([rect1])
+        context.fill(rect1)
         
         let distanceFromSides = frame.width / 10
         let screwWidthAndHeight = frame.width / 10
@@ -172,6 +184,18 @@ class ShapeView : UIView {
         context.strokePath()
         
         context.setLineWidth(frame.height / 4)
+        
+        if isLocked == true {
+
+            setLock(context: context)
+//            setLock2(context: context)
+
+        }
+        
+        
+        
+        
+        
 //        context.setFillColor(colors[0])
 //        context.setStrokeColor(colors[0])
         
@@ -216,6 +240,9 @@ class ShapeView : UIView {
             
         case .regular:
             
+            print("SOMETHING WENT WRONG HERE")
+            
+            
             let w = frame.width / 10 * 9
             let h = frame.height / 10 * 9
             let x = (frame.width - w) / 2
@@ -224,10 +251,10 @@ class ShapeView : UIView {
             context.addRects([rect1])
             context.fill(rect1)
 
-            if isLocked == true {
-
-                setLock(context: context)
-            }
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
             
         case .elbow:
             
@@ -650,28 +677,30 @@ class ShapeView : UIView {
                 break
             }
             
-            if isLocked == true {
-
-                setLock(context: context)
-            }
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
 
         case .wall:
             
             //Need to make a dark border color around it
             
-            let w = frame.width / 10 * 9
-            let h = frame.height / 10 * 9
-            let x = (frame.width - w) / 2
-            let y = (frame.height - h) / 2
-            let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(UIColor.lightGray.cgColor)
-            context.addRects([rect1])
-            context.fill(rect1)
+            print()
+            
+//            let w = frame.width / 10 * 9
+//            let h = frame.height / 10 * 9
+//            let x = (frame.width - w) / 2
+//            let y = (frame.height - h) / 2
+//            let rect1 = CGRect(x: x, y: y, width: w, height: h)
+//            context.setFillColor(UIColor.lightGray.cgColor)
+//            context.addRects([rect1])
+//            context.fill(rect1)
 
-            if isLocked == true {
-
-                setLock(context: context)
-            }
+//            if isLocked == true {
+//
+//                setLock(context: context)
+//            }
             
         case .pieceMaker:
             

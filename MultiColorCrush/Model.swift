@@ -47,6 +47,14 @@ import UIKit
 
 //TODO: Make it that the balls follow the entrances when they move
 
+//TODO: Make fireLocations that get rid of pieces
+
+//TODO: Make cracks for ice
+
+//TODO: Swipes left label
+
+//TODO: make it that pieces can lock into place and the lock appears on it otherwise there shouldnt be a lock
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
