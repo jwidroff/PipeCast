@@ -41,8 +41,6 @@ import UIKit
 //TODO: Swipes left label
 
 
-//TODO: Make an option for pieces to not be able to pivot
-
 //TODO: Make a ball stopper piece
 //TODO: Make a colorChanger piece
 

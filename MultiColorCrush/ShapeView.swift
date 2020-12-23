@@ -234,7 +234,7 @@ class ShapeView : UIView {
                 let y1 = ((frame.height - height) / 2)
                 
                 let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
-                context.setFillColor(colors[1])
+                context.setFillColor(colors[0])
                 context.addRects([rect1])
                 context.fill(rect1)
                 
@@ -797,6 +797,12 @@ class ShapeView : UIView {
                 let point3 = CGPoint(x: frame.width, y: frame.height)
                 let point4 = CGPoint(x: frame.width - (x), y: h + y)
 
+//                let point1 = CGPoint(x: x, y: h + y)
+//                let point2 = CGPoint(x: x, y: frame.height)
+//                let point3 = CGPoint(x: frame.width - x, y: frame.height)
+//                let point4 = CGPoint(x: frame.width - (x), y: h + y)
+                
+                
                 context.beginPath()
                 context.move(to: point1)
                 context.addLine(to: point2)
@@ -870,7 +876,103 @@ class ShapeView : UIView {
             let frameX = CGRect(x: x2, y: y2, width: w2, height: h2)
             let nextPieceView = ShapeView(frame: frameX, piece: nextPiece!)
             addSubview(nextPieceView)
+            
+            
+            
+        case .colorChanger:
+            
+            switch version {
+            
+            case 1, 3:
+                
+                //Horizontal Line
+                
+                let width = frame.width / 2
+                let height = frame.height / 4
+                let x:CGFloat = 0.0
+                let y = ((frame.height - height) / 2)
+                
+                let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                let rect2 = CGRect(x: width, y: y, width: width, height: height)
+                context.setFillColor(colors[1])
+                context.addRects([rect2])
+                context.fill(rect2)
+                
+                
+                
+                let path = UIBezierPath()
+                let path2 = UIBezierPath()
+
+                
+                let topCenter = CGPoint(x: frame.width / 2, y: frame.height / 4)
+                let bottomCenter = CGPoint(x: frame.width / 2, y: frame.height / 4 * 3)
+                let leftCenterPoint = CGPoint(x: frame.width / 10, y: frame.height / 2)
+                let rightCenterPoint = CGPoint(x: frame.width / 10 * 9, y: frame.height / 2)
+
+                context.setFillColor(colors[1])
+
+                path.move(to: topCenter)
+                path.addQuadCurve(to: bottomCenter, controlPoint: leftCenterPoint)
+                context.addPath(path.cgPath)
+                context.closePath()
+                context.fillPath()
+                
+                
+                context.setFillColor(colors[0])
+
+                path2.move(to: topCenter)
+                path2.addQuadCurve(to: bottomCenter, controlPoint: rightCenterPoint)
+                context.addPath(path2.cgPath)
+                context.closePath()
+                context.fillPath()
+                
+               
+                
+                
+               
+                
+                currentSwitch = 2
+                
+            case 2, 4:
+                
+                //Vertical Line
+
+                
+                
+                let width = frame.width / 4
+                let height = frame.height / 2
+                let y:CGFloat = 0.0
+                let x = ((frame.width - width) / 2)
+                
+                let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                context.setFillColor(colors[0])
+                context.addRects([rect1])
+                context.fill(rect1)
+                
+                let rect2 = CGRect(x: x, y: height, width: width, height: height)
+                context.setFillColor(colors[1])
+                context.addRects([rect2])
+                context.fill(rect2)
+                
+                
+                currentSwitch = 1
+                
+            default:
+                break
+            }
+            
+            
+            
+            
+            
         }
+        
+        
+        
     }
     
     func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint) {
@@ -920,6 +1022,7 @@ enum Shape {
     case diagElbow
     case cross
     case stick
+    case colorChanger
     
     case entrance
     case exit
