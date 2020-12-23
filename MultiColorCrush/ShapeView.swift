@@ -902,32 +902,26 @@ class ShapeView : UIView {
                 context.addRects([rect2])
                 context.fill(rect2)
                 
-                
+
+                let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
+                let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
+                let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
+                let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
+                let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
+                let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
+        
                 
                 let path = UIBezierPath()
-                let path2 = UIBezierPath()
-
-                print(frame)
-                
-                
-                let topCenter = CGPoint(x: frame.width / 2, y: frame.height / 4)
-                let bottomCenter = CGPoint(x: frame.width / 2, y: frame.height - (frame.height / 4))
-                let leftCenterPoint = CGPoint(x: frame.width / 16, y: frame.height / 2)
-                let rightCenterPoint = CGPoint(x: frame.width - (frame.width / 16), y: frame.height / 2)
-
-                context.setFillColor(colors[1])
-
                 path.move(to: topCenter)
-                path.addQuadCurve(to: bottomCenter, controlPoint: leftCenterPoint)
+                path.addCurve(to: bottomCenter, controlPoint1: topLeft, controlPoint2: bottomLeft)
                 context.addPath(path.cgPath)
                 context.closePath()
                 context.fillPath()
-                
-                
                 context.setFillColor(colors[0])
-
+                
+                let path2 = UIBezierPath()
                 path2.move(to: topCenter)
-                path2.addQuadCurve(to: bottomCenter, controlPoint: rightCenterPoint)
+                path2.addCurve(to: bottomCenter, controlPoint1: topRight, controlPoint2: bottomRight)
                 context.addPath(path2.cgPath)
                 context.closePath()
                 context.fillPath()
