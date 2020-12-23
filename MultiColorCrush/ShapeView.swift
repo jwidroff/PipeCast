@@ -907,11 +907,13 @@ class ShapeView : UIView {
                 let path = UIBezierPath()
                 let path2 = UIBezierPath()
 
+                print(frame)
+                
                 
                 let topCenter = CGPoint(x: frame.width / 2, y: frame.height / 4)
-                let bottomCenter = CGPoint(x: frame.width / 2, y: frame.height / 4 * 3)
-                let leftCenterPoint = CGPoint(x: frame.width / 10, y: frame.height / 2)
-                let rightCenterPoint = CGPoint(x: frame.width / 10 * 9, y: frame.height / 2)
+                let bottomCenter = CGPoint(x: frame.width / 2, y: frame.height - (frame.height / 4))
+                let leftCenterPoint = CGPoint(x: frame.width / 16, y: frame.height / 2)
+                let rightCenterPoint = CGPoint(x: frame.width - (frame.width / 16), y: frame.height / 2)
 
                 context.setFillColor(colors[1])
 

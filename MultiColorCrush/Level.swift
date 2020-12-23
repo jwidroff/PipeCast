@@ -26,9 +26,9 @@ class LevelModel {
             
         case 1:
             
-            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red, UIColor.blue]
-            board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
-            board.amountOfRandomPieces = 10
+            board.randomPieceColors = [UIColor.red]
+            board.randomPieceShapes = [.diagElbow]//.diagElbow, .cross, .stick, .elbow]
+            board.amountOfRandomPieces = 1
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.heightSpaces = 10
             board.widthSpaces = 5
@@ -242,13 +242,13 @@ class LevelModel {
                 
                 piece.doesPivot = false
                 piece.switches = 1
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                piece.currentSwitch = 1
                 
             case .diagElbow:
                 
                 piece.doesPivot = false
                 piece.switches = 1
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                piece.currentSwitch = 1
                 
             case .cross:
                 
@@ -259,7 +259,7 @@ class LevelModel {
             case .stick:
                 
                 piece.switches = 1
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                piece.currentSwitch = 1
                 
                 
             default:
@@ -281,8 +281,13 @@ class LevelModel {
     
     private func setPieceSides(piece: Piece) {
       
+        print(piece.version)
+
+        print(piece.currentSwitch)
+        
         switch piece.shape {
-            
+        
+ 
         case .elbow:
             
             switch piece.version {

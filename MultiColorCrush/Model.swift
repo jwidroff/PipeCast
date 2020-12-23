@@ -1139,6 +1139,10 @@ class Model {
             
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
                 
+                print(piece.version)
+                print(piece.currentSwitch)
+
+                
                 switch4Tap(piece: piece) { (false) in
                     piece.view.setNeedsDisplay()
                 }
