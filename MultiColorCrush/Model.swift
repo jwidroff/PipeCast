@@ -1016,15 +1016,15 @@ class Model {
                     
                     if piece.shape == .cross {
                         
-                        if piece.side.top.closing.isOpen == true {
+                        if piece.side.top.closing.isOpen == false {
                             
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        } else {
-                            print("set up func to move ball close to center")
+                            print("need to move ball halfway")
+                            return
+                            
                         }
-                    } else {
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                     
                     if endSide == "center" {
                         winner()
@@ -1056,16 +1056,17 @@ class Model {
                         }
                         
                         
-                        if piece.side.bottom.closing.isOpen == true {
+                        if piece.side.bottom.closing.isOpen == false {
                             
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        } else {
-                            print("set up func to move ball close to center")
+                            print("need to move ball halfway")
+                            return
+                            
                         }
-                    } else {
                         
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
+                        
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                     
                     if endSide == "center" {
                         winner()
@@ -1096,16 +1097,15 @@ class Model {
                     
                     if piece.shape == .cross {
                         
-                        if piece.side.left.closing.isOpen == true {
+                        if piece.side.left.closing.isOpen == false {
                             
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                        } else {
-                            print("set up func to move ball close to center")
+                            print("need to move ball halfway")
+                            return
                         }
-                    } else {
-                        
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
+                        
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                     
                     if endSide == "center" {
                         winner()
@@ -1136,13 +1136,14 @@ class Model {
                     
                     if piece.shape == .cross {
                         
-                        if piece.side.right.closing.isOpen == true {
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        if piece.side.right.closing.isOpen == false {
+                            print("need to move ball halfway")
+                            return
                         }
-                    } else {
-                        
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     }
+                        
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                     if endSide == "center" {
                         winner()
                     }
