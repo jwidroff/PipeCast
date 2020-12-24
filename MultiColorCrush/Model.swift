@@ -1000,11 +1000,19 @@ class Model {
 
             if piece.side.top.color != ball.onColor { return }
             
+            
+            
             if let endSide = piece.side.top.exitSide {
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
+                    
+                    if piece.shape == .colorChanger {
+                        
+                        ball.onColor = piece.side.bottom.color!
+                    }
+                    
                     
                     if piece.shape == .cross {
                         
@@ -1042,6 +1050,12 @@ class Model {
                     
                     if piece.shape == .cross {
                         
+                        if piece.shape == .colorChanger {
+                            
+                            ball.onColor = piece.side.top.color!
+                        }
+                        
+                        
                         if piece.side.bottom.closing.isOpen == true {
                             
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
@@ -1074,6 +1088,11 @@ class Model {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
+                    
+                    if piece.shape == .colorChanger {
+                        
+                        ball.onColor = piece.side.right.color!
+                    }
                     
                     if piece.shape == .cross {
                         
@@ -1109,6 +1128,11 @@ class Model {
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
+                    
+                    if piece.shape == .colorChanger {
+                        
+                        ball.onColor = piece.side.left.color!
+                    }
                     
                     if piece.shape == .cross {
                         

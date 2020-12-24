@@ -932,7 +932,7 @@ class ShapeView : UIView {
                 
                
                 
-                currentSwitch = 2
+//                currentSwitch = 2
                 
             case 2, 4:
                 
@@ -1014,7 +1014,7 @@ class ShapeView : UIView {
                 
                 
                 
-                currentSwitch = 1
+//                currentSwitch = 1
                 
             default:
                 break

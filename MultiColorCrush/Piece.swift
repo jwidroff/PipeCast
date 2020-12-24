@@ -114,6 +114,10 @@ class Piece {
                 
                 switches = 1
                 
+            case .colorChanger:
+                
+                switches = 1
+                
             default:
                 break
             }
@@ -150,6 +154,9 @@ class Piece {
             piece.switches = 1
             piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
             
+        
+            
+            
         default:
             break
         }
@@ -175,6 +182,34 @@ class Piece {
     private func setPieceSides(shape: Shape, version: Int, currentSwitch: Int, colors: [UIColor], opening: String?) {
         
         switch shape {
+        
+        case .colorChanger:
+            
+            switch version {
+            case 1, 3: //Horizontal
+                
+                side.left.color = colors[0]
+                side.right.color = colors[1]
+                side.left.exitSide = "right"
+                side.right.exitSide = "left"
+                side.left.opening.isOpen = true
+                side.right.opening.isOpen = true
+                
+                
+            case 2, 4: //Vertical
+                
+                side.top.color = colors[0]
+                side.bottom.color = colors[1]
+                side.top.exitSide = "bottom"
+                side.bottom.exitSide = "top"
+                side.top.opening.isOpen = true
+                side.bottom.opening.isOpen = true
+                
+            default:
+                break
+            }
+        
+        
         
         case .entrance:
             
