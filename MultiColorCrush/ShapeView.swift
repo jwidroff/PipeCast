@@ -892,6 +892,9 @@ class ShapeView : UIView {
                 let x:CGFloat = 0.0
                 let y = ((frame.height - height) / 2)
                 
+                
+                
+                
                 let rect1 = CGRect(x: x, y: y, width: width, height: height)
                 context.setFillColor(colors[0])
                 context.addRects([rect1])
@@ -911,18 +914,22 @@ class ShapeView : UIView {
                 let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
         
                 
+                
+                
+                
                 let path = UIBezierPath()
                 path.move(to: topCenter)
                 path.addCurve(to: bottomCenter, controlPoint1: topLeft, controlPoint2: bottomLeft)
+                context.setFillColor(colors[0])
                 context.addPath(path.cgPath)
                 context.closePath()
                 context.fillPath()
                 
                 
-                context.setFillColor(colors[0])
                 let path2 = UIBezierPath()
                 path2.move(to: topCenter)
                 path2.addCurve(to: bottomCenter, controlPoint1: topRight, controlPoint2: bottomRight)
+                context.setFillColor(colors[1])
                 context.addPath(path2.cgPath)
                 context.closePath()
                 context.fillPath()
@@ -989,17 +996,20 @@ class ShapeView : UIView {
                 let rightBottom = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height - (self.frame.height / 8))
         
                 
+
+
                 let path = UIBezierPath()
                 path.move(to: leftCenter)
                 path.addCurve(to: rightCenter, controlPoint1: leftTop, controlPoint2: rightTop)
+                context.setFillColor(colors[0])
                 context.addPath(path.cgPath)
                 context.closePath()
                 context.fillPath()
                 
-                context.setFillColor(colors[0])
                 let path2 = UIBezierPath()
                 path2.move(to: leftCenter)
                 path2.addCurve(to: rightCenter, controlPoint1: leftBottom, controlPoint2: rightBottom)
+                context.setFillColor(colors[1])
                 context.addPath(path2.cgPath)
                 context.closePath()
                 context.fillPath()
@@ -1024,6 +1034,130 @@ class ShapeView : UIView {
             
             
             
+//        case .ballStopper:
+//
+//
+//
+//            let eclipseHeight1 = frame.height / 1.4
+//            let eclipseWidth1 = frame.width / 1.4
+//            let rect2 = CGRect(x: (frame.width / 2) - (eclipseWidth1 / 2), y: (frame.height / 2) - (eclipseHeight1 / 2), width: eclipseWidth1, height: eclipseHeight1)
+//            context.setFillColor(UIColor.black.cgColor)
+//            context.addEllipse(in: rect2)
+//            context.fillEllipse(in: rect2)
+//
+//            let eclipseHeight2 = frame.height / 1.5
+//            let eclipseWidth2 = frame.width / 1.5
+//            let rect3 = CGRect(x: (frame.width / 2) - (eclipseWidth2 / 2), y: (frame.height / 2) - (eclipseHeight2 / 2), width: eclipseWidth2, height: eclipseHeight2)
+//            context.setFillColor(colors[0])
+//            context.addEllipse(in: rect3)
+//            context.fillEllipse(in: rect3)
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//            switch opening {
+//
+//            case "top":
+//
+//                let width = frame.width / 4
+//                let height = frame.height / 2 - (eclipseHeight2 / 2)
+//                let y1:CGFloat = 0
+//                let x1 = ((frame.width - width) / 2)
+//
+//                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect1])
+//                context.fill(rect1)
+//
+//                let width3:CGFloat = width / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: (frame.width / 2) - (width / 2) - width3, y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+//                let borderline2 = CGRect(x: (frame.width / 2) + (width / 2), y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
+//
+//            case "bottom":
+//
+//                let width = frame.width / 4
+//                let height = frame.height / 2
+//                let y1:CGFloat = (frame.height / 2) + (eclipseHeight2 / 2)
+//                let x1 = ((frame.width - width) / 2)
+//
+//                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect1])
+//                context.fill(rect1)
+//
+//                let width3:CGFloat = width / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: (frame.width / 2) - (width / 2) - width3, y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+//                let borderline2 = CGRect(x: (frame.width / 2) + (width / 2), y: y1, width: width3, height: (frame.height - eclipseHeight2) / 2)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
+//
+//            case "left":
+//
+//                let width = (frame.width / 2) - (eclipseWidth2 / 2)
+//                let height = frame.height / 4
+//                let x1:CGFloat = 0
+//                let y1 = ((frame.height - height) / 2)
+//
+//                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect1])
+//                context.fill(rect1)
+//
+//                let height3:CGFloat = height / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: (frame.width - eclipseWidth2) / 2, height: height3)
+//                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: (frame.width - eclipseWidth2) / 2, height: height3)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
+//
+//            case "right":
+//
+//                let width = (frame.width / 2)
+//                let height = frame.height / 4
+//                let x1:CGFloat = (frame.width / 2) + (eclipseWidth2 / 2)
+//                let y1 = ((frame.height - height) / 2)
+//
+//                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect1])
+//                context.fill(rect1)
+//
+//                let height3:CGFloat = height / 10
+//                context.setFillColor(UIColor.black.cgColor)
+//
+//                let borderline1 = CGRect(x: x1, y: (frame.height / 2) - (height / 2) - height3, width: (frame.width - eclipseWidth2) / 2, height: height3)
+//                let borderline2 = CGRect(x: x1, y: (frame.height / 2) + (height / 2), width: (frame.width - eclipseWidth2) / 2, height: height3)
+//                context.addRects([borderline1, borderline2])
+//                context.fill(borderline1)
+//                context.fill(borderline2)
+//
+//            default:
+//
+//                break
+//            }
+//
+//
+//
+//
+//
         }
         
         
@@ -1078,6 +1212,7 @@ enum Shape {
     case cross
     case stick
     case colorChanger
+//    case ballStopper
     
     case entrance
     case exit

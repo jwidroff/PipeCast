@@ -34,7 +34,7 @@ import UIKit
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
 
-//TODO: Make fireLocations that get rid of pieces
+//MARK://TODO: Make fireLocations that get rid of pieces
 
 //TODO: Make cracks for ice
 
@@ -42,7 +42,6 @@ import UIKit
 
 
 //TODO: Make a ball stopper piece
-//TODO: Make a colorChanger piece
 
 
 
