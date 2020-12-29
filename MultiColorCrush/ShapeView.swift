@@ -191,9 +191,10 @@ class ShapeView : UIView {
         let bottomCenterPoint = CGPoint(x: frame.width / 2, y: frame.height)
         let leftCenterPoint = CGPoint(x: 0, y: frame.height / 2)
         let rightCenterPoint = CGPoint(x: frame.width, y: frame.height / 2)
+        let centerPoint = CGPoint(x: frame.width / 2, y: frame.height / 2)
         
-        context.setLineWidth(frame.height / 20)
-        context.setStrokeColor(UIColor.black.cgColor)
+//        context.setLineWidth(frame.height / 20)
+//        context.setStrokeColor(UIColor.black.cgColor)
         
         context.beginPath()
         context.move(to: CGPoint(x: bounds.minX, y: bounds.minY))
@@ -228,29 +229,43 @@ class ShapeView : UIView {
             
             case 1, 3:
                 
-                let width = frame.width
-                let height = frame.height / 4
-                let x1:CGFloat = 0.0
-                let y1 = ((frame.height - height) / 2)
+//                let width = frame.width
+//                let height = frame.height / 4
+//                let x1:CGFloat = 0.0
+//                let y1 = ((frame.height - height) / 2)
+//
+//                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect1])
+//                context.fill(rect1)
                 
-                let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
-                context.setFillColor(colors[0])
-                context.addRects([rect1])
-                context.fill(rect1)
+                
+                
+                drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[0])
+                
+                
+                
+               
+                
                 
                 currentSwitch = 2
                 
             case 2, 4:
                 
-                let width2 = frame.width / 4
-                let height2 = frame.height
-                let y2:CGFloat = 0.0
-                let x2 = ((frame.width - width2) / 2)
+//                let width2 = frame.width / 4
+//                let height2 = frame.height
+//                let y2:CGFloat = 0.0
+//                let x2 = ((frame.width - width2) / 2)
+//
+//                let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
+//                context.setFillColor(colors[0])
+//                context.addRects([rect2])
+//                context.fill(rect2)
+//
                 
-                let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
-                context.setFillColor(colors[0])
-                context.addRects([rect2])
-                context.fill(rect2)
+                
+                
+                drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
                 
                 currentSwitch = 1
                 
@@ -278,7 +293,7 @@ class ShapeView : UIView {
             
         case .elbow:
             
-            context.setStrokeColor(colors[0])
+//            context.setStrokeColor(colors[0])
             context.setFillColor(colors[0])
 
                 switch version {
@@ -288,13 +303,13 @@ class ShapeView : UIView {
                     // TOP PIVOT TO LEFT SIDE
                     if currentSwitch == 1 {
                     
-                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                         currentSwitch = 2
                     
                     // TOP PIVOT TO RIGHT SIDE
                     } else if currentSwitch == 2 {
                         
-                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                         currentSwitch = 1
                     }
                     
@@ -314,13 +329,13 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //LEFT PIVOT TO BOTTOM
-                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                         currentSwitch = 2
                         
                     } else if currentSwitch == 2 {
                         
                         //LEFT PIVOT TO TOP
-                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                         currentSwitch = 1
                     }
                     
@@ -340,13 +355,13 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
 
                         //BOTTOM PIVOT TO RIGHT
-                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                         currentSwitch = 2
                         
                     } else if currentSwitch == 2  {
                         
                         //BOTTOM PIVOT TO LEFT
-                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                         currentSwitch = 1
                     }
                     
@@ -364,13 +379,13 @@ class ShapeView : UIView {
                     if currentSwitch == 1 {
                         
                         //RIGHT PIVOT TO TOP
-                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                         currentSwitch = 2
 
                     } else if currentSwitch == 2  {
                         
                         //RIGHT PIVOT TO BOTTOM
-                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                         currentSwitch = 1
                     }
                     
@@ -408,8 +423,8 @@ class ShapeView : UIView {
                         
                         //RIGHT PIVOT TO TOP SIDE
                         context.setFillColor(colors[0])
-                        context.setStrokeColor(colors[0])
-                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint)
+//                        context.setStrokeColor(colors[0])
+                        drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                         if isLocked == false && doesPivot == true {
                             context.addRects([pivotRect])
                             context.fill(pivotRect)
@@ -418,8 +433,8 @@ class ShapeView : UIView {
                         
                         //LEFT PIVOT TO BOTTOM SIDE
                         context2.setFillColor(colors[1])
-                        context2.setStrokeColor(colors[1])
-                        drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint)
+//                        context2.setStrokeColor(colors[1])
+                        drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
                         if isLocked == false && doesPivot == true {
                             context2.addRects([pivotRect2])
                             context2.fill(pivotRect2)
@@ -432,8 +447,8 @@ class ShapeView : UIView {
                         
                         //LEFT PIVOT TO TOP SIDE
                         context.setFillColor(colors[1])
-                        context.setStrokeColor(colors[1])
-                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint)
+//                        context.setStrokeColor(colors[1])
+                        drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
                             context.addRects([pivotRect2])
@@ -443,8 +458,8 @@ class ShapeView : UIView {
 
                         //RIGHT PIVOT TO BOTTOM SIDE
                         context2.setFillColor(colors[0])
-                        context2.setStrokeColor(colors[0])
-                        drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint)
+//                        context2.setStrokeColor(colors[0])
+                        drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                         
                         if isLocked == false && doesPivot == true {
                             context2.addRects([pivotRect])
@@ -467,8 +482,8 @@ class ShapeView : UIView {
                         
                         //TOP PIVOT TO LEFT SIDE
                         context.setFillColor(colors[0])
-                        context.setStrokeColor(colors[0])
-                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint)
+//                        context.setStrokeColor(colors[0])
+                        drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                         
                         if isLocked == false && doesPivot == true {
                             
@@ -479,8 +494,8 @@ class ShapeView : UIView {
                         
                         //BOTTOM PIVOT TO RIGHT SIDE
                         context2.setFillColor(colors[1])
-                        context2.setStrokeColor(colors[1])
-                        drawPath(path: path2, context: context2, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint)
+//                        context2.setStrokeColor(colors[1])
+                        drawPath(path: path2, context: context2, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
                             context2.addRects([pivotRect])
@@ -496,8 +511,8 @@ class ShapeView : UIView {
                         //BOTTOM PIVOT TO LEFT SIDE
                        
                         context.setFillColor(colors[1])
-                        context.setStrokeColor(colors[1])
-                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint)
+//                        context.setStrokeColor(colors[1])
+                        drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
                             context.addRects([pivotRect])
@@ -508,8 +523,8 @@ class ShapeView : UIView {
                         
                         //TOP PIVOT TO RIGHT SIDE
                         context2.setFillColor(colors[0])
-                        context2.setStrokeColor(colors[0])
-                        drawPath(path: path2, context: context2, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint)
+//                        context2.setStrokeColor(colors[0])
+                        drawPath(path: path2, context: context2, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                         
                         if isLocked == false && doesPivot == true {
                             context2.addRects([pivotRect2])
@@ -1164,11 +1179,25 @@ class ShapeView : UIView {
         
     }
     
-    func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint) {
+    func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint, color: CGColor) {
+        
+        
+        //UP TO HERE - FIX THE WIDTH OF THE LINES
+        
+        
         
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
         context.addPath(path.cgPath)
+        context.setStrokeColor(UIColor.lightGray.cgColor)
+        context.setLineWidth(frame.height / 4)
+        context.strokePath()
+        
+        path.move(to: pivotPoint)
+        path.addQuadCurve(to: endPoint, controlPoint: center)
+        context.addPath(path.cgPath)
+        context.setStrokeColor(color)
+        context.setLineWidth(frame.height / 5)
         context.strokePath()
     }
 }

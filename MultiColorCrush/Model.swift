@@ -11,35 +11,26 @@ import UIKit
 
 
 
-//TODO: Create pieces that add pieces
-//TODO: Create pieces that consume pieces
-
-//TODO: Possibly make it that when the same EXACT pieces push into eachother, they combine
-
-//TODO: Make slippery tiles
 //TODO: Make the possibility for more balls
-//TODO: Make the possibility for ball color-changing pieces
-//TODO: change the control of the color of the pieces, entrances, exits, walls... etc to the Model
-//TODO: Make sure that all piece characteristics are chosen in the model (ultimately by the level)
+
+
 //TODO: Give pieces the ability to rotate
 //TODO: Make a piece that rotates pieces
 
 //TODO: Make a piece that changes the balls color
-//TODO: Make it that the variables of each piece can be set on their own and create a level model
-//TODO: Make it that the pieces switch (if they have a switch) after the ball passes
+
 
 //TODO: Make it that the entrances cant open next to a wall
-//TODO: Add place that pieces get added from (in higher levels)
+
 //TODO: Make a retry button
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
 
-//MARK://TODO: Make fireLocations that get rid of pieces
+//TODO: Make fireLocations that get rid of pieces
 
 //TODO: Make cracks for ice
 
 //TODO: Swipes left label
-
 
 //TODO: Make a ball stopper piece
 
