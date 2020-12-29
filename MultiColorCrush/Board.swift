@@ -15,6 +15,7 @@ class Board {
     var grid = [Indexes: CGPoint]()
     var view = UIView()
     var iceLocations = [Indexes]()
+    var fireLocations = [Indexes]()
     var randomPieceColors = [UIColor]()
     var randomPieceShapes = [Shape]()
     var amountOfRandomPieces = Int()
@@ -30,7 +31,8 @@ class BoardView : UIView {
     var xArray = [CGFloat]()
     var yArray = [CGFloat]()
     var iceLocations = [Indexes]()
-    
+    var fireLocations = [Indexes]()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
@@ -41,7 +43,7 @@ class BoardView : UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes]) {
+    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes], fireLocations: [Indexes]) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         
@@ -61,7 +63,8 @@ class BoardView : UIView {
         })
         
         self.iceLocations = iceLocations
-        
+        self.fireLocations = fireLocations
+
     }
     
     override func draw(_ rect: CGRect) {
@@ -106,6 +109,14 @@ class BoardView : UIView {
             
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
             context.setFillColor(UIColor.cyan.cgColor)
+            context.fill(rect)
+            context.addRect(rect)
+        }
+        
+        for fireLocation in fireLocations {
+            
+            let rect = CGRect(x: xArray[fireLocation.x!] - halfX, y: yArray[fireLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
+            context.setFillColor(UIColor.systemPink.cgColor)
             context.fill(rect)
             context.addRect(rect)
         }

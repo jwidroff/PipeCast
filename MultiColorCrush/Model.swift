@@ -610,6 +610,19 @@ class Model {
         return bool
     }
     
+    func checkForFire(piece: Piece) -> Bool {
+
+        var bool = false
+
+        if board.fireLocations.contains(where: { (index) -> Bool in
+            index == piece.indexes
+        }) {
+            bool = true
+        }
+        return bool
+    }
+    
+    
     func resetPieceMaker(piece: Piece) {
                 
         let nextPiece = Piece()
@@ -660,6 +673,13 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
+                            if checkForFire(piece: piece) == true {
+                                
+                                
+                                deletePiece(piece: piece)
+                               
+                            }
+                            
                             
                         }
                         
@@ -682,6 +702,13 @@ class Model {
                                 if checkForIce(piece: newPiece) == true {
                                     
                                     movePiecesHelper(piece: newPiece, direction: direction)
+                                }
+                                
+                                if checkForFire(piece: newPiece) == true {
+                                    
+                                    
+                                    deletePiece(piece: newPiece)
+                                   
                                 }
                                 
                                 resetPieceMaker(piece: piece)
@@ -726,6 +753,14 @@ class Model {
                                 
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
+                            
+                            if checkForFire(piece: piece) == true {
+                                
+                                
+                                deletePiece(piece: piece)
+                               
+                            }
+                            
                         }
                         
                     } else {
@@ -747,6 +782,13 @@ class Model {
                                 if checkForIce(piece: newPiece) == true {
                                     
                                     movePiecesHelper(piece: newPiece, direction: direction)
+                                }
+                                
+                                if checkForFire(piece: newPiece) == true {
+                                    
+                                    
+                                    deletePiece(piece: newPiece)
+                                   
                                 }
                                 
                                 resetPieceMaker(piece: piece)
@@ -789,6 +831,13 @@ class Model {
                                 
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
+                            
+                            if checkForFire(piece: piece) == true {
+                                
+                                
+                                deletePiece(piece: piece)
+                               
+                            }
                         }
                         
                     } else {
@@ -810,6 +859,13 @@ class Model {
                                 if checkForIce(piece: newPiece) == true {
                                     
                                     movePiecesHelper(piece: newPiece, direction: direction)
+                                }
+                                
+                                if checkForFire(piece: newPiece) == true {
+                                    
+                                    
+                                    deletePiece(piece: newPiece)
+                                   
                                 }
                                 
                                 resetPieceMaker(piece: piece)
@@ -854,6 +910,13 @@ class Model {
                                 
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
+                            
+                            if checkForFire(piece: piece) == true {
+                                
+                                
+                                deletePiece(piece: piece)
+                               
+                            }
                         }
                         
                     } else {
@@ -877,6 +940,13 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
+                                if checkForFire(piece: newPiece) == true {
+                                    
+                                    
+                                    deletePiece(piece: newPiece)
+                                   
+                                }
+                                
                                 resetPieceMaker(piece: piece)
                             }
                         }
@@ -887,6 +957,12 @@ class Model {
         default:
             break
         }
+    }
+    
+    func deletePiece(piece: Piece) {
+        
+        print("TODO delete piece with indexes \(piece.indexes)")
+        
     }
     
     
