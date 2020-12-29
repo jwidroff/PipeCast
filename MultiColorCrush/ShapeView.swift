@@ -248,7 +248,7 @@ class ShapeView : UIView {
                
                 
                 
-                currentSwitch = 2
+//                currentSwitch = 2
                 
             case 2, 4:
                 
@@ -267,7 +267,7 @@ class ShapeView : UIView {
                 
                 drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
                 
-                currentSwitch = 1
+//                currentSwitch = 1
                 
             default:
                 break

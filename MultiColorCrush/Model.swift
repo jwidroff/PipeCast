@@ -34,7 +34,9 @@ import UIKit
 
 //TODO: Make a ball stopper piece
 
+//TODO: Make a gradient for the colorChangers view
 
+//TODO: Figure out why the currentSwitch being changed for the cross in the ShapeView still works
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -1114,13 +1116,13 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
+                    if piece.shape == .colorChanger {
+                        
+                        ball.onColor = piece.side.top.color!
+                    }
+                    
+                    
                     if piece.shape == .cross {
-                        
-                        if piece.shape == .colorChanger {
-                            
-                            ball.onColor = piece.side.top.color!
-                        }
-                        
                         
                         if piece.side.bottom.closing.isOpen == false {
                             
@@ -1264,10 +1266,12 @@ class Model {
         if piece.currentSwitch != piece.switches {
             
             piece.currentSwitch += 1
-            
+            print("current switch changed")
         } else {
             
             piece.currentSwitch = 1
+            print("current switch changed")
+
         }
 
         switch piece.shape {
