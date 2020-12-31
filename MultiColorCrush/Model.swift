@@ -685,8 +685,9 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                
+                                delegate?.movePieces(piece: piece, direction: direction)
                                 movePiecesHelper(piece: piece, direction: direction)
+                                return
                             }
                             
                             if checkForHole(piece: piece) == true {
@@ -695,6 +696,15 @@ class Model {
                                 deletePiece(piece: piece)
                                
                             }
+                            
+                            
+                            
+//                            if checkForHole(piece: piece) == true {
+//
+//
+//                                deletePiece(piece: piece)
+//
+//                            }
                             
                             
                         }
@@ -718,6 +728,7 @@ class Model {
                                 if checkForIce(piece: newPiece) == true {
                                     
                                     movePiecesHelper(piece: newPiece, direction: direction)
+                                    return
                                 }
                                 
                                 if checkForHole(piece: newPiece) == true {
@@ -775,7 +786,10 @@ class Model {
                             
                             if checkForIce(piece: piece) == true {
                                 
+                                delegate?.movePieces(piece: piece, direction: direction)
                                 movePiecesHelper(piece: piece, direction: direction)
+                                return
+
                             }
                             
                             if checkForHole(piece: piece) == true {
@@ -784,6 +798,15 @@ class Model {
                                 deletePiece(piece: piece)
                                
                             }
+                            
+                            
+                            
+//                            if checkForHole(piece: piece) == true {
+//
+//
+//                                deletePiece(piece: piece)
+//
+//                            }
                             
                         }
                         
@@ -804,8 +827,10 @@ class Model {
                                 newPiece.indexes.y = newPiece.indexes.y! + 1
                                 
                                 if checkForIce(piece: newPiece) == true {
-                                    
+                                    delegate?.movePieces(piece: piece, direction: direction)
                                     movePiecesHelper(piece: newPiece, direction: direction)
+                                    return
+
                                 }
                                 
                                 if checkForHole(piece: newPiece) == true {
@@ -858,7 +883,7 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                
+                                delegate?.movePieces(piece: piece, direction: direction)
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
@@ -868,6 +893,15 @@ class Model {
                                 deletePiece(piece: piece)
                                
                             }
+                            
+                            
+                            
+//                            if checkForHole(piece: piece) == true {
+//
+//
+//                                deletePiece(piece: piece)
+//
+//                            }
                         }
                         
                     } else {
@@ -946,12 +980,22 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
+                            
                             if checkForHole(piece: piece) == true {
                                 
                                 
                                 deletePiece(piece: piece)
                                
                             }
+                            
+                            
+                            
+//                            if checkForHole(piece: piece) == true {
+//
+//
+//                                deletePiece(piece: piece)
+//
+//                            }
                         }
                         
                     } else {
