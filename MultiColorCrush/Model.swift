@@ -36,11 +36,12 @@ import UIKit
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
-    func movePieces(direction: UISwipeGestureRecognizer.Direction)
+    func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction)
     func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
+    func removePiece(piece: Piece)
 }
 
 class Model {
@@ -951,24 +952,40 @@ class Model {
         
 
         
-//        board.pieces.removeAll { (piece) -> Bool in
-//
-//            for fireLocation in board.fireLocations {
-//
-//                if fireLocation == piece.indexes {
-//
-//
-//
-//                    piece.view.removeFromSuperview()
-//
-//                    print("deleted piece - Need to animate this in the VC")
-//                    return true
-//                }
-//            }
-//
-//            return false
-//        }
-//
+        
+        
+        //Animation works but need to put in the right place becuase right not the piece doesnt move before its removed. Need to call after the piece moves
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        board.pieces.removeAll { (piece) -> Bool in
+
+            for fireLocation in board.fireLocations {
+
+                if fireLocation == piece.indexes {
+
+
+
+
+                    delegate?.removePiece(piece: piece)
+                    
+                    print("deleted piece - Need to animate this in the VC")
+                    return true
+                }
+            }
+
+            return false
+        }
+
         
         
     }
@@ -988,9 +1005,13 @@ class Model {
 //            })
             {
                 movePiecesHelper(piece: piece, direction: direction)
+                delegate?.movePieces(piece: piece, direction: direction)
+
             }
             
-            delegate?.movePieces(direction: direction)
+            
+        //            delegate?.movePieces(direction: direction)
+
 
         case .down:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -1002,9 +1023,12 @@ class Model {
 //            })
             {
                 movePiecesHelper(piece: piece, direction: direction)
+                delegate?.movePieces(piece: piece, direction: direction)
+
             }
             
-            delegate?.movePieces(direction: direction)
+        //            delegate?.movePieces(direction: direction)
+
 
         case .left:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -1015,9 +1039,11 @@ class Model {
 //            })
             {
                 movePiecesHelper(piece: piece, direction: direction)
+                delegate?.movePieces(piece: piece, direction: direction)
+
             }
             
-            delegate?.movePieces(direction: direction)
+//            delegate?.movePieces(direction: direction)
 
         case .right:
             for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
@@ -1028,8 +1054,10 @@ class Model {
 //            })
             {
                 movePiecesHelper(piece: piece, direction: direction)
+                delegate?.movePieces(piece: piece, direction: direction)
+
             }
-            delegate?.movePieces(direction: direction)
+//            delegate?.movePieces(direction: direction)
 
         default:
             break

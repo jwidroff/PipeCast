@@ -256,6 +256,26 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
 
+    
+    func removePiece(piece: Piece) {
+        
+        let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.5) {
+            
+            piece.view.transform = scale
+            
+            
+            
+        } completion: { (true) in
+            
+            
+            piece.view.removeFromSuperview()
+        }
+
+        
+    }
+    
     func resetPieceMaker(piece: Piece) {
  
         let frame = piece.view.subviews.first!.frame
@@ -640,9 +660,9 @@ extension ViewController: ModelDelegate {
     }
     
     
-    func movePieces(direction: UISwipeGestureRecognizer.Direction) {
+    func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
                 
-        for piece in model.board.pieces {
+//        for piece in model.board.pieces {
             
             UIView.animate(withDuration: 0.25) {
                 
@@ -652,7 +672,7 @@ extension ViewController: ModelDelegate {
                     ball.view.center = self.model.board.grid[ball.indexes]!
                 }
             }
-        }
+//        }
     }
     
     func setUpPiecesView() {
