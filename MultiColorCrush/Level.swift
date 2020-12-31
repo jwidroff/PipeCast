@@ -30,7 +30,7 @@ class LevelModel {
             board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
             board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
-            board.fireLocations = [Indexes(x: 1, y: 5)]
+            board.holeLocations = [Indexes(x: 1, y: 5)]
 
             board.heightSpaces = 10
             board.widthSpaces = 5

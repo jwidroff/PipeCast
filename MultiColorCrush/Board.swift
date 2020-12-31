@@ -15,7 +15,7 @@ class Board {
     var grid = [Indexes: CGPoint]()
     var view = UIView()
     var iceLocations = [Indexes]()
-    var fireLocations = [Indexes]()
+    var holeLocations = [Indexes]()
     var randomPieceColors = [UIColor]()
     var randomPieceShapes = [Shape]()
     var amountOfRandomPieces = Int()
@@ -31,7 +31,7 @@ class BoardView : UIView {
     var xArray = [CGFloat]()
     var yArray = [CGFloat]()
     var iceLocations = [Indexes]()
-    var fireLocations = [Indexes]()
+    var holeLocations = [Indexes]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +43,7 @@ class BoardView : UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes], fireLocations: [Indexes]) {
+    init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes], holeLocations: [Indexes]) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         
@@ -63,7 +63,7 @@ class BoardView : UIView {
         })
         
         self.iceLocations = iceLocations
-        self.fireLocations = fireLocations
+        self.holeLocations = holeLocations
 
     }
     
@@ -113,9 +113,9 @@ class BoardView : UIView {
             context.addRect(rect)
         }
         
-        for fireLocation in fireLocations {
+        for holeLocation in holeLocations {
             
-            let rect = CGRect(x: xArray[fireLocation.x!] - halfX, y: yArray[fireLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
+            let rect = CGRect(x: xArray[holeLocation.x!] - halfX, y: yArray[holeLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
             context.setFillColor(UIColor.lightGray.cgColor)
             context.fill(rect)
             context.addRect(rect)

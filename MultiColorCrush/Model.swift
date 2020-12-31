@@ -606,11 +606,11 @@ class Model {
         return bool
     }
     
-    func checkForFire(piece: Piece) -> Bool {
+    func checkForHole(piece: Piece) -> Bool {
 
         var bool = false
 
-        if board.fireLocations.contains(where: { (index) -> Bool in
+        if board.holeLocations.contains(where: { (index) -> Bool in
             index == piece.indexes
         }) {
             bool = true
@@ -689,7 +689,7 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
-                            if checkForFire(piece: piece) == true {
+                            if checkForHole(piece: piece) == true {
                                 
                                 
                                 deletePiece(piece: piece)
@@ -720,7 +720,7 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                if checkForFire(piece: newPiece) == true {
+                                if checkForHole(piece: newPiece) == true {
                                     
                                     
                                     deletePiece(piece: newPiece)
@@ -778,7 +778,7 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
-                            if checkForFire(piece: piece) == true {
+                            if checkForHole(piece: piece) == true {
                                 
                                 
                                 deletePiece(piece: piece)
@@ -808,7 +808,7 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                if checkForFire(piece: newPiece) == true {
+                                if checkForHole(piece: newPiece) == true {
                                     
                                     
                                     deletePiece(piece: newPiece)
@@ -862,7 +862,7 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
-                            if checkForFire(piece: piece) == true {
+                            if checkForHole(piece: piece) == true {
                                 
                                 
                                 deletePiece(piece: piece)
@@ -891,7 +891,7 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                if checkForFire(piece: newPiece) == true {
+                                if checkForHole(piece: newPiece) == true {
                                     
                                     
                                     deletePiece(piece: newPiece)
@@ -946,7 +946,7 @@ class Model {
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
-                            if checkForFire(piece: piece) == true {
+                            if checkForHole(piece: piece) == true {
                                 
                                 
                                 deletePiece(piece: piece)
@@ -975,7 +975,7 @@ class Model {
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
-                                if checkForFire(piece: newPiece) == true {
+                                if checkForHole(piece: newPiece) == true {
                                     
                                     
                                     deletePiece(piece: newPiece)
@@ -1035,9 +1035,9 @@ class Model {
         
         board.pieces.removeAll { (piece) -> Bool in
 
-            for fireLocation in board.fireLocations {
+            for holeLocation in board.holeLocations {
 
-                if fireLocation == piece.indexes {
+                if holeLocation == piece.indexes {
 
                     delegate?.removePiece(piece: piece)
                     
