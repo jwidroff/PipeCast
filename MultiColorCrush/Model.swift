@@ -33,6 +33,12 @@ import UIKit
 
 //TODO: Figure out why the currentSwitch being changed for the cross in the ShapeView still works
 
+
+//TODO: MAKE IT THAT PIECES CAN FALL OFF THE EDGE OF THE GAME. MAKE WALLS AROUND THE BOARD IF A PIECE SHOULDNT FALL OFF
+
+//TODO: Need to make it that pieces cant begin on fireLocations
+
+
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
@@ -705,6 +711,15 @@ class Model {
                         }
                     }
                 }
+            } else {
+                
+                if piece.isLocked == false {
+                    
+                    print("throw piece off the board!")
+
+                }
+                
+                
             }
            
         case .down:
@@ -785,7 +800,16 @@ class Model {
                         }
                     }
                 }
+            } else {
+                
+                if piece.isLocked == false {
+                    
+                    print("throw piece off the board!")
+
+                }
+                
             }
+            
             
         case .left:
             
@@ -862,6 +886,14 @@ class Model {
                         }
                     }
                 }
+            } else {
+                
+                if piece.isLocked == false {
+                    
+                    print("throw piece off the board!")
+
+                }
+                
             }
             
         case .right:
@@ -941,6 +973,14 @@ class Model {
                         }
                     }
                 }
+            } else {
+                
+                if piece.isLocked == false {
+                    
+                    print("throw piece off the board!")
+
+                }
+                
             }
             
         default:

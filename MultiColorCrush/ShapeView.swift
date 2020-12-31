@@ -117,7 +117,7 @@ class ShapeView : UIView {
         let x = (frame.width - w) / 2
         let y = (frame.height - h) / 2
         let rect1 = CGRect(x: x, y: y, width: w, height: h)
-        context.setFillColor(UIColor.lightGray.cgColor)
+        context.setFillColor(UIColor.darkGray.cgColor)
         context.addRects([rect1])
         context.fill(rect1)
         

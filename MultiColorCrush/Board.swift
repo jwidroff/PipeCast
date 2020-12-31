@@ -116,7 +116,7 @@ class BoardView : UIView {
         for fireLocation in fireLocations {
             
             let rect = CGRect(x: xArray[fireLocation.x!] - halfX, y: yArray[fireLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
-            context.setFillColor(UIColor.systemPink.cgColor)
+            context.setFillColor(UIColor.lightGray.cgColor)
             context.fill(rect)
             context.addRect(rect)
         }
