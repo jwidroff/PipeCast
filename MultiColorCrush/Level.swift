@@ -35,16 +35,19 @@ class LevelModel {
             board.heightSpaces = 12
             board.widthSpaces = 6
             
+            addBorderAroundBoardOf(.pieceMaker, exceptionIndexes: nil)
+            
+            
 //            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: nil)
 //            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: nil)
 //            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: nil)
 //            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: nil)
 
             
-            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: "bottom")
-            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: "top")
-            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: "left")
-            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: "right")
+//            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: "bottom")
+//            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: "top")
+//            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: "left")
+//            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: "right")
             
             
             let entrance = Piece(indexes: Indexes(x: 1, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
@@ -108,7 +111,7 @@ class LevelModel {
         setupBalls()
     }
     
-    func setupNextPieces() {
+    private func setupNextPieces() {
         
         for piece in self.board.pieces {
             
@@ -127,6 +130,8 @@ class LevelModel {
         
         
     }
+    
+    
     
 //    private func setupGrid(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?) {
         
@@ -648,7 +653,40 @@ class LevelModel {
         }
     }
     
-    func setupRowOrColumnOf(_ shape: Shape, rowOrColumn: String, index: Int, exception: Int?, pieceMakerOpening: String?) {
+    private func addBorderAroundBoardOf(_ shape: Shape, exceptionIndexes: Indexes?) {
+        
+
+        switch shape {
+        
+        case .wall:
+            
+            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: nil)
+            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: nil)
+            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: nil)
+            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: nil)
+            
+            
+            
+        case .pieceMaker:
+            
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: "bottom")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: "top")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: "left")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: "right")
+            
+        default:
+            break
+        
+        
+        
+        }
+        
+        
+        
+        
+    }
+    
+    private func setupRowOrColumnOf(_ shape: Shape, rowOrColumn: String, index: Int, exception: Int?, pieceMakerOpening: String?) {
         
         if rowOrColumn == "row" {
             
@@ -657,8 +695,13 @@ class LevelModel {
                 
                 for xIndex in 0..<board.widthSpaces {
                     
-                    let wall = Piece(indexes: Indexes(x: xIndex, y: index), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                    board.pieces.append(wall)
+                    if !board.pieces.contains(where: { (piece) -> Bool in
+                        piece.indexes == Indexes(x: xIndex, y: index)
+                    }) {
+                        
+                        let wall = Piece(indexes: Indexes(x: xIndex, y: index), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                        board.pieces.append(wall)
+                    }
                 }
                 
             case .pieceMaker:
@@ -669,15 +712,20 @@ class LevelModel {
                         
                         switch pieceMakerOpening {
                         case "top":
-                            
-                            let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 3, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                            board.pieces.append(pieceMaker)
-                            
+                            if !board.pieces.contains(where: { (piece) -> Bool in
+                                piece.indexes == Indexes(x: xIndex, y: index)
+                            }) {
+                                let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 3, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                                board.pieces.append(pieceMaker)
+                            }
                         case "bottom":
-                            
-                            let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                            board.pieces.append(pieceMaker)
-                            
+                            if !board.pieces.contains(where: { (piece) -> Bool in
+                                piece.indexes == Indexes(x: xIndex, y: index)
+                            }) {
+                                
+                                let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                                board.pieces.append(pieceMaker)
+                            }
                         default:
                             print("Couldnt set row of pieceMakers 1")
                         }
@@ -704,8 +752,13 @@ class LevelModel {
                 
                 for yIndex in 0..<board.heightSpaces {
                     
-                    let piece = Piece(indexes: Indexes(x: index, y: yIndex), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                    board.pieces.append(piece)
+                    if !board.pieces.contains(where: { (piece) -> Bool in
+                        piece.indexes == Indexes(x: index, y: yIndex)
+                    }) {
+                    
+                        let piece = Piece(indexes: Indexes(x: index, y: yIndex), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                        board.pieces.append(piece)
+                    }
                 }
                 
             case .pieceMaker:
@@ -717,14 +770,24 @@ class LevelModel {
                         switch pieceMakerOpening {
                         case "left":
                             
-                            let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 4, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                            board.pieces.append(pieceMaker)
+                            if !board.pieces.contains(where: { (piece) -> Bool in
+                                piece.indexes == Indexes(x: index, y: yIndex)
+                            }) {
+                                let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 4, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                                board.pieces.append(pieceMaker)
+                            }
+                            
+                            
                             
                         case "right":
                             
-                            let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 2, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-                            board.pieces.append(pieceMaker)
+                            if !board.pieces.contains(where: { (piece) -> Bool in
+                                piece.indexes == Indexes(x: index, y: yIndex)
+                            }) {
                             
+                                let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 2, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                                board.pieces.append(pieceMaker)
+                            }
                         default:
                             print("Couldnt set row of pieceMakers 1")
                         }
