@@ -81,8 +81,11 @@ class ViewController: UIViewController {
     
     func setSizes() {
         
-        let widthCushion:CGFloat = (self.view.frame.width / 10)
-        let heightCushion:CGFloat = (self.view.frame.height / 10)
+        let widthCushion:CGFloat = (self.view.frame.width / CGFloat(model.board.widthSpaces))
+        let heightCushion:CGFloat = (self.view.frame.height / CGFloat(model.board.heightSpaces))
+        
+//        let widthCushion:CGFloat = pieceWidth
+//        let heightCushion:CGFloat = pieceHeight
         
         if self.view.frame.width < (self.view.frame.height / 2) {
             
@@ -261,7 +264,7 @@ extension ViewController: ModelDelegate {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
-        UIView.animate(withDuration: 0.75, delay: 0.10, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
             piece.view.transform = scale
 
         } completion: { (true) in

@@ -711,7 +711,7 @@ class Model {
                         
                     } else {
                         
-                        if piece.shape == .pieceMaker && piece.version == 3 {
+                        if piece.version == 3 {
                                                         
                             if piece.nextPiece != nil {
                                 
@@ -725,8 +725,9 @@ class Model {
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! - 1
                                 
+                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                
                                 if checkForIce(piece: newPiece) == true {
-                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                     return
                                 }
@@ -763,9 +764,11 @@ class Model {
 //
 //            if notAtWall {
                 
-                if spaceIsntBlocked{
+                if spaceIsntBlocked {
                     
                     if piece.shape != .pieceMaker {
+                        
+                        print("piece is not pieceMaker")
                         
                         if piece.isLocked == false {
                             
@@ -811,8 +814,8 @@ class Model {
                         }
                         
                     } else {
-                        
-                        if piece.shape == .pieceMaker && piece.version == 1 {
+                                                
+                        if piece.version == 1 {
                             
                             if piece.nextPiece != nil {
 
@@ -826,8 +829,11 @@ class Model {
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! + 1
                                 
+                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                
                                 if checkForIce(piece: newPiece) == true {
-                                    delegate?.movePieces(piece: piece, direction: direction)
+                                    
+                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                     return
 
@@ -906,7 +912,7 @@ class Model {
                         
                     } else {
                         
-                        if piece.shape == .pieceMaker && piece.version == 2 {
+                        if piece.version == 2 {
                             
                             if piece.nextPiece != nil {
                                 
@@ -920,8 +926,9 @@ class Model {
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! - 1
                                 
+                                delegate?.movePieces(piece: newPiece, direction: direction)
+
                                 if checkForIce(piece: newPiece) == true {
-                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
@@ -976,7 +983,7 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                
+                                delegate?.movePieces(piece: piece, direction: direction)
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
@@ -1002,7 +1009,7 @@ class Model {
                         
                         if piece.nextPiece != nil {
                             
-                            if piece.shape == .pieceMaker && piece.version == 4 {
+                            if piece.version == 4 {
                                 
                                 let newPiece = piece.nextPiece!
                                 
@@ -1014,8 +1021,9 @@ class Model {
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! + 1
                                 
+                                delegate?.movePieces(piece: newPiece, direction: direction)
+
                                 if checkForIce(piece: newPiece) == true {
-                                    
                                     movePiecesHelper(piece: newPiece, direction: direction)
                                 }
                                 
@@ -1382,8 +1390,8 @@ class Model {
             
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
                 
-                print(piece.version)
-                print(piece.currentSwitch)
+//                print(piece.version)
+//                print(piece.currentSwitch)
 
                 
                 switch4Tap(piece: piece) { (false) in

@@ -28,19 +28,30 @@ class LevelModel {
             
             board.randomPieceColors = [UIColor.red, UIColor.blue, UIColor.purple]
             board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
-            board.amountOfRandomPieces = 20
+            board.amountOfRandomPieces = 0
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.holeLocations = [Indexes(x: 1, y: 5)]
 
-            board.heightSpaces = 10
-            board.widthSpaces = 5
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+            
+//            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: nil)
+//            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: nil)
+//            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: nil)
+//            setupRowOrColumnOf(.wall, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: nil)
+
+            
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 0, exception: nil, pieceMakerOpening: "bottom")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: board.heightSpaces - 1, exception: nil, pieceMakerOpening: "top")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: 0, exception: nil, pieceMakerOpening: "left")
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "column", index: board.widthSpaces - 1, exception: nil, pieceMakerOpening: "right")
             
             
-            let entrance = Piece(indexes: Indexes(x: 0, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            let entrance = Piece(indexes: Indexes(x: 1, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
             board.pieces.append(entrance)
 
 
-            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: board.heightSpaces - 1), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
+            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 2, y: board.heightSpaces - 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
             board.pieces.append(exit)
 
             
@@ -634,6 +645,102 @@ class LevelModel {
             
         default:
             break
+        }
+    }
+    
+    func setupRowOrColumnOf(_ shape: Shape, rowOrColumn: String, index: Int, exception: Int?, pieceMakerOpening: String?) {
+        
+        if rowOrColumn == "row" {
+            
+            switch shape {
+            case .wall:
+                
+                for xIndex in 0..<board.widthSpaces {
+                    
+                    let wall = Piece(indexes: Indexes(x: xIndex, y: index), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                    board.pieces.append(wall)
+                }
+                
+            case .pieceMaker:
+                
+                for xIndex in 0..<board.widthSpaces {
+                
+                    if let pieceMakerOpening = pieceMakerOpening {
+                        
+                        switch pieceMakerOpening {
+                        case "top":
+                            
+                            let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 3, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            board.pieces.append(pieceMaker)
+                            
+                        case "bottom":
+                            
+                            let pieceMaker = Piece(indexes: Indexes(x: xIndex, y: index), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            board.pieces.append(pieceMaker)
+                            
+                        default:
+                            print("Couldnt set row of pieceMakers 1")
+                        }
+                        
+                    } else {
+                        
+                        print("Couldnt set row of pieceMakers 2")
+                    }
+                    
+                    
+                
+                }
+                
+            default:
+                print("invalid shape for row or column")
+            }
+            
+            
+        } else if rowOrColumn == "column" {
+            
+            switch shape {
+            
+            case .wall:
+                
+                for yIndex in 0..<board.heightSpaces {
+                    
+                    let piece = Piece(indexes: Indexes(x: index, y: yIndex), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                    board.pieces.append(piece)
+                }
+                
+            case .pieceMaker:
+                
+                for yIndex in 0..<board.heightSpaces {
+
+                    if let pieceMakerOpening = pieceMakerOpening {
+                        
+                        switch pieceMakerOpening {
+                        case "left":
+                            
+                            let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 4, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            board.pieces.append(pieceMaker)
+                            
+                        case "right":
+                            
+                            let pieceMaker = Piece(indexes: Indexes(x: index, y: yIndex), shape: .pieceMaker, colors: [.black], version: 2, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            board.pieces.append(pieceMaker)
+                            
+                        default:
+                            print("Couldnt set row of pieceMakers 1")
+                        }
+                        
+                    } else {
+                        
+                        print("Couldnt set row of pieceMakers 2")
+                    }
+                }
+
+                
+                
+                
+            default:
+                print("invalid shape for row or column")
+            }
         }
     }
     
