@@ -132,13 +132,20 @@ class LevelModel {
 
         let index = Indexes(x: Int(arc4random_uniform(UInt32(board.widthSpaces))), y: Int(arc4random_uniform(UInt32(board.heightSpaces))))
 
-        // This is to make sure that the pieces dont start on 1) another piece 2) an entrance 3) an exit 4) a wall
+        // This is to make sure that the pieces dont start on another piece
         if board.pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == index
         }){
             setPieceIndex(piece: piece)
         } else {
-            piece.indexes = index
+            // This is to make sure that the pieces dont start on a hole
+            if board.holeLocations.contains(where: { (holeIndex) -> Bool in
+                holeIndex == index
+            }) {
+                setPieceIndex(piece: piece)
+            } else {
+                piece.indexes = index
+            }
         }
     }
     
