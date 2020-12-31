@@ -39,6 +39,7 @@ import UIKit
 //TODO: Need to make it that pieces cant begin on fireLocations
 
 
+
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
@@ -630,6 +631,26 @@ class Model {
         delegate?.resetPieceMaker(piece: piece)
     }
     
+    func throwPieceOffEdge(piece: Piece) {
+        
+        if piece.isLocked == false {
+            
+            print("throw piece off the board!")
+            //put delegate here
+            
+            
+            
+            //Remove Piece
+//            board.pieces.removeAll { (pieceX) -> Bool in
+//                pieceX.indexes.x! < 0 || pieceX.indexes.x! > level.board.widthSpaces - 1 || pieceX.indexes.y < 0 || pieceX.indexes.y! > level.board.heightSpaces - 1
+//            }
+            
+
+        }
+        
+        
+    }
+    
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
         switch direction {
@@ -638,9 +659,9 @@ class Model {
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .up, indexes: piece.indexes)
             
-            let notAtWall = piece.indexes.y != 0
+//            let notAtWall = piece.indexes.y != 0
             
-            if notAtWall {
+//            if notAtWall {
                 
                 if spaceIsntBlocked {
                                         
@@ -711,26 +732,25 @@ class Model {
                         }
                     }
                 }
-            } else {
-                
-                if piece.isLocked == false {
-                    
-                    print("throw piece off the board!")
-
-                }
-                
-                
-            }
+//            } else {
+//
+//
+//
+//
+//                throwPieceOffEdge(piece: piece)
+//
+//
+//            }
            
         case .down:
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .down, indexes: piece.indexes)
             
-            let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
-                return int1 < int2
-            })
-            
-            if notAtWall {
+//            let notAtWall = piece.indexes.y != board.grid.keys.map({$0.y!}).max(by: { (int1, int2) -> Bool in
+//                return int1 < int2
+//            })
+//
+//            if notAtWall {
                 
                 if spaceIsntBlocked{
                     
@@ -800,24 +820,21 @@ class Model {
                         }
                     }
                 }
-            } else {
-                
-                if piece.isLocked == false {
-                    
-                    print("throw piece off the board!")
-
-                }
-                
-            }
+//            } else {
+//
+//                throwPieceOffEdge(piece: piece)
+//
+//
+//            }
             
             
         case .left:
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .left, indexes: piece.indexes)
             
-            let notAtWall = piece.indexes.x != 0
-            
-            if notAtWall {
+//            let notAtWall = piece.indexes.x != 0
+//
+//            if notAtWall {
                 
                 if spaceIsntBlocked {
                     
@@ -886,25 +903,22 @@ class Model {
                         }
                     }
                 }
-            } else {
-                
-                if piece.isLocked == false {
-                    
-                    print("throw piece off the board!")
-
-                }
-                
-            }
+//            } else {
+//
+//                throwPieceOffEdge(piece: piece)
+//
+//
+//            }
             
         case .right:
             
             let spaceIsntBlocked = isNextSpaceBlocked(direction: .right, indexes: piece.indexes)
             
-            let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
-                return int1 < int2
-            })
-            
-            if notAtWall {
+//            let notAtWall = piece.indexes.x != board.grid.keys.map({$0.x!}).max(by: { (int1, int2) -> Bool in
+//                return int1 < int2
+//            })
+//
+//            if notAtWall {
                 
                 if spaceIsntBlocked {
                     
@@ -973,15 +987,12 @@ class Model {
                         }
                     }
                 }
-            } else {
-                
-                if piece.isLocked == false {
-                    
-                    print("throw piece off the board!")
-
-                }
-                
-            }
+//            } else {
+//                
+//                throwPieceOffEdge(piece: piece)
+//
+//                
+//            }
             
         default:
             break
@@ -999,7 +1010,22 @@ class Model {
         
         
         
-        
+        board.pieces.removeAll { (piece) -> Bool in
+            
+            if piece.indexes.x! < 0 || piece.indexes.x! > board.widthSpaces - 1 || piece.indexes.y! < 0 || piece.indexes.y! > board.heightSpaces - 1 {
+                
+                delegate?.removePiece(piece: piece)
+
+                return true
+                
+            }
+            
+            
+            
+            
+            
+            return false
+        }
         
         
         
@@ -1012,9 +1038,6 @@ class Model {
             for fireLocation in board.fireLocations {
 
                 if fireLocation == piece.indexes {
-
-
-
 
                     delegate?.removePiece(piece: piece)
                     

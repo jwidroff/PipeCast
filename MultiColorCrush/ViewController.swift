@@ -261,17 +261,26 @@ extension ViewController: ModelDelegate {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
-        UIView.animate(withDuration: 0.5) {
-            
+        UIView.animate(withDuration: 0.75, delay: 0.10, options: .curveEaseInOut) {
             piece.view.transform = scale
-            
-            
-            
+
         } completion: { (true) in
-            
-            
             piece.view.removeFromSuperview()
+
         }
+
+        
+//        UIView.animate(withDuration: 0.5) {
+//
+//            piece.view.transform = scale
+//
+//
+//
+//        } completion: { (true) in
+//
+//
+//            piece.view.removeFromSuperview()
+//        }
 
         
     }
@@ -664,16 +673,60 @@ extension ViewController: ModelDelegate {
                 
 //        for piece in model.board.pieces {
             
-            UIView.animate(withDuration: 0.25) {
+//            UIView.animate(withDuration: 0.25) {
                 
-                piece.view.center = self.model.board.grid[piece.indexes]!
-                
-                for ball in self.model.board.balls {
-                    ball.view.center = self.model.board.grid[ball.indexes]!
+                if piece.indexes.x! < 0{
+                    
+                    UIView.animate(withDuration: 0.25) {
+                        piece.view.center = CGPoint(x: piece.view.center.x - (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
+                    }
+//                    self.removePiece(piece: piece)
+                    
+                    self.model.deletePiece(piece: piece)
+                    
+                } else if piece.indexes.x! > self.model.board.widthSpaces - 1 {
+                    UIView.animate(withDuration: 0.25) {
+                        piece.view.center = CGPoint(x: piece.view.center.x + (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
+                    }
+//                    self.removePiece(piece: piece)
+                    self.model.deletePiece(piece: piece)
+
+                } else if piece.indexes.y! < 0 {
+
+                    UIView.animate(withDuration: 0.25) {
+                        piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y - (self.distanceFromPieceCenter * 2))
+                    }
+//                    self.removePiece(piece: piece)
+                    self.model.deletePiece(piece: piece)
+
+                } else if piece.indexes.y! > self.model.board.heightSpaces - 1 {
+
+                    UIView.animate(withDuration: 0.25) {
+                        piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y + (self.distanceFromPieceCenter * 2))
+                    }
+//                    self.removePiece(piece: piece)
+                    self.model.deletePiece(piece: piece)
+
+                } else {
+
+                    UIView.animate(withDuration: 0.25) {
+                        piece.view.center = self.model.board.grid[piece.indexes]!
+                        
+                        for ball in self.model.board.balls {
+                            ball.view.center = self.model.board.grid[ball.indexes]!
+                        }
+                    }
                 }
-            }
+                
+                
+                
+                
+                
+//            }
 //        }
     }
+    
+    
     
     func setUpPiecesView() {
         
