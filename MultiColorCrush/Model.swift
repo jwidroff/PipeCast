@@ -17,11 +17,6 @@ import UIKit
 //TODO: Give pieces the ability to rotate
 //TODO: Make a piece that rotates pieces
 
-//TODO: Make a piece that changes the balls color
-
-
-//TODO: Make it that the entrances cant open next to a wall
-
 //TODO: Make a retry button
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
@@ -315,28 +310,28 @@ class Model {
             switch piece.version {
             case 1, 3:
                 
-                if piece.currentSwitch == 1 {
+//                if piece.currentSwitch == 1 {
                     
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
-                    piece.side.right.color = piece.colors[1]
-                    piece.side.left.color = piece.colors[1]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.color = piece.colors[0]
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     
-                } else if piece.currentSwitch == 2 {
-                    
-                    piece.side.top.exitSide = "bottom"
-                    piece.side.bottom.exitSide = "top"
-                    piece.side.top.color = piece.colors[0]
-                    piece.side.bottom.color = piece.colors[0]
-                    piece.side.top.opening.isOpen = true
-                    piece.side.bottom.opening.isOpen = true
-                }
+//                } else if piece.currentSwitch == 2 {
+//
+//                    piece.side.top.exitSide = "bottom"
+//                    piece.side.bottom.exitSide = "top"
+//                    piece.side.top.color = piece.colors[0]
+//                    piece.side.bottom.color = piece.colors[0]
+//                    piece.side.top.opening.isOpen = true
+//                    piece.side.bottom.opening.isOpen = true
+//                }
                 
             case 2, 4:
                 
-                if piece.currentSwitch == 1 {
+//                if piece.currentSwitch == 1 {
                     
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
@@ -345,15 +340,15 @@ class Model {
                     piece.side.top.opening.isOpen = true
                     piece.side.bottom.opening.isOpen = true
                     
-                } else if piece.currentSwitch == 2 {
-                    
-                    piece.side.right.exitSide = "left"
-                    piece.side.left.exitSide = "right"
-                    piece.side.right.color = piece.colors[1]
-                    piece.side.left.color = piece.colors[1]
-                    piece.side.left.opening.isOpen = true
-                    piece.side.right.opening.isOpen = true
-                }
+//                } else if piece.currentSwitch == 2 {
+//                    
+//                    piece.side.right.exitSide = "left"
+//                    piece.side.left.exitSide = "right"
+//                    piece.side.right.color = piece.colors[1]
+//                    piece.side.left.color = piece.colors[1]
+//                    piece.side.left.opening.isOpen = true
+//                    piece.side.right.opening.isOpen = true
+//                }
                 
             default:
                 break
@@ -954,7 +949,27 @@ class Model {
     
     func deletePiece(piece: Piece) {
         
-        print("TODO delete piece with indexes \(piece.indexes)")
+
+        
+//        board.pieces.removeAll { (piece) -> Bool in
+//
+//            for fireLocation in board.fireLocations {
+//
+//                if fireLocation == piece.indexes {
+//
+//
+//
+//                    piece.view.removeFromSuperview()
+//
+//                    print("deleted piece - Need to animate this in the VC")
+//                    return true
+//                }
+//            }
+//
+//            return false
+//        }
+//
+        
         
     }
     

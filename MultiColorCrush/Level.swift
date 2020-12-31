@@ -26,8 +26,8 @@ class LevelModel {
             
         case 1:
             
-            board.randomPieceColors = [UIColor.blue, UIColor.red]
-            board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
+            board.randomPieceColors = [UIColor.red]
+            board.randomPieceShapes = [.stick]//.diagElbow, .cross, .stick, .elbow]
             board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.fireLocations = [Indexes(x: 1, y: 5)]
@@ -510,7 +510,7 @@ class LevelModel {
             switch piece.version {
             case 1, 3:
                 
-                if piece.currentSwitch == 1 {
+//                if piece.currentSwitch == 1 {
                     
                     piece.side.right.exitSide = "left"
                     piece.side.left.exitSide = "right"
@@ -519,19 +519,19 @@ class LevelModel {
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     
-                } else if piece.currentSwitch == 2 {
-                    
-                    piece.side.top.exitSide = "bottom"
-                    piece.side.bottom.exitSide = "top"
-                    piece.side.top.color = piece.colors[0]
-                    piece.side.bottom.color = piece.colors[0]
-                    piece.side.top.opening.isOpen = true
-                    piece.side.bottom.opening.isOpen = true
-                }
+//                } else if piece.currentSwitch == 2 {
+//
+//                    piece.side.top.exitSide = "bottom"
+//                    piece.side.bottom.exitSide = "top"
+//                    piece.side.top.color = piece.colors[0]
+//                    piece.side.bottom.color = piece.colors[0]
+//                    piece.side.top.opening.isOpen = true
+//                    piece.side.bottom.opening.isOpen = true
+//                }
                 
             case 2, 4:
                 
-                if piece.currentSwitch == 1 {
+//                if piece.currentSwitch == 1 {
                     
                     piece.side.top.exitSide = "bottom"
                     piece.side.bottom.exitSide = "top"
@@ -540,15 +540,15 @@ class LevelModel {
                     piece.side.top.opening.isOpen = true
                     piece.side.bottom.opening.isOpen = true
                     
-                } else if piece.currentSwitch == 2 {
+//                } else if piece.currentSwitch == 2 {
                     
-                    piece.side.right.exitSide = "left"
-                    piece.side.left.exitSide = "right"
-                    piece.side.right.color = piece.colors[1]
-                    piece.side.left.color = piece.colors[1]
-                    piece.side.left.opening.isOpen = true
-                    piece.side.right.opening.isOpen = true
-                }
+//                    piece.side.right.exitSide = "left"
+//                    piece.side.left.exitSide = "right"
+//                    piece.side.right.color = piece.colors[1]
+//                    piece.side.left.color = piece.colors[1]
+//                    piece.side.left.opening.isOpen = true
+//                    piece.side.right.opening.isOpen = true
+//                }
                 
             default:
                 break
@@ -657,6 +657,9 @@ class LevelModel {
                 setPieceSwitches(piece: piece)
                 setPieceSides(piece: piece)
                 board.pieces.append(piece)
+                
+                print("current switch \(piece.currentSwitch)")
+                print("current piece switches \(piece.switches)")
                 
             }
 //        }

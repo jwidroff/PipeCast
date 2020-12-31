@@ -921,16 +921,14 @@ class ShapeView : UIView {
                 context.fill(rect2)
                 
 
-                let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
                 let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
                 let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
-                let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
                 let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
+
+                let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
+                let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
                 let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
         
-                
-                
-                
                 
                 let path = UIBezierPath()
                 path.move(to: topCenter)
@@ -968,7 +966,12 @@ class ShapeView : UIView {
                 
                 
                 
-                
+                //MARK: USE THIS FOR GRADIENTS
+//                let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)
+//                let gradient = CGGradient(colorsSpace: colorSpace, colors: [colors[0], colors[1]] as CFArray, locations: nil)//locations: [0.2, 0.8])
+//
+//                context.drawLinearGradient(gradient!, start: CGPoint(x: frame.width / 2, y: 0), end: CGPoint(x: frame.width / 2, y: frame.height), options: .drawsAfterEndLocation)
+//
                 
                 
                 
@@ -990,17 +993,8 @@ class ShapeView : UIView {
                 context.fill(rect2)
                 
                 
-                
-                
-//                let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
-//                let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
-//                let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
-//
-//
-//                let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
-//                let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
-//                let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
-//
+            
+  
                 let leftTop = CGPoint(x: self.frame.width / 4, y: self.frame.height / 8)
                 let leftCenter = CGPoint(x: self.frame.width / 4, y: self.frame.height / 4 * 2)
                 let leftBottom = CGPoint(x: self.frame.width / 4, y: self.frame.height - (self.frame.height / 8))
@@ -1009,10 +1003,8 @@ class ShapeView : UIView {
                 let rightTop = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 8)
                 let rightCenter = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 4 * 2)
                 let rightBottom = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height - (self.frame.height / 8))
-        
+
                 
-
-
                 let path = UIBezierPath()
                 path.move(to: leftCenter)
                 path.addCurve(to: rightCenter, controlPoint1: leftTop, controlPoint2: rightTop)
@@ -1020,7 +1012,7 @@ class ShapeView : UIView {
                 context.addPath(path.cgPath)
                 context.closePath()
                 context.fillPath()
-                
+
                 let path2 = UIBezierPath()
                 path2.move(to: leftCenter)
                 path2.addCurve(to: rightCenter, controlPoint1: leftBottom, controlPoint2: rightBottom)
@@ -1028,6 +1020,7 @@ class ShapeView : UIView {
                 context.addPath(path2.cgPath)
                 context.closePath()
                 context.fillPath()
+//
                 
                 
                 
@@ -1038,8 +1031,6 @@ class ShapeView : UIView {
                 
                 
                 
-                
-//                currentSwitch = 1
                 
             default:
                 break

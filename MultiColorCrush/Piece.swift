@@ -46,8 +46,10 @@ class Piece {
             self.opening = opening
         }
         
-        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
         setPieceSwitches()
+        
+        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
+        
         
         
         
@@ -486,28 +488,28 @@ class Piece {
             switch version {
             case 1, 3:
                 
-                if currentSwitch == 1 {
+//                if currentSwitch == 1 {
                     
                     side.right.exitSide = "left"
                     side.left.exitSide = "right"
-                    side.right.color = colors[1]
-                    side.left.color = colors[1]
+                    side.right.color = colors[0]
+                    side.left.color = colors[0]
                     side.left.opening.isOpen = true
                     side.right.opening.isOpen = true
                     
-                } else if currentSwitch == 2 {
-                    
-                    side.top.exitSide = "bottom"
-                    side.bottom.exitSide = "top"
-                    side.top.color = colors[0]
-                    side.bottom.color = colors[0]
-                    side.top.opening.isOpen = true
-                    side.bottom.opening.isOpen = true
-                }
+//                } else if currentSwitch == 2 {
+//
+//                    side.top.exitSide = "bottom"
+//                    side.bottom.exitSide = "top"
+//                    side.top.color = colors[0]
+//                    side.bottom.color = colors[0]
+//                    side.top.opening.isOpen = true
+//                    side.bottom.opening.isOpen = true
+//                }
                 
             case 2, 4:
                 
-                if currentSwitch == 1 {
+//                if currentSwitch == 1 {
                     
                     side.top.exitSide = "bottom"
                     side.bottom.exitSide = "top"
@@ -516,15 +518,15 @@ class Piece {
                     side.top.opening.isOpen = true
                     side.bottom.opening.isOpen = true
                     
-                } else if currentSwitch == 2 {
-                    
-                    side.right.exitSide = "left"
-                    side.left.exitSide = "right"
-                    side.right.color = colors[1]
-                    side.left.color = colors[1]
-                    side.left.opening.isOpen = true
-                    side.right.opening.isOpen = true
-                }
+//                } else if currentSwitch == 2 {
+//
+//                    side.right.exitSide = "left"
+//                    side.left.exitSide = "right"
+//                    side.right.color = colors[1]
+//                    side.left.color = colors[1]
+//                    side.left.opening.isOpen = true
+//                    side.right.opening.isOpen = true
+//                }
                 
             default:
                 break
