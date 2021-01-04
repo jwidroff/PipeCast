@@ -26,16 +26,16 @@ class LevelModel {
             
         case 1:
             
-            board.randomPieceColors = [UIColor.red, UIColor.blue, UIColor.purple]
+            board.randomPieceColors = [UIColor.red, UIColor.blue]
             board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
-            board.amountOfRandomPieces = 0
+            board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.holeLocations = [Indexes(x: 1, y: 5)]
 
             board.heightSpaces = 12
             board.widthSpaces = 6
             
-            addBorderAroundBoardOf(.pieceMaker, exceptionIndexes: [Indexes(x: 0, y: 6)])
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
             
             
 //            setupRowOrColumnOf(.wall, rowOrColumn: "row", index: 0, exception: [0], pieceMakerOpening: nil)

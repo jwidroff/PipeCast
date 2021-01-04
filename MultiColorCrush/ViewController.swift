@@ -81,7 +81,8 @@ class ViewController: UIViewController {
     
     func setSizes() {
         
-        let widthCushion:CGFloat = (self.view.frame.width / CGFloat(model.board.widthSpaces))
+        let widthCushion:CGFloat = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
+//        let widthCushion:CGFloat = 10.0
         let heightCushion:CGFloat = (self.view.frame.height / CGFloat(model.board.heightSpaces))
         
 //        let widthCushion:CGFloat = pieceWidth

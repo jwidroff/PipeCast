@@ -21,8 +21,6 @@ import UIKit
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
 
-//TODO: Make fireLocations that get rid of pieces
-
 //TODO: Make cracks for ice
 
 //TODO: Swipes left label
@@ -33,10 +31,6 @@ import UIKit
 
 //TODO: Figure out why the currentSwitch being changed for the cross in the ShapeView still works
 
-
-//TODO: MAKE IT THAT PIECES CAN FALL OFF THE EDGE OF THE GAME. MAKE WALLS AROUND THE BOARD IF A PIECE SHOULDNT FALL OFF
-
-//TODO: Need to make it that pieces cant begin on fireLocations
 
 
 
@@ -767,9 +761,7 @@ class Model {
                 if spaceIsntBlocked {
                     
                     if piece.shape != .pieceMaker {
-                        
-                        print("piece is not pieceMaker")
-                        
+                                                
                         if piece.isLocked == false {
                             
                             piece.indexes.y = piece.indexes.y! + 1
