@@ -106,6 +106,21 @@ class ShapeView : UIView {
             switches = 1
             currentSwitch = 1
         }
+        
+        
+        let path1 = UIBezierPath()
+        path1.move(to: CGPoint(x: frame.width / 2, y: 0))
+        path1.addQuadCurve(to: CGPoint(x: frame.width / 2, y: frame.height), controlPoint: CGPoint(x: frame.width / 2, y: frame.height / 2))
+        
+        self.layer.shadowPath = path1.cgPath
+        self.layer.shadowColor = UIColor.white.cgColor
+        self.layer.shadowRadius = 100
+        self.layer.shadowOffset = CGSize(width: 20.0, height: 20.0)
+        self.layer.shadowOpacity = 1.0
+        setNeedsLayout()
+        setNeedsDisplay()
+        
+        
 
     }
     
@@ -184,8 +199,10 @@ class ShapeView : UIView {
     override func draw(_ rect: CGRect) {
                 
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        
+        guard let context2 = UIGraphicsGetCurrentContext() else {return}
+
         let path = UIBezierPath()
+        let path2 = UIBezierPath()
         let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         let topCenterPoint = CGPoint(x: frame.width / 2, y: 0)
         let bottomCenterPoint = CGPoint(x: frame.width / 2, y: frame.height)
@@ -266,6 +283,9 @@ class ShapeView : UIView {
                 
                 
                 drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
+                
+                
+                
                 
 //                currentSwitch = 1
                 
@@ -405,8 +425,7 @@ class ShapeView : UIView {
             
             case .diagElbow:
                                
-                guard let context = UIGraphicsGetCurrentContext() else { return }
-                guard let context2 = UIGraphicsGetCurrentContext() else {return}
+//                guard let context = UIGraphicsGetCurrentContext() else { return }
 
                 switch version {
                 
@@ -416,7 +435,7 @@ class ShapeView : UIView {
                     let y = (bounds.midY - (height / 2))
                     let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
                     let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
-                    let path2 = UIBezierPath()
+//                    let path2 = UIBezierPath()
 
                     
                     if currentSwitch == 1 {
@@ -476,7 +495,7 @@ class ShapeView : UIView {
                     let x = (bounds.midX - (width / 2))
                     let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
                     let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
-                    let path2 = UIBezierPath()
+//                    let path2 = UIBezierPath()
 
                     if currentSwitch == 1 {
                         
@@ -543,6 +562,14 @@ class ShapeView : UIView {
             
         case .cross:
             
+            
+            
+            
+            //UP TO HERE - Figure out why context2 doesnt solve the issue of the crosses being the same color vertically and horizontally
+            
+            
+            
+            
                 switch currentSwitch {
                 
                 case 1:
@@ -557,15 +584,28 @@ class ShapeView : UIView {
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
 
-                    let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
-                    context.setFillColor(colors[0])
-                    context.addRects([rect2])
-                    context.fill(rect2)
                     
-                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
-                    context.setFillColor(colors[1])
-                    context.addRects([rect1])
-                    context.fill(rect1)
+//
+                    
+//                    context.setFillColor(colors[0])
+                    drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
+                    
+//                    context.setFillColor(colors[1])
+                    drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[1])
+                    
+                    
+                    
+                    
+                    
+//                    let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
+//                    context.setFillColor(colors[0])
+//                    context.addRects([rect2])
+//                    context.fill(rect2)
+//
+//                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                    context.setFillColor(colors[1])
+//                    context.addRects([rect1])
+//                    context.fill(rect1)
                     
                     let strokeWidth = height / 5
                     let point1 = CGPoint(x: ((width - width2) / 2), y: ((height2 + height) / 2))
@@ -601,15 +641,24 @@ class ShapeView : UIView {
                     let y2:CGFloat = 0.0
                     let x2 = ((frame.width - width2) / 2)
                     
-                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
-                    context.setFillColor(colors[1])
-                    context.addRects([rect1])
-                    context.fill(rect1)
                     
-                    let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
-                    context.setFillColor(colors[0])
-                    context.addRects([rect2])
-                    context.fill(rect2)
+                    drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[1])
+                    
+                    
+                    drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
+                
+                    
+                    
+                    
+//                    let rect1 = CGRect(x: x1, y: y1, width: width, height: height)
+//                    context.setFillColor(colors[1])
+//                    context.addRects([rect1])
+//                    context.fill(rect1)
+//
+//                    let rect2 = CGRect(x: x2, y: y2, width: width2, height: height2)
+//                    context.setFillColor(colors[0])
+//                    context.addRects([rect2])
+//                    context.fill(rect2)
                     
                     let strokeWidth = height / 5
                     let point1 = CGPoint(x: ((width - width2) / 2), y: (height2 - height) / 2)
@@ -1184,12 +1233,24 @@ class ShapeView : UIView {
         context.setLineWidth(frame.height / 4)
         context.strokePath()
         
+        
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
         context.addPath(path.cgPath)
         context.setStrokeColor(color)
         context.setLineWidth(frame.height / 5)
         context.strokePath()
+        
+//        self.layer.shadowPath = path.cgPath
+//        self.layer.shadowColor = UIColor.white.cgColor
+//        self.layer.shadowRadius = 100
+//        self.layer.shadowOffset = CGSize(width: 20.0, height: 20.0)
+//        self.layer.shadowOpacity = 1.0
+//        setNeedsLayout()
+        
+        
+        
+        
     }
 }
 

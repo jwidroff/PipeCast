@@ -37,6 +37,9 @@ class BoardView : UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.frame = frame
+        
+        
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,6 +67,8 @@ class BoardView : UIView {
         
         self.iceLocations = iceLocations
         self.holeLocations = holeLocations
+
+        
 
     }
     
