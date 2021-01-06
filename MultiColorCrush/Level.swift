@@ -27,7 +27,7 @@ class LevelModel {
         case 1:
             
             board.randomPieceColors = [UIColor.red, UIColor.blue]
-            board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
+            board.randomPieceShapes = [.diagElbow, .cross]//, .stick, .elbow]
             board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
 //            board.holeLocations = [Indexes(x: 1, y: 5)]
@@ -58,8 +58,8 @@ class LevelModel {
             board.pieces.append(exit)
 
             
-            let piece = Piece(indexes: Indexes(x: 2, y: 2), shape: .diagElbow, colors: [UIColor.blue, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-            board.pieces.append(piece)
+//            let piece = Piece(indexes: Indexes(x: 2, y: 2), shape: .diagElbow, colors: [UIColor.blue, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+//            board.pieces.append(piece)
 
             let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
             board.pieces.append(wall)

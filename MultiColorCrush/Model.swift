@@ -48,6 +48,7 @@ protocol ModelDelegate {
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
     func removePiece(piece: Piece)
+    func ballCrashInCross(piece: Piece, ball: Ball)
 }
 
 class Model {
@@ -1241,6 +1242,8 @@ class Model {
                         
                         if piece.side.top.closing.isOpen == false {
                             
+                            delegate?.ballCrashInCross(piece: piece, ball: ball)
+
                             print("need to move ball halfway")
                             return
                             
@@ -1281,6 +1284,7 @@ class Model {
                         
                         if piece.side.bottom.closing.isOpen == false {
                             
+                            delegate?.ballCrashInCross(piece: piece, ball: ball)
                             print("need to move ball halfway")
                             return
                             
@@ -1322,6 +1326,7 @@ class Model {
                         
                         if piece.side.left.closing.isOpen == false {
                             
+                            delegate?.ballCrashInCross(piece: piece, ball: ball)
                             print("need to move ball halfway")
                             return
                         }
@@ -1360,6 +1365,8 @@ class Model {
                     if piece.shape == .cross {
                         
                         if piece.side.right.closing.isOpen == false {
+                            
+                            delegate?.ballCrashInCross(piece: piece, ball: ball)
                             print("need to move ball halfway")
                             return
                         }

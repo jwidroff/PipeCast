@@ -194,6 +194,7 @@ class ViewController: UIViewController {
         return bool
     }
     
+    
 
     
     func curveAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
@@ -205,10 +206,10 @@ class ViewController: UIViewController {
         animation.path = ballPath.cgPath
         animation.repeatCount = 0
         piecesCrossed += 0.25
+
         animation.duration = piecesCrossed
         view.layer.add(animation, forKey: "animate along path")
         view.center = endPoint
-        
         completion(true)
     }
     
@@ -260,6 +261,58 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
 
+    func ballCrashInCross(piece: Piece, ball: Ball) {
+        
+        let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.view.center.y
+        
+        let xAxisIsAligned:Bool = piece.view.frame.minX + (piece.view.frame.width / 2) == ball.view.center.x
+        
+        let ballIsLowerTanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) < ball.view.center.y
+        
+        let ballIsHigherThanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) > ball.view.center.y
+        
+        let ballIsRightOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) < ball.view.center.x
+        
+        let ballIsLeftOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) > ball.view.center.x
+        
+        if xAxisIsAligned && ballIsLowerTanPieceCenter {
+            
+            //Moves the piece up
+            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 4 * 3 / 2))
+            
+            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+                print()
+            }
+            
+        } else if xAxisIsAligned && ballIsHigherThanPieceCenter {
+            
+            //Moves the piece down
+            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 4 * 3 / 2))
+            
+            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+                print()
+            }
+            
+        } else if yAxisIsAligned && ballIsRightOfPieceCenter {
+            
+            //Moves the piece left
+            let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y) 
+            
+            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+                print()
+            }
+            
+        } else if yAxisIsAligned && ballIsLeftOfPieceCenter {
+            
+            //Moves the ball right
+            let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y)
+            
+            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+                print()
+            }
+        }
+    }
+    
     
     func removePiece(piece: Piece) {
         
@@ -313,9 +366,7 @@ extension ViewController: ModelDelegate {
     
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
-        
-//        enlargePieces()
-        
+                
         print("move ball called")
         
         

@@ -576,13 +576,13 @@ class ShapeView : UIView {
                     
                     let width = frame.width
                     let height = frame.height / 4
-                    let x1:CGFloat = 0.0
-                    let y1 = ((frame.height - height) / 2)
+//                    let x1:CGFloat = 0.0
+//                    let y1 = ((frame.height - height) / 2)
                     
                     let width2 = frame.width / 4
                     let height2 = frame.height
-                    let y2:CGFloat = 0.0
-                    let x2 = ((frame.width - width2) / 2)
+//                    let y2:CGFloat = 0.0
+//                    let x2 = ((frame.width - width2) / 2)
 
                     
 //
@@ -633,13 +633,13 @@ class ShapeView : UIView {
                     
                     let width = frame.width
                     let height = frame.height / 4
-                    let x1:CGFloat = 0.0
-                    let y1 = ((frame.height - height) / 2)
+//                    let x1:CGFloat = 0.0
+//                    let y1 = ((frame.height - height) / 2)
                     
                     let width2 = frame.width / 4
                     let height2 = frame.height
-                    let y2:CGFloat = 0.0
-                    let x2 = ((frame.width - width2) / 2)
+//                    let y2:CGFloat = 0.0
+//                    let x2 = ((frame.width - width2) / 2)
                     
                     
                     drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[1])
