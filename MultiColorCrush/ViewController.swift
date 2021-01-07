@@ -21,6 +21,11 @@ class ViewController: UIViewController {
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
     var delayAmount = 0.0
+    var deviceIsNarrow = Bool()
+    var retryButton = UIButton()
+    var widthCushion = CGFloat()
+    var heightCushion = CGFloat()
+
     
     override func viewDidLoad() {
         
@@ -54,8 +59,24 @@ class ViewController: UIViewController {
     
     func setupBoard() {
         
+        var frameY = CGFloat()
+        
+        if deviceIsNarrow {
+            
+            
+            frameY = self.view.frame.midY - (boardHeight / 2) - (heightCushion / 4)
+
+            
+        } else {
+            
+            frameY = self.view.frame.midY - (boardHeight / 2)
+
+            
+        }
+        
         let frameX = self.view.frame.midX - (boardWidth / 2)
-        let frameY = self.view.frame.midY - (boardHeight / 2)
+
+//        let frameY = self.view.frame.midY - (boardHeight / 2)
         let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
@@ -81,9 +102,9 @@ class ViewController: UIViewController {
     
     func setSizes() {
         
-        let widthCushion:CGFloat = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
+        widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
 //        let widthCushion:CGFloat = 10.0
-        let heightCushion:CGFloat = (self.view.frame.height / CGFloat(model.board.heightSpaces))
+        heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces))
         
 //        let widthCushion:CGFloat = pieceWidth
 //        let heightCushion:CGFloat = pieceHeight
@@ -92,12 +113,18 @@ class ViewController: UIViewController {
             
             boardHeight = (self.view.frame.width - widthCushion) * 2
             boardWidth = self.view.frame.width - widthCushion
+            
+            print("Narrow Device")
+            deviceIsNarrow = true
 
         } else if self.view.frame.width > (self.view.frame.height / 2) {
         
             boardWidth = (self.view.frame.height - heightCushion) / 2
             boardHeight = self.view.frame.height - heightCushion
             
+            print("Wide Device")
+            deviceIsNarrow = false
+
         }
         
         pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
@@ -797,6 +824,34 @@ extension ViewController: ModelDelegate {
         setupBalls()
     }
     
+    
+    func setupControls() {
+        
+        var frame = CGRect()
+        
+        
+        //MARK: NEED TO COMMIT THE CHANGES TO NARROW PHONES AND THEN SET THIS UP
+
+        
+        if deviceIsNarrow == true {
+            
+            print("SET THIS UP")
+            
+            
+        } else if deviceIsNarrow == false {
+            
+            print("SET THIS UP")
+
+            
+        }
+        
+        
+//        retryButton = UIButton(frame: CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>))
+        
+        
+        
+    }
+    
     func setUpGame(board: Board) {
                 
         setSizes()
@@ -804,6 +859,8 @@ extension ViewController: ModelDelegate {
         setupGrid()
         
         setupBoard()
+        
+        setupControls()
     }
     
     func pieceWasTapped(piece: Piece) {

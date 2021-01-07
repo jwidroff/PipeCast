@@ -33,8 +33,6 @@ import UIKit
 
 //TODO: Make the board have a more 3D look
 
-//TODO: Make the ball move halfway if it hits a cross that is the wrong way
-
 
 
 
