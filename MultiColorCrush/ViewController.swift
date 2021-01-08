@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     var delayAmount = 0.0
     var deviceIsNarrow = Bool()
     var retryButton = UIButton()
+    var menuButton = UIButton()
     var widthCushion = CGFloat()
     var heightCushion = CGFloat()
 
@@ -827,29 +828,51 @@ extension ViewController: ModelDelegate {
     
     func setupControls() {
         
-        var frame = CGRect()
-        
-        
-        //MARK: NEED TO COMMIT THE CHANGES TO NARROW PHONES AND THEN SET THIS UP
+        var retryButtonFrame = CGRect()
+        var menuButtonFrame = CGRect()
 
-        
         if deviceIsNarrow == true {
+                        
+            let buttonWidth = (boardWidth / 2) - 10
+            let buttonHeight = heightCushion / 1.5
+            let retryButtonYFloat = model.board.view.frame.maxY + 10
+            let retryButtonXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
+            let menuButtonYFloat = model.board.view.frame.maxY + 10
+            let menuButtonXFloat = model.board.view.frame.minX
             
-            print("SET THIS UP")
-            
+            retryButtonFrame = CGRect(x: retryButtonXFloat, y: retryButtonYFloat, width: buttonWidth, height: buttonHeight)
+            retryButton = UIButton(frame: retryButtonFrame)
+            retryButton.layer.cornerRadius = retryButton.frame.height / 2
+
+            menuButtonFrame = CGRect(x: menuButtonXFloat, y: menuButtonYFloat, width: buttonWidth, height: buttonHeight)
+            menuButton = UIButton(frame: menuButtonFrame)
+            menuButton.layer.cornerRadius = menuButton.frame.height / 2
             
         } else if deviceIsNarrow == false {
+                 
+            let buttonWidth = model.board.view.frame.minX / 4 * 3
+            let buttonHeight = buttonWidth
+            let buttonYFloat = model.board.view.frame.maxY - buttonHeight
+            let buttonXFloat = model.board.view.frame.maxX + (model.board.view.frame.minX / 8)
+            let menuButtonXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
             
-            print("SET THIS UP")
+            retryButtonFrame = CGRect(x: buttonXFloat, y: buttonYFloat, width: buttonWidth , height: buttonHeight)
+            retryButton = UIButton(frame: retryButtonFrame)
+            retryButton.layer.cornerRadius = retryButton.frame.width / 2
 
-            
+            menuButtonFrame = CGRect(x: menuButtonXFloat, y: buttonYFloat, width: buttonWidth, height: buttonHeight)
+            menuButton = UIButton(frame: menuButtonFrame)
+            menuButton.layer.cornerRadius = menuButton.frame.height / 2
         }
         
+        retryButton.backgroundColor = .black
+        retryButton.setTitle("RETRY", for: .normal)
         
-//        retryButton = UIButton(frame: CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>))
+        menuButton.backgroundColor = .black
+        menuButton.setTitle("MENU", for: .normal)
         
-        
-        
+        view.addSubview(retryButton)
+        view.addSubview(menuButton)
     }
     
     func setUpGame(board: Board) {
