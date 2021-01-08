@@ -26,12 +26,13 @@ class ViewController: UIViewController {
     var menuButton = UIButton()
     var widthCushion = CGFloat()
     var heightCushion = CGFloat()
+    var colorTheme = ColorTheme()
 
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.view.backgroundColor = .lightGray
+        self.view.backgroundColor = colorTheme.gameBackground
         model = Model()
         model.delegate = self
         model.setUpGame()
@@ -97,7 +98,7 @@ class ViewController: UIViewController {
         
         let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations, holeLocations: model.board.holeLocations)
         self.model.board.view = boardView
-        self.model.board.view.backgroundColor = .black
+        self.model.board.view.backgroundColor = colorTheme.boardBackground
         view.addSubview(self.model.board.view)
     }
     
@@ -385,7 +386,6 @@ extension ViewController: ModelDelegate {
         addTapGestureRecognizer(view: piece.view)
         
         UIView.animate(withDuration: 0.25) {
-            
             let rect = CGRect(x: piece.view.frame.minX, y: piece.view.frame.minY, width: self.pieceWidth, height: self.pieceHeight)
             piece.view.frame = rect
             self.model.board.view.addSubview(piece.view)
@@ -820,7 +820,8 @@ extension ViewController: ModelDelegate {
             piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
             addTapGestureRecognizer(view: piece.view)
             model.board.view.addSubview(piece.view)
-            
+//            self.makeViewSoft(view: piece.view)
+
         }
         setupBalls()
     }
@@ -865,13 +866,13 @@ extension ViewController: ModelDelegate {
             menuButton.layer.cornerRadius = menuButton.frame.height / 2
         }
         
-        retryButton.backgroundColor = .black
+        retryButton.backgroundColor = colorTheme.gameBackground
         retryButton.setTitle("RETRY", for: .normal)
         retryButton.setTitleColor(UIColor.black, for: .normal)
         makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
 
-        menuButton.backgroundColor = .black
+        menuButton.backgroundColor = colorTheme.gameBackground
         menuButton.setTitle("MENU", for: .normal)
         menuButton.setTitleColor(UIColor.black, for: .normal)
         makeViewSoft(view: menuButton)
@@ -881,7 +882,7 @@ extension ViewController: ModelDelegate {
     func makeViewSoft(view: UIView) {
         
 //        view = UIView(frame: frame)
-        view.backgroundColor = .lightGray
+//        view.backgroundColor = .black
         
         view.layer.shadowOpacity = 1.0
         view.layer.masksToBounds = false

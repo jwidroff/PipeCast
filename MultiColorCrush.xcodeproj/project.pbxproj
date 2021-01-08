@@ -19,6 +19,7 @@
 		BA2B36FE24E188BD00274DF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA2B36FC24E188BD00274DF4 /* LaunchScreen.storyboard */; };
 		BA2B370624E214AC00274DF4 /* GridPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B370524E214AC00274DF4 /* GridPoints.swift */; };
 		BA348F6A24EB529C001EFEF2 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA348F6924EB529C001EFEF2 /* Piece.swift */; };
+		BA96380425A8397100E54FEF /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA96380325A8396E00E54FEF /* ColorTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		BA2B36FF24E188BD00274DF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA2B370524E214AC00274DF4 /* GridPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPoints.swift; sourceTree = "<group>"; };
 		BA348F6924EB529C001EFEF2 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		BA96380325A8396E00E54FEF /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				BA2B36F124E188B300274DF4 /* AppDelegate.swift */,
 				BA2B36F324E188B300274DF4 /* SceneDelegate.swift */,
 				BA2B36F524E188B300274DF4 /* ViewController.swift */,
+				BA96380325A8396E00E54FEF /* ColorTheme.swift */,
 				BA28284424EC13850022AD9E /* Model.swift */,
 				BA28284624EC149F0022AD9E /* Level.swift */,
 				BA348F6924EB529C001EFEF2 /* Piece.swift */,
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA28284524EC13850022AD9E /* Model.swift in Sources */,
+				BA96380425A8397100E54FEF /* ColorTheme.swift in Sources */,
 				BA2B36F624E188B300274DF4 /* ViewController.swift in Sources */,
 				BA2B36F224E188B300274DF4 /* AppDelegate.swift in Sources */,
 				BA28284B24F54B120022AD9E /* ShapeView.swift in Sources */,

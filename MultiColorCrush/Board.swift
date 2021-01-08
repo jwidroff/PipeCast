@@ -32,6 +32,7 @@ class BoardView : UIView {
     var yArray = [CGFloat]()
     var iceLocations = [Indexes]()
     var holeLocations = [Indexes]()
+    var colorTheme = ColorTheme()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,7 +76,7 @@ class BoardView : UIView {
     override func draw(_ rect: CGRect) {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setStrokeColor(UIColor.lightGray.cgColor)
+        context.setStrokeColor(colorTheme.gameBackground.cgColor)
         context.setLineWidth(2.5)
         
         let point1 = CGPoint(x: xArray[0], y: yArray[0])

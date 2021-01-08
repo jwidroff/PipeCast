@@ -31,6 +31,8 @@ class ShapeView : UIView {
     var doesPivot = true
     
     var nextPiece: Piece?
+    
+    var colorTheme = ColorTheme()
         
     
     override init(frame: CGRect) {
@@ -57,12 +59,14 @@ class ShapeView : UIView {
         
         self.doesPivot = piece.doesPivot
         
+//        self.backgroundColor = .black
+        
         
         if let nextPieceX = piece.nextPiece {
             self.nextPiece = nextPieceX
         }
-        
-        self.backgroundColor = UIColor.clear
+//        let colorTheme = ColorTheme()
+        self.backgroundColor = colorTheme.pieceBackground
 
         
         if doesPivot == true && isLocked == false {
@@ -132,13 +136,13 @@ class ShapeView : UIView {
         let x = (frame.width - w) / 2
         let y = (frame.height - h) / 2
         let rect1 = CGRect(x: x, y: y, width: w, height: h)
-        context.setFillColor(UIColor.darkGray.cgColor)
+        context.setFillColor(colorTheme.lockedPieceBackground.cgColor)
         context.addRects([rect1])
         context.fill(rect1)
         
         let distanceFromSides = frame.width / 10
         let screwWidthAndHeight = frame.width / 10
-        let color = UIColor.black.cgColor
+        let color = colorTheme.boardBackground.cgColor
         
         let topLeftCorner = CGPoint(x: distanceFromSides, y: distanceFromSides)
         let topLeftRect = CGRect(x: topLeftCorner.x, y: topLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
