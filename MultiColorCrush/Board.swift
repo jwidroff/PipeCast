@@ -122,7 +122,7 @@ class BoardView : UIView {
         for holeLocation in holeLocations {
             
             let rect = CGRect(x: xArray[holeLocation.x!] - halfX, y: yArray[holeLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
-            context.setFillColor(UIColor.lightGray.cgColor)
+            context.setFillColor(colorTheme.gameBackground.cgColor)
             context.fill(rect)
             context.addRect(rect)
         }

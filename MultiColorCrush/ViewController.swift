@@ -868,6 +868,7 @@ extension ViewController: ModelDelegate {
         
         retryButton.backgroundColor = colorTheme.gameBackground
         retryButton.setTitle("RETRY", for: .normal)
+        retryButton.setTitleColor(.black, for: .normal)
         retryButton.setTitleColor(UIColor.black, for: .normal)
         makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
@@ -875,6 +876,7 @@ extension ViewController: ModelDelegate {
         menuButton.backgroundColor = colorTheme.gameBackground
         menuButton.setTitle("MENU", for: .normal)
         menuButton.setTitleColor(UIColor.black, for: .normal)
+        retryButton.setTitleColor(.black, for: .normal)
         makeViewSoft(view: menuButton)
         view.addSubview(menuButton)
     }

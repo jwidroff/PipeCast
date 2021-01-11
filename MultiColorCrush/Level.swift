@@ -30,10 +30,10 @@ class LevelModel {
             board.randomPieceShapes = [.diagElbow, .cross]//, .stick, .elbow]
             board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
-//            board.holeLocations = [Indexes(x: 1, y: 5)]
+            board.holeLocations = [Indexes(x: 0, y: 1)]
 
-            board.heightSpaces = 12
-            board.widthSpaces = 6
+            board.heightSpaces = 14
+            board.widthSpaces = 7
             
             addBorderAroundBoardOf(.wall, exceptionIndexes: [Indexes(x: 0, y: 1)])
             

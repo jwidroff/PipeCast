@@ -21,12 +21,14 @@ class ColorTheme {
     
     init() {
         
-        gameBackground = UIColor.white
+        gameBackground = UIColor.lightGray
         boardBackground = UIColor.black
         pieceBackground = UIColor.clear
         lockedPieceBackground = UIColor.darkGray
         
-        
+        //Wall Color
+        //cross divider color
+        //Piece outline color
         
     }
     

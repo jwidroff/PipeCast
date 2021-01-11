@@ -578,13 +578,13 @@ class ShapeView : UIView {
                 
                 case 1:
                     
-                    let width = frame.width
-                    let height = frame.height / 4
+//                    let width = frame.width
+//                    let height = frame.height / 4
 //                    let x1:CGFloat = 0.0
 //                    let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 4
-                    let height2 = frame.height
+//                    let width2 = frame.width / 4
+//                    let height2 = frame.height
 //                    let y2:CGFloat = 0.0
 //                    let x2 = ((frame.width - width2) / 2)
 
@@ -611,37 +611,37 @@ class ShapeView : UIView {
 //                    context.addRects([rect1])
 //                    context.fill(rect1)
                     
-                    let strokeWidth = height / 5
-                    let point1 = CGPoint(x: ((width - width2) / 2), y: ((height2 + height) / 2))
-                    let point2 = CGPoint(x: ((width + width2) / 2), y: ((height2 + height) / 2))
-
-                    context.setStrokeColor(UIColor.black.cgColor)
-                    context.setLineWidth(strokeWidth)
-                    context.beginPath()
-                    context.move(to: point1)
-                    context.addLine(to: point2)
-                    context.strokePath()
-                    
-                    let point3 = CGPoint(x: ((width - width2) / 2), y: ((height2 - height) / 2))
-                    let point4 = CGPoint(x: ((width + width2) / 2), y: ((height2 - height) / 2))
-                    context.setStrokeColor(UIColor.black.cgColor)
-                    context.setLineWidth(strokeWidth)
-                    context.beginPath()
-                    context.move(to: point3)
-                    context.addLine(to: point4)
-                    context.strokePath()
+//                    let strokeWidth = height / 5
+//                    let point1 = CGPoint(x: ((width - width2) / 2), y: ((height2 + height) / 2))
+//                    let point2 = CGPoint(x: ((width + width2) / 2), y: ((height2 + height) / 2))
+//
+//                    context.setStrokeColor(UIColor.black.cgColor)
+//                    context.setLineWidth(strokeWidth)
+//                    context.beginPath()
+//                    context.move(to: point1)
+//                    context.addLine(to: point2)
+//                    context.strokePath()
+//
+//                    let point3 = CGPoint(x: ((width - width2) / 2), y: ((height2 - height) / 2))
+//                    let point4 = CGPoint(x: ((width + width2) / 2), y: ((height2 - height) / 2))
+//                    context.setStrokeColor(UIColor.black.cgColor)
+//                    context.setLineWidth(strokeWidth)
+//                    context.beginPath()
+//                    context.move(to: point3)
+//                    context.addLine(to: point4)
+//                    context.strokePath()
                     
                     currentSwitch = 2
                     
                 case 2:
                     
-                    let width = frame.width
-                    let height = frame.height / 4
+//                    let width = frame.width
+//                    let height = frame.height / 4
 //                    let x1:CGFloat = 0.0
 //                    let y1 = ((frame.height - height) / 2)
                     
-                    let width2 = frame.width / 4
-                    let height2 = frame.height
+//                    let width2 = frame.width / 4
+//                    let height2 = frame.height
 //                    let y2:CGFloat = 0.0
 //                    let x2 = ((frame.width - width2) / 2)
                     
@@ -664,24 +664,24 @@ class ShapeView : UIView {
 //                    context.addRects([rect2])
 //                    context.fill(rect2)
                     
-                    let strokeWidth = height / 5
-                    let point1 = CGPoint(x: ((width - width2) / 2), y: (height2 - height) / 2)
-                    let point2 = CGPoint(x: ((width - width2) / 2), y: (height2 + height) / 2)
-                    context.setStrokeColor(UIColor.black.cgColor)
-                    context.setLineWidth(strokeWidth)
-                    context.beginPath()
-                    context.move(to: point1)
-                    context.addLine(to: point2)
-                    context.strokePath()
-                    
-                    let point3 = CGPoint(x: ((width + width2) / 2), y: (height2 - height) / 2)
-                    let point4 = CGPoint(x: ((width + width2) / 2), y: (height2 + height) / 2)
-                    context.setStrokeColor(UIColor.black.cgColor)
-                    context.setLineWidth(strokeWidth)
-                    context.beginPath()
-                    context.move(to: point3)
-                    context.addLine(to: point4)
-                    context.strokePath()
+//                    let strokeWidth = height / 5
+//                    let point1 = CGPoint(x: ((width - width2) / 2), y: (height2 - height) / 2)
+//                    let point2 = CGPoint(x: ((width - width2) / 2), y: (height2 + height) / 2)
+//                    context.setStrokeColor(UIColor.black.cgColor)
+//                    context.setLineWidth(strokeWidth)
+//                    context.beginPath()
+//                    context.move(to: point1)
+//                    context.addLine(to: point2)
+//                    context.strokePath()
+//
+//                    let point3 = CGPoint(x: ((width + width2) / 2), y: (height2 - height) / 2)
+//                    let point4 = CGPoint(x: ((width + width2) / 2), y: (height2 + height) / 2)
+//                    context.setStrokeColor(UIColor.black.cgColor)
+//                    context.setLineWidth(strokeWidth)
+//                    context.beginPath()
+//                    context.move(to: point3)
+//                    context.addLine(to: point4)
+//                    context.strokePath()
                     
                     currentSwitch = 1
                     
@@ -1225,18 +1225,12 @@ class ShapeView : UIView {
     
     func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint, color: CGColor) {
         
-        
-        //UP TO HERE - FIX THE WIDTH OF THE LINES
-        
-        
-        
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
         context.addPath(path.cgPath)
-        context.setStrokeColor(UIColor.lightGray.cgColor)
+        context.setStrokeColor(colorTheme.boardBackground.cgColor)
         context.setLineWidth(frame.height / 4)
         context.strokePath()
-        
         
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
@@ -1244,17 +1238,6 @@ class ShapeView : UIView {
         context.setStrokeColor(color)
         context.setLineWidth(frame.height / 5)
         context.strokePath()
-        
-//        self.layer.shadowPath = path.cgPath
-//        self.layer.shadowColor = UIColor.white.cgColor
-//        self.layer.shadowRadius = 100
-//        self.layer.shadowOffset = CGSize(width: 20.0, height: 20.0)
-//        self.layer.shadowOpacity = 1.0
-//        setNeedsLayout()
-        
-        
-        
-        
     }
 }
 
