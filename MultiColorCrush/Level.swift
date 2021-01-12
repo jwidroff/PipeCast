@@ -27,6 +27,29 @@ class LevelModel {
         case 1:
             
             board.randomPieceColors = [UIColor.red, UIColor.blue]
+            board.randomPieceShapes = [.elbow]//, .cross]//, .stick, .elbow]
+            board.amountOfRandomPieces = 6
+//            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
+//            board.holeLocations = [Indexes(x: 0, y: 1)]
+
+            board.heightSpaces = 8
+            board.widthSpaces = 4
+            
+//            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+        
+            let entrance = Piece(indexes: Indexes(x: 1, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance)
+
+
+            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 2, y: board.heightSpaces - 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
+            board.pieces.append(exit)
+        
+            
+            
+            
+        case 2:
+            
+            board.randomPieceColors = [UIColor.red, UIColor.blue]
             board.randomPieceShapes = [.diagElbow, .cross]//, .stick, .elbow]
             board.amountOfRandomPieces = 20
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
@@ -70,11 +93,11 @@ class LevelModel {
 //            let pieceMaker = Piece(indexes: Indexes(x: 0, y: 0), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
 //            board.pieces.append(pieceMaker)
 
-            setUpLevelDefaults()
+//            setUpLevelDefaults()
             
             
             
-        case 2:
+        case 3:
             
            print()
             
@@ -83,6 +106,9 @@ class LevelModel {
             break
             
         }
+        
+        setUpLevelDefaults()
+        
         return board
 
     }

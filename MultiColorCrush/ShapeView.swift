@@ -340,11 +340,15 @@ class ShapeView : UIView {
                     //TOP PIVOT
                     
                     if isLocked == false && doesPivot == true {
-                        let width = bounds.width / 2
-                        let x = (bounds.midX - (width / 2))
-                        let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+//                        let width = bounds.width / 2
+//                        let x = (bounds.midX - (width / 2))
+//                        let pivotRect = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+//                        context.addRects([pivotRect])
+//                        context.fill(pivotRect)
+                        
+                        addPivotRect(context: context, side: "top", color: colors[0])
+                        
+                        
                     }
                     
                     
@@ -366,11 +370,13 @@ class ShapeView : UIView {
                     //Left Pivot
                     
                     if isLocked == false && doesPivot == true {
-                        let height = bounds.height / 2
-                        let y = (bounds.midY - (height / 2))
-                        let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+//                        let height = bounds.height / 2
+//                        let y = (bounds.midY - (height / 2))
+//                        let pivotRect = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+//                        context.addRects([pivotRect])
+//                        context.fill(pivotRect)
+                        
+                        addPivotRect(context: context, side: "left", color: colors[0])
                     }
                     
                     
@@ -392,11 +398,13 @@ class ShapeView : UIView {
                     //Bottom pivot
                     if isLocked == false && doesPivot == true {
 
-                        let width = bounds.width / 2
-                        let x = (bounds.midX - (width / 2))
-                        let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+//                        let width = bounds.width / 2
+//                        let x = (bounds.midX - (width / 2))
+//                        let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
+//                        context.addRects([pivotRect])
+//                        context.fill(pivotRect)
+                        
+                        addPivotRect(context: context, side: "bottom", color: colors[0])
                     }
                 case 4:
                     
@@ -415,11 +423,14 @@ class ShapeView : UIView {
                     
                     //Right Pivot
                     if isLocked == false && doesPivot == true {
-                        let height = bounds.height / 2
-                        let y = (bounds.midY - (height / 2))
-                        let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
-                        context.addRects([pivotRect])
-                        context.fill(pivotRect)
+//                        let height = bounds.height / 2
+//                        let y = (bounds.midY - (height / 2))
+//                        let pivotRect = CGRect(x: bounds.maxX - (bounds.width / 10), y: y, width: bounds.width / 10, height: height)
+//                        context.addRects([pivotRect])
+//                        context.fill(pivotRect)
+                        
+                        addPivotRect(context: context, side: "right", color: colors[0])
+                        
                     }
                     
 
@@ -435,10 +446,10 @@ class ShapeView : UIView {
                 
                 case 1, 3:
                     
-                    let height = bounds.height / 2
-                    let y = (bounds.midY - (height / 2))
-                    let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
-                    let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
+//                    let height = bounds.height / 3
+//                    let y = (bounds.midY - (height / 2))
+//                    let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+//                    let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
 //                    let path2 = UIBezierPath()
 
                     
@@ -448,9 +459,15 @@ class ShapeView : UIView {
                         context.setFillColor(colors[0])
 //                        context.setStrokeColor(colors[0])
                         drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
+                        
+                        
+                        
                         if isLocked == false && doesPivot == true {
-                            context.addRects([pivotRect])
-                            context.fill(pivotRect)
+                            
+                            addPivotRect(context: context, side: "right", color: colors[0])
+                            
+//                            context.addRects([pivotRect])
+//                            context.fill(pivotRect)
                         }
                         
                         
@@ -459,8 +476,12 @@ class ShapeView : UIView {
 //                        context2.setStrokeColor(colors[1])
                         drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
                         if isLocked == false && doesPivot == true {
-                            context2.addRects([pivotRect2])
-                            context2.fill(pivotRect2)
+//                            context2.addRects([pivotRect2])
+//                            context2.fill(pivotRect2)
+                            
+                            addPivotRect(context: context2, side: "left", color: colors[1])
+                            
+                            
                         }
                        
                         
@@ -474,8 +495,11 @@ class ShapeView : UIView {
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
-                            context.addRects([pivotRect2])
-                            context.fill(pivotRect2)
+//                            context.addRects([pivotRect2])
+//                            context.fill(pivotRect2)
+                            
+                            addPivotRect(context: context2, side: "left", color: colors[1])
+                            
                         }
                         
 
@@ -485,8 +509,11 @@ class ShapeView : UIView {
                         drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                         
                         if isLocked == false && doesPivot == true {
-                            context2.addRects([pivotRect])
-                            context2.fill(pivotRect)
+//                            context2.addRects([pivotRect])
+//                            context2.fill(pivotRect)
+                            
+                            addPivotRect(context: context, side: "right", color: colors[0])
+                            
                         }
                         
                         
@@ -495,10 +522,10 @@ class ShapeView : UIView {
                     
                 case 2, 4:
                     
-                    let width = bounds.width / 2
-                    let x = (bounds.midX - (width / 2))
-                    let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
-                    let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
+//                    let width = bounds.width / 3
+//                    let x = (bounds.midX - (width / 2))
+//                    let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+//                    let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
 //                    let path2 = UIBezierPath()
 
                     if currentSwitch == 1 {
@@ -510,9 +537,9 @@ class ShapeView : UIView {
                         
                         if isLocked == false && doesPivot == true {
                             
-                            context.addRects([pivotRect2])
-                            context.fill(pivotRect2)
-                            
+//                            context.addRects([pivotRect2])
+//                            context.fill(pivotRect2)
+                            addPivotRect(context: context, side: "top", color: colors[0])
                         }
                         
                         //BOTTOM PIVOT TO RIGHT SIDE
@@ -521,8 +548,11 @@ class ShapeView : UIView {
                         drawPath(path: path2, context: context2, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
-                            context2.addRects([pivotRect])
-                            context2.fill(pivotRect)
+//                            context2.addRects([pivotRect])
+//                            context2.fill(pivotRect)
+                            
+                            addPivotRect(context: context2, side: "bottom", color: colors[1])
+                            
                         }
                         
                         
@@ -533,25 +563,28 @@ class ShapeView : UIView {
                         
                         //BOTTOM PIVOT TO LEFT SIDE
                        
-                        context.setFillColor(colors[1])
 //                        context.setStrokeColor(colors[1])
                         drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[1])
                         
                         if isLocked == false && doesPivot == true {
-                            context.addRects([pivotRect])
-                            context.fill(pivotRect)
+                           
+                            
+                            addPivotRect(context: context, side: "bottom", color: colors[1])
+                            
                         }
                         
                         
                         
                         //TOP PIVOT TO RIGHT SIDE
-                        context2.setFillColor(colors[0])
+//                        context2.setFillColor(colors[0])
 //                        context2.setStrokeColor(colors[0])
                         drawPath(path: path2, context: context2, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                         
                         if isLocked == false && doesPivot == true {
-                            context2.addRects([pivotRect2])
-                            context2.fill(pivotRect2)
+//                            context2.addRects([pivotRect2])
+//                            context2.fill(pivotRect2)
+                            
+                            addPivotRect(context: context2, side: "top", color: colors[0])
                             
                         }
                         
@@ -1222,6 +1255,110 @@ class ShapeView : UIView {
         
         
     }
+    
+    func addPivotRect(context: CGContext, side: String, color: CGColor) {
+        
+        
+        
+        
+        
+        switch side {
+        
+        case "top":
+            
+            let width = bounds.width / 3
+            let x = (bounds.midX - (width / 2))
+            let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+//            let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
+            
+            
+            let rect2 = CGRect(x: pivotRect2.minX - pivotRect2.width * 0.1 , y: 0, width: pivotRect2.width + (pivotRect2.width * 0.2), height: pivotRect2.height + (pivotRect2.height * 0.2))
+            context.addRects([rect2])
+            context.setFillColor(UIColor.black.cgColor)
+            context.fill(rect2)
+            
+            context.setFillColor(color)
+            context.addRects([pivotRect2])
+            context.fill(pivotRect2)
+            
+            
+            
+            
+        case "bottom":
+            
+            
+            
+            
+            //Just put this here. Need to make this work for the top and then make it work for the sides
+            let width = bounds.width / 3
+            let x = (bounds.midX - (width / 2))
+//            let pivotRect2 = CGRect(x: x, y: bounds.minY, width: width, height: bounds.height / 10)
+            let pivotRect = CGRect(x: x, y: bounds.maxY - (bounds.height / 10), width: width, height: bounds.height / 10)
+            
+            
+            let rect = CGRect(x: pivotRect.minX - pivotRect.width * 0.1 , y: pivotRect.minY - pivotRect.height * 0.2, width: pivotRect.width + (pivotRect.width * 0.2), height: pivotRect.height + (pivotRect.height * 0.2))
+            context.addRects([rect])
+            context.setFillColor(UIColor.black.cgColor)
+            context.fill(rect)
+            
+            context.setFillColor(color)
+            context.addRects([pivotRect])
+            context.fill(pivotRect)
+            
+            print()
+            
+        case "left":
+            
+            let height = bounds.height / 3
+            let y = (bounds.midY - (height / 2))
+            let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+//            let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
+            
+            
+            
+            let rect2 = CGRect(x: 0 , y: pivotRect2.minY - pivotRect2.height * 0.1, width: pivotRect2.width + (pivotRect2.width * 0.2), height: pivotRect2.height + (pivotRect2.height * 0.2))
+            
+            
+            context.addRects([rect2])
+            context.setFillColor(UIColor.black.cgColor)
+            context.fill(rect2)
+            
+            context.setFillColor(color)
+            context.addRects([pivotRect2])
+            context.fill(pivotRect2)
+            
+            
+            
+        print()
+           
+            
+        case "right":
+            
+            let height = bounds.height / 3
+            let y = (bounds.midY - (height / 2))
+//            let pivotRect2 = CGRect(x: bounds.minX, y: y, width: bounds.width / 10, height: height)
+            let pivotRect = CGRect(x: bounds.maxX - (bounds.height / 10), y: y, width: bounds.width / 10, height: height)
+            
+            let rect = CGRect(x: pivotRect.minX - pivotRect.width * 0.2 , y: pivotRect.minY - pivotRect.height * 0.1, width: pivotRect.width + (pivotRect.width * 0.2), height: pivotRect.height + (pivotRect.height * 0.2))
+            
+            context.addRects([rect])
+            context.setFillColor(UIColor.black.cgColor)
+            context.fill(rect)
+            
+            context.setFillColor(color)
+            context.addRects([pivotRect])
+            context.fill(pivotRect)
+            
+            print()
+
+        default:
+            break
+        }
+        
+        
+        
+    }
+    
     
     func drawPath(path: UIBezierPath, context: CGContext, pivotPoint: CGPoint, center: CGPoint, endPoint: CGPoint, color: CGColor) {
         
