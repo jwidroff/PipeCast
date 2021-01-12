@@ -286,10 +286,27 @@ class ViewController: UIViewController {
         
         return CGFloat(degrees * .pi / degrees)
     }
+    
+    
+    
+    
 }
 
 extension ViewController: ModelDelegate {
 
+    
+    func resetGame() {
+        
+        
+        print("reset game")
+        
+        
+        
+        
+        
+    }
+    
+    
     func ballCrashInCross(piece: Piece, ball: Ball) {
         
         let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.view.center.y
@@ -869,17 +886,35 @@ extension ViewController: ModelDelegate {
         retryButton.backgroundColor = colorTheme.gameBackground
         retryButton.setTitle("RETRY", for: .normal)
         retryButton.setTitleColor(.black, for: .normal)
-        retryButton.setTitleColor(UIColor.black, for: .normal)
+        retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
         makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
 
         menuButton.backgroundColor = colorTheme.gameBackground
         menuButton.setTitle("MENU", for: .normal)
         menuButton.setTitleColor(UIColor.black, for: .normal)
-        retryButton.setTitleColor(.black, for: .normal)
+        menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
         makeViewSoft(view: menuButton)
         view.addSubview(menuButton)
     }
+    
+    
+    @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
+        
+        print("Handling Tap 4 retry")
+        
+        model.resetGame()
+        
+    }
+    
+    @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
+        
+        print("Handling Tap 4 menu")
+
+        
+    }
+    
+    
     
     func makeViewSoft(view: UIView) {
         

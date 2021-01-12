@@ -111,18 +111,18 @@ class ShapeView : UIView {
             currentSwitch = 1
         }
         
-        
-        let path1 = UIBezierPath()
-        path1.move(to: CGPoint(x: frame.width / 2, y: 0))
-        path1.addQuadCurve(to: CGPoint(x: frame.width / 2, y: frame.height), controlPoint: CGPoint(x: frame.width / 2, y: frame.height / 2))
-        
-        self.layer.shadowPath = path1.cgPath
-        self.layer.shadowColor = UIColor.white.cgColor
-        self.layer.shadowRadius = 100
-        self.layer.shadowOffset = CGSize(width: 20.0, height: 20.0)
-        self.layer.shadowOpacity = 1.0
-        setNeedsLayout()
-        setNeedsDisplay()
+//
+//        let path1 = UIBezierPath()
+//        path1.move(to: CGPoint(x: frame.width / 2, y: 0))
+//        path1.addQuadCurve(to: CGPoint(x: frame.width / 2, y: frame.height), controlPoint: CGPoint(x: frame.width / 2, y: frame.height / 2))
+//
+//        self.layer.shadowPath = path1.cgPath
+//        self.layer.shadowColor = UIColor.white.cgColor
+//        self.layer.shadowRadius = 100
+//        self.layer.shadowOffset = CGSize(width: 20.0, height: 20.0)
+//        self.layer.shadowOpacity = 1.0
+//        setNeedsLayout()
+//        setNeedsDisplay()
         
         
 
@@ -1364,6 +1364,35 @@ class ShapeView : UIView {
         
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
+        
+//        var biggerX = CGFloat()
+//        var smallerX = CGFloat()
+//        var biggerY = CGFloat()
+//        var smallerY = CGFloat()
+//
+//        if pivotPoint.x > center.x {
+//            biggerX = pivotPoint.x
+//            smallerX = center.x
+//        } else {
+//            biggerX = center.x
+//            smallerX = pivotPoint.x
+//        }
+//
+//        if pivotPoint.y > center.y {
+//            biggerY = pivotPoint.y
+//            smallerY = center.y
+//        } else {
+//            biggerY = center.y
+//            smallerY = pivotPoint.y
+//        }
+//
+//        let controlPoint1 = CGPoint(x: (biggerX + smallerX) / 2, y: (biggerY + smallerY) / 2)
+//        let controlPoint2 = CGPoint(x: (biggerX - smallerX) / 2, y: (biggerY - smallerY) / 2)
+        
+        
+        
+        //The following code will make it less curved
+//        path.addCurve(to: endPoint, controlPoint1: center, controlPoint2: center)
         context.addPath(path.cgPath)
         context.setStrokeColor(colorTheme.boardBackground.cgColor)
         context.setLineWidth(frame.height / 4)
@@ -1371,6 +1400,10 @@ class ShapeView : UIView {
         
         path.move(to: pivotPoint)
         path.addQuadCurve(to: endPoint, controlPoint: center)
+        
+        //The following code will make it less curved
+//        path.addCurve(to: endPoint, controlPoint1: center, controlPoint2: center)
+        
         context.addPath(path.cgPath)
         context.setStrokeColor(color)
         context.setLineWidth(frame.height / 5)

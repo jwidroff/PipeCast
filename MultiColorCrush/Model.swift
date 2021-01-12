@@ -17,8 +17,6 @@ import UIKit
 //TODO: Give pieces the ability to rotate
 //TODO: Make a piece that rotates pieces
 
-//TODO: Make a retry button
-
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
 
 //TODO: Make cracks for ice
@@ -33,8 +31,9 @@ import UIKit
 
 //TODO: Make the board have a more 3D look
 
+//TODO: Make the buttons do what they're supposed to do
 
-
+//TODO: Possibly change the cross to rotate instead of switching
 
 
 protocol ModelDelegate {
@@ -47,6 +46,7 @@ protocol ModelDelegate {
     func resetPieceMaker(piece: Piece)
     func removePiece(piece: Piece)
     func ballCrashInCross(piece: Piece, ball: Ball)
+    func resetGame()
 }
 
 class Model {
@@ -68,7 +68,7 @@ class Model {
     func getLevel() {
         
         let levelModel = LevelModel()
-        self.board = levelModel.returnBoard(levelNumber: 1)
+        self.board = levelModel.returnBoard(levelNumber: 2)
     }
     
     func setBoard() {
@@ -1049,14 +1049,7 @@ class Model {
     
     func deletePiece(piece: Piece) {
         
-
-        
-        
-        
         //Animation works but need to put in the right place becuase right not the piece doesnt move before its removed. Need to call after the piece moves
-        
-        
-        
         
         board.pieces.removeAll { (piece) -> Bool in
             
@@ -1065,21 +1058,10 @@ class Model {
                 delegate?.removePiece(piece: piece)
 
                 return true
-                
             }
-            
-            
-            
-            
             
             return false
         }
-        
-        
-        
-        
-        
-        
         
         board.pieces.removeAll { (piece) -> Bool in
 
@@ -1093,12 +1075,8 @@ class Model {
                     return true
                 }
             }
-
             return false
         }
-
-        
-        
     }
     
     
@@ -1643,4 +1621,23 @@ class Model {
         
         completion(true)
     }
+    
+    
+    func resetGame() {
+        
+        for piece in board.pieces {
+            
+            print("piece should be deleting")
+            delegate?.removePiece(piece: piece)
+            
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
+    
 }
