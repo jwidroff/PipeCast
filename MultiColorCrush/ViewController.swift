@@ -833,7 +833,10 @@ extension ViewController: ModelDelegate {
     func setUpPiecesView() {
 
 
-        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut) {  [self] in
+        
+        //WORK ON THIS ANIMATION
+        
+        UIView.animate(withDuration: 0.25, delay: 0.5, options: .curveEaseInOut) {  [self] in
             
             for piece in model.board.pieces {
             
@@ -852,9 +855,6 @@ extension ViewController: ModelDelegate {
         } completion: { (false) in
             print()
         }
-
-        
-        
     }
     
     
@@ -922,9 +922,8 @@ extension ViewController: ModelDelegate {
         boardView.removeFromSuperview()
         retryButton.removeFromSuperview()
         menuButton.removeFromSuperview()
-        
+
         model.setUpGame()
-//        model.setUpGame
         
     }
     

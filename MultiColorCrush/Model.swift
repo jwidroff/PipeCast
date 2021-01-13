@@ -35,6 +35,15 @@ import UIKit
 
 //TODO: Possibly change the cross to rotate instead of switching
 
+//TODO: Make multiple exits to make levels easier
+
+//TODO: Make popup for when player wins/loses
+
+//TODO: Make the ball also follow the entrance that falls off the board. Also set up popup to come up when a ball falls off the board or when there are no more entrances or exits or pieces to move
+
+//TODO: Make logic for when a player wins
+
+//
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
