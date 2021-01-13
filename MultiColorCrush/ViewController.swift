@@ -912,18 +912,47 @@ extension ViewController: ModelDelegate {
         view.addSubview(menuButton)
     }
     
+    func runPopUpView(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+            alert.dismiss(animated: true) { [self] in
+                
+                model.resetGame()
+                
+                boardView.removeFromSuperview()
+                retryButton.removeFromSuperview()
+                menuButton.removeFromSuperview()
+
+                model.setUpGame()
+                
+                
+                
+//                self.addOrders()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
+            alert.dismiss(animated: true) {
+                print()
+            }
+        }
+        alert.addAction(action)
+        alert.addAction(cancelAction)
+        present(alert, animated: true) {
+            //completion here
+        }
+    }
+    
     
     @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
         
         print("Handling Tap 4 retry")
         
-        model.resetGame()
+        runPopUpView(title: "", message: "Are you sure you want to restart?")
         
-        boardView.removeFromSuperview()
-        retryButton.removeFromSuperview()
-        menuButton.removeFromSuperview()
-
-        model.setUpGame()
+        
+        
+        
         
     }
     
@@ -931,7 +960,7 @@ extension ViewController: ModelDelegate {
         
         print("Handling Tap 4 menu")
 
-        
+        runPopUpView(title: "TEST", message: "THIS IS ONLY A TEST")
     }
     
     

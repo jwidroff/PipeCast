@@ -14,7 +14,8 @@ import UIKit
 //TODO: Make the possibility for more balls
 
 
-//TODO: Give pieces the ability to rotate
+//TODO: Give pieces the ability to rotate (May want to consider the cross piece
+
 //TODO: Make a piece that rotates pieces
 
 //TODO: Make the pieces have a PATH? var and use it only once instead of all the times it's being used
@@ -43,7 +44,7 @@ import UIKit
 
 //TODO: Make logic for when a player wins
 
-//
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
