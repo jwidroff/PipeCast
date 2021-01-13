@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     var widthCushion = CGFloat()
     var heightCushion = CGFloat()
     var colorTheme = ColorTheme()
+    var boardView = UIView()
 
     
     override func viewDidLoad() {
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
         model = Model()
         model.delegate = self
         model.setUpGame()
-        addSwipeGestureRecognizer(view: model.board.view)
+//        addSwipeGestureRecognizer(view: model.board.view)
     }
     
     func setupGrid() {
@@ -96,9 +97,11 @@ class ViewController: UIViewController {
             }
         }
         
-        let boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations, holeLocations: model.board.holeLocations)
+        boardView = BoardView(frame: frame, xArray: xArray, yArray: yArray, iceLocations: model.board.iceLocations, holeLocations: model.board.holeLocations)
         self.model.board.view = boardView
         self.model.board.view.backgroundColor = colorTheme.boardBackground
+        self.addSwipeGestureRecognizer(view: model.board.view)
+
         view.addSubview(self.model.board.view)
     }
     
@@ -371,22 +374,21 @@ extension ViewController: ModelDelegate {
             piece.view.removeFromSuperview()
 
         }
-
-        
-//        UIView.animate(withDuration: 0.5) {
-//
-//            piece.view.transform = scale
-//
-//
-//
-//        } completion: { (true) in
-//
-//
-//            piece.view.removeFromSuperview()
-//        }
-
-        
     }
+    
+    func removeBall(ball: Ball) {
+        
+        let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
+            ball.view.transform = scale
+
+        } completion: { (true) in
+            ball.view.removeFromSuperview()
+
+        }
+    }
+    
     
     func resetPieceMaker(piece: Piece) {
  
@@ -829,18 +831,30 @@ extension ViewController: ModelDelegate {
     
     
     func setUpPiecesView() {
-        
-        for piece in model.board.pieces {
-        
-            let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
-            piece.view = ShapeView(frame: frame, piece: piece)
-            piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
-            addTapGestureRecognizer(view: piece.view)
-            model.board.view.addSubview(piece.view)
-//            self.makeViewSoft(view: piece.view)
 
+
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut) {  [self] in
+            
+            for piece in model.board.pieces {
+            
+                let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
+                piece.view = ShapeView(frame: frame, piece: piece)
+                piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
+                addTapGestureRecognizer(view: piece.view)
+                model.board.view.addSubview(piece.view)
+    //            self.makeViewSoft(view: piece.view)
+
+            }
+            setupBalls()
+            
+            
+            
+        } completion: { (false) in
+            print()
         }
-        setupBalls()
+
+        
+        
     }
     
     
@@ -905,6 +919,13 @@ extension ViewController: ModelDelegate {
         
         model.resetGame()
         
+        boardView.removeFromSuperview()
+        retryButton.removeFromSuperview()
+        menuButton.removeFromSuperview()
+        
+        model.setUpGame()
+//        model.setUpGame
+        
     }
     
     @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
@@ -956,13 +977,48 @@ extension ViewController: ModelDelegate {
     
     func setUpGame(board: Board) {
                 
-        setSizes()
+        self.setSizes()
+        self.setupGrid()
+        self.setupBoard()
+        self.setupControls()
+        
+//        UIView.animate(withDuration: 0.25) {
+//
+//
+//        } completion: { (true) in
+//
+//
+//            UIView.animate(withDuration: 0.25) {
+//            } completion: { (true) in
+//
+//                UIView.animate(withDuration: 0.25) {
+//
+//                } completion: { (true) in
+//
+//                    UIView.animate(withDuration: 0.25) {
+//
+//                    } completion: { (true) in
+//                        print()
+//                    }
+//                }
+//            }
+//        }
 
-        setupGrid()
         
-        setupBoard()
         
-        setupControls()
+        
+        
+        
+        
+        
+        
+//        setSizes()
+//
+//        setupGrid()
+//
+//        setupBoard()
+//
+//        setupControls()
     }
     
     func pieceWasTapped(piece: Piece) {

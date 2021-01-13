@@ -46,6 +46,7 @@ protocol ModelDelegate {
     func resetPieceMaker(piece: Piece)
     func removePiece(piece: Piece)
     func ballCrashInCross(piece: Piece, ball: Ball)
+    func removeBall(ball: Ball)
     func resetGame()
 }
 
@@ -1631,11 +1632,19 @@ class Model {
             delegate?.removePiece(piece: piece)
             
         }
+        board.pieces.removeAll()
         
+        for ball in board.balls {
+            
+            print("piece should be deleting")
+            delegate?.removeBall(ball: ball)
+            
+        }
+        board.balls.removeAll()
         
+//        setUpGame()
         
-        
-        
+//        completion(true)
     }
     
     
