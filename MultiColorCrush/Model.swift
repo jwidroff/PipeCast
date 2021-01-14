@@ -40,9 +40,13 @@ import UIKit
 
 //TODO: Make popup for when player wins/loses
 
-//TODO: Make the ball also follow the entrance that falls off the board. Also set up popup to come up when a ball falls off the board or when there are no more entrances or exits or pieces to move
+//TODO: Set up popup to come up when a ball falls off the board or when there are no more entrances or exits or pieces to move
 
 //TODO: Make logic for when a player wins
+
+//TODO: Consider making the entrances and exits moveable until its clicked
+
+//TODO: Consider making walls that have the power to move and freeze in place
 
 
 
@@ -1002,14 +1006,6 @@ class Model {
                                
                             }
                             
-                            
-                            
-//                            if checkForHole(piece: piece) == true {
-//
-//
-//                                deletePiece(piece: piece)
-//
-//                            }
                         }
                         
                     } else {
@@ -1046,13 +1042,6 @@ class Model {
                         }
                     }
                 }
-//            } else {
-//                
-//                throwPieceOffEdge(piece: piece)
-//
-//                
-//            }
-            
         default:
             break
         }
@@ -1081,6 +1070,37 @@ class Model {
                 if holeLocation == piece.indexes {
 
                     delegate?.removePiece(piece: piece)
+                    
+                    print("deleted piece - Need to animate this in the VC")
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    
+    func deleteBall(ball: Ball) {
+        
+        
+        board.balls.removeAll { (ball) -> Bool in
+            
+            if ball.indexes.x! < 0 || ball.indexes.x! > board.widthSpaces - 1 || ball.indexes.y! < 0 || ball.indexes.y! > board.heightSpaces - 1 {
+                
+                delegate?.removeBall(ball: ball)
+
+                return true
+            }
+            
+            return false
+        }
+        
+        board.balls.removeAll { (ball) -> Bool in
+
+            for holeLocation in board.holeLocations {
+
+                if holeLocation == ball.indexes {
+
+                    delegate?.removeBall(ball: ball)
                     
                     print("deleted piece - Need to animate this in the VC")
                     return true

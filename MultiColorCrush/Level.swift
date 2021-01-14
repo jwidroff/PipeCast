@@ -51,7 +51,7 @@ class LevelModel {
             
             board.randomPieceColors = [UIColor.red, UIColor.blue]
             board.randomPieceShapes = [.diagElbow, .cross]//, .stick, .elbow]
-            board.amountOfRandomPieces = 20
+            board.amountOfRandomPieces = 0
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.holeLocations = [Indexes(x: 0, y: 1)]
 
@@ -81,17 +81,17 @@ class LevelModel {
             board.pieces.append(exit)
 
             
-//            let piece = Piece(indexes: Indexes(x: 2, y: 2), shape: .diagElbow, colors: [UIColor.blue, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-//            board.pieces.append(piece)
+            let piece = Piece(indexes: Indexes(x: 2, y: 2), shape: .diagElbow, colors: [UIColor.blue, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+            board.pieces.append(piece)
 
-            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-            board.pieces.append(wall)
+//            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+//            board.pieces.append(wall)
             
             let colorChanger = Piece(indexes: Indexes(x: 2, y: 3), shape: .colorChanger, colors: [UIColor.red, UIColor.blue], version: 2, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
             board.pieces.append(colorChanger)
 
-//            let pieceMaker = Piece(indexes: Indexes(x: 0, y: 0), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
-//            board.pieces.append(pieceMaker)
+            let pieceMaker = Piece(indexes: Indexes(x: 1, y: 4), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
+            board.pieces.append(pieceMaker)
 
 //            setUpLevelDefaults()
             
@@ -863,6 +863,9 @@ class LevelModel {
             
             if piece.shape == .entrance {
 
+                print("1 entrance")
+                
+                
                 let ball = Ball()
                 ball.indexes = piece.indexes
                 ball.onColor = piece.colors[0]

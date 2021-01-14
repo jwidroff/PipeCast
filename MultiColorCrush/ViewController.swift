@@ -772,63 +772,68 @@ extension ViewController: ModelDelegate {
     
     
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
-                
-//        for piece in model.board.pieces {
+        
+        if piece.indexes.x! < 0{
             
-//            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.25) {
+                piece.view.center = CGPoint(x: piece.view.center.x - (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
+            }
+            
+            self.model.deletePiece(piece: piece)
+            
+        } else if piece.indexes.x! > self.model.board.widthSpaces - 1 {
+            UIView.animate(withDuration: 0.25) {
+                piece.view.center = CGPoint(x: piece.view.center.x + (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
+            }
+            
+            self.model.deletePiece(piece: piece)
+            
+        } else if piece.indexes.y! < 0 {
+            
+            UIView.animate(withDuration: 0.25) {
+                piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y - (self.distanceFromPieceCenter * 2))
+            }
+            
+            self.model.deletePiece(piece: piece)
+            
+        } else if piece.indexes.y! > self.model.board.heightSpaces - 1 {
+            
+            UIView.animate(withDuration: 0.25) {
+                piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y + (self.distanceFromPieceCenter * 2))
+            }
+            
+            self.model.deletePiece(piece: piece)
+            
+        } else {
+            //Piece is on the board and therefore execute move regularly
+            UIView.animate(withDuration: 0.25) {
+                piece.view.center = self.model.board.grid[piece.indexes]!
                 
-                if piece.indexes.x! < 0{
+                for ball in self.model.board.balls {
+                    ball.view.center = self.model.board.grid[ball.indexes]!
+                }
+            }
+        }
+        
+        if piece.shape == .entrance {
+            
+            for ball in model.board.balls {
+                
+                if ball.indexes == piece.indexes {
                     
                     UIView.animate(withDuration: 0.25) {
-                        piece.view.center = CGPoint(x: piece.view.center.x - (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
-                    }
-//                    self.removePiece(piece: piece)
-                    
-                    self.model.deletePiece(piece: piece)
-                    
-                } else if piece.indexes.x! > self.model.board.widthSpaces - 1 {
-                    UIView.animate(withDuration: 0.25) {
-                        piece.view.center = CGPoint(x: piece.view.center.x + (self.distanceFromPieceCenter * 2), y: piece.view.center.y)
-                    }
-//                    self.removePiece(piece: piece)
-                    self.model.deletePiece(piece: piece)
-
-                } else if piece.indexes.y! < 0 {
-
-                    UIView.animate(withDuration: 0.25) {
-                        piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y - (self.distanceFromPieceCenter * 2))
-                    }
-//                    self.removePiece(piece: piece)
-                    self.model.deletePiece(piece: piece)
-
-                } else if piece.indexes.y! > self.model.board.heightSpaces - 1 {
-
-                    UIView.animate(withDuration: 0.25) {
-                        piece.view.center = CGPoint(x: piece.view.center.x, y: piece.view.center.y + (self.distanceFromPieceCenter * 2))
-                    }
-//                    self.removePiece(piece: piece)
-                    self.model.deletePiece(piece: piece)
-
-                } else {
-
-                    UIView.animate(withDuration: 0.25) {
-                        piece.view.center = self.model.board.grid[piece.indexes]!
                         
-                        for ball in self.model.board.balls {
-                            ball.view.center = self.model.board.grid[ball.indexes]!
-                        }
+                        ball.view.center = piece.view.center
+                        
+                        self.model.deleteBall(ball: ball)
+                        
+                    } completion: { (true) in
+                        print("Check if there are any balls still left in the game")
                     }
                 }
-                
-                
-                
-                
-                
-//            }
-//        }
+            }
+        }
     }
-    
-    
     
     func setUpPiecesView() {
 
