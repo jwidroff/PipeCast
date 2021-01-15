@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = Int()
+    var number = 2 //TODO: Change
     var board = Board()
 }
 
@@ -77,9 +77,12 @@ class LevelModel {
             board.pieces.append(entrance)
 
 
-            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 2, y: board.heightSpaces - 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
-            board.pieces.append(exit)
+//            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 2, y: board.heightSpaces - 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
+//            board.pieces.append(exit)
 
+            
+            let exit = Piece(indexes: Indexes(x: 2, y: 4), shape: .exit, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
+            board.pieces.append(exit)
             
             let piece = Piece(indexes: Indexes(x: 2, y: 2), shape: .diagElbow, colors: [UIColor.blue, UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
             board.pieces.append(piece)
@@ -98,6 +101,28 @@ class LevelModel {
             
             
         case 3:
+            
+            
+            board.randomPieceColors = [UIColor.red, UIColor.blue]
+            board.randomPieceShapes = [.diagElbow]//, .cross]//, .stick, .elbow]
+            board.amountOfRandomPieces = 15
+//            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
+//            board.holeLocations = [Indexes(x: 0, y: 1)]
+
+            board.heightSpaces = 8
+            board.widthSpaces = 4
+            
+//            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+        
+            let entrance = Piece(indexes: Indexes(x: 1, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance)
+
+
+            let exit = Piece(indexes: Indexes(x: board.widthSpaces - 2, y: board.heightSpaces - 2), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "top", doesPivot: nil)
+            board.pieces.append(exit)
+        
+            
+            
             
            print()
             

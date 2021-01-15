@@ -65,6 +65,7 @@ protocol ModelDelegate {
     func ballCrashInCross(piece: Piece, ball: Ball)
     func removeBall(ball: Ball)
     func resetGame()
+    func popup4WinOrLoss(title: String, message: String)
 }
 
 class Model {
@@ -86,7 +87,7 @@ class Model {
     func getLevel() {
         
         let levelModel = LevelModel()
-        self.board = levelModel.returnBoard(levelNumber: 2)
+        self.board = levelModel.returnBoard(levelNumber: level.number)
     }
     
     func setBoard() {
@@ -1203,21 +1204,23 @@ class Model {
     
     
     
-    func winner() {
-        
-        print("you win")
-        
-    }
+//    func winner() {
+//
+//        print("you win")
+//
+//    }
     
     var waitAmount = 0.25
         
     func moveBall(ball: Ball, startSide: String) {
         
+        let piece = getPieceInfo(index: ball.indexes)
+        
         switch startSide {
         
         case "unmoved":
             
-            let piece = getPieceInfo(index: ball.indexes)
+//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "center"
             let endSide = piece.opening
             
@@ -1237,15 +1240,22 @@ class Model {
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
-            if endSide == "center" {
-                winner()
-            }
             
-            return
+            //TODO: Need to change this to check the type of piece it is
+
+            
+            
+            
+//            if endSide == "center" {
+//                print("piece shape = \(piece.shape)")
+//                winner()
+//            }
+            
+//            return
             
         case "top":
             
-            let piece = getPieceInfo(index: ball.indexes)
+//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "top"
 
             if piece.side.top.color != ball.onColor { return }
@@ -1270,7 +1280,7 @@ class Model {
                             
                             delegate?.ballCrashInCross(piece: piece, ball: ball)
 
-                            print("need to move ball halfway")
+                            delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                             return
                             
                         }
@@ -1278,19 +1288,21 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-                    if endSide == "center" {
-                        winner()
-                    }
+//                    if endSide == "center" {
+//                        print("piece shape = \(piece.shape)")
+//
+//                        winner()
+//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
             
-            return
+//            return
             
         case "bottom":
             
-            let piece = getPieceInfo(index: ball.indexes)
+//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "bottom"
             
             if piece.side.bottom.color != ball.onColor { return }
@@ -1321,19 +1333,22 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-                    if endSide == "center" {
-                        winner()
-                    }
+//                    if endSide == "center" {
+//                        print("piece shape = \(piece.shape)")
+//
+//                        winner()
+//                    }
                 }
             } else {
+                
                 print("crashed into a wall, or no track in place")
             }
             
-            return
+//            return
             
         case "left":
             
-            let piece = getPieceInfo(index: ball.indexes)
+//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "left"
 
             if piece.side.left.color != ball.onColor { return }
@@ -1361,19 +1376,21 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-                    if endSide == "center" {
-                        winner()
-                    }
+//                    if endSide == "center" {
+//                        print("piece shape = \(piece.shape)")
+//
+//                        winner()
+//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
             
-            return
+//            return
             
         case "right":
             
-            let piece = getPieceInfo(index: ball.indexes)
+//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "right"
 
             if piece.side.right.color != ball.onColor { return }
@@ -1400,19 +1417,40 @@ class Model {
                         
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
-                    if endSide == "center" {
-                        winner()
-                    }
+//                    if endSide == "center" {
+//                        print("piece shape = \(piece.shape)")
+//
+//                        winner()
+//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
-            return
+//            return
             
         default:
             break
         }
+        
+        check4Winner(piece: piece)
+        
+        
     }
+    
+    func check4Winner(piece: Piece) {
+        
+        if piece.shape == .exit {
+            
+            print("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!")
+            
+            
+            level.number += 1
+            
+            delegate?.popup4WinOrLoss(title: "YOU WIN", message: "Great Job - Next Level?")
+        }
+    }
+    
+    
     
     func handleTap(center: CGPoint) {
                 

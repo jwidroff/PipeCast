@@ -309,6 +309,18 @@ extension ViewController: ModelDelegate {
         
     }
     
+    func popup4WinOrLoss(title: String, message: String) {
+        
+        
+        
+        runPopUpView(title: title, message: message)
+        
+        
+        
+        
+        
+        
+    }
     
     func ballCrashInCross(piece: Piece, ball: Ball) {
         
