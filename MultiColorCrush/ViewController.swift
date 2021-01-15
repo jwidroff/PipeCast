@@ -835,6 +835,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    
     func setUpPiecesView() {
 
 

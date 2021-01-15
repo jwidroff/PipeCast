@@ -50,7 +50,7 @@ class LevelModel {
         case 2:
             
             board.randomPieceColors = [UIColor.red, UIColor.blue]
-            board.randomPieceShapes = [.diagElbow, .cross]//, .stick, .elbow]
+            board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
             board.amountOfRandomPieces = 0
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
             board.holeLocations = [Indexes(x: 0, y: 1)]
@@ -823,8 +823,6 @@ class LevelModel {
                                 }
                             }
                             
-                            
-                            
                         case "right":
                             
                             if !board.pieces.contains(where: { (piece) -> Bool in
@@ -847,10 +845,6 @@ class LevelModel {
                         print("Couldnt set row of pieceMakers 2")
                     }
                 }
-
-                
-                
-                
             default:
                 print("invalid shape for row or column")
             }

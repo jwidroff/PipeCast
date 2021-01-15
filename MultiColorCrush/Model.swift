@@ -11,7 +11,7 @@ import UIKit
 
 
 
-//TODO: Make the possibility for more balls
+//TODO: Make the possibility for more balls in each entrance
 
 
 //TODO: Give pieces the ability to rotate (May want to consider the cross piece
@@ -48,6 +48,9 @@ import UIKit
 
 //TODO: Consider making walls that have the power to move and freeze in place
 
+//TODO: Consider making the path that the ball goes through into locked pieces so that when you start that ball, you can still move pieces to get the other bal from the other entrance in easier to the other exit
+
+//TODO:
 
 
 protocol ModelDelegate {
@@ -1045,6 +1048,7 @@ class Model {
         default:
             break
         }
+                
     }
     
     func deletePiece(piece: Piece) {
@@ -1182,7 +1186,22 @@ class Model {
         default:
             break
         }
+        
+        check4GameOver()
     }
+    
+    func check4GameOver() {
+        
+        //Check if Board has any more balls (if not, game over)
+
+        if board.balls.count == 0 {
+            
+            print("no more balls in the game - Create delegate func here to end the game and NOT move up a level")
+            return
+        }
+    }
+    
+    
     
     func winner() {
         
