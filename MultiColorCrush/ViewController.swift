@@ -372,6 +372,11 @@ extension ViewController: ModelDelegate {
                 print()
             }
         }
+        
+        
+        //TODO: Make this wait until the game is over
+        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+        
     }
     
     

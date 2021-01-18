@@ -457,89 +457,44 @@ class Model {
     
     func setPieceSwitches(piece: Piece) {
         
-//        switch piece.shape {
-//        
-//        case .elbow:
-//            piece.switches = 2
-//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-//            
-//        case .diagElbow:
-//            
-//            piece.switches = 2
-//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-//            
-//        case .cross:
-//            
-//            piece.switches = 2
-//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-//            
-//        case .stick:
-//            
-//            piece.switches = 1
-//            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
-//            
-//        default:
-//            break
-//        }
+        switch piece.shape {
         
-        
-        let pivotDecision = Int(arc4random_uniform(UInt32(2))) + 1
-        
-        switch pivotDecision {
-        
-        
-        case 1: //Pivot allowed
-        
+        case .elbow:
             
-            switch piece.shape {
+            piece.switches = 2
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
-            case .elbow:
-                
+        case .diagElbow:
+            
+            let pivotDecision = Int(arc4random_uniform(UInt32(2))) + 1
+            
+            switch pivotDecision {
+            case 1:
                 piece.switches = 2
                 piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
                 
-            case .diagElbow:
-                
-                piece.switches = 2
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-                
-            case .cross:
-                
-                piece.switches = 2
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-                
-                
-            case .stick:
-                
+            case 2:
                 piece.switches = 1
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
-                
+                piece.currentSwitch = 1
+                piece.doesPivot = false
                 
             default:
                 break
             }
-        
-        
-        
-        case 2: //Pivot unallowed
-        
+            
+        case .cross:
+            
+            piece.switches = 2
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+            
+        case .stick:
+            
             piece.switches = 1
-            piece.currentSwitch = 1
-            piece.doesPivot = false
-        
-        
-        
+            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+            
         default:
             break
-        
-        
-        
-        
         }
-        
-        
-        
-        
     }
     
     func setPieceShape(piece: Piece) {
@@ -1220,7 +1175,6 @@ class Model {
         
         case "unmoved":
             
-//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "center"
             let endSide = piece.opening
             
@@ -1241,21 +1195,9 @@ class Model {
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
             
-            //TODO: Need to change this to check the type of piece it is
-
-            
-            
-            
-//            if endSide == "center" {
-//                print("piece shape = \(piece.shape)")
-//                winner()
-//            }
-            
-//            return
             
         case "top":
             
-//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "top"
 
             if piece.side.top.color != ball.onColor { return }
@@ -1280,6 +1222,14 @@ class Model {
                             
                             delegate?.ballCrashInCross(piece: piece, ball: ball)
 
+//                            board.balls.removeAll { (ball) -> Bool in
+//                                ball.indexes = ball.indexes
+//                            }
+                        
+                            
+                            
+                            
+                            //MARK: UP TO HERE
                             delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                             return
                             
@@ -1288,21 +1238,14 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-//                    if endSide == "center" {
-//                        print("piece shape = \(piece.shape)")
-//
-//                        winner()
-//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
             
-//            return
             
         case "bottom":
             
-//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "bottom"
             
             if piece.side.bottom.color != ball.onColor { return }
@@ -1333,22 +1276,15 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-//                    if endSide == "center" {
-//                        print("piece shape = \(piece.shape)")
-//
-//                        winner()
-//                    }
                 }
             } else {
                 
                 print("crashed into a wall, or no track in place")
             }
             
-//            return
             
         case "left":
             
-//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "left"
 
             if piece.side.left.color != ball.onColor { return }
@@ -1376,21 +1312,14 @@ class Model {
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                     
-//                    if endSide == "center" {
-//                        print("piece shape = \(piece.shape)")
-//
-//                        winner()
-//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
             
-//            return
             
         case "right":
             
-//            let piece = getPieceInfo(index: ball.indexes)
             let startSide = "right"
 
             if piece.side.right.color != ball.onColor { return }
@@ -1417,16 +1346,10 @@ class Model {
                         
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
-//                    if endSide == "center" {
-//                        print("piece shape = \(piece.shape)")
-//
-//                        winner()
-//                    }
                 }
             } else {
                 print("crashed into a wall, or no track in place")
             }
-//            return
             
         default:
             break
