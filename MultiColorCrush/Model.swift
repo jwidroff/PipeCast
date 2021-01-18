@@ -1222,15 +1222,7 @@ class Model {
                             
                             delegate?.ballCrashInCross(piece: piece, ball: ball)
 
-//                            board.balls.removeAll { (ball) -> Bool in
-//                                ball.indexes = ball.indexes
-//                            }
-                        
-                            
-                            
-                            
-                            //MARK: UP TO HERE
-                            delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
+//                            delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                             return
                             
                         }
