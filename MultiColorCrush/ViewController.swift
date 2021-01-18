@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
-    var delayAmount = 0.0
+//    var delayAmount = 0.0
     var deviceIsNarrow = Bool()
     var retryButton = UIButton()
     var menuButton = UIButton()
@@ -311,8 +311,6 @@ extension ViewController: ModelDelegate {
     
     func popup4WinOrLoss(title: String, message: String) {
         
-        
-        
         runPopUpView(title: title, message: message)
         
         
@@ -525,12 +523,12 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
 
-                self.delayAmount += 0.25
+                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
 
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
@@ -597,12 +595,12 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.delayAmount += 0.25
+                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
@@ -669,12 +667,12 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.delayAmount += 0.25
+                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
@@ -741,12 +739,12 @@ extension ViewController: ModelDelegate {
             
             self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.delayAmount += 0.25
+                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.delayAmount * 1000))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
@@ -939,19 +937,24 @@ extension ViewController: ModelDelegate {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
-            alert.dismiss(animated: true) { [self] in
+            alert.dismiss(animated: true) {
                 
-                model.resetGame()
                 
-                boardView.removeFromSuperview()
-                retryButton.removeFromSuperview()
-                menuButton.removeFromSuperview()
+                self.ballPath = UIBezierPath()
+                self.piecesCrossed = 0.0
+                self.model.resetGame()
+                
+                
+                print("delay amount reset")
+                
+                self.boardView.removeFromSuperview()
+                self.retryButton.removeFromSuperview()
+                self.menuButton.removeFromSuperview()
 
-                model.setUpGame()
+                self.model.setUpGame()
                 
                 
                 
-//                self.addOrders()
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
@@ -964,6 +967,13 @@ extension ViewController: ModelDelegate {
         present(alert, animated: true) {
             //completion here
         }
+        
+        
+        
+        
+        
+        
+        
     }
     
     

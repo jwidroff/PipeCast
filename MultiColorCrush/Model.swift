@@ -1194,17 +1194,17 @@ class Model {
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
-            
-            
         case "top":
             
             let startSide = "top"
 
-            if piece.side.top.color != ball.onColor { return }
-            
-            
-            
             if let endSide = piece.side.top.exitSide {
+                
+                if piece.side.top.color != ball.onColor {
+                    delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
+
+                    return
+                }
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
@@ -1215,14 +1215,12 @@ class Model {
                         ball.onColor = piece.side.bottom.color!
                     }
                     
-                    
                     if piece.shape == .cross {
                         
                         if piece.side.top.closing.isOpen == false {
                             
                             delegate?.ballCrashInCross(piece: piece, ball: ball)
 
-//                            delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                             return
                             
                         }
@@ -1232,6 +1230,7 @@ class Model {
                     
                 }
             } else {
+                delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
             }
             
@@ -1240,9 +1239,15 @@ class Model {
             
             let startSide = "bottom"
             
-            if piece.side.bottom.color != ball.onColor { return }
             
             if let endSide = piece.side.bottom.exitSide {
+                
+                if piece.side.bottom.color != ball.onColor {
+                    
+                    delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
+                    return
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1270,7 +1275,7 @@ class Model {
                     
                 }
             } else {
-                
+                delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
             }
             
@@ -1279,9 +1284,14 @@ class Model {
             
             let startSide = "left"
 
-            if piece.side.left.color != ball.onColor { return }
             
             if let endSide = piece.side.left.exitSide {
+                
+                if piece.side.left.color != ball.onColor {
+                    delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
+                    return
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1306,6 +1316,7 @@ class Model {
                     
                 }
             } else {
+                delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
             }
             
@@ -1313,10 +1324,14 @@ class Model {
         case "right":
             
             let startSide = "right"
-
-            if piece.side.right.color != ball.onColor { return }
             
             if let endSide = piece.side.right.exitSide {
+                
+                if piece.side.right.color != ball.onColor {
+                    
+                    delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
+                    return }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1340,6 +1355,7 @@ class Model {
                     
                 }
             } else {
+                delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
             }
             
