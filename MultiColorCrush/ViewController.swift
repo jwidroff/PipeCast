@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     var heightCushion = CGFloat()
     var colorTheme = ColorTheme()
     var boardView = UIView()
+    var ballEndingPoint = CGPoint()
 
     
     override func viewDidLoad() {
@@ -229,19 +230,21 @@ class ViewController: UIViewController {
     
 
     
-    func curveAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
+    func calculateAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
 
         ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
         ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
-        
-        let animation = CAKeyframeAnimation(keyPath: "position")
-        animation.path = ballPath.cgPath
-        animation.repeatCount = 0
         piecesCrossed += 0.25
-
-        animation.duration = piecesCrossed
-        view.layer.add(animation, forKey: "animate along path")
-        view.center = endPoint
+        
+//        let animation = CAKeyframeAnimation(keyPath: "position")
+//        animation.path = ballPath.cgPath
+//        animation.repeatCount = 0
+//        animation.duration = piecesCrossed
+//        view.layer.add(animation, forKey: "animate along path")
+//        view.center = endPoint
+        
+        ballEndingPoint = endPoint
+        
         completion(true)
     }
     
@@ -311,7 +314,7 @@ extension ViewController: ModelDelegate {
     
     func popup4WinOrLoss(title: String, message: String) {
         
-        runPopUpView(title: title, message: message)
+//        runPopUpView(title: title, message: message)
         
         
         
@@ -339,7 +342,7 @@ extension ViewController: ModelDelegate {
             //Moves the piece up
             let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 4 * 3 / 2))
             
-            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
                 print()
             }
             
@@ -348,7 +351,7 @@ extension ViewController: ModelDelegate {
             //Moves the piece down
             let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 4 * 3 / 2))
             
-            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
                 print()
             }
             
@@ -357,7 +360,7 @@ extension ViewController: ModelDelegate {
             //Moves the piece left
             let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y) 
             
-            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
                 print()
             }
             
@@ -366,14 +369,14 @@ extension ViewController: ModelDelegate {
             //Moves the ball right
             let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y)
             
-            curveAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
                 print()
             }
         }
         
         
         //TODO: Make this wait until the game is over
-        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
         
     }
     
@@ -468,7 +471,7 @@ extension ViewController: ModelDelegate {
             beginPoint = ball.view.center
             controlPoint = piece.view.center
             
-            self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
                 self.ballPath = UIBezierPath()
                 
@@ -487,6 +490,9 @@ extension ViewController: ModelDelegate {
                     self.model.moveBall(ball: ball, startSide: "left")
                     
                 default:
+                    
+                    
+                    
                     break
                 }
             }
@@ -521,9 +527,9 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
             controlPoint = piece.view.center
             
-            self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
 
-                self.piecesCrossed += 0.25
+//                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
@@ -593,9 +599,9 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
             controlPoint = piece.view.center
             
-            self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.piecesCrossed += 0.25
+//                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
@@ -665,9 +671,9 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
             controlPoint = piece.view.center
             
-            self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.piecesCrossed += 0.25
+//                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
@@ -737,9 +743,9 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
             controlPoint = piece.view.center
             
-            self.curveAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.piecesCrossed += 0.25
+//                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
                     self.model.switch4Tap(piece: piece) { (true) in
@@ -783,6 +789,30 @@ extension ViewController: ModelDelegate {
         default:
             break
         }
+        
+        
+        animateMove(ball: ball)
+        
+        
+        
+        
+        //UP TO HERE - NEED TO DELAY THIS POPUP
+        runPopUpView(title: "Hi", message: "HI")
+
+    }
+    
+    func animateMove(ball: Ball){
+        
+        
+        
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = ballPath.cgPath
+        animation.repeatCount = 0
+        animation.duration = piecesCrossed
+        ball.view.layer.add(animation, forKey: "animate along path")
+        ball.view.center = ballEndingPoint
+        
     }
     
     

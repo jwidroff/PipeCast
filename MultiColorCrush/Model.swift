@@ -1330,7 +1330,8 @@ class Model {
                 if piece.side.right.color != ball.onColor {
                     
                     delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
-                    return }
+                    return
+                }
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
@@ -1371,9 +1372,6 @@ class Model {
     func check4Winner(piece: Piece) {
         
         if piece.shape == .exit {
-            
-            print("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!")
-            
             
             level.number += 1
             

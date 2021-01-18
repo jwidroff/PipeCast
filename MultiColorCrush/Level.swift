@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 2 //TODO: Change
+    var number = 1 //TODO: Change
     var board = Board()
 }
 
@@ -28,14 +28,14 @@ class LevelModel {
             
             board.randomPieceColors = [UIColor.red, UIColor.blue]
             board.randomPieceShapes = [.diagElbow]//, .cross]//, .stick, .elbow]
-            board.amountOfRandomPieces = 15
+            board.amountOfRandomPieces = 10
 //            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
 //            board.holeLocations = [Indexes(x: 0, y: 1)]
 
-            board.heightSpaces = 8
-            board.widthSpaces = 4
+            board.heightSpaces = 10
+            board.widthSpaces = 5
             
-//            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
         
             let entrance = Piece(indexes: Indexes(x: 1, y: 2), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
             board.pieces.append(entrance)
