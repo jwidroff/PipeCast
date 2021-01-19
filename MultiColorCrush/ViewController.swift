@@ -314,7 +314,7 @@ extension ViewController: ModelDelegate {
     
     func popup4WinOrLoss(title: String, message: String) {
         
-//        runPopUpView(title: title, message: message)
+        runPopUpView(title: title, message: message)
         
         
         
@@ -376,7 +376,7 @@ extension ViewController: ModelDelegate {
         
         
         //TODO: Make this wait until the game is over
-//        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
         
     }
     
@@ -792,12 +792,8 @@ extension ViewController: ModelDelegate {
         
         
         animateMove(ball: ball)
-        
-        
-        
-        
-        //UP TO HERE - NEED TO DELAY THIS POPUP
-        runPopUpView(title: "Hi", message: "HI")
+                
+//        runPopUpView(title: "Hi", message: "HI")
 
     }
     
@@ -965,6 +961,7 @@ extension ViewController: ModelDelegate {
     
     func runPopUpView(title: String, message: String) {
         
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             alert.dismiss(animated: true) {
@@ -973,17 +970,11 @@ extension ViewController: ModelDelegate {
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
                 self.model.resetGame()
-                
-                
-                print("delay amount reset")
-                
                 self.boardView.removeFromSuperview()
                 self.retryButton.removeFromSuperview()
                 self.menuButton.removeFromSuperview()
 
                 self.model.setUpGame()
-                
-                
                 
             }
         }
@@ -994,9 +985,52 @@ extension ViewController: ModelDelegate {
         }
         alert.addAction(action)
         alert.addAction(cancelAction)
-        present(alert, animated: true) {
-            //completion here
+//        present(alert, animated: true) {
+//            //completion here
+//        }
+        
+        
+        
+        
+        
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+        
+        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+
+            self.present(alert, animated: true) {
+                //completion here
+            }
+            
+
+            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                
+                //Add code here if you want something to happen after the first wait
+                
+            }
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       
         
         
         
