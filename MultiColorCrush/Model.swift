@@ -52,8 +52,6 @@ import UIKit
 
 //TODO: Make func to check if there are any balls left in the game
 
-//TODO: Fix the first animation of the ball leaving the entrance
-
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
@@ -1077,85 +1075,61 @@ class Model {
         switch direction {
             
         case .up:
-                        
-            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
+            
+            board.pieces.sort { (piece1, piece2) -> Bool in
                 piece1.indexes.y! < piece2.indexes.y!
-            })
-//            .filter({ (piece) -> Bool in
-//                piece.isLocked == false
-//            })
-            {
-                movePiecesHelper(piece: piece, direction: direction)
-                delegate?.movePieces(piece: piece, direction: direction)
-
             }
-            
-            
-        //            delegate?.movePieces(direction: direction)
-
 
         case .down:
-            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
-                piece1.indexes.y! > piece2.indexes.y!
-                
-            })
-//            .filter({ (piece) -> Bool in
-//                piece.isLocked == false
-//            })
-            {
-                movePiecesHelper(piece: piece, direction: direction)
-                delegate?.movePieces(piece: piece, direction: direction)
-
-            }
             
-        //            delegate?.movePieces(direction: direction)
-
+            board.pieces.sort { (piece1, piece2) -> Bool in
+                piece1.indexes.y! > piece2.indexes.y!
+            }
 
         case .left:
-            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
-                piece1.indexes.x! < piece2.indexes.x!
-            })
-//            .filter({ (piece) -> Bool in
-//                piece.isLocked == false
-//            })
-            {
-                movePiecesHelper(piece: piece, direction: direction)
-                delegate?.movePieces(piece: piece, direction: direction)
-
-            }
             
-//            delegate?.movePieces(direction: direction)
+            board.pieces.sort { (piece1, piece2) -> Bool in
+                piece1.indexes.x! < piece2.indexes.x!
+            }
 
         case .right:
-            for piece in board.pieces.sorted(by: { (piece1, piece2) -> Bool in
+            
+            board.pieces.sort { (piece1, piece2) -> Bool in
                 piece1.indexes.x! > piece2.indexes.x!
-            })
-//            .filter({ (piece) -> Bool in
-//                piece.isLocked == false
-//            })
-            {
-                movePiecesHelper(piece: piece, direction: direction)
-                delegate?.movePieces(piece: piece, direction: direction)
-
             }
-//            delegate?.movePieces(direction: direction)
 
         default:
             break
         }
         
+        for piece in board.pieces {
+            
+            
+            movePiecesHelper(piece: piece, direction: direction)
+            delegate?.movePieces(piece: piece, direction: direction)
+            
+        }
+        
+        
+        
+        
         check4GameOver()
     }
     
-    func check4GameOver() {
+    func check4GameOver() -> Bool {
         
         //Check if Board has any more balls (if not, game over)
 
+        var bool = false
+        
+        
         if board.balls.count == 0 {
             
             print("no more balls in the game - Create delegate func here to end the game and NOT move up a level")
-            return
+            bool = true
         }
+        
+        return bool
     }
     
     
@@ -1202,6 +1176,7 @@ class Model {
             if let endSide = piece.side.top.exitSide {
                 
                 if piece.side.top.color != ball.onColor {
+                    
                     delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
 
                     return
@@ -1228,9 +1203,11 @@ class Model {
                     }
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
-                    
                 }
             } else {
+                
+                
+                
                 delegate?.popup4WinOrLoss(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
             }
