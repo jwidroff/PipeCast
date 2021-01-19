@@ -316,11 +316,6 @@ extension ViewController: ModelDelegate {
         
         runPopUpView(title: title, message: message)
         
-        
-        
-        
-        
-        
     }
     
     func ballCrashInCross(piece: Piece, ball: Ball) {
@@ -473,7 +468,7 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.ballPath = UIBezierPath()
+//                self.ballPath = UIBezierPath()
                 
                 switch endSide {
                 

@@ -42,16 +42,17 @@ import UIKit
 
 //TODO: Set up popup to come up when a ball falls off the board or when there are no more entrances or exits or pieces to move
 
-//TODO: Make logic for when a player wins
-
 //TODO: Consider making the entrances and exits moveable until its clicked
 
 //TODO: Consider making walls that have the power to move and freeze in place
 
 //TODO: Consider making the path that the ball goes through into locked pieces so that when you start that ball, you can still move pieces to get the other bal from the other entrance in easier to the other exit
 
-//TODO:
+//TODO: Make it that the pieceMaker can also spit out walls
 
+//TODO: Make func to check if there are any balls left in the game
+
+//TODO: Fix the first animation of the ball leaving the entrance
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
