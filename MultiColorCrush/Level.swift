@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 1 //TODO: Change
+    var number = 2 //TODO: Change
     var board = Board()
 }
 
@@ -53,7 +53,7 @@ class LevelModel {
             board.randomPieceShapes = [.diagElbow, .cross, .stick, .elbow]
             board.amountOfRandomPieces = 0
             board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
-            board.holeLocations = [Indexes(x: 0, y: 1)]
+            board.holeLocations = [Indexes(x: 0, y: 1), Indexes(x: 5, y: 1)]
 
             board.heightSpaces = 14
             board.widthSpaces = 7
