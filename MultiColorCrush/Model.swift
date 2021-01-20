@@ -1008,19 +1008,6 @@ class Model {
     
     func deletePiece(piece: Piece) {
         
-        //Animation works but need to put in the right place becuase right not the piece doesnt move before its removed. Need to call after the piece moves
-        
-        
-        if piece.shape == .entrance {
-            
-            board.balls.removeAll { (ball) -> Bool in
-                ball.indexes == piece.indexes
-            }
-            
-            
-        }
-        
-        
         board.pieces.removeAll { (piece) -> Bool in
             
             if piece.indexes.x! < 0 || piece.indexes.x! > board.widthSpaces - 1 || piece.indexes.y! < 0 || piece.indexes.y! > board.heightSpaces - 1 {
