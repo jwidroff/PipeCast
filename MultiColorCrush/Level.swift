@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 2 //TODO: Change
+    var number = 1 //TODO: Change
     var board = Board()
 }
 
@@ -139,14 +139,9 @@ class LevelModel {
     }
     
     private func setUpLevelDefaults() {
-
-//        setupGrid(gridWidth: gridWidth, gridHeight: gridHeight, iceLocations: iceLocations)
         
         setupRandomPieces()
-        
         setupNextPieces()
-        
-        
         setupBalls()
     }
     
@@ -164,24 +159,8 @@ class LevelModel {
                 setPieceSides(piece: nextPiece)
                 piece.nextPiece = nextPiece
             }
-            
         }
-        
-        
     }
-    
-    
-    
-//    private func setupGrid(gridWidth: Int, gridHeight: Int, iceLocations: [Indexes]?) {
-        
-//        board.widthSpaces = gridWidth
-//        board.heightSpaces = gridHeight
-//
-//        if let iceLocations = iceLocations {
-//            board.iceLocations = iceLocations
-//        }
-        //[Indexes(x: 2, y: 2), Indexes(x: 2, y: 1)]
-//    }
     
     private func setPieceIndex(piece: Piece) {
 
@@ -225,34 +204,19 @@ class LevelModel {
     
     private func setPieceColor(piece: Piece) {
                 
-        
-        //commit above
-        
-        
-        
         if board.randomPieceColors != [UIColor]() {
             
-//            let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
             let randomColor1 = board.randomPieceColors[Int(arc4random_uniform(UInt32(board.randomPieceColors.count)))]
             let randomColor2 = board.randomPieceColors[Int(arc4random_uniform(UInt32(board.randomPieceColors.count)))]
-            
             piece.colors = [randomColor1, randomColor2]
             
         } else {
             
-            
             let randomColors:[UIColor] = [UIColor.red]//, UIColor.blue]//, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.orange]//, UIColor.white, UIColor.cyan]
             let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
             let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-            
             piece.colors = [randomColor1, randomColor2]
-            
         }
-        
-        
-       
-        
-       
     }
     
     private func setPieceSwitches(piece: Piece) {
@@ -261,10 +225,8 @@ class LevelModel {
         
         switch pivotDecision {
         
-        
         case 1: //Pivot allowed
         
-            
             switch piece.shape {
             
             case .elbow:
@@ -281,24 +243,17 @@ class LevelModel {
                 
                 piece.switches = 2
                 piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-                
                 
             case .stick:
                 
                 piece.switches = 1
                 piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
                 
-                
             default:
                 break
             }
-        
-        
-        
-        case 2: //Pivot unallowed
-        
-//            piece.switches = 1
-//            piece.currentSwitch = 1
+            
+        case 2: //Pivot not allowed
         
             switch piece.shape {
             
@@ -319,39 +274,24 @@ class LevelModel {
                 piece.switches = 2
                 piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
                 
-                
             case .stick:
                 
                 piece.switches = 1
                 piece.currentSwitch = 1
                 
-                
             default:
                 break
             }
         
-        
         default:
             break
-        
-        
-        
-        
         }
-        
-        
-
     }
     
     private func setPieceSides(piece: Piece) {
       
-        print(piece.version)
-
-        print(piece.currentSwitch)
-        
         switch piece.shape {
         
- 
         case .elbow:
             
             switch piece.version {
@@ -359,17 +299,14 @@ class LevelModel {
             case 1:
                 
                 //Top Pivot
-                
                 if piece.currentSwitch == 1 {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = nil
                     piece.side.right.color = nil
-                    
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
                     piece.side.right.exitSide = nil
@@ -379,12 +316,10 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    
                     piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
                     piece.side.bottom.color = nil
                     piece.side.left.color = nil
-                    
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
                     piece.side.bottom.exitSide = nil
@@ -394,17 +329,14 @@ class LevelModel {
             case 2:
                 
                 //Left Pivot
-                
                 if piece.currentSwitch == 1 {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
                     piece.side.right.exitSide = nil
                     piece.side.top.exitSide = nil
-                    
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
                     piece.side.top.color = nil
@@ -414,33 +346,27 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    
                     piece.side.top.exitSide = "left"
                     piece.side.left.exitSide = "top"
                     piece.side.right.exitSide = nil
                     piece.side.bottom.exitSide = nil
-
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = nil
                     piece.side.right.color = nil
-                    
                 }
                 
             case 3:
                 
                 //Bottom Pivot
-                
                 if piece.currentSwitch == 1 {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.left.exitSide = nil
-
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = nil
@@ -450,12 +376,10 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
-                    
                     piece.side.bottom.exitSide = "left"
                     piece.side.left.exitSide = "bottom"
                     piece.side.right.exitSide = nil
                     piece.side.top.exitSide = nil
-                    
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
                     piece.side.top.color = nil
@@ -470,12 +394,10 @@ class LevelModel {
                     
                     piece.side.top.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    
                     piece.side.top.exitSide = "right"
                     piece.side.right.exitSide = "top"
                     piece.side.bottom.exitSide = nil
                     piece.side.left.exitSide = nil
-                    
                     piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
                     piece.side.bottom.color = nil
@@ -485,12 +407,10 @@ class LevelModel {
                     
                     piece.side.bottom.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.left.exitSide = nil
-                    
                     piece.side.bottom.color = piece.colors[0]
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = nil
@@ -507,12 +427,10 @@ class LevelModel {
             piece.side.left.exitSide = "right"
             piece.side.top.exitSide = "bottom"
             piece.side.bottom.exitSide = "top"
-            
             piece.side.right.color = piece.colors[1]
             piece.side.left.color = piece.colors[1]
             piece.side.top.color = piece.colors[0]
             piece.side.bottom.color = piece.colors[0]
-            
             piece.side.top.opening.isOpen = true
             piece.side.bottom.opening.isOpen = true
             piece.side.left.opening.isOpen = true
@@ -525,7 +443,6 @@ class LevelModel {
                 if piece.currentSwitch == 1 {
                     
                     //Horizontal Pipe on top
-
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
@@ -534,7 +451,6 @@ class LevelModel {
                 } else if piece.currentSwitch == 2 {
                     
                     //Vertical Pipe on top
-
                     piece.side.left.closing.isOpen = false
                     piece.side.right.closing.isOpen = false
                     piece.side.top.closing.isOpen = true
@@ -546,7 +462,6 @@ class LevelModel {
                 if piece.currentSwitch == 1 {
                     
                     //Horizontal Pipe on top
-
                     piece.side.left.closing.isOpen = true
                     piece.side.right.closing.isOpen = true
                     piece.side.top.closing.isOpen = false
@@ -555,7 +470,6 @@ class LevelModel {
                 } else if piece.currentSwitch == 2 {
                     
                     //Vertical Pipe on top
-                    
                     piece.side.left.closing.isOpen = false
                     piece.side.right.closing.isOpen = false
                     piece.side.top.closing.isOpen = true
@@ -564,7 +478,6 @@ class LevelModel {
                 
             default:
                 break
-                
             }
             
         case .stick:
@@ -572,46 +485,22 @@ class LevelModel {
             switch piece.version {
             case 1, 3:
                 
-//                if piece.currentSwitch == 1 {
-                    
-                    piece.side.right.exitSide = "left"
-                    piece.side.left.exitSide = "right"
-                    piece.side.right.color = piece.colors[1]
-                    piece.side.left.color = piece.colors[1]
-                    piece.side.left.opening.isOpen = true
-                    piece.side.right.opening.isOpen = true
-                    
-//                } else if piece.currentSwitch == 2 {
-//
-//                    piece.side.top.exitSide = "bottom"
-//                    piece.side.bottom.exitSide = "top"
-//                    piece.side.top.color = piece.colors[0]
-//                    piece.side.bottom.color = piece.colors[0]
-//                    piece.side.top.opening.isOpen = true
-//                    piece.side.bottom.opening.isOpen = true
-//                }
+                piece.side.right.exitSide = "left"
+                piece.side.left.exitSide = "right"
+                piece.side.right.color = piece.colors[1]
+                piece.side.left.color = piece.colors[1]
+                piece.side.left.opening.isOpen = true
+                piece.side.right.opening.isOpen = true
                 
             case 2, 4:
-                
-//                if piece.currentSwitch == 1 {
                     
-                    piece.side.top.exitSide = "bottom"
-                    piece.side.bottom.exitSide = "top"
-                    piece.side.top.color = piece.colors[0]
-                    piece.side.bottom.color = piece.colors[0]
-                    piece.side.top.opening.isOpen = true
-                    piece.side.bottom.opening.isOpen = true
+                piece.side.top.exitSide = "bottom"
+                piece.side.bottom.exitSide = "top"
+                piece.side.top.color = piece.colors[0]
+                piece.side.bottom.color = piece.colors[0]
+                piece.side.top.opening.isOpen = true
+                piece.side.bottom.opening.isOpen = true
                     
-//                } else if piece.currentSwitch == 2 {
-                    
-//                    piece.side.right.exitSide = "left"
-//                    piece.side.left.exitSide = "right"
-//                    piece.side.right.color = piece.colors[1]
-//                    piece.side.left.color = piece.colors[1]
-//                    piece.side.left.opening.isOpen = true
-//                    piece.side.right.opening.isOpen = true
-//                }
-                
             default:
                 break
             }
@@ -628,14 +517,12 @@ class LevelModel {
             case 1, 3:
                 
                 //Pivots on left and right
-
                 if piece.currentSwitch == 1 {
 
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = "left"
-                    
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[1]
@@ -647,7 +534,6 @@ class LevelModel {
                     piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = "right"
-                    
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
@@ -657,14 +543,12 @@ class LevelModel {
             case 2, 4:
                 
                 //Pivots on top and bottom
-                
                 if piece.currentSwitch == 1 {
                     
                     piece.side.left.exitSide = "top"
                     piece.side.right.exitSide = "bottom"
                     piece.side.bottom.exitSide = "right"
                     piece.side.top.exitSide = "left"
-                    
                     piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
@@ -676,7 +560,6 @@ class LevelModel {
                     piece.side.right.exitSide = "top"
                     piece.side.bottom.exitSide = "left"
                     piece.side.top.exitSide = "right"
-                    
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[1]
@@ -693,7 +576,6 @@ class LevelModel {
     }
     
     private func addBorderAroundBoardOf(_ shape: Shape, exceptionIndexes: [Indexes]) {
-        
 
         let corner1 = Piece(indexes: Indexes(x: 0, y: 0), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
         let corner2 = Piece(indexes: Indexes(x: 0, y: board.heightSpaces - 1), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
@@ -711,8 +593,6 @@ class LevelModel {
             setupRowOrColumnOf(.wall, rowOrColumn: "column", index: 0, exception: [], pieceMakerOpening: nil)
             setupRowOrColumnOf(.wall, rowOrColumn: "column", index: board.widthSpaces - 1, exception: [], pieceMakerOpening: nil)
             
-            
-            
         case .pieceMaker:
             
             setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 0, exception: [], pieceMakerOpening: "bottom")
@@ -722,9 +602,6 @@ class LevelModel {
             
         default:
             break
-        
-        
-        
         }
         
         for exceptionIndex in exceptionIndexes {
@@ -732,9 +609,6 @@ class LevelModel {
                 piece.indexes == exceptionIndex
             }
         }
-        
-        
-        
     }
     
     private func setupRowOrColumnOf(_ shape: Shape, rowOrColumn: String, index: Int, exception: [Int], pieceMakerOpening: String?) {
@@ -796,9 +670,6 @@ class LevelModel {
                         
                         print("Couldnt set row of pieceMakers 2")
                     }
-                    
-                    
-                
                 }
                 
             default:
@@ -881,9 +752,6 @@ class LevelModel {
         for piece in board.pieces {
             
             if piece.shape == .entrance {
-
-                print("1 entrance")
-                
                 
                 let ball = Ball()
                 ball.indexes = piece.indexes
@@ -895,23 +763,16 @@ class LevelModel {
     
     private func setupRandomPieces() {
         
-//        if let numberOfRandomPieces = numberOfRandomPieces {
+        for _ in 0..<board.amountOfRandomPieces {
             
-            for _ in 0..<board.amountOfRandomPieces {
-                
-                let piece = Piece()
-                setPieceIndex(piece: piece)
-                setPieceShape(piece: piece)
-                setPieceColor(piece: piece)
-                setPieceSwitches(piece: piece)
-                setPieceSides(piece: piece)
-                board.pieces.append(piece)
-                
-                print("current switch \(piece.currentSwitch)")
-                print("current piece switches \(piece.switches)")
-                
-            }
-//        }
+            let piece = Piece()
+            setPieceIndex(piece: piece)
+            setPieceShape(piece: piece)
+            setPieceColor(piece: piece)
+            setPieceSwitches(piece: piece)
+            setPieceSides(piece: piece)
+            board.pieces.append(piece)
+        }
     }
 }
 

@@ -29,6 +29,7 @@ class ColorTheme {
         //Wall Color
         //cross divider color
         //Piece outline color
+        //Cross switch color
         
     }
     

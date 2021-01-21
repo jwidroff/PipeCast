@@ -80,7 +80,6 @@ class GridPoints {
                 dictionary[Indexes(x: horizontalSet.0, y: verticalSet.0)] = floatingPoint
             }
         }
-                
         return dictionary
     }
 }

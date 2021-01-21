@@ -35,12 +35,10 @@ class BoardView : UIView {
     var colorTheme = ColorTheme()
 
     override init(frame: CGRect) {
+        
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.frame = frame
-        
-        
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,16 +46,10 @@ class BoardView : UIView {
     }
     
     init(frame: CGRect, xArray: [CGFloat], yArray: [CGFloat], iceLocations: [Indexes], holeLocations: [Indexes]) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
         
-//        let gradient = CAGradientLayer()
-//        gradient.startPoint = .init(x: 0.0, y: -0.1)
-//        gradient.endPoint = .init(x: 0.0, y: 1.0)
-//        gradient.locations = [0.0, 0.7]
-//        gradient.frame = bounds
-//        gradient.colors = [UIColor.cyan.cgColor, UIColor.blue.cgColor]
-//        layer.insertSublayer(gradient, at: 0)
+        super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.clear
         
         self.xArray = xArray.sorted(by: { (x1, x2) -> Bool in
             x1 < x2
@@ -68,9 +60,6 @@ class BoardView : UIView {
         
         self.iceLocations = iceLocations
         self.holeLocations = holeLocations
-
-        
-
     }
     
     override func draw(_ rect: CGRect) {
@@ -113,9 +102,6 @@ class BoardView : UIView {
         
         for iceLocation in iceLocations {
             
-            
-            
-            
             //THE FOLLOWING IS CODE FOR THE GREDIENT. DO NOT DELETE. USE LATER ON WHEN THIS BECOMES A VIEW ON TOP OF THE BOARDVIEW
             
 //            let colorSpace = CGColorSpaceCreateDeviceRGB()
@@ -145,14 +131,6 @@ class BoardView : UIView {
 //            context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: UInt32(0)))
             
         
-            
-            
-            
-            
-            
-            
-            
-            
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
 
             context.setFillColor(UIColor.cyan.cgColor)

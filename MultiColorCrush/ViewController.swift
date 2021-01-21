@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     var distanceFromPieceCenter = CGFloat()
     var ballPath = UIBezierPath()
     var piecesCrossed:Double = 0
-//    var delayAmount = 0.0
     var deviceIsNarrow = Bool()
     var retryButton = UIButton()
     var menuButton = UIButton()
@@ -29,7 +28,6 @@ class ViewController: UIViewController {
     var colorTheme = ColorTheme()
     var boardView = UIView()
     var ballEndingPoint = CGPoint()
-
     
     override func viewDidLoad() {
         
@@ -38,7 +36,6 @@ class ViewController: UIViewController {
         model = Model()
         model.delegate = self
         model.setUpGame()
-//        addSwipeGestureRecognizer(view: model.board.view)
     }
     
     func setupGrid() {
@@ -67,20 +64,15 @@ class ViewController: UIViewController {
         
         if deviceIsNarrow {
             
-            
             frameY = self.view.frame.midY - (boardHeight / 2) - (heightCushion / 4)
 
-            
         } else {
             
             frameY = self.view.frame.midY - (boardHeight / 2)
-
             
         }
         
         let frameX = self.view.frame.midX - (boardWidth / 2)
-
-//        let frameY = self.view.frame.midY - (boardHeight / 2)
         let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
         var xArray = [CGFloat]()
         var yArray = [CGFloat]()
@@ -102,18 +94,13 @@ class ViewController: UIViewController {
         self.model.board.view = boardView
         self.model.board.view.backgroundColor = colorTheme.boardBackground
         self.addSwipeGestureRecognizer(view: model.board.view)
-
         view.addSubview(self.model.board.view)
     }
     
     func setSizes() {
         
         widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
-//        let widthCushion:CGFloat = 10.0
         heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces))
-        
-//        let widthCushion:CGFloat = pieceWidth
-//        let heightCushion:CGFloat = pieceHeight
         
         if self.view.frame.width < (self.view.frame.height / 2) {
             
@@ -130,12 +117,10 @@ class ViewController: UIViewController {
             
             print("Wide Device")
             deviceIsNarrow = false
-
         }
         
         pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
         pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9
-        
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
     }
   
@@ -227,31 +212,29 @@ class ViewController: UIViewController {
         return bool
     }
     
-    
-
-    
     func calculateAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
 
         ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
         ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
         piecesCrossed += 0.25
-        
-//        let animation = CAKeyframeAnimation(keyPath: "position")
-//        animation.path = ballPath.cgPath
-//        animation.repeatCount = 0
-//        animation.duration = piecesCrossed
-//        view.layer.add(animation, forKey: "animate along path")
-//        view.center = endPoint
-        
         ballEndingPoint = endPoint
-        
         completion(true)
+    }
+    
+    func animateMove(ball: Ball){
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = ballPath.cgPath
+        animation.repeatCount = 0
+        animation.duration = piecesCrossed
+        ball.view.layer.add(animation, forKey: "animate along path")
+        ball.view.center = ballEndingPoint
     }
     
     func enlargePieces() {
         
         guard piecesWereEnlarged == false else { return }
-
+        
         piecesWereEnlarged = true
         for piece in model.board.pieces.sorted(by: { (piece1, piece2) -> Bool in
             piece1.view.center.y < piece2.view.center.y
@@ -288,36 +271,109 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
+        
+        print("Handling Tap 4 retry")
+        runPopUpView(title: "", message: "Are you sure you want to restart?")
+    }
+    
+    @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
+        
+        print("Handling Tap 4 menu")
+        runPopUpView(title: "TEST", message: "THIS IS ONLY A TEST")
+    }
+    
+    func makeViewSoft(view: UIView) {
+        
+        view.layer.shadowOpacity = 1.0
+        view.layer.masksToBounds = false
+
+        let cornerRadius: CGFloat = view.frame.height / 2
+        let shadowRadius: CGFloat = 3
+
+        let darkShadow = CALayer()
+        darkShadow.frame = view.bounds
+        darkShadow.backgroundColor = view.backgroundColor?.cgColor
+        darkShadow.shadowColor = UIColor(red: 0.87, green: 0.89, blue: 0.93, alpha: 1.0).cgColor
+        darkShadow.cornerRadius = cornerRadius
+        darkShadow.shadowOffset = CGSize(width: shadowRadius, height: shadowRadius)
+        darkShadow.shadowOpacity = 1
+        darkShadow.shadowRadius = shadowRadius
+        view.layer.insertSublayer(darkShadow, at: 0)
+
+        let lightShadow = CALayer()
+        lightShadow.frame = view.bounds
+        lightShadow.backgroundColor = view.backgroundColor?.cgColor
+        lightShadow.shadowColor = UIColor.white.cgColor
+        lightShadow.cornerRadius = cornerRadius
+        lightShadow.shadowOffset = CGSize(width: -shadowRadius, height: -shadowRadius)
+        lightShadow.shadowOpacity = 1
+        lightShadow.shadowRadius = shadowRadius
+        view.layer.insertSublayer(lightShadow, at: 0)
+    }
+    
+    func setupControls() {
+        
+        var retryButtonFrame = CGRect()
+        var menuButtonFrame = CGRect()
+
+        if deviceIsNarrow == true {
+                        
+            let buttonWidth = (boardWidth / 2) - 10
+            let buttonHeight = heightCushion / 1.5
+            let retryButtonYFloat = model.board.view.frame.maxY + 10
+            let retryButtonXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
+            let menuButtonYFloat = model.board.view.frame.maxY + 10
+            let menuButtonXFloat = model.board.view.frame.minX
+            
+            retryButtonFrame = CGRect(x: retryButtonXFloat, y: retryButtonYFloat, width: buttonWidth, height: buttonHeight)
+            retryButton = UIButton(frame: retryButtonFrame)
+            retryButton.layer.cornerRadius = retryButton.frame.height / 2
+
+            menuButtonFrame = CGRect(x: menuButtonXFloat, y: menuButtonYFloat, width: buttonWidth, height: buttonHeight)
+            menuButton = UIButton(frame: menuButtonFrame)
+            menuButton.layer.cornerRadius = menuButton.frame.height / 2
+            
+        } else if deviceIsNarrow == false {
+                 
+            let buttonWidth = model.board.view.frame.minX / 4 * 3
+            let buttonHeight = buttonWidth
+            let buttonYFloat = model.board.view.frame.maxY - buttonHeight
+            let buttonXFloat = model.board.view.frame.maxX + (model.board.view.frame.minX / 8)
+            let menuButtonXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
+            
+            retryButtonFrame = CGRect(x: buttonXFloat, y: buttonYFloat, width: buttonWidth , height: buttonHeight)
+            retryButton = UIButton(frame: retryButtonFrame)
+            retryButton.layer.cornerRadius = retryButton.frame.width / 2
+
+            menuButtonFrame = CGRect(x: menuButtonXFloat, y: buttonYFloat, width: buttonWidth, height: buttonHeight)
+            menuButton = UIButton(frame: menuButtonFrame)
+            menuButton.layer.cornerRadius = menuButton.frame.height / 2
+        }
+        
+        retryButton.backgroundColor = colorTheme.gameBackground
+        retryButton.setTitle("RETRY", for: .normal)
+        retryButton.setTitleColor(.black, for: .normal)
+        retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
+        makeViewSoft(view: retryButton)
+        view.addSubview(retryButton)
+
+        menuButton.backgroundColor = colorTheme.gameBackground
+        menuButton.setTitle("MENU", for: .normal)
+        menuButton.setTitleColor(UIColor.black, for: .normal)
+        menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
+        makeViewSoft(view: menuButton)
+        view.addSubview(menuButton)
+    }
+    
     func radians(degrees: Double) ->  CGFloat {
         
         return CGFloat(degrees * .pi / degrees)
     }
-    
-    
-    
-    
 }
 
 extension ViewController: ModelDelegate {
 
-    
-    func resetGame() {
-        
-        
-        print("reset game")
-        
-        
-        
-        
-        
-    }
-    
-    func popup4WinOrLoss(title: String, message: String) {
-        
-        runPopUpView(title: title, message: message)
-        
-    }
-    
     func ballCrashInCross(piece: Piece, ball: Ball) {
         
         let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.view.center.y
@@ -338,7 +394,6 @@ extension ViewController: ModelDelegate {
             let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 4 * 3 / 2))
             
             calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
-                print()
             }
             
         } else if xAxisIsAligned && ballIsHigherThanPieceCenter {
@@ -347,7 +402,6 @@ extension ViewController: ModelDelegate {
             let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 4 * 3 / 2))
             
             calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
-                print()
             }
             
         } else if yAxisIsAligned && ballIsRightOfPieceCenter {
@@ -356,7 +410,6 @@ extension ViewController: ModelDelegate {
             let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y) 
             
             calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
-                print()
             }
             
         } else if yAxisIsAligned && ballIsLeftOfPieceCenter {
@@ -365,16 +418,11 @@ extension ViewController: ModelDelegate {
             let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y)
             
             calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
-                print()
             }
         }
         
-        
-        //TODO: Make this wait until the game is over
         runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-        
     }
-    
     
     func removePiece(piece: Piece) {
         
@@ -398,10 +446,8 @@ extension ViewController: ModelDelegate {
 
         } completion: { (true) in
             ball.view.removeFromSuperview()
-
         }
     }
-    
     
     func resetPieceMaker(piece: Piece) {
  
@@ -424,11 +470,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
-                
-        print("move ball called")
-        
         
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
@@ -439,25 +481,25 @@ extension ViewController: ModelDelegate {
         
         case "center":
             
-            print("start side = center")
+//            print("start side = center")
             
             if endSide == "left" {
-                print("end side = left")
+//                print("end side = left")
 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                print("end side = right")
+//                print("end side = right")
 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "top"{
-                print("end side = top")
+//                print("end side = top")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "bottom" {
-                print("end side = bottom")
+//                print("end side = bottom")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
@@ -467,9 +509,7 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-//                self.ballPath = UIBezierPath()
-                
+                                
                 switch endSide {
                 
                 case "top":
@@ -485,35 +525,31 @@ extension ViewController: ModelDelegate {
                     self.model.moveBall(ball: ball, startSide: "left")
                     
                 default:
-                    
-                    
-                    
                     break
                 }
             }
             
         case "top":
             
-            print("start side = top")
-
+//            print("start side = top")
             
             if endSide == "left" {
-                print("end side = left")
+//                print("end side = left")
 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                print("end side = right")
+//                print("end side = right")
 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "bottom" {
-                print("end side = bottom")
+//                print("end side = bottom")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "center" {
-                print("end side = center")
+//                print("end side = center")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -523,10 +559,9 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-
-//                self.piecesCrossed += 0.25
                 
                 if piece.shape == .cross {
+                    
                     self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
@@ -566,26 +601,25 @@ extension ViewController: ModelDelegate {
                         
         case "bottom":
             
-            print("start side = bottom")
+//            print("start side = bottom")
 
-            
             if endSide == "left" {
-                print("end side = left")
+//                print("end side = left")
 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                print("end side = right")
+//                print("end side = right")
 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "top" {
-                print("end side = top")
+//                print("end side = top")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "center" {
-                print("end side = center")
+//                print("end side = center")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -595,10 +629,9 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-//                self.piecesCrossed += 0.25
-                
+                                
                 if piece.shape == .cross {
+                    
                     self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
@@ -638,26 +671,25 @@ extension ViewController: ModelDelegate {
 
         case "left":
             
-            print("start side = left")
+//            print("start side = left")
 
-            
             if endSide == "bottom" {
-                print("end side = bottom")
+//                print("end side = bottom")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "top" {
-                print("end side = top")
+//                print("end side = top")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "right" {
-                print("end side = right")
+//                print("end side = right")
 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "center" {
-                print("end side = center")
+//                print("end side = center")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -667,10 +699,9 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-//                self.piecesCrossed += 0.25
-                
+                                
                 if piece.shape == .cross {
+                    
                     self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
@@ -710,26 +741,25 @@ extension ViewController: ModelDelegate {
             
         case "right":
             
-            print("start side = right")
+//            print("start side = right")
 
-            
             if endSide == "bottom" {
-                print("end side = bottom")
+//                print("end side = bottom")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "top" {
-                print("end side = top")
+//                print("end side = top")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "left" {
-                print("end side = left")
+//                print("end side = left")
 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "center" {
-                print("end side = center")
+//                print("end side = center")
 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -739,19 +769,17 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-//                self.piecesCrossed += 0.25
-                
+                                
                 if piece.shape == .cross {
+                    
                     self.model.switch4Tap(piece: piece) { (true) in
                         
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
                         let backgroundColor = piece.view.backgroundColor?.cgColor
                         
                         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//                            self.pieceWasTapped(piece: piece)
+                            
                             piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-//                            piece.view.setNeedsDisplay()
 
                             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                                 
@@ -780,32 +808,11 @@ extension ViewController: ModelDelegate {
                     break
                 }
             }
-            
         default:
             break
         }
-        
-        
         animateMove(ball: ball)
-                
-//        runPopUpView(title: "Hi", message: "HI")
-
     }
-    
-    func animateMove(ball: Ball){
-        
-        
-        
-        
-        let animation = CAKeyframeAnimation(keyPath: "position")
-        animation.path = ballPath.cgPath
-        animation.repeatCount = 0
-        animation.duration = piecesCrossed
-        ball.view.layer.add(animation, forKey: "animate along path")
-        ball.view.center = ballEndingPoint
-        
-    }
-    
     
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
@@ -871,10 +878,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    
     func setUpPiecesView() {
-
-
         
         //WORK ON THIS ANIMATION
         
@@ -887,80 +891,19 @@ extension ViewController: ModelDelegate {
                 piece.view.center = CGPoint(x: model.board.grid[piece.indexes]?.x ?? piece.view.center.x, y: model.board.grid[piece.indexes]?.y ?? piece.view.center.y)
                 addTapGestureRecognizer(view: piece.view)
                 model.board.view.addSubview(piece.view)
-    //            self.makeViewSoft(view: piece.view)
-
             }
             setupBalls()
-            
-            
             
         } completion: { (false) in
             print()
         }
     }
     
-    
-    func setupControls() {
-        
-        var retryButtonFrame = CGRect()
-        var menuButtonFrame = CGRect()
-
-        if deviceIsNarrow == true {
-                        
-            let buttonWidth = (boardWidth / 2) - 10
-            let buttonHeight = heightCushion / 1.5
-            let retryButtonYFloat = model.board.view.frame.maxY + 10
-            let retryButtonXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
-            let menuButtonYFloat = model.board.view.frame.maxY + 10
-            let menuButtonXFloat = model.board.view.frame.minX
-            
-            retryButtonFrame = CGRect(x: retryButtonXFloat, y: retryButtonYFloat, width: buttonWidth, height: buttonHeight)
-            retryButton = UIButton(frame: retryButtonFrame)
-            retryButton.layer.cornerRadius = retryButton.frame.height / 2
-
-            menuButtonFrame = CGRect(x: menuButtonXFloat, y: menuButtonYFloat, width: buttonWidth, height: buttonHeight)
-            menuButton = UIButton(frame: menuButtonFrame)
-            menuButton.layer.cornerRadius = menuButton.frame.height / 2
-            
-        } else if deviceIsNarrow == false {
-                 
-            let buttonWidth = model.board.view.frame.minX / 4 * 3
-            let buttonHeight = buttonWidth
-            let buttonYFloat = model.board.view.frame.maxY - buttonHeight
-            let buttonXFloat = model.board.view.frame.maxX + (model.board.view.frame.minX / 8)
-            let menuButtonXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
-            
-            retryButtonFrame = CGRect(x: buttonXFloat, y: buttonYFloat, width: buttonWidth , height: buttonHeight)
-            retryButton = UIButton(frame: retryButtonFrame)
-            retryButton.layer.cornerRadius = retryButton.frame.width / 2
-
-            menuButtonFrame = CGRect(x: menuButtonXFloat, y: buttonYFloat, width: buttonWidth, height: buttonHeight)
-            menuButton = UIButton(frame: menuButtonFrame)
-            menuButton.layer.cornerRadius = menuButton.frame.height / 2
-        }
-        
-        retryButton.backgroundColor = colorTheme.gameBackground
-        retryButton.setTitle("RETRY", for: .normal)
-        retryButton.setTitleColor(.black, for: .normal)
-        retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
-        makeViewSoft(view: retryButton)
-        view.addSubview(retryButton)
-
-        menuButton.backgroundColor = colorTheme.gameBackground
-        menuButton.setTitle("MENU", for: .normal)
-        menuButton.setTitleColor(UIColor.black, for: .normal)
-        menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
-        makeViewSoft(view: menuButton)
-        view.addSubview(menuButton)
-    }
-    
     func runPopUpView(title: String, message: String) {
-        
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             alert.dismiss(animated: true) {
-                
                 
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
@@ -968,9 +911,7 @@ extension ViewController: ModelDelegate {
                 self.boardView.removeFromSuperview()
                 self.retryButton.removeFromSuperview()
                 self.menuButton.removeFromSuperview()
-
                 self.model.setUpGame()
-                
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
@@ -980,119 +921,17 @@ extension ViewController: ModelDelegate {
         }
         alert.addAction(action)
         alert.addAction(cancelAction)
-//        present(alert, animated: true) {
-//            //completion here
-//        }
-        
-        
-        
-        
         
         let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-        
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 
             self.present(alert, animated: true) {
                 //completion here
             }
-            
-
             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                
                 //Add code here if you want something to happen after the first wait
-                
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-    }
-    
-    
-    @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
-        
-        print("Handling Tap 4 retry")
-        
-        runPopUpView(title: "", message: "Are you sure you want to restart?")
-        
-        
-        
-        
-        
-    }
-    
-    @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
-        
-        print("Handling Tap 4 menu")
-
-        runPopUpView(title: "TEST", message: "THIS IS ONLY A TEST")
-    }
-    
-    
-    
-    func makeViewSoft(view: UIView) {
-        
-//        view = UIView(frame: frame)
-//        view.backgroundColor = .black
-        
-        view.layer.shadowOpacity = 1.0
-        view.layer.masksToBounds = false
-
-        let cornerRadius: CGFloat = view.frame.height / 2
-        let shadowRadius: CGFloat = 3
-
-        let darkShadow = CALayer()
-        darkShadow.frame = view.bounds
-        darkShadow.backgroundColor = view.backgroundColor?.cgColor
-        darkShadow.shadowColor = UIColor(red: 0.87, green: 0.89, blue: 0.93, alpha: 1.0).cgColor
-        darkShadow.cornerRadius = cornerRadius
-        darkShadow.shadowOffset = CGSize(width: shadowRadius, height: shadowRadius)
-        darkShadow.shadowOpacity = 1
-        darkShadow.shadowRadius = shadowRadius
-        view.layer.insertSublayer(darkShadow, at: 0)
-
-        let lightShadow = CALayer()
-        lightShadow.frame = view.bounds
-        lightShadow.backgroundColor = view.backgroundColor?.cgColor
-        lightShadow.shadowColor = UIColor.white.cgColor
-        lightShadow.cornerRadius = cornerRadius
-        lightShadow.shadowOffset = CGSize(width: -shadowRadius, height: -shadowRadius)
-        lightShadow.shadowOpacity = 1
-        lightShadow.shadowRadius = shadowRadius
-        view.layer.insertSublayer(lightShadow, at: 0)
-        
-//        view.addSubview(yourView)
-        
-        
-        
-        
     }
     
     func setUpGame(board: Board) {
@@ -1101,44 +940,6 @@ extension ViewController: ModelDelegate {
         self.setupGrid()
         self.setupBoard()
         self.setupControls()
-        
-//        UIView.animate(withDuration: 0.25) {
-//
-//
-//        } completion: { (true) in
-//
-//
-//            UIView.animate(withDuration: 0.25) {
-//            } completion: { (true) in
-//
-//                UIView.animate(withDuration: 0.25) {
-//
-//                } completion: { (true) in
-//
-//                    UIView.animate(withDuration: 0.25) {
-//
-//                    } completion: { (true) in
-//                        print()
-//                    }
-//                }
-//            }
-//        }
-
-        
-        
-        
-        
-        
-        
-        
-        
-//        setSizes()
-//
-//        setupGrid()
-//
-//        setupBoard()
-//
-//        setupControls()
     }
     
     func pieceWasTapped(piece: Piece) {
