@@ -99,29 +99,97 @@ class ViewController: UIViewController {
     
     func setSizes() {
         
+        //FIX THIS. DOESNT WORK WELL FOR IPHONE 7, 8
+        
+        
+        //TODO: UP TO HERE - PRINT THE DIFFERENT SCREEN SIZES AND FIGURE ALGORITHM TO ACCOMIDATE ALL
+        
+        
+
+        
+        
         widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
         heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces))
         
-        if self.view.frame.width < (self.view.frame.height / 2) {
+        
+        print("width = \(self.view.frame.width - widthCushion)")
+        print("height = \(self.view.frame.height)")
+        
+        //Iphone8 plus
+        //W = 414.0
+        //H = 736
+        
+        
+        
+        if self.view.frame.width > (self.view.frame.height / 2) {
             
+            
+            boardWidth = (self.view.frame.height - heightCushion) / 2
+            boardHeight = (self.view.frame.height - heightCushion)
+            
+            print("Wide Device")
+            deviceIsNarrow = false
+
+        } else if self.view.frame.width < (self.view.frame.height / 2) {
+        
+           
             boardHeight = (self.view.frame.width - widthCushion) * 2
             boardWidth = self.view.frame.width - widthCushion
             
             print("Narrow Device")
             deviceIsNarrow = true
-
-        } else if self.view.frame.width > (self.view.frame.height / 2) {
-        
-            boardWidth = (self.view.frame.height - heightCushion) / 2
-            boardHeight = self.view.frame.height - heightCushion
-            
-            print("Wide Device")
-            deviceIsNarrow = false
         }
         
-        pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
-        pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9
+        pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9.5
+        pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9.5
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
+//        heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces))
+//
+//        if self.view.frame.width > (self.view.frame.height / 2.5) {
+//
+//
+//            boardWidth = (self.view.frame.height - heightCushion) / 2
+//            boardHeight = self.view.frame.height - heightCushion
+//
+//            print("Wide Device")
+//            deviceIsNarrow = false
+//
+//        } else if self.view.frame.width < (self.view.frame.height / 2.5) {
+//
+//
+//
+//            boardHeight = (self.view.frame.width - widthCushion) * 2
+//            boardWidth = self.view.frame.width - widthCushion
+//
+//            print("Narrow Device")
+//            deviceIsNarrow = true
+//        }
+//
+//        pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9
+//        pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9
+//        distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
     }
   
     func addSwipeGestureRecognizer(view: UIView) {
@@ -353,6 +421,7 @@ class ViewController: UIViewController {
         
         retryButton.backgroundColor = colorTheme.gameBackground
         retryButton.setTitle("RETRY", for: .normal)
+        retryButton.titleLabel?.adjustsFontSizeToFitWidth = true
         retryButton.setTitleColor(.black, for: .normal)
         retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
         makeViewSoft(view: retryButton)
@@ -360,6 +429,7 @@ class ViewController: UIViewController {
 
         menuButton.backgroundColor = colorTheme.gameBackground
         menuButton.setTitle("MENU", for: .normal)
+        menuButton.titleLabel?.adjustsFontSizeToFitWidth = true
         menuButton.setTitleColor(UIColor.black, for: .normal)
         menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
         makeViewSoft(view: menuButton)
