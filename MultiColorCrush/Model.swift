@@ -65,6 +65,7 @@ protocol ModelDelegate {
     func ballCrashInCross(piece: Piece, ball: Ball)
     func removeBall(ball: Ball)
     func runPopUpView(title: String, message: String)
+    func clearPiecesAnimation(view: UIView)
 }
 
 class Model {
@@ -1353,9 +1354,15 @@ class Model {
         
         for piece in board.pieces {
             
-            delegate?.removePiece(piece: piece)
-            
+           //UP TO HERE. MAKR THE PIECES ALL GO TO THE INDEX OF 0,0 and then delete the pieces. After this works, make it into a delegate func
+            delegate?.clearPiecesAnimation(view: piece.view)
         }
+        
+        for ball in board.balls {
+            
+            delegate?.clearPiecesAnimation(view: ball.view)
+        }
+        
         board.pieces.removeAll()
         
         for ball in board.balls {

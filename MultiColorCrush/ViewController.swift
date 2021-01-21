@@ -905,15 +905,31 @@ extension ViewController: ModelDelegate {
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             alert.dismiss(animated: true) {
                 
+               
+
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
                 self.model.resetGame()
-                self.boardView.removeFromSuperview()
-                self.retryButton.removeFromSuperview()
-                self.menuButton.removeFromSuperview()
-                self.model.setUpGame()
+                
+                
+//                self.model.setUpGame()
+//
+                let delayedTime = DispatchTime.now() + .milliseconds(Int(25))
+                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+
+                    
+                    self.boardView.removeFromSuperview()
+                    self.retryButton.removeFromSuperview()
+                    self.menuButton.removeFromSuperview()
+                    self.model.setUpGame()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                        //Add code here if you want something to happen after the first wait
+                    }
+                }
             }
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
             alert.dismiss(animated: true) {
                 print()
@@ -936,11 +952,36 @@ extension ViewController: ModelDelegate {
     
     func setUpGame(board: Board) {
                 
+//        self.boardView.removeFromSuperview()
+//        self.retryButton.removeFromSuperview()
+//        self.menuButton.removeFromSuperview()
+//
+        
         self.setSizes()
         self.setupGrid()
         self.setupBoard()
         self.setupControls()
     }
+    
+    func clearPiecesAnimation(view: UIView) {
+        
+        UIView.animate(withDuration: 0.25) {
+            
+            let translationX = self.model.board.grid[Indexes(x: 0, y: 0)]!.x - view.center.x
+            
+            let translationY = self.model.board.grid[Indexes(x: 0, y: 0)]!.x - view.center.y
+            
+            let transform = CGAffineTransform(translationX: translationX, y: translationY)
+            
+            view.transform = transform
+            
+        } completion: { (true) in
+
+//            self.removePiece(piece: piece)
+            
+        }
+    }
+    
     
     func pieceWasTapped(piece: Piece) {
         
