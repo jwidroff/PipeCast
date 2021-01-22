@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 1 //TODO: Change
+    var number = 2 //TODO: Change
     var board = Board()
 }
 
@@ -33,7 +33,10 @@ class LevelModel {
 //            board.holeLocations = [Indexes(x: 0, y: 1)]
 
             board.heightSpaces = 10
+            
             board.widthSpaces = 5
+            
+//            board.wallLocations = [Indexes(x: -1, y: -1)]
             
             addBorderAroundBoardOf(.wall, exceptionIndexes: [])
         

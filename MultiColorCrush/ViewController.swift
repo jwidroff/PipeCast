@@ -94,6 +94,10 @@ class ViewController: UIViewController {
         self.model.board.view = boardView
         self.model.board.view.backgroundColor = colorTheme.boardBackground
         self.addSwipeGestureRecognizer(view: model.board.view)
+        
+//        self.model.board.view.layer.borderColor = UIColor.red.cgColor
+//        self.model.board.view.layer.borderWidth = 2.0
+
         view.addSubview(self.model.board.view)
     }
     
@@ -120,9 +124,10 @@ class ViewController: UIViewController {
         //H = 736
         
         
+        //TODO: Make it that this changes the calculation if the widthCusion is too small (iPhone 7, 8)
+        
         
         if self.view.frame.width > (self.view.frame.height / 2) {
-            
             
             boardWidth = (self.view.frame.height - heightCushion) / 2
             boardHeight = (self.view.frame.height - heightCushion)
@@ -419,18 +424,18 @@ class ViewController: UIViewController {
             menuButton.layer.cornerRadius = menuButton.frame.height / 2
         }
         
-        retryButton.backgroundColor = colorTheme.gameBackground
+        retryButton.backgroundColor = colorTheme.buttonColors
         retryButton.setTitle("RETRY", for: .normal)
         retryButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        retryButton.setTitleColor(.black, for: .normal)
+        retryButton.setTitleColor(colorTheme.buttonTextColor, for: .normal)
         retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
         makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
 
-        menuButton.backgroundColor = colorTheme.gameBackground
+        menuButton.backgroundColor = colorTheme.buttonColors
         menuButton.setTitle("MENU", for: .normal)
         menuButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        menuButton.setTitleColor(UIColor.black, for: .normal)
+        menuButton.setTitleColor(colorTheme.buttonTextColor, for: .normal)
         menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
         makeViewSoft(view: menuButton)
         view.addSubview(menuButton)

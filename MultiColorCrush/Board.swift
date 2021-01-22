@@ -16,6 +16,7 @@ class Board {
     var view = UIView()
     var iceLocations = [Indexes]()
     var holeLocations = [Indexes]()
+//    var wallLocations = [Indexes]()
     var randomPieceColors = [UIColor]()
     var randomPieceShapes = [Shape]()
     var amountOfRandomPieces = Int()
@@ -65,40 +66,13 @@ class BoardView : UIView {
     override func draw(_ rect: CGRect) {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setStrokeColor(colorTheme.gameBackground.cgColor)
-        context.setLineWidth(2.5)
+        
         
         let point1 = CGPoint(x: xArray[0], y: yArray[0])
         let point2 = CGPoint(x: xArray[1], y: yArray[1])
-        
         let halfX = (point1.x - point2.x) / 2
         let halfY = (point1.y - point2.y) / 2
-
-        context.beginPath()
-        context.move(to: CGPoint(x: 0, y: 0))
-        context.addLine(to: CGPoint(x: 0, y: frame.maxY))
-        context.strokePath()
         
-        context.beginPath()
-        context.move(to: CGPoint(x: frame.maxX, y: 0))
-        context.addLine(to: CGPoint(x: 0, y: 0))
-        context.strokePath()
-        
-        for x in xArray {
-                        
-            context.beginPath()
-            context.move(to: CGPoint(x: x + halfX, y: yArray.first! + halfY))
-            context.addLine(to: CGPoint(x: x + halfX, y: yArray.last! - halfY))
-            context.strokePath()
-        }
-        
-        for y in yArray {
-            
-            context.beginPath()
-            context.move(to: CGPoint(x: xArray.first! + halfX, y: y + halfY))
-            context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y + halfY))
-            context.strokePath()
-        }
         
         for iceLocation in iceLocations {
             
@@ -130,6 +104,11 @@ class BoardView : UIView {
 //
 //            context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: UInt32(0)))
             
+            
+           
+
+            
+            
         
             let rect = CGRect(x: xArray[iceLocation.x!] - halfX, y: yArray[iceLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
 
@@ -141,10 +120,75 @@ class BoardView : UIView {
         for holeLocation in holeLocations {
             
             let rect = CGRect(x: xArray[holeLocation.x!] - halfX, y: yArray[holeLocation.y!] - halfY, width: halfX * 2, height: halfY * 2)
-            context.setFillColor(colorTheme.gameBackground.cgColor)
+            context.setFillColor(colorTheme.holeColor.cgColor)
             context.fill(rect)
             context.addRect(rect)
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        context.setStrokeColor(colorTheme.gridLineColor.cgColor)
+//        context.setStrokeColor(UIColor.gray.cgColor)
+
+        context.setLineWidth(2.5)
+        
+        
+        
+        
+        
+        
+        
+       
+       
+        context.beginPath()
+        context.move(to: CGPoint(x: 0, y: 0))
+        context.addLine(to: CGPoint(x: 0, y: frame.maxY))
+        context.strokePath()
+        
+        context.beginPath()
+        context.move(to: CGPoint(x: frame.maxX, y: 0))
+        context.addLine(to: CGPoint(x: 0, y: 0))
+        context.strokePath()
+        
+        for x in xArray {
+                        
+            context.beginPath()
+            context.move(to: CGPoint(x: x + halfX, y: yArray.first! + halfY))
+            context.addLine(to: CGPoint(x: x + halfX, y: yArray.last! - halfY))
+            context.strokePath()
+        }
+        
+        context.beginPath()
+        context.move(to: CGPoint(x: frame.width, y: 0))
+        context.addLine(to: CGPoint(x: frame.width, y: frame.height))
+        context.strokePath()
+        
+        
+        for y in yArray {
+            
+            context.beginPath()
+            context.move(to: CGPoint(x: xArray.first! + halfX, y: y + halfY))
+            context.addLine(to: CGPoint(x: xArray.last! - halfX, y: y + halfY))
+            context.strokePath()
+        }
+        
+        context.beginPath()
+        context.move(to: CGPoint(x: 0, y: frame.height))
+        context.addLine(to: CGPoint(x: frame.width, y: frame.height))
+        context.strokePath()
+
 
         setNeedsDisplay()
         self.context = context

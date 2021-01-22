@@ -116,7 +116,7 @@ class ShapeView : UIView {
         
         let distanceFromSides = frame.width / 10
         let screwWidthAndHeight = frame.width / 10
-        let color = colorTheme.boardBackground.cgColor
+        let color = colorTheme.lockPieceScrewColor.cgColor
         
         let topLeftCorner = CGPoint(x: distanceFromSides, y: distanceFromSides)
         let topLeftRect = CGRect(x: topLeftCorner.x, y: topLeftCorner.y, width: screwWidthAndHeight, height: screwWidthAndHeight)
@@ -607,7 +607,7 @@ class ShapeView : UIView {
             let y = x
 
             let rect1 = CGRect(x: x, y: y, width: w, height: h)
-            context.setFillColor(UIColor.black.cgColor)
+            context.setFillColor(colorTheme.boardBackground.cgColor)
             context.addRects([rect1])
             context.fill(rect1)
 
@@ -630,7 +630,7 @@ class ShapeView : UIView {
                 context.addLine(to: point3)
                 context.addLine(to: point4)
                 context.closePath()
-                context.setFillColor(UIColor.black.cgColor)
+//                context.setFillColor(UIColor.black.cgColor)
                 context.fillPath()
                 
             case 2:
@@ -646,7 +646,7 @@ class ShapeView : UIView {
                 context.addLine(to: point3)
                 context.addLine(to: point4)
                 context.closePath()
-                context.setFillColor(UIColor.black.cgColor)
+//                context.setFillColor(UIColor.black.cgColor)
                 context.fillPath()
 
             case 3:
@@ -662,7 +662,7 @@ class ShapeView : UIView {
                 context.addLine(to: point3)
                 context.addLine(to: point4)
                 context.closePath()
-                context.setFillColor(UIColor.black.cgColor)
+//                context.setFillColor(UIColor.black.cgColor)
                 context.fillPath()
             
             
@@ -679,7 +679,7 @@ class ShapeView : UIView {
                 context.addLine(to: point3)
                 context.addLine(to: point4)
                 context.closePath()
-                context.setFillColor(UIColor.black.cgColor)
+//                context.setFillColor(UIColor.black.cgColor)
                 context.fillPath()
             
             default:
