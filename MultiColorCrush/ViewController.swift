@@ -358,6 +358,8 @@ class ViewController: UIViewController {
     
     func makeViewSoft(view: UIView) {
         
+        //MARK: This needs to be adjusted. 
+        
         view.layer.shadowOpacity = 1.0
         view.layer.masksToBounds = false
 

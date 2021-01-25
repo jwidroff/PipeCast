@@ -52,6 +52,21 @@ class BoardView : UIView {
         
         self.backgroundColor = UIColor.clear
         
+        
+        
+        //TODO: Figure out how to put the shadow on the inside
+        
+//        self.layer.shadowPath = CGPath(rect: bounds, transform: nil)
+//        self.layer.shadowColor = UIColor.darkGray.cgColor
+//        self.layer.shadowOffset = CGSize(width: 10, height: 10)
+//        self.layer.shadowRadius = 5
+//        self.layer.shadowOpacity = 1
+        
+        
+        
+        
+        
+        
         self.xArray = xArray.sorted(by: { (x1, x2) -> Bool in
             x1 < x2
         })
