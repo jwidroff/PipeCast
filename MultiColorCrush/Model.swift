@@ -49,9 +49,9 @@ import UIKit
 
 //TODO: Make it that the pieceMaker can also spit out walls
 
-//TODO: Clean up the VC extension to only have ModelDelegate funcs
-
 //TODO: Have the game check to see if any pieces are left after each swipe
+
+//TODO: Make the buttons show that theyre being pressed
 
 protocol ModelDelegate {
     func setUpGame(board: Board)

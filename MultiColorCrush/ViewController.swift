@@ -345,7 +345,7 @@ class ViewController: UIViewController {
     }
     
     @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
-        
+                        
         print("Handling Tap 4 retry")
         runPopUpView(title: "", message: "Are you sure you want to restart?")
     }
@@ -358,7 +358,7 @@ class ViewController: UIViewController {
     
     func makeViewSoft(view: UIView) {
         
-        //MARK: This needs to be adjusted. 
+        //MARK: This needs to be adjusted.
         
         view.layer.shadowOpacity = 1.0
         view.layer.masksToBounds = false
@@ -369,7 +369,7 @@ class ViewController: UIViewController {
         let darkShadow = CALayer()
         darkShadow.frame = view.bounds
         darkShadow.backgroundColor = view.backgroundColor?.cgColor
-        darkShadow.shadowColor = UIColor(red: 0.87, green: 0.89, blue: 0.93, alpha: 1.0).cgColor
+        darkShadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
         darkShadow.cornerRadius = cornerRadius
         darkShadow.shadowOffset = CGSize(width: shadowRadius, height: shadowRadius)
         darkShadow.shadowOpacity = 1
@@ -379,7 +379,7 @@ class ViewController: UIViewController {
         let lightShadow = CALayer()
         lightShadow.frame = view.bounds
         lightShadow.backgroundColor = view.backgroundColor?.cgColor
-        lightShadow.shadowColor = UIColor.white.cgColor
+        lightShadow.shadowColor = UIColor.black.cgColor
         lightShadow.cornerRadius = cornerRadius
         lightShadow.shadowOffset = CGSize(width: -shadowRadius, height: -shadowRadius)
         lightShadow.shadowOpacity = 1
@@ -431,7 +431,12 @@ class ViewController: UIViewController {
         retryButton.titleLabel?.adjustsFontSizeToFitWidth = true
         retryButton.setTitleColor(colorTheme.buttonTextColor, for: .normal)
         retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
-        makeViewSoft(view: retryButton)
+        
+        retryButton.showsTouchWhenHighlighted = true
+        
+        
+
+//        makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
 
         menuButton.backgroundColor = colorTheme.buttonColors
@@ -439,7 +444,9 @@ class ViewController: UIViewController {
         menuButton.titleLabel?.adjustsFontSizeToFitWidth = true
         menuButton.setTitleColor(colorTheme.buttonTextColor, for: .normal)
         menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
-        makeViewSoft(view: menuButton)
+        
+        menuButton.showsTouchWhenHighlighted = true
+//        makeViewSoft(view: menuButton)
         view.addSubview(menuButton)
     }
     

@@ -130,6 +130,30 @@ class BoardView : UIView {
             context.setFillColor(UIColor.cyan.cgColor)
             context.fill(rect)
             context.addRect(rect)
+            
+//            let quarterWidth = halfX / 2
+//            
+//            let crackCenter = CGPoint(x: xArray[iceLocation.x!] - (quarterWidth / 2) , y: yArray[iceLocation.y!] - (quarterWidth / 2))
+//            
+//          
+//           
+//            
+//            
+//            
+//            context.setStrokeColor(UIColor.black.cgColor)
+//            context.setLineWidth(halfX / 20)
+//            
+//            context.beginPath()
+//            context.move(to: crackCenter)
+//            context.addLine(to: CGPoint(x: crackCenter.x + quarterWidth, y: crackCenter.y + quarterWidth))
+//            context.addLine(to: CGPoint(x: crackCenter.x + quarterWidth + (quarterWidth / 2), y: crackCenter.y + quarterWidth))
+//            context.move(to: CGPoint(x: crackCenter.x + quarterWidth, y: crackCenter.y + quarterWidth))
+//            context.addLine(to: CGPoint(x: crackCenter.x + quarterWidth, y: crackCenter.y + quarterWidth + (quarterWidth / 2)))
+////            context.closePath()
+//            context.strokePath()
+            
+            
+            
         }
         
         for holeLocation in holeLocations {
