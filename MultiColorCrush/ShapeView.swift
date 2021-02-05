@@ -969,6 +969,8 @@ class ShapeView : UIView {
 //        path.addCurve(to: endPoint, controlPoint1: center, controlPoint2: center)
         context.addPath(path.cgPath)
         context.setStrokeColor(colorTheme.boardBackground.cgColor)
+        context.setStrokeColor(UIColor.black.cgColor)
+
         context.setLineWidth(frame.height / 4)
         context.strokePath()
         
