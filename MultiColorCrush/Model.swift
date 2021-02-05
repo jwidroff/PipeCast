@@ -439,7 +439,21 @@ class Model {
         
         let randomColors:[UIColor] = board.randomPieceColors
         let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        var randomColor2 = UIColor()
+        
+//        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        
+        
+        if randomColors.count == 1 {
+            
+            randomColor2 = randomColor1
+            
+        } else {
+            
+            randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+
+        }
+        
         piece.colors = [randomColor1, randomColor2]
     }
     
