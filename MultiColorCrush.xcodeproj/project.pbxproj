@@ -20,6 +20,7 @@
 		BA2B370624E214AC00274DF4 /* GridPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B370524E214AC00274DF4 /* GridPoints.swift */; };
 		BA348F6A24EB529C001EFEF2 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA348F6924EB529C001EFEF2 /* Piece.swift */; };
 		BA96380425A8397100E54FEF /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA96380325A8396E00E54FEF /* ColorTheme.swift */; };
+		BAE07AB825CCCD33006F08ED /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE07AB725CCCD33006F08ED /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BA2B370524E214AC00274DF4 /* GridPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPoints.swift; sourceTree = "<group>"; };
 		BA348F6924EB529C001EFEF2 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		BA96380325A8396E00E54FEF /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		BAE07AB725CCCD33006F08ED /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				BA2B36F124E188B300274DF4 /* AppDelegate.swift */,
 				BA2B36F324E188B300274DF4 /* SceneDelegate.swift */,
 				BA2B36F524E188B300274DF4 /* ViewController.swift */,
+				BAE07AB725CCCD33006F08ED /* MenuView.swift */,
 				BA96380325A8396E00E54FEF /* ColorTheme.swift */,
 				BA28284424EC13850022AD9E /* Model.swift */,
 				BA28284624EC149F0022AD9E /* Level.swift */,
@@ -166,6 +169,7 @@
 				BA28284B24F54B120022AD9E /* ShapeView.swift in Sources */,
 				BA28284324EC10980022AD9E /* Board.swift in Sources */,
 				BA348F6A24EB529C001EFEF2 /* Piece.swift in Sources */,
+				BAE07AB825CCCD33006F08ED /* MenuView.swift in Sources */,
 				BA2B370624E214AC00274DF4 /* GridPoints.swift in Sources */,
 				BA28284724EC149F0022AD9E /* Level.swift in Sources */,
 				BA2B36F424E188B300274DF4 /* SceneDelegate.swift in Sources */,

@@ -353,8 +353,34 @@ class ViewController: UIViewController {
     @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
         
         print("Handling Tap 4 menu")
-        runPopUpView(title: "TEST", message: "THIS IS ONLY A TEST")
+//        runPopUpView(title: "TEST", message: "THIS IS ONLY A TEST")
+        
+        
+        runMenuView()
+        
     }
+    
+    func runMenuView() {
+        
+        
+        
+        
+        let width = self.view.frame.width / 10 * 9
+        let height = self.view.frame.height / 10 * 9
+        let x = (self.view.frame.width - width) / 2
+        let y = (self.view.frame.height - height) / 2
+
+
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        let menuView = MenuView(frame: frame)
+        
+        view.addSubview(menuView)
+        
+        
+    }
+    
+    
     
     func makeViewSoft(view: UIView) {
         
