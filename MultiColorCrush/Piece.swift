@@ -46,8 +46,14 @@ class Piece {
             self.opening = opening
         }
         
+        if colors.count == 1 {
+            
+            self.colors.append(colors[0])
+        }
+        
+        
         setPieceSwitches()
-        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: colors, opening: opening)
+        setPieceSides(shape: shape, version: version, currentSwitch: currentSwitch, colors: self.colors, opening: opening)
     }
     
     private func setPieceSwitches() {
