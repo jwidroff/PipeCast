@@ -53,6 +53,11 @@ import UIKit
 
 //TODO: Make the buttons show that theyre being pressed
 
+//TODO: Fix the animation for when the ball hits a cross the wrong way (this at least is messed up when the ball leaves the entrance)
+
+
+
+
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
@@ -437,22 +442,30 @@ class Model {
     
     func setPieceColor(piece: Piece) {
         
-        let randomColors:[UIColor] = board.randomPieceColors
-        let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-        var randomColor2 = UIColor()
-        
-//        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-        
+        var randomColors:[UIColor] = board.randomPieceColors
         
         if randomColors.count == 1 {
             
-            randomColor2 = randomColor1
+            randomColors.append(randomColors[0])
             
-        } else {
-            
-            randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
-
         }
+        
+        
+        let randomColor1 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count - 1)))]
+//        var randomColor2 = UIColor()
+        
+        let randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+        
+        
+//        if randomColors.count == 1 {
+//            
+//            randomColor2 = randomColor1
+//            
+//        } else {
+//            
+//            randomColor2 = randomColors[Int(arc4random_uniform(UInt32(randomColors.count)))]
+//
+//        }
         
         piece.colors = [randomColor1, randomColor2]
     }
