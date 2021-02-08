@@ -1033,7 +1033,7 @@ extension ViewController: ModelDelegate {
     func changePieceAfterBallMoves(piece: Piece) {
         
         
-        if piece.shape != .cross {
+//        if piece.shape != .cross {
             
             let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
             
@@ -1041,14 +1041,16 @@ extension ViewController: ModelDelegate {
             
             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                 
-                var version = Int()
-                if piece.version == 1 {
-                    version = 0
-                } else if piece.version == 0 {
-                    version = 1
+                print("piece currentSwitch = \(piece.currentSwitch)")
+                
+                var currentSwitch = Int()
+                if piece.currentSwitch == 1 {
+                    currentSwitch = 2
+                } else if piece.currentSwitch == 2 {
+                    currentSwitch = 1
                 }
                 
-                let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+                let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: currentSwitch, isLocked: true, opening: nil, doesPivot: false)
                 let view = ShapeView(frame: piece.view.frame, piece: pieceX)
                 
                 piece.view.removeFromSuperview()
@@ -1061,25 +1063,25 @@ extension ViewController: ModelDelegate {
                 
             }
             
-        } else if piece.shape == .cross {
+//        } else if piece.shape == .cross {
             
-            self.model.switch4Tap(piece: piece) { (true) in
-                
-                let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-                let backgroundColor = piece.view.backgroundColor?.cgColor
-
-                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                    
-                    piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-
-                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                        
-                        piece.view.layer.backgroundColor = backgroundColor
-                        piece.view.setNeedsDisplay()
-                    }
-                }
-            }
-        }
+//            self.model.switch4Tap(piece: piece) { (true) in
+//
+//                let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//                let backgroundColor = piece.view.backgroundColor?.cgColor
+//
+//                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                    piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//
+//                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                        piece.view.layer.backgroundColor = backgroundColor
+//                        piece.view.setNeedsDisplay()
+//                    }
+//                }
+//            }
+//        }
         
         
         
