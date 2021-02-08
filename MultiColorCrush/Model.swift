@@ -55,8 +55,13 @@ import UIKit
 
 //TODO: Fix the animation for when the ball hits a cross the wrong way (this at least is messed up when the ball leaves the entrance)
 
+//TODO: Something is wrong with the stick pieces - Sometimes the ball just doesnt go over it
 
+//TODO: Create double elbow piece
 
+//TODO: Need to make it that the crosses also lock after the ball goes through it
+
+//TODO: Also seems like switch happens all the time 
 
 protocol ModelDelegate {
     func setUpGame(board: Board)

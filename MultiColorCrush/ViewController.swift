@@ -670,25 +670,55 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                if piece.shape == .cross {
-                    
-                    self.model.switch4Tap(piece: piece) { (true) in
-                        
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-                        let backgroundColor = piece.view.backgroundColor?.cgColor
-
-                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            
-                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-
-                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                                
-                                piece.view.layer.backgroundColor = backgroundColor
-                                piece.view.setNeedsDisplay()
-                            }
-                        }
-                    }
-                }
+                self.changePieceAfterBallMoves(piece: piece)
+                
+//                if piece.shape != .cross {
+//
+//                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//
+////                    piece.isLocked = true
+//
+//                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                        var version = Int()
+//                        if piece.version == 1 {
+//                            version = 0
+//                        } else if piece.version == 0 {
+//                            version = 1
+//                        }
+//
+//                        let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+//                        let view = ShapeView(frame: piece.view.frame, piece: pieceX)
+//
+//                        piece.view.removeFromSuperview()
+//
+//                        piece.view = view
+//
+//                        self.model.board.view.addSubview(piece.view)
+//
+//                        piece.view.setNeedsDisplay()
+//
+//                    }
+//
+//                } else if piece.shape == .cross {
+//
+//                    self.model.switch4Tap(piece: piece) { (true) in
+//
+//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//                        let backgroundColor = piece.view.backgroundColor?.cgColor
+//
+//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                                piece.view.layer.backgroundColor = backgroundColor
+//                                piece.view.setNeedsDisplay()
+//                            }
+//                        }
+//                    }
+//                }
                 
                 switch endSide {
                 
@@ -739,26 +769,51 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                                
-                if piece.shape == .cross {
-                    
-                    self.model.switch4Tap(piece: piece) { (true) in
-                        
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-                        let backgroundColor = piece.view.backgroundColor?.cgColor
-                        
-                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            
-                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+                  
+                
+                self.changePieceAfterBallMoves(piece: piece)
 
-                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                                
-                                piece.view.layer.backgroundColor = backgroundColor
-                                piece.view.setNeedsDisplay()
-                            }
-                        }
-                    }
-                }
+                
+//                if piece.shape != .cross {
+//
+//                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//
+////                    piece.isLocked = true
+//
+//                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                        let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+//                        let view = ShapeView(frame: piece.view.frame, piece: pieceX)
+//
+//                        piece.view.removeFromSuperview()
+//
+//                        piece.view = view
+//
+//                        self.model.board.view.addSubview(piece.view)
+//
+//                        piece.view.setNeedsDisplay()
+//
+//                    }
+//
+//                } else if piece.shape == .cross {
+//
+//                    self.model.switch4Tap(piece: piece) { (true) in
+//
+//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//                        let backgroundColor = piece.view.backgroundColor?.cgColor
+//
+//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                                piece.view.layer.backgroundColor = backgroundColor
+//                                piece.view.setNeedsDisplay()
+//                            }
+//                        }
+//                    }
+//                }
                 
                 switch endSide {
                 
@@ -809,26 +864,51 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                                
-                if piece.shape == .cross {
-                    
-                    self.model.switch4Tap(piece: piece) { (true) in
-                        
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-                        let backgroundColor = piece.view.backgroundColor?.cgColor
-                        
-                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                         
+                self.changePieceAfterBallMoves(piece: piece)
 
-                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-
-                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                                
-                                piece.view.layer.backgroundColor = backgroundColor
-                                piece.view.setNeedsDisplay()
-                            }
-                        }
-                    }
-                }
+                
+                
+//                if piece.shape != .cross {
+//
+//                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//
+////                    piece.isLocked = true
+//
+//                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                        let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+//                        let view = ShapeView(frame: piece.view.frame, piece: pieceX)
+//
+//                        piece.view.removeFromSuperview()
+//
+//                        piece.view = view
+//
+//                        self.model.board.view.addSubview(piece.view)
+//
+//                        piece.view.setNeedsDisplay()
+//
+//                    }
+//
+//                } else if piece.shape == .cross {
+//
+//                    self.model.switch4Tap(piece: piece) { (true) in
+//
+//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//                        let backgroundColor = piece.view.backgroundColor?.cgColor
+//
+//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                                piece.view.layer.backgroundColor = backgroundColor
+//                                piece.view.setNeedsDisplay()
+//                            }
+//                        }
+//                    }
+//                }
                 
                 switch endSide {
                 
@@ -879,26 +959,52 @@ extension ViewController: ModelDelegate {
             controlPoint = piece.view.center
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                                
-                if piece.shape == .cross {
-                    
-                    self.model.switch4Tap(piece: piece) { (true) in
-                        
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-                        let backgroundColor = piece.view.backgroundColor?.cgColor
-                        
-                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                            
-                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+                       
+                
+                self.changePieceAfterBallMoves(piece: piece)
 
-                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                                
-                                piece.view.layer.backgroundColor = backgroundColor
-                                piece.view.setNeedsDisplay()
-                            }
-                        }
-                    }
-                }
+                
+                
+//                if piece.shape != .cross {
+//
+//                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//
+////                    piece.isLocked = true
+//
+//                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                        let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+//                        let view = ShapeView(frame: piece.view.frame, piece: pieceX)
+//
+//                        piece.view.removeFromSuperview()
+//
+//                        piece.view = view
+//
+//                        self.model.board.view.addSubview(piece.view)
+//
+//                        piece.view.setNeedsDisplay()
+//
+//                    }
+//
+//                } else if piece.shape == .cross {
+//
+//                    self.model.switch4Tap(piece: piece) { (true) in
+//
+//                        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//                        let backgroundColor = piece.view.backgroundColor?.cgColor
+//
+//                        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//
+//                            piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+//
+//                            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//
+//                                piece.view.layer.backgroundColor = backgroundColor
+//                                piece.view.setNeedsDisplay()
+//                            }
+//                        }
+//                    }
+//                }
                 
                 switch endSide {
                 
@@ -923,6 +1029,64 @@ extension ViewController: ModelDelegate {
         }
         animateMove(ball: ball)
     }
+    
+    func changePieceAfterBallMoves(piece: Piece) {
+        
+        
+        if piece.shape != .cross {
+            
+            let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+            
+//                    piece.isLocked = true
+            
+            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                
+                var version = Int()
+                if piece.version == 1 {
+                    version = 0
+                } else if piece.version == 0 {
+                    version = 1
+                }
+                
+                let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: true, opening: nil, doesPivot: false)
+                let view = ShapeView(frame: piece.view.frame, piece: pieceX)
+                
+                piece.view.removeFromSuperview()
+                
+                piece.view = view
+                
+                self.model.board.view.addSubview(piece.view)
+                
+                piece.view.setNeedsDisplay()
+                
+            }
+            
+        } else if piece.shape == .cross {
+            
+            self.model.switch4Tap(piece: piece) { (true) in
+                
+                let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+                let backgroundColor = piece.view.backgroundColor?.cgColor
+
+                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                    
+                    piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
+
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                        
+                        piece.view.layer.backgroundColor = backgroundColor
+                        piece.view.setNeedsDisplay()
+                    }
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    
     
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
         
