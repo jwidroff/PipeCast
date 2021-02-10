@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 9
+    var number = 11
 
     var board = Board()
 }
@@ -323,7 +323,7 @@ class LevelModel {
             board.heightSpaces = 10
             board.widthSpaces = 5
             board.randomPieceColors = [.red, .blue]
-            board.randomPieceShapes = [.cross, .elbow, .stick, .diagElbow]
+            board.randomPieceShapes = [.stick]//.cross, .elbow, .stick, .diagElbow]
             board.amountOfRandomPieces = 16
 
             
@@ -584,7 +584,7 @@ class LevelModel {
             case .stick:
                 
                 piece.switches = 1
-                piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+                piece.currentSwitch = 1
                 
             default:
                 break
@@ -824,8 +824,8 @@ class LevelModel {
                 
                 piece.side.right.exitSide = "left"
                 piece.side.left.exitSide = "right"
-                piece.side.right.color = piece.colors[1]
-                piece.side.left.color = piece.colors[1]
+                piece.side.right.color = piece.colors[0]
+                piece.side.left.color = piece.colors[0]
                 piece.side.left.opening.isOpen = true
                 piece.side.right.opening.isOpen = true
                 

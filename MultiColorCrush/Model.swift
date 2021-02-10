@@ -428,7 +428,7 @@ class Model {
         case .stick:
             
             piece.switches = 1
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(1))) + 1
+            piece.currentSwitch = 1
             
         default:
             break
