@@ -670,7 +670,7 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.changePieceAfterBallMoves(piece: piece)
+                self.changePieceAfterBallMoves(piece: piece, ball: ball)
                 
 //                if piece.shape != .cross {
 //
@@ -771,7 +771,7 @@ extension ViewController: ModelDelegate {
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                   
                 
-                self.changePieceAfterBallMoves(piece: piece)
+                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
                 
 //                if piece.shape != .cross {
@@ -865,7 +865,7 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                          
-                self.changePieceAfterBallMoves(piece: piece)
+                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
                 
                 
@@ -961,7 +961,7 @@ extension ViewController: ModelDelegate {
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                        
                 
-                self.changePieceAfterBallMoves(piece: piece)
+                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
                 
                 
@@ -1030,60 +1030,28 @@ extension ViewController: ModelDelegate {
         animateMove(ball: ball)
     }
     
-    func changePieceAfterBallMoves(piece: Piece) {
+    func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
+        
+        let pieceX = self.model.changePieceAfterBallMoves(piece: piece, ball: ball)
         
         
-//        if piece.shape != .cross {
-            
-            let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-            
-//                    piece.isLocked = true
-            
-            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-                
-                print("piece currentSwitch = \(piece.currentSwitch)")
-                
-                var currentSwitch = Int()
-                if piece.currentSwitch == 1 {
-                    currentSwitch = 2
-                } else if piece.currentSwitch == 2 {
-                    currentSwitch = 1
-                }
-                
-                let pieceX = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: currentSwitch, isLocked: true, opening: nil, doesPivot: false)
-                let view = ShapeView(frame: piece.view.frame, piece: pieceX)
-                
-                piece.view.removeFromSuperview()
-                
-                piece.view = view
-                
-                self.model.board.view.addSubview(piece.view)
-                
-                piece.view.setNeedsDisplay()
-                
-            }
-            
-//        } else if piece.shape == .cross {
-            
-//            self.model.switch4Tap(piece: piece) { (true) in
-//
-//                let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-//                let backgroundColor = piece.view.backgroundColor?.cgColor
-//
-//                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
-//
-//                    piece.view.layer.backgroundColor = UIColor.lightGray.cgColor
-//
-//                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-//
-//                        piece.view.layer.backgroundColor = backgroundColor
-//                        piece.view.setNeedsDisplay()
-//                    }
-//                }
-//            }
-//        }
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
         
-        
+        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+            
+            let view = ShapeView(frame: pieceX.view.frame, piece: pieceX)
+            
+            piece.view.removeFromSuperview()
+            
+            piece.view = view
+            
+            self.model.board.view.addSubview(piece.view)
+            
+            piece.view.setNeedsDisplay()
+            
+            self.model.board.view.bringSubviewToFront(ball.view)
+            
+        }
         
     }
     

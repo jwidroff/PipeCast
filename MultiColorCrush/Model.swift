@@ -1158,8 +1158,28 @@ class Model {
         }
     }
     
-    func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
+    func changePieceAfterBallMoves(piece: Piece, ball: Ball) -> Piece {
         
+        let pieceX = Piece()
+        
+        for pieceXX in board.pieces {
+            
+            if pieceXX.indexes == piece.indexes {
+                
+                if pieceXX.shape == .cross {
+
+                    switch4Tap(piece: pieceXX) { (false) in
+                        pieceXX.isLocked = true
+                    }
+                }
+                return pieceXX
+            }
+        }
+        return pieceX
+    }
+    
+    func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
+                
         if piece.isLocked || piece.doesPivot == false { return }
         
         if piece.currentSwitch != piece.switches {
