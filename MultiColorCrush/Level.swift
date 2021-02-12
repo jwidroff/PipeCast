@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 9
+    var number = 200
 
     var board = Board()
 }

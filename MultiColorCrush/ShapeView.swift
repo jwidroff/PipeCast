@@ -262,13 +262,6 @@ class ShapeView : UIView {
                         // TOP PIVOT TO LEFT SIDE
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        //UP TO HERE. DO THIS FOR THE REST OF THEM AND THEN GET RID OF THE SETTING OF THE CURRENT SWITCH ->
                         if doesPivot {
                             currentSwitch = 2
                         }
@@ -308,7 +301,7 @@ class ShapeView : UIView {
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                         
                         if doesPivot {
-//                        currentSwitch = 1
+                        currentSwitch = 1
                         }
                     }
                     
