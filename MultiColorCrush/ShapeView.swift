@@ -65,42 +65,51 @@ class ShapeView : UIView {
         
         self.backgroundColor = colorTheme.pieceBackground
 
-        if doesPivot == true && isLocked == false {
-           
-            
-            switch shape {
-            
-            
-            case .elbow:
-                switches = 2
-                currentSwitch = piece.currentSwitch
-                
-            case .cross:
-                switches = 2
-                currentSwitch = piece.currentSwitch
-
-            case .stick:
-                switches = 1
-                currentSwitch = piece.currentSwitch
-                
-            case .diagElbow:
-                switches = 2
-                currentSwitch = piece.currentSwitch
-
-            case .entrance, .exit, .pieceMaker, .wall:
-                
-            print()
-            
-            default:
-                break
-            }
-            
-            
-        } else {
-            
-            switches = 1
-            currentSwitch = 1
-        }
+        self.switches = piece.switches
+        self.currentSwitch = piece.currentSwitch
+        
+        
+//        if doesPivot == true && isLocked == false {
+//
+//
+//            switch shape {
+//
+//
+//            case .elbow:
+//                switches = 2
+//                currentSwitch = piece.currentSwitch
+//
+//            case .cross:
+//                switches = 2
+//                currentSwitch = piece.currentSwitch
+//
+//            case .stick:
+//                switches = 1
+//                currentSwitch = piece.currentSwitch
+//
+//            case .diagElbow:
+//                switches = 2
+//                currentSwitch = piece.currentSwitch
+//
+//            case .entrance, .exit, .pieceMaker, .wall:
+//
+//            print()
+//
+//            default:
+//                break
+//            }
+//
+//
+//        } else {
+//
+//            switches = 1
+//
+//            if currentSwitch == 0 {
+//
+//                currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+//
+//            }
+//        }
     }
     
     func setLock(context: CGContext) {
@@ -248,19 +257,32 @@ class ShapeView : UIView {
                 
                 case 1:
                     
-                    
                     if currentSwitch == 1 {
                         
                         // TOP PIVOT TO LEFT SIDE
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
-                        currentSwitch = 2
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        //UP TO HERE. DO THIS FOR THE REST OF THEM AND THEN GET RID OF THE SETTING OF THE CURRENT SWITCH ->
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
                     
                     
                     } else if currentSwitch == 2 {
                         
                         // TOP PIVOT TO RIGHT SIDE
                         drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
-                        currentSwitch = 1
+                        
+                        
+                        if doesPivot {
+                            currentSwitch = 1
+                        }
                     }
                     
                     if isLocked == false && doesPivot == true {
@@ -275,13 +297,19 @@ class ShapeView : UIView {
                         
                         //LEFT PIVOT TO BOTTOM
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
-                        currentSwitch = 2
+                        
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
                         
                     } else if currentSwitch == 2 {
                         
                         //LEFT PIVOT TO TOP
                         drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
-                        currentSwitch = 1
+                        
+                        if doesPivot {
+//                        currentSwitch = 1
+                        }
                     }
                     
                     if isLocked == false && doesPivot == true {
@@ -296,13 +324,21 @@ class ShapeView : UIView {
 
                         //BOTTOM PIVOT TO RIGHT
                         drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
-                        currentSwitch = 2
+                        
+                        
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
                         
                     } else if currentSwitch == 2  {
                         
                         //BOTTOM PIVOT TO LEFT
                         drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
-                        currentSwitch = 1
+                        
+                        
+                        if doesPivot {
+                            currentSwitch = 1
+                        }
                     }
                     
                     
@@ -317,13 +353,19 @@ class ShapeView : UIView {
                         
                         //RIGHT PIVOT TO TOP
                         drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
-                        currentSwitch = 2
+                        
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
 
                     } else if currentSwitch == 2  {
                         
                         //RIGHT PIVOT TO BOTTOM
                         drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
-                        currentSwitch = 1
+                        
+                        if doesPivot {
+                            currentSwitch = 1
+                        }
                     }
                     
                     if isLocked == false && doesPivot == true {
@@ -351,6 +393,7 @@ class ShapeView : UIView {
                         if isLocked == false && doesPivot == true {
                             
                             addPivotRect(context: context, side: "right", color: colors[0])
+                            
                         }
                         
                         //LEFT PIVOT TO BOTTOM SIDE
@@ -359,9 +402,12 @@ class ShapeView : UIView {
                         if isLocked == false && doesPivot == true {
 
                             addPivotRect(context: context2, side: "left", color: colors[1])
+                            
                         }
                         
-                        currentSwitch = 2
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
                         
                     } else if currentSwitch == 2 {
                         
@@ -383,7 +429,9 @@ class ShapeView : UIView {
                             addPivotRect(context: context, side: "right", color: colors[0])
                         }
                         
-                        currentSwitch = 1
+                        if doesPivot {
+                            currentSwitch = 1
+                        }
                      }
                     
                 case 2, 4:
@@ -408,8 +456,10 @@ class ShapeView : UIView {
                             addPivotRect(context: context2, side: "bottom", color: colors[1])
                         }
                         
-                        currentSwitch = 2
-
+                        if doesPivot {
+                            currentSwitch = 2
+                        }
+                        
                     } else if currentSwitch == 2 {
                         
                         //BOTTOM PIVOT TO LEFT SIDE
@@ -427,8 +477,9 @@ class ShapeView : UIView {
                             
                             addPivotRect(context: context2, side: "top", color: colors[0])
                         }
-                        
-                        currentSwitch = 1
+                        if doesPivot {
+                            currentSwitch = 1
+                        }
                      }
                     
                 default:

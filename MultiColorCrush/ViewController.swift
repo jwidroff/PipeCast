@@ -1227,10 +1227,10 @@ extension ViewController: ModelDelegate {
     }
     
     
-    func pieceWasTapped(piece: Piece) {
-        
-        piece.view.setNeedsDisplay()
-    }
+//    func pieceWasTapped(piece: Piece) {
+//        
+//        piece.view.setNeedsDisplay()
+//    }
 }
 
 

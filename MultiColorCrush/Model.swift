@@ -65,7 +65,7 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction)
-    func pieceWasTapped(piece: Piece)
+//    func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -397,12 +397,12 @@ class Model {
         
         switch piece.shape {
         
-        case .elbow:
+//        case .elbow:
+//
+//            piece.switches = 2
+//            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
-            piece.switches = 2
-            piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
-            
-        case .diagElbow:
+        case .diagElbow, .elbow:
             
             let pivotDecision = Int(arc4random_uniform(UInt32(2))) + 1
             
@@ -539,6 +539,10 @@ class Model {
     
     func resetPieceMaker(piece: Piece) {
                 
+        
+        
+        
+        
         let nextPiece = Piece()
         nextPiece.indexes = piece.indexes
         setPieceShape(piece: nextPiece)
@@ -1136,7 +1140,7 @@ class Model {
             
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
                 
-                switch4Tap(piece: piece) { (false) in
+                switch4Tap(piece: piece) { (true) in
                     piece.view.setNeedsDisplay()
                 }
             }
@@ -1181,6 +1185,9 @@ class Model {
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
                 
         if piece.isLocked || piece.doesPivot == false { return }
+        
+        print("TAPPED")
+        
         
         if piece.currentSwitch != piece.switches {
             
