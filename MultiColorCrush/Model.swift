@@ -1143,21 +1143,22 @@ class Model {
                 switch4Tap(piece: piece) { (true) in
                     piece.view.setNeedsDisplay()
                 }
-            }
-        }
-        
-        for ball in board.balls {
+            } else if board.grid[piece.indexes] == center && piece.shape == .entrance {
+                
+                for ball in board.balls {
+                                
+                    if board.grid[ball.indexes] == center {
                         
-            if board.grid[ball.indexes] == center {
-                
-                for piece in board.pieces {
-                    
-                    //TODO: Change this back
-                    piece.view.isUserInteractionEnabled = false
+                        for piece in board.pieces {
+                            
+                            //TODO: Change this back
+                            piece.view.isUserInteractionEnabled = false
+                        }
+                        
+                        board.view.isUserInteractionEnabled = false
+                        moveBall(ball: ball, startSide: "unmoved")
+                    }
                 }
-                
-                board.view.isUserInteractionEnabled = false
-                moveBall(ball: ball, startSide: "unmoved")
             }
         }
     }
@@ -1176,6 +1177,9 @@ class Model {
                         pieceXX.isLocked = true
                     }
                 }
+                
+                pieceXX.isLocked = true
+                
                 return pieceXX
             }
         }
@@ -1186,7 +1190,7 @@ class Model {
                 
         if piece.isLocked || piece.doesPivot == false { return }
         
-        print("TAPPED")
+        print("currentSwitch before \(piece.currentSwitch)")
         
         
         if piece.currentSwitch != piece.switches {
@@ -1198,6 +1202,11 @@ class Model {
             piece.currentSwitch = 1
         }
 
+        
+        print("currentSwitch after \(piece.currentSwitch)")
+
+        
+        
         switch piece.shape {
         
         case .cross:
