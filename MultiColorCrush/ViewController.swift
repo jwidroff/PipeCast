@@ -1149,15 +1149,10 @@ extension ViewController: ModelDelegate {
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             alert.dismiss(animated: true) {
                 
-               
-
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
                 self.model.resetGame()
                 
-                
-//                self.model.setUpGame()
-//
                 let delayedTime = DispatchTime.now() + .milliseconds(Int(25))
                 DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 
@@ -1187,6 +1182,8 @@ extension ViewController: ModelDelegate {
 
             self.present(alert, animated: true) {
                 //completion here
+                self.piecesCrossed = 0
+                
             }
             DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
                 //Add code here if you want something to happen after the first wait

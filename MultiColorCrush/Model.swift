@@ -61,6 +61,12 @@ import UIKit
 
 //TODO: Need to make it that the crosses also lock after the ball goes through it. Also seems like switch happens all the time 
 
+//TODO: Need to make the entrance tile look locked after the button is pressed
+
+//TODO: Need to make all pieces actually lock after the balls run through through them
+
+
+
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
