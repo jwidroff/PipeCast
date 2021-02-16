@@ -520,6 +520,7 @@ class Ball {
     var indexes = Indexes()
     var startSide = "unmoved"
     var onColor = UIColor()
+    var exited = Bool()
 }
 
 enum Direction {

@@ -1130,10 +1130,61 @@ class Model {
     func check4Winner(piece: Piece) {
         
         if piece.shape == .exit {
-            
-//            level.number += 1
-            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+        
+            for piece in board.pieces {
+                
+                for ball in board.balls {
+                    
+                    if piece.indexes == ball.indexes {
+                        
+                        if piece.shape == .exit {
+                            
+                            ball.exited = true
+                        }
+                    }
+                }
+            }
         }
+        
+        
+        
+        //MARK: Come back here
+        
+        
+        if board.balls.contains(where: { (ball) -> Bool in
+            ball.exited == false
+        })
+        { return }
+        
+        else {
+            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //UP TO HERE: Make it that its only a winner if all balls are in exits
+        
+        
+//        if piece.shape == .exit {
+//
+////            level.number += 1
+//            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+//        }
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     func handleTap(center: CGPoint) {
@@ -1154,10 +1205,10 @@ class Model {
                         for piece in board.pieces {
                             
                             //TODO: Change this back
-                            piece.view.isUserInteractionEnabled = false
+//                            piece.view.isUserInteractionEnabled = false
                         }
                         
-                        board.view.isUserInteractionEnabled = false
+//                        board.view.isUserInteractionEnabled = false
                         moveBall(ball: ball, startSide: "unmoved")
                     }
                 }

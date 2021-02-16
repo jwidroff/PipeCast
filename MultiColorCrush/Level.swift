@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 9
+    var number = 400
 
     var board = Board()
 }
@@ -480,6 +480,37 @@ class LevelModel {
             
             
            print()
+            
+            
+        case 400:
+            
+            
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+            
+            let entrance1 = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance1)
+
+            let entrance2 = Piece(indexes: Indexes(x: 2, y: 4), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance2)
+            
+            
+            
+            let exit1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
+            board.pieces.append(exit1)
+            
+            let exit2 = Piece(indexes: Indexes(x: 4, y: 4), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
+            board.pieces.append(exit2)
+            
+            
+            let piece1 = Piece(indexes: Indexes(x: 3, y: 5), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece1)
+
+            let piece2 = Piece(indexes: Indexes(x: 3, y: 4), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece2)
+//
+            
             
         case 1000:
             
