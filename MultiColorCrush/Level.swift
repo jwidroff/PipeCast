@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 9
+    var number = 1000
 
     var board = Board()
 }
@@ -480,6 +480,37 @@ class LevelModel {
             
             
            print()
+            
+        case 1000:
+            
+            
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+
+            
+            
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
+            board.pieces.append(entrance1)
+
+            let entrance2 = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance2)
+            
+            let entrance3 = Piece(indexes: Indexes(x: 3, y: 4), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom", doesPivot: nil)
+            board.pieces.append(entrance3)
+            
+            let entrance4 = Piece(indexes: Indexes(x: 3, y: 6), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "top", doesPivot: nil)
+            board.pieces.append(entrance4)
+            
+            
+            let piece = Piece(indexes: Indexes(x: 3, y: 5), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece)
+            
+            
+            
+            
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+
+            
             
             
         default:

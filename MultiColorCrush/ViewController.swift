@@ -498,36 +498,57 @@ extension ViewController: ModelDelegate {
         
         let ballIsLeftOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) > ball.view.center.x
         
+        print("yAxisIsAligned \(yAxisIsAligned)")
+        print("xAxisIsAligned \(xAxisIsAligned)")
+        print("ballIsLowerTanPieceCenter \(ballIsLowerTanPieceCenter)")
+        print("ballIsHigherThanPieceCenter \(ballIsHigherThanPieceCenter)")
+        print("ballIsRightOfPieceCenter \(ballIsRightOfPieceCenter)")
+        print("ballIsLeftOfPieceCenter \(ballIsLeftOfPieceCenter)")
+
+        
+        
         if xAxisIsAligned && ballIsLowerTanPieceCenter {
             
             //Moves the piece up
-            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 4 * 3 / 2))
             
-            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            let startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceWidth / 2))
+            
+            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 4 * 3.5))
+            
+            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
             }
             
         } else if xAxisIsAligned && ballIsHigherThanPieceCenter {
             
             //Moves the piece down
-            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 4 * 3 / 2))
             
-            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            let startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceWidth / 2))
+            
+            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 4 * 3.5))
+            
+            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
             }
             
         } else if yAxisIsAligned && ballIsRightOfPieceCenter {
             
             //Moves the piece left
-            let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y) 
             
-            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            let startPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 2), y: ball.view.center.y)
+            
+            let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 4 * 3.5), y: ball.view.center.y)
+            
+            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
             }
             
         } else if yAxisIsAligned && ballIsLeftOfPieceCenter {
             
             //Moves the ball right
-            let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 4 * 3 / 2), y: ball.view.center.y)
             
-            calculateAnimation(view: ball.view, beginPoint: ball.view.center, endPoint: endPoint, controlPoint: endPoint) { (false) in
+            let startPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 2), y: ball.view.center.y)
+            
+            let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 4 * 3.5), y: ball.view.center.y)
+            
+            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
             }
         }
         
