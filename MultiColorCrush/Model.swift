@@ -53,10 +53,6 @@ import UIKit
 
 //TODO: Make the buttons show that theyre being pressed
 
-//TODO: Fix the animation for when the ball hits a cross the wrong way (this at least is messed up when the ball leaves the entrance)
-
-//TODO: Something is wrong with the stick pieces - Sometimes the ball just doesnt go over it (seems like it may have something to do with color)
-
 //TODO: Create double elbow piece
 
 //TODO: Need to make it that the crosses also lock after the ball goes through it. Also seems like switch happens all the time 
@@ -1135,7 +1131,7 @@ class Model {
         
         if piece.shape == .exit {
             
-            level.number += 1
+//            level.number += 1
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
         }
     }

@@ -1170,6 +1170,10 @@ extension ViewController: ModelDelegate {
         let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             alert.dismiss(animated: true) {
                 
+                if title == "YOU WIN" {
+                    self.model.level.number += 1
+                }
+                
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
                 self.model.resetGame()
