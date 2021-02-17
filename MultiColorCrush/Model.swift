@@ -61,6 +61,7 @@ import UIKit
 
 //TODO: Need to make all pieces actually lock after the balls run through through them
 
+//TODO: consider removing pieces instead of locking them after ball passes through
 
 
 protocol ModelDelegate {
@@ -972,6 +973,7 @@ class Model {
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
+            
         case "top":
             
             let startSide = "top"
@@ -1124,38 +1126,24 @@ class Model {
         default:
             break
         }
-        check4Winner(piece: piece)
+        checkIfBallExited(piece: piece, ball: ball)
     }
     
-    func check4Winner(piece: Piece) {
+    
+    func checkIfBallExited(piece: Piece, ball: Ball) {
         
-        if piece.shape == .exit {
-        
-            for piece in board.pieces {
+        if piece.indexes == ball.indexes {
+            
+            if piece.shape == .exit {
                 
-                for ball in board.balls {
-                    
-                    if piece.indexes == ball.indexes {
-                        
-                        if piece.shape == .exit {
-                            
-                            ball.exited = true
-                            
-                            
-//
-//                            board.balls.removeAll { (ballX) -> Bool in
-//                                ballX.indexes == ball.indexes
-//                            }
-                        }
-                    }
-                }
+                ball.exited = true
+                
             }
         }
         
-        
-        
-        //MARK: Come back here
-        
+    }
+    
+    func check4Winner(piece: Piece){
         
         if board.balls.contains(where: { (ball) -> Bool in
             ball.exited == false
@@ -1165,33 +1153,7 @@ class Model {
         
         else {
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-            
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //UP TO HERE: Make it that its only a winner if all balls are in exits
-        
-        
-//        if piece.shape == .exit {
-//
-////            level.number += 1
-//            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-//        }
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     func handleTap(center: CGPoint) {
@@ -1209,17 +1171,8 @@ class Model {
                                 
                     if board.grid[ball.indexes] == center {
                         
-                        
-                        
-                        
-//                        for piece in board.pieces {
-                            
-                            //TODO: Change this back
-//                            piece.view.isUserInteractionEnabled = false
-//                        }
-                        
-//                        board.view.isUserInteractionEnabled = false
                         moveBall(ball: ball, startSide: "unmoved")
+                        check4Winner(piece: piece)
                     }
                 }
             }

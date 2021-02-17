@@ -1049,7 +1049,15 @@ extension ViewController: ModelDelegate {
         default:
             break
         }
+        
+        print("Animate ball called")
+        
         animateMove(ball: ball)
+//        if model.check4Winner(piece: piece) == true {
+//            
+//            runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+//            return
+//        }
     }
     
     func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
