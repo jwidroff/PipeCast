@@ -77,6 +77,7 @@ protocol ModelDelegate {
     func removeBall(ball: Ball)
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
+    func animateMove(ball: Ball)
 }
 
 class Model {
@@ -1172,6 +1173,7 @@ class Model {
                     if board.grid[ball.indexes] == center {
                         
                         moveBall(ball: ball, startSide: "unmoved")
+                        delegate!.animateMove(ball: ball)
                         check4Winner(piece: piece)
                     }
                 }

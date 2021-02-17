@@ -294,16 +294,7 @@ class ViewController: UIViewController {
         completion(true)
     }
     
-    func animateMove(ball: Ball){
-        
-        let animation = CAKeyframeAnimation(keyPath: "position")
-        animation.path = ballPath.cgPath
-        animation.repeatCount = 0
-        animation.duration = piecesCrossed
-        ball.view.layer.add(animation, forKey: "animate along path")
-        ball.view.center = ballEndingPoint
-//        ballPath = UIBezierPath()
-    }
+    
     
     func enlargePieces() {
         
@@ -1050,9 +1041,8 @@ extension ViewController: ModelDelegate {
             break
         }
         
-        print("Animate ball called")
         
-        animateMove(ball: ball)
+//        animateMove(ball: ball)
 //        if model.check4Winner(piece: piece) == true {
 //            
 //            runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
@@ -1271,6 +1261,20 @@ extension ViewController: ModelDelegate {
 //        
 //        piece.view.setNeedsDisplay()
 //    }
+    
+    func animateMove(ball: Ball){
+        
+        print("Animate ball called")
+
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = ballPath.cgPath
+        animation.repeatCount = 0
+        animation.duration = piecesCrossed
+        ball.view.layer.add(animation, forKey: "animate along path")
+        ball.view.center = ballEndingPoint
+//        ballPath = UIBezierPath()
+    }
 }
 
 
