@@ -302,6 +302,7 @@ class ViewController: UIViewController {
         animation.duration = piecesCrossed
         ball.view.layer.add(animation, forKey: "animate along path")
         ball.view.center = ballEndingPoint
+//        ballPath = UIBezierPath()
     }
     
     func enlargePieces() {
@@ -1072,6 +1073,10 @@ extension ViewController: ModelDelegate {
             
             self.model.board.view.bringSubviewToFront(ball.view)
             
+            self.ballPath = UIBezierPath()
+            
+            self.piecesCrossed = 0
+            
         }
         
     }
@@ -1118,7 +1123,12 @@ extension ViewController: ModelDelegate {
                 piece.view.center = self.model.board.grid[piece.indexes]!
                 
                 for ball in self.model.board.balls {
-                    ball.view.center = self.model.board.grid[ball.indexes]!
+                    if ball.indexes == piece.indexes {
+                        
+                        ball.view.center = self.model.board.grid[ball.indexes]!
+
+                        
+                    }
                 }
             }
         }

@@ -947,7 +947,7 @@ class Model {
     func moveBall(ball: Ball, startSide: String) {
         
         let piece = getPieceInfo(index: ball.indexes)
-        
+                
         switch startSide {
         
         case "unmoved":
@@ -1140,6 +1140,12 @@ class Model {
                         if piece.shape == .exit {
                             
                             ball.exited = true
+                            
+                            
+//
+//                            board.balls.removeAll { (ballX) -> Bool in
+//                                ballX.indexes == ball.indexes
+//                            }
                         }
                     }
                 }
@@ -1153,6 +1159,7 @@ class Model {
         
         if board.balls.contains(where: { (ball) -> Bool in
             ball.exited == false
+            
         })
         { return }
         
@@ -1202,11 +1209,14 @@ class Model {
                                 
                     if board.grid[ball.indexes] == center {
                         
-                        for piece in board.pieces {
+                        
+                        
+                        
+//                        for piece in board.pieces {
                             
                             //TODO: Change this back
 //                            piece.view.isUserInteractionEnabled = false
-                        }
+//                        }
                         
 //                        board.view.isUserInteractionEnabled = false
                         moveBall(ball: ball, startSide: "unmoved")
