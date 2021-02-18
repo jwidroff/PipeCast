@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 100
+    var number = 1000
 
     var board = Board()
 }
@@ -536,7 +536,8 @@ class LevelModel {
             let piece = Piece(indexes: Indexes(x: 3, y: 5), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(piece)
             
-            
+            let testPiece = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 2, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(testPiece)
             
             
             addBorderAroundBoardOf(.wall, exceptionIndexes: [])
