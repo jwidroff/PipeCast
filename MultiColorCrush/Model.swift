@@ -67,6 +67,7 @@ protocol ModelDelegate {
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
     func animateMove(ball: Ball)
+    func removePieceAfterBall(piece: Piece)
 }
 
 class Model {
@@ -1130,25 +1131,25 @@ class Model {
     }
     
     
-    func checkIfBallExited(piece: Piece, ball: Ball) {
-        
-        if piece.indexes == ball.indexes {
-            
-            if piece.shape == .exit {
-                
-                ball.exited = true
-                
-                for piece in piecesThatBallPassedThrough {
-                    
-                    delegate?.removePiece(piece: piece)
-                    
-
-                }
-                
-            }
-        }
-        
-    }
+//    func checkIfBallExited(piece: Piece, ball: Ball) {
+//
+//        if piece.indexes == ball.indexes {
+//
+//            if piece.shape == .exit {
+//
+//                ball.exited = true
+//
+//                for piece in piecesThatBallPassedThrough {
+//
+//                    delegate?.removePiece(piece: piece)
+//
+//
+//                }
+//
+//            }
+//        }
+//
+//    }
     
     func checkIfBallExited(ball: Ball) {
         
@@ -1162,16 +1163,31 @@ class Model {
 
                     for piece in piecesThatBallPassedThrough {
 
-                        delegate?.removePiece(piece: piece)
+                        delegate?.removePieceAfterBall(piece: piece)
+                        
                         board.pieces.removeAll { (pieceX) -> Bool in
                             pieceX.indexes == piece.indexes
                         }
-                        ball.view.removeFromSuperview()
+                        
+//                        board.balls.removeAll { (ballX) -> Bool in
+//                            ballX.indexes == piece.indexes
+//                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        //Just set up the func above. Need to do the same for the ball because the ball gets removed before the ball moves
+                        
+//                        ball.view.removeFromSuperview()
                     }
+                    
+                    
 
                 }
             }
-        }        
+        }
     }
     
     
@@ -1204,13 +1220,30 @@ class Model {
                     if board.grid[ball.indexes] == center {
                         
                         moveBall(ball: ball, startSide: "unmoved")
+                        
+//                        animateMove(ball: ball) { (true) in
+//                            self.checkIfBallExited(ball: ball)
+//
+//                        }
+                        
                         delegate!.animateMove(ball: ball)
+                        
                         checkIfBallExited(ball: ball)
+                        
                         check4Winner(piece: piece)
                     }
                 }
             }
         }
+    }
+    
+    func animateMove(ball: Ball, completion: @escaping (Bool) -> Void) {
+    
+        
+//        delegate!.animateMove(ball: ball)
+        
+        completion(true)
+        
     }
     
     func changePieceAfterBallMoves(piece: Piece, ball: Ball) -> Piece {
@@ -1456,6 +1489,8 @@ class Model {
     
     func resetGame() {
         
+        print("RESET GAME")
+        
         for piece in board.pieces {
             
            //UP TO HERE. MAKR THE PIECES ALL GO TO THE INDEX OF 0,0 and then delete the pieces. After this works, make it into a delegate func
@@ -1475,5 +1510,8 @@ class Model {
             
         }
         board.balls.removeAll()
+        
+        piecesThatBallPassedThrough = [Piece]()
+        
     }
 }

@@ -547,6 +547,47 @@ extension ViewController: ModelDelegate {
         runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
     }
     
+    func removePieceAfterBall(piece: Piece) {
+        
+        let scale = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+        
+        var tempBall = Ball()
+        
+        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+        
+        
+        UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
+            
+            piece.view.transform = scale
+            
+            for ball in self.model.board.balls {
+                
+                if ball.indexes == piece.indexes {
+                    ball.view.transform = scale
+                    tempBall = ball
+
+                }
+            }
+
+        } completion: { (true) in
+            
+            tempBall.view.removeFromSuperview()
+            piece.view.removeFromSuperview()
+
+           
+            
+            
+            
+            piece.view.removeFromSuperview()
+
+        }
+            
+        }
+    }
+    
+    
     func removePiece(piece: Piece) {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -555,10 +596,19 @@ extension ViewController: ModelDelegate {
             piece.view.transform = scale
 
         } completion: { (true) in
+            
+        
+            
             piece.view.removeFromSuperview()
+            
+            
 
         }
+            
+        
     }
+    
+    
     
     func removeBall(ball: Ball) {
         
@@ -1184,6 +1234,7 @@ extension ViewController: ModelDelegate {
                 
                 self.ballPath = UIBezierPath()
                 self.piecesCrossed = 0.0
+                
                 self.model.resetGame()
                 
                 let delayedTime = DispatchTime.now() + .milliseconds(Int(25))
@@ -1262,7 +1313,7 @@ extension ViewController: ModelDelegate {
 //        piece.view.setNeedsDisplay()
 //    }
     
-    func animateMove(ball: Ball){
+    func animateMove(ball: Ball) {
         
         print("Animate ball called")
 
@@ -1274,6 +1325,7 @@ extension ViewController: ModelDelegate {
         ball.view.layer.add(animation, forKey: "animate along path")
         ball.view.center = ballEndingPoint
 //        ballPath = UIBezierPath()
+        
     }
 }
 
