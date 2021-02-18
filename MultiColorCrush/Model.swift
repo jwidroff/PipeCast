@@ -44,13 +44,13 @@ import UIKit
 
 //TODO: Make the buttons show that theyre being pressed
 
-//TODO: Create double elbow piece
+
+
+//TODO: CREATE DOUBLE ELBOW PIECE
 
 
 //TODO: Need to make the entrance tile look locked after the button is pressed
 
-
-//TODO: consider removing pieces instead of locking them after ball passes through
 
 
 protocol ModelDelegate {
@@ -1200,6 +1200,7 @@ class Model {
         { return }
         
         else {
+            
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
         }
     }
