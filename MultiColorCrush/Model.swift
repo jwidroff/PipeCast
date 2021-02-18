@@ -35,31 +35,20 @@ import UIKit
 
 //TODO: Possibly change the cross to rotate instead of switching
 
-//TODO: Make multiple exits to make levels easier
-
-//TODO: Make popup for when player wins/loses
-
-//TODO: Set up popup to come up when a ball falls off the board or when there are no more entrances or exits or pieces to move
-
-//TODO: Consider making the entrances and exits moveable until its clicked
 
 //TODO: Consider making walls that have the power to move and freeze in place
 
-//TODO: Consider making the path that the ball goes through into locked pieces so that when you start that ball, you can still move pieces to get the other bal from the other entrance in easier to the other exit
 
 //TODO: Make it that the pieceMaker can also spit out walls
 
-//TODO: Have the game check to see if any pieces are left after each swipe
 
 //TODO: Make the buttons show that theyre being pressed
 
 //TODO: Create double elbow piece
 
-//TODO: Need to make it that the crosses also lock after the ball goes through it. Also seems like switch happens all the time 
 
 //TODO: Need to make the entrance tile look locked after the button is pressed
 
-//TODO: Need to make all pieces actually lock after the balls run through through them
 
 //TODO: consider removing pieces instead of locking them after ball passes through
 
@@ -945,6 +934,8 @@ class Model {
         }
         return bool
     }
+    
+    var piecesThatBallPassedThrough = [Piece]()
             
     func moveBall(ball: Ball, startSide: String) {
         
@@ -974,6 +965,7 @@ class Model {
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
+            piecesThatBallPassedThrough.append(piece)
             
         case "top":
             
@@ -1005,6 +997,8 @@ class Model {
                         }
                     }
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    piecesThatBallPassedThrough.append(piece)
+
                 }
             } else {
                 
@@ -1043,6 +1037,8 @@ class Model {
                         }
                     }
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    piecesThatBallPassedThrough.append(piece)
+
                 }
                 
             } else {
@@ -1081,6 +1077,8 @@ class Model {
                         }
                     }
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    piecesThatBallPassedThrough.append(piece)
+
                 }
                 
             } else {
@@ -1118,6 +1116,7 @@ class Model {
                         }
                     }
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    piecesThatBallPassedThrough.append(piece)
                 }
                 
             } else {
@@ -1127,7 +1126,7 @@ class Model {
         default:
             break
         }
-        checkIfBallExited(piece: piece, ball: ball)
+//        checkIfBallExited(piece: piece, ball: ball)
     }
     
     
@@ -1139,10 +1138,42 @@ class Model {
                 
                 ball.exited = true
                 
+                for piece in piecesThatBallPassedThrough {
+                    
+                    delegate?.removePiece(piece: piece)
+                    
+
+                }
+                
             }
         }
         
     }
+    
+    func checkIfBallExited(ball: Ball) {
+        
+        for piece in board.pieces {
+
+            if piece.indexes == ball.indexes {
+
+                if piece.shape == .exit {
+
+                    ball.exited = true
+
+                    for piece in piecesThatBallPassedThrough {
+
+                        delegate?.removePiece(piece: piece)
+                        board.pieces.removeAll { (pieceX) -> Bool in
+                            pieceX.indexes == piece.indexes
+                        }
+                        ball.view.removeFromSuperview()
+                    }
+
+                }
+            }
+        }        
+    }
+    
     
     func check4Winner(piece: Piece){
         
@@ -1174,6 +1205,7 @@ class Model {
                         
                         moveBall(ball: ball, startSide: "unmoved")
                         delegate!.animateMove(ball: ball)
+                        checkIfBallExited(ball: ball)
                         check4Winner(piece: piece)
                     }
                 }
