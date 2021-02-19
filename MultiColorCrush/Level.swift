@@ -536,7 +536,7 @@ class LevelModel {
             let piece = Piece(indexes: Indexes(x: 3, y: 5), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(piece)
             
-            let testPiece = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 2, isLocked: false, opening: nil, doesPivot: true)
+            let testPiece = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(testPiece)
             
             
@@ -657,6 +657,11 @@ class LevelModel {
                 piece.switches = 2
                 piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
                 
+            case .doubleElbow:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
             case .cross:
                 
                 piece.switches = 2
@@ -682,6 +687,12 @@ class LevelModel {
                 piece.currentSwitch = 1
                 
             case .diagElbow:
+                
+                piece.doesPivot = false
+                piece.switches = 1
+                piece.currentSwitch = 1
+                
+            case .doubleElbow:
                 
                 piece.doesPivot = false
                 piece.switches = 1
@@ -922,6 +933,105 @@ class LevelModel {
             default:
                 break
             }
+            
+            
+        case .doubleElbow:
+            
+            //MARK: Finish this off (but not tested yet, even for version 1)
+            
+            switch piece.version {
+            
+            case 1:
+                
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = false
+
+                    
+                    
+                     piece.side.top.exitSide = "left"
+                     piece.side.left.exitSide = "top"
+                     piece.side.right.exitSide = nil
+                     piece.side.bottom.exitSide = nil
+                     piece.side.top.color = piece.colors[0]
+                     piece.side.right.color = nil
+                     piece.side.left.color = piece.colors[0]
+                     piece.side.bottom.color = nil
+                     
+                    
+                    if piece.doesPivot {
+                        piece.currentSwitch = 2
+                    }
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = false
+                    
+                    
+                    piece.side.top.exitSide = "right"
+                    piece.side.left.exitSide = nil
+                    piece.side.right.exitSide = "top"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.color = nil
+                    piece.side.bottom.color = nil
+                    
+                    if piece.doesPivot {
+                        piece.currentSwitch = 1
+                    }
+                 }
+                
+            case 3:
+                
+                if piece.currentSwitch == 1 {
+                    
+
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+
+                 }
+                
+            case 2:
+                
+                if piece.currentSwitch == 1 {
+                    
+
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+
+                 }
+                
+            case 4:
+                
+                
+                if piece.currentSwitch == 1 {
+                    
+                    
+
+                    
+                } else if piece.currentSwitch == 2 {
+                    
+
+                 }
+                
+            default:
+                break
+            }
+            
+            
+            
+            
+            
             
         case .diagElbow:
             

@@ -74,6 +74,10 @@ class Piece {
                 
                 switches = 2
                 
+            case .doubleElbow:
+                
+                switches = 2
+                
             case .stick:
                 
                 switches = 1
@@ -393,6 +397,107 @@ class Piece {
             default:
                 break
             }
+            
+            
+        case .doubleElbow:
+            
+            //MARK: Finish this off
+            
+            switch version {
+            case 1:
+                
+                print()
+                
+                if currentSwitch == 1 {
+                    
+                    
+                    //TODO: JUST SET THIS UP. NEED TO FINISH FOR ALL VERSIONS AND CURRENTSWITCHS
+                    
+                    
+                    side.top.opening.isOpen = true
+                    side.bottom.opening.isOpen = false
+                    side.left.opening.isOpen = true
+                    side.right.opening.isOpen = false
+                    side.right.exitSide = nil
+                    side.left.exitSide = "top"
+                    side.top.exitSide = "left"
+                    side.bottom.exitSide = nil
+                    side.right.color = colors[1]
+                    side.top.color = colors[0]
+                    side.left.color = colors[0]
+//                    piece.side.bottom.color = piece.colors[1]
+                    
+                } else if currentSwitch == 2 {
+                    
+                    side.top.opening.isOpen = true
+                    side.bottom.opening.isOpen = false
+                    side.left.opening.isOpen = false
+                    side.right.opening.isOpen = true
+                    side.right.exitSide = "top"
+                    side.left.exitSide = nil
+                    side.top.exitSide = "right"
+                    side.bottom.exitSide = nil
+                    side.right.color = colors[1]
+                    side.top.color = colors[1]
+                    side.left.color = colors[0]
+//                    piece.side.bottom.color = piece.colors[1]
+                    
+                    
+                }
+                
+                
+                
+            case 2:
+                print()
+
+                if currentSwitch == 1 {
+                    
+                    
+                    
+                } else if currentSwitch == 2 {
+                    
+                    
+                    
+                }
+                
+                
+            case 3:
+                print()
+
+                if currentSwitch == 1 {
+                    
+                    
+                    
+                } else if currentSwitch == 2 {
+                    
+                    
+                    
+                }
+                
+                
+                
+            case 4:
+                
+                print()
+
+                if currentSwitch == 1 {
+                    
+                    
+                    
+                } else if currentSwitch == 2 {
+                    
+                    
+                    
+                }
+                
+                
+                
+            default:
+                break
+            }
+            
+            
+            
             
         case .diagElbow:
             
