@@ -466,11 +466,35 @@ class Piece {
 
                 if currentSwitch == 1 {
                     
-                    
+                    //Bottom Left on top
+                    side.top.opening.isOpen = false
+                    side.bottom.opening.isOpen = true
+                    side.left.opening.isOpen = true
+                    side.right.opening.isOpen = true
+                    side.right.exitSide = nil
+                    side.left.exitSide = "bottom"
+                    side.top.exitSide = nil
+                    side.bottom.exitSide = "left"
+                    side.right.color = colors[1]
+//                    side.top.color = colors[1]
+                    side.left.color = colors[0]
+                    side.bottom.color = colors[0]
                     
                 } else if currentSwitch == 2 {
                     
-                    
+                    //Bottom right on top
+                    side.top.opening.isOpen = false
+                    side.bottom.opening.isOpen = true
+                    side.left.opening.isOpen = true
+                    side.right.opening.isOpen = true
+                    side.right.exitSide = "bottom"
+                    side.left.exitSide = nil
+                    side.top.exitSide = nil
+                    side.bottom.exitSide = "right"
+                    side.right.color = colors[1]
+//                    side.top.color = colors[1]
+                    side.left.color = colors[0]
+                    side.bottom.color = colors[1]
                     
                 }
                 
