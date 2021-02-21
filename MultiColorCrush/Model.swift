@@ -375,9 +375,39 @@ class Model {
 
                 if piece.currentSwitch == 1 {
                     
+                    //left bottom
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = false
+                    piece.side.right.exitSide = nil
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.top.exitSide = nil
+                    piece.side.bottom.exitSide = "left"
+//                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
                     
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    
+                    //left top
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = false
+                    piece.side.right.exitSide = nil
+                    piece.side.left.exitSide = "top"
+                    piece.side.top.exitSide = "left"
+                    piece.side.bottom.exitSide = nil
+//                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
                     
                     
                     
@@ -1464,7 +1494,7 @@ class Model {
                     piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = nil
                      
-//                    
+//
 //                    if piece.doesPivot {
 //                        piece.currentSwitch = 2
 //                    }
@@ -1493,12 +1523,38 @@ class Model {
                 
                 if piece.currentSwitch == 1 {
                     
-
+                    //left bottom
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = false
+                    piece.side.right.exitSide = nil
+                    piece.side.left.exitSide = "bottom"
+                    piece.side.top.exitSide = nil
+                    piece.side.bottom.exitSide = "left"
+//                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[0]
                     
                 } else if piece.currentSwitch == 2 {
                     
-
-                 }
+                    //left top
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = false
+                    piece.side.right.exitSide = nil
+                    piece.side.left.exitSide = "top"
+                    piece.side.top.exitSide = "left"
+                    piece.side.bottom.exitSide = nil
+//                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
+                    
+                }
                 
             case 3:
                 
