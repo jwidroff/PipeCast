@@ -1136,6 +1136,7 @@ class ShapeView : UIView {
                     //right PIVOT TO BOTTOM SIDE
                     
                     context2.setFillColor(colors[1])
+                    
                     drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
                     if isLocked == false && doesPivot == true {
                         
@@ -1177,6 +1178,8 @@ class ShapeView : UIView {
 
                     context2.setFillColor(colors[1])
                     drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
+                    
+                    
                     if isLocked == false && doesPivot == true {
                         
                         addPivotRect(context: context2, side: "right", color: colors[1])

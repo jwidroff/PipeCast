@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 1000
+    var number = 100
 
     var board = Board()
 }
@@ -379,7 +379,7 @@ class LevelModel {
         case 100:
             
             board.randomPieceColors = [UIColor.red]
-            board.randomPieceShapes = [.diagElbow]//, .cross]//, .stick, .elbow]
+            board.randomPieceShapes = [.diagElbow, . doubleElbow]//, .cross]//, .stick, .elbow]
             board.amountOfRandomPieces = 20
 //            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
 //            board.holeLocations = [Indexes(x: 0, y: 1)]
@@ -520,7 +520,7 @@ class LevelModel {
 
             
             
-            let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
             board.pieces.append(entrance1)
 
             let entrance2 = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
@@ -946,17 +946,17 @@ class LevelModel {
                 if piece.currentSwitch == 1 {
                     
                     piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = false
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.bottom.opening.isOpen = false
-                    piece.side.top.exitSide = "left"
+                    piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "top"
-                    piece.side.right.exitSide = nil
+                    piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = nil
+                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[0]
-                    piece.side.right.color = nil
                     piece.side.left.color = piece.colors[0]
-                    piece.side.bottom.color = nil
+//                    piece.side.bottom.color = piece.colors[1]
                     
                     
                     if piece.doesPivot {
@@ -967,17 +967,17 @@ class LevelModel {
                     
                     
                     piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = false
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.bottom.opening.isOpen = false
-                    piece.side.top.exitSide = "right"
-                    piece.side.left.exitSide = nil
                     piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = "top"
+                    piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = nil
-                    piece.side.top.color = piece.colors[1]
                     piece.side.right.color = piece.colors[1]
-                    piece.side.left.color = nil
-                    piece.side.bottom.color = nil
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[0]
+//                    piece.side.bottom.color = piece.colors[1]
                     
                     if piece.doesPivot {
                         piece.currentSwitch = 1
@@ -996,13 +996,12 @@ class LevelModel {
                     piece.side.right.opening.isOpen = false
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "bottom"
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[0]
-
                     
                 } else if piece.currentSwitch == 2 {
                     
@@ -1015,7 +1014,7 @@ class LevelModel {
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "left"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
@@ -1033,12 +1032,12 @@ class LevelModel {
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.right.exitSide = nil
+                    piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "left"
-                    piece.side.right.color = nil
-                    piece.side.top.color = nil
+                    piece.side.right.color = piece.colors[1]
+//                    piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[0]
 
@@ -1054,12 +1053,12 @@ class LevelModel {
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
-                    piece.side.left.exitSide = nil
+                    piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
-                    piece.side.top.color = nil
-                    piece.side.left.color = nil
+//                    piece.side.top.color = piece.colors[1]
+                    piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
 
                     if piece.doesPivot {
@@ -1080,12 +1079,11 @@ class LevelModel {
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = nil
                     piece.side.top.exitSide = "right"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
-
                     
                 } else if piece.currentSwitch == 2 {
                     
@@ -1096,13 +1094,12 @@ class LevelModel {
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = nil
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
-                    
 
                  }
                 

@@ -418,7 +418,7 @@ class Piece {
                     side.bottom.opening.isOpen = false
                     side.left.opening.isOpen = true
                     side.right.opening.isOpen = false
-                    side.right.exitSide = nil
+                    side.right.exitSide = "top"
                     side.left.exitSide = "top"
                     side.top.exitSide = "left"
                     side.bottom.exitSide = nil
@@ -434,7 +434,7 @@ class Piece {
                     side.left.opening.isOpen = false
                     side.right.opening.isOpen = true
                     side.right.exitSide = "top"
-                    side.left.exitSide = nil
+                    side.left.exitSide = "top"
                     side.top.exitSide = "right"
                     side.bottom.exitSide = nil
                     side.right.color = colors[1]
@@ -459,7 +459,7 @@ class Piece {
                     side.right.opening.isOpen = false
                     side.right.exitSide = nil
                     side.left.exitSide = "bottom"
-                    side.top.exitSide = nil
+                    side.top.exitSide = "left"
                     side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     side.top.color = colors[1]
@@ -475,7 +475,7 @@ class Piece {
                     side.right.exitSide = nil
                     side.left.exitSide = "top"
                     side.top.exitSide = "left"
-                    side.bottom.exitSide = nil
+                    side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     side.top.color = colors[1]
                     side.left.color = colors[1]
@@ -494,7 +494,7 @@ class Piece {
                     side.bottom.opening.isOpen = true
                     side.left.opening.isOpen = true
                     side.right.opening.isOpen = true
-                    side.right.exitSide = nil
+                    side.right.exitSide = "bottom"
                     side.left.exitSide = "bottom"
                     side.top.exitSide = nil
                     side.bottom.exitSide = "left"
@@ -511,7 +511,7 @@ class Piece {
                     side.left.opening.isOpen = true
                     side.right.opening.isOpen = true
                     side.right.exitSide = "bottom"
-                    side.left.exitSide = nil
+                    side.left.exitSide = "bottom"
                     side.top.exitSide = nil
                     side.bottom.exitSide = "right"
                     side.right.color = colors[1]
@@ -536,7 +536,7 @@ class Piece {
                     side.right.exitSide = "top"
                     side.left.exitSide = nil
                     side.top.exitSide = "right"
-                    side.bottom.exitSide = nil
+                    side.bottom.exitSide = "right"
                     side.right.color = colors[0]
                     side.top.color = colors[0]
                     //                    piece.side.left.color = piece.colors[0]
@@ -550,7 +550,7 @@ class Piece {
                     side.right.opening.isOpen = true
                     side.right.exitSide = "bottom"
                     side.left.exitSide = nil
-                    side.top.exitSide = nil
+                    side.top.exitSide = "right"
                     side.bottom.exitSide = "right"
                     side.right.color = colors[1]
                     side.top.color = colors[0]

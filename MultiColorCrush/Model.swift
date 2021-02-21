@@ -332,6 +332,8 @@ class Model {
                 print()
                 
                 if piece.currentSwitch == 1 {
+                                        
+                    
                     
                     
                     //TODO: JUST SET THIS UP. NEED TO FINISH FOR ALL VERSIONS AND CURRENTSWITCHS
@@ -341,7 +343,7 @@ class Model {
                     piece.side.bottom.opening.isOpen = false
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.right.exitSide = nil
+                    piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = nil
@@ -357,7 +359,7 @@ class Model {
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "top"
-                    piece.side.left.exitSide = nil
+                    piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = nil
                     piece.side.right.color = piece.colors[1]
@@ -383,7 +385,7 @@ class Model {
                     piece.side.right.opening.isOpen = false
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "bottom"
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
@@ -403,7 +405,7 @@ class Model {
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "left"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
@@ -427,7 +429,7 @@ class Model {
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.right.exitSide = nil
+                    piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "left"
@@ -446,7 +448,7 @@ class Model {
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
-                    piece.side.left.exitSide = nil
+                    piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -472,7 +474,7 @@ class Model {
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = nil
                     piece.side.top.exitSide = "right"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[0]
@@ -488,7 +490,7 @@ class Model {
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = nil
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[0]
@@ -1167,6 +1169,8 @@ class Model {
         case "top":
             
             let startSide = "top"
+            
+            print("piece.side.top.exitSide \(piece.side.top.exitSide)")
 
             if let endSide = piece.side.top.exitSide {
                 
@@ -1512,14 +1516,14 @@ class Model {
                     piece.side.bottom.opening.isOpen = false
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.top.exitSide = "left"
+                    piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = "top"
-                    piece.side.right.exitSide = nil
+                    piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = nil
-                    piece.side.top.color = piece.colors[0]
                     piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[0]
                     piece.side.left.color = piece.colors[0]
-//                    piece.side.bottom.color = nil
+//                    piece.side.bottom.color = piece.colors[1]
                      
 //
 //                    if piece.doesPivot {
@@ -1532,14 +1536,14 @@ class Model {
                     piece.side.bottom.opening.isOpen = false
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.top.exitSide = "right"
-                    piece.side.left.exitSide = nil
                     piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = "top"
+                    piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = nil
-                    piece.side.top.color = piece.colors[1]
                     piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[0]
-//                    piece.side.bottom.color = nil
+//                    piece.side.bottom.color = piece.colors[1]
                     
 //                    if piece.doesPivot {
 //                        piece.currentSwitch = 1
@@ -1557,7 +1561,7 @@ class Model {
                     piece.side.right.opening.isOpen = false
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "bottom"
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "left"
                     piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
@@ -1575,11 +1579,12 @@ class Model {
                     piece.side.right.exitSide = nil
                     piece.side.left.exitSide = "top"
                     piece.side.top.exitSide = "left"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "left"
 //                    piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[1]
                     piece.side.left.color = piece.colors[1]
                     piece.side.bottom.color = piece.colors[0]
+                    
                     
                 }
                 
@@ -1594,7 +1599,7 @@ class Model {
                     piece.side.bottom.opening.isOpen = true
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
-                    piece.side.right.exitSide = nil
+                    piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "left"
@@ -1611,7 +1616,7 @@ class Model {
                     piece.side.left.opening.isOpen = true
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
-                    piece.side.left.exitSide = nil
+                    piece.side.left.exitSide = "bottom"
                     piece.side.top.exitSide = nil
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
@@ -1634,12 +1639,12 @@ class Model {
                     piece.side.right.exitSide = "top"
                     piece.side.left.exitSide = nil
                     piece.side.top.exitSide = "right"
-                    piece.side.bottom.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[0]
                     piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
-
+                    
                     
                 } else if piece.currentSwitch == 2 {
                     
@@ -1650,7 +1655,7 @@ class Model {
                     piece.side.right.opening.isOpen = true
                     piece.side.right.exitSide = "bottom"
                     piece.side.left.exitSide = nil
-                    piece.side.top.exitSide = nil
+                    piece.side.top.exitSide = "right"
                     piece.side.bottom.exitSide = "right"
                     piece.side.right.color = piece.colors[1]
                     piece.side.top.color = piece.colors[0]
