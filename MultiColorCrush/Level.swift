@@ -536,7 +536,7 @@ class LevelModel {
             let piece = Piece(indexes: Indexes(x: 3, y: 5), shape: .cross, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(piece)
             
-            let testPiece = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.blue], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            let testPiece = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.blue], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(testPiece)
             
             
@@ -1073,10 +1073,35 @@ class LevelModel {
                 
                 if piece.currentSwitch == 1 {
                     
-                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
 
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "bottom"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
                     
 
                  }

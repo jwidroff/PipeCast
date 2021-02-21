@@ -1018,7 +1018,7 @@ class ShapeView : UIView {
                     //LEFT PIVOT TO TOP SIDE
                     
                     context2.setFillColor(colors[1])
-                    drawPath(path: path, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
+                    drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
 
                     if isLocked == false && doesPivot == true {
 
@@ -1028,7 +1028,7 @@ class ShapeView : UIView {
                     //LEFT PIVOT TO BOTTOM SIDE
 
                     context.setFillColor(colors[0])
-                    drawPath(path: path2, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
+                    drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                     if isLocked == false && doesPivot == true {
                         
                         addPivotRect(context: context, side: "left", color: colors[0])
@@ -1045,7 +1045,7 @@ class ShapeView : UIView {
                     //LEFT PIVOT TO BOTTOM SIDE
 
                     context.setFillColor(colors[0])
-                    drawPath(path: path2, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
+                    drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                     if isLocked == false && doesPivot == true {
                         
                         addPivotRect(context: context, side: "left", color: colors[0])
@@ -1055,7 +1055,7 @@ class ShapeView : UIView {
                     //LEFT PIVOT TO TOP SIDE
 
                     context2.setFillColor(colors[1])
-                    drawPath(path: path, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
+                    drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[1])
 
                     if isLocked == false && doesPivot == true {
 
@@ -1133,6 +1133,15 @@ class ShapeView : UIView {
                 if currentSwitch == 1 {
                     
                     
+                    //right PIVOT TO BOTTOM SIDE
+                    
+                    context2.setFillColor(colors[1])
+                    drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
+                    if isLocked == false && doesPivot == true {
+                        
+                        addPivotRect(context: context2, side: "right", color: colors[1])
+                    }
+                    
                     //right PIVOT TO TOP SIDE
                     
                     context.setFillColor(colors[0])
@@ -1144,14 +1153,7 @@ class ShapeView : UIView {
                         addPivotRect(context: context, side: "right", color: colors[0])
                     }
                     
-                    //right PIVOT TO BOTTOM SIDE
                     
-                    context2.setFillColor(colors[1])
-                    drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
-                    if isLocked == false && doesPivot == true {
-                        
-                        addPivotRect(context: context2, side: "right", color: colors[1])
-                    }
                     
                     if doesPivot {
                         currentSwitch = 2
@@ -1160,17 +1162,7 @@ class ShapeView : UIView {
                 } else if currentSwitch == 2 {
                     
                     
-                    //right PIVOT TO BOTTOM SIDE
-
-                    context2.setFillColor(colors[1])
-                    drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
-                    if isLocked == false && doesPivot == true {
-                        
-                        addPivotRect(context: context2, side: "right", color: colors[1])
-                        
-                    }
-                    
-                    
+                  
                     //LEFT PIVOT TO TOP SIDE
 
                     context.setFillColor(colors[0])
@@ -1180,6 +1172,21 @@ class ShapeView : UIView {
 
                         addPivotRect(context: context, side: "right", color: colors[0])
                     }
+                    
+                    //right PIVOT TO BOTTOM SIDE
+
+                    context2.setFillColor(colors[1])
+                    drawPath(path: path2, context: context2, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[1])
+                    if isLocked == false && doesPivot == true {
+                        
+                        addPivotRect(context: context2, side: "right", color: colors[1])
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
                     
                     if doesPivot {
                         currentSwitch = 1

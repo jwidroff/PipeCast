@@ -465,8 +465,35 @@ class Model {
                 if piece.currentSwitch == 1 {
                     
                     
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    
                     
                 } else if piece.currentSwitch == 2 {
+                    
+                    
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "bottom"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
                     
                     
                     
@@ -1600,11 +1627,38 @@ class Model {
                 if piece.currentSwitch == 1 {
                     
                     
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "top"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = "right"
+                    piece.side.bottom.exitSide = nil
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
 
                     
                 } else if piece.currentSwitch == 2 {
                     
 
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                    piece.side.left.opening.isOpen = false
+                    piece.side.right.opening.isOpen = true
+                    piece.side.right.exitSide = "bottom"
+                    piece.side.left.exitSide = nil
+                    piece.side.top.exitSide = nil
+                    piece.side.bottom.exitSide = "right"
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.top.color = piece.colors[0]
+//                    piece.side.left.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    
+                    
+                    
                  }
                 
             default:
