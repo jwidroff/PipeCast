@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 6
+    var number = 11
 
     var board = Board()
 }
@@ -32,9 +32,6 @@ class LevelModel {
         switch levelName {
         
 
-            
-            
-            
         case "basic": //Moving the entrance and exits
 
             board.randomPieceColors = [UIColor.red]
