@@ -1424,30 +1424,20 @@ class Model {
                         
                         moveBall(ball: ball, startSide: "unmoved")
                         
-//                        animateMove(ball: ball) { (true) in
-//                            self.checkIfBallExited(ball: ball)
-//
-//                        }
-                        
-//                        delegate!.animateMove(ball: ball)
-                        
-//                        checkIfBallExited(ball: ball)
-//
-//                        check4Winner(piece: piece)
                     }
                 }
             }
         }
     }
     
-    func animateMove(ball: Ball, completion: @escaping (Bool) -> Void) {
-    
-        
-//        delegate!.animateMove(ball: ball)
-        
-        completion(true)
-        
-    }
+//    func animateMove(ball: Ball, completion: @escaping (Bool) -> Void) {
+//    
+//        
+////        delegate!.animateMove(ball: ball)
+//        
+//        completion(true)
+//        
+//    }
     
     func changePieceAfterBallMoves(piece: Piece, ball: Ball) -> Piece {
         

@@ -554,7 +554,7 @@ extension ViewController: ModelDelegate {
         
         let scale = CGAffineTransform(scaleX: 0.01, y: 0.01)
         
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
         
         var tempBall = Ball()
         
@@ -1139,7 +1139,7 @@ extension ViewController: ModelDelegate {
         let pieceX = self.model.changePieceAfterBallMoves(piece: piece, ball: ball)
         
         
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
         
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
             
@@ -1355,13 +1355,24 @@ extension ViewController: ModelDelegate {
         
         CATransaction.setCompletionBlock {
             
+            
+            
+            //MARK: The func below causes errors. FIX
+//            self.changePieceAfterBallMoves(piece: self.model.getPieceInfo(index: ball.indexes), ball: ball)
+            
+            
+            ball.view.center = self.ballEndingPoint
+            
+            
             self.model.checkIfBallExited(ball: ball)
 
             self.model.check4Winner(piece: self.model.getPieceInfo(index: ball.indexes))
             
             self.ballPath = UIBezierPath()
             
-            ball.view.center = self.ballEndingPoint
+            
+            
+            
             
                 switch endSide {
 
@@ -1382,6 +1393,8 @@ extension ViewController: ModelDelegate {
                 }
             
             
+            
+            return
             
             
             
