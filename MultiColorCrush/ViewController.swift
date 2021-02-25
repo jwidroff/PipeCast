@@ -688,9 +688,9 @@ extension ViewController: ModelDelegate {
                                 
                 self.animateMove(ball: ball, endSide: endSide)
                 
-                self.model.checkIfBallExited(ball: ball)
-
-                self.model.check4Winner(piece: piece)
+//                self.model.checkIfBallExited(ball: ball)
+//
+//                self.model.check4Winner(piece: piece)
                 
 //                switch endSide {
 //
@@ -746,10 +746,10 @@ extension ViewController: ModelDelegate {
                 
                 self.animateMove(ball: ball, endSide: endSide)
 
-                self.model.checkIfBallExited(ball: ball)
-
-                self.model.check4Winner(piece: piece)
-                
+//                self.model.checkIfBallExited(ball: ball)
+//
+//                self.model.check4Winner(piece: piece)
+//
                 
 //                if piece.shape != .cross {
 //
@@ -855,10 +855,10 @@ extension ViewController: ModelDelegate {
 
                 self.animateMove(ball: ball, endSide: endSide)
 
-                self.model.checkIfBallExited(ball: ball)
-
-                self.model.check4Winner(piece: piece)
-                
+//                self.model.checkIfBallExited(ball: ball)
+//
+//                self.model.check4Winner(piece: piece)
+//
 //                if piece.shape != .cross {
 //
 //                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
@@ -954,10 +954,10 @@ extension ViewController: ModelDelegate {
 
                 self.animateMove(ball: ball, endSide: endSide)
 
-                self.model.checkIfBallExited(ball: ball)
-
-                self.model.check4Winner(piece: piece)
-                
+//                self.model.checkIfBallExited(ball: ball)
+//
+//                self.model.check4Winner(piece: piece)
+//
 //                if piece.shape != .cross {
 //
 //                    let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
@@ -1054,9 +1054,9 @@ extension ViewController: ModelDelegate {
 
                 self.animateMove(ball: ball, endSide: endSide)
 
-                self.model.checkIfBallExited(ball: ball)
+//                self.model.checkIfBallExited(ball: ball)
 
-                self.model.check4Winner(piece: piece)
+//                self.model.check4Winner(piece: piece)
                 
 //                if piece.shape != .cross {
 //
@@ -1354,6 +1354,10 @@ extension ViewController: ModelDelegate {
         CATransaction.begin()
         
         CATransaction.setCompletionBlock {
+            
+            self.model.checkIfBallExited(ball: ball)
+
+            self.model.check4Winner(piece: self.model.getPieceInfo(index: ball.indexes))
             
             self.ballPath = UIBezierPath()
             
