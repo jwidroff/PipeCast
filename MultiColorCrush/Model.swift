@@ -71,7 +71,7 @@ protocol ModelDelegate {
     func removeBall(ball: Ball)
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
-    func animateMove(ball: Ball)
+//    func animateMove(ball: Ball)
     func removePieceAfterBall(piece: Piece)
 }
 
@@ -1170,7 +1170,6 @@ class Model {
             
             let startSide = "top"
             
-            print("piece.side.top.exitSide \(piece.side.top.exitSide)")
 
             if let endSide = piece.side.top.exitSide {
                 
@@ -1353,6 +1352,9 @@ class Model {
     
     func checkIfBallExited(ball: Ball) {
         
+        print("CIBE CALLED")
+        
+        
         for piece in board.pieces {
 
             if piece.indexes == ball.indexes {
@@ -1427,11 +1429,11 @@ class Model {
 //
 //                        }
                         
-                        delegate!.animateMove(ball: ball)
+//                        delegate!.animateMove(ball: ball)
                         
-                        checkIfBallExited(ball: ball)
-                        
-                        check4Winner(piece: piece)
+//                        checkIfBallExited(ball: ball)
+//
+//                        check4Winner(piece: piece)
                     }
                 }
             }

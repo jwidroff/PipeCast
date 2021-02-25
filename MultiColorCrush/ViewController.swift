@@ -289,8 +289,11 @@ class ViewController: UIViewController {
 
         ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
         ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
-        piecesCrossed += 0.25
+//        piecesCrossed += 0.25
         ballEndingPoint = endPoint
+        
+        
+        
         completion(true)
     }
     
@@ -683,23 +686,29 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                                 
-                switch endSide {
+                self.animateMove(ball: ball, endSide: endSide)
                 
-                case "top":
-                    self.model.moveBall(ball: ball, startSide: "bottom")
-                    
-                case "bottom":
-                    self.model.moveBall(ball: ball, startSide: "top")
-                    
-                case "left":
-                    self.model.moveBall(ball: ball, startSide: "right")
-                    
-                case "right":
-                    self.model.moveBall(ball: ball, startSide: "left")
-                    
-                default:
-                    break
-                }
+                self.model.checkIfBallExited(ball: ball)
+
+                self.model.check4Winner(piece: piece)
+                
+//                switch endSide {
+//
+//                case "top":
+//                    self.model.moveBall(ball: ball, startSide: "bottom")
+//
+//                case "bottom":
+//                    self.model.moveBall(ball: ball, startSide: "top")
+//
+//                case "left":
+//                    self.model.moveBall(ball: ball, startSide: "right")
+//
+//                case "right":
+//                    self.model.moveBall(ball: ball, startSide: "left")
+//
+//                default:
+//                    break
+//                }
             }
             
         case "top":
@@ -733,7 +742,14 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
-                self.changePieceAfterBallMoves(piece: piece, ball: ball)
+//                self.changePieceAfterBallMoves(piece: piece, ball: ball)
+                
+                self.animateMove(ball: ball, endSide: endSide)
+
+                self.model.checkIfBallExited(ball: ball)
+
+                self.model.check4Winner(piece: piece)
+                
                 
 //                if piece.shape != .cross {
 //
@@ -783,23 +799,23 @@ extension ViewController: ModelDelegate {
 //                    }
 //                }
                 
-                switch endSide {
-                
-                case "top":
-                    self.model.moveBall(ball: ball, startSide: "bottom")
-                    
-                case "bottom":
-                    self.model.moveBall(ball: ball, startSide: "top")
-                    
-                case "left":
-                    self.model.moveBall(ball: ball, startSide: "right")
-                    
-                case "right":
-                    self.model.moveBall(ball: ball, startSide: "left")
-                    
-                default:
-                    break
-                }
+//                switch endSide {
+//
+//                case "top":
+//                    self.model.moveBall(ball: ball, startSide: "bottom")
+//
+//                case "bottom":
+//                    self.model.moveBall(ball: ball, startSide: "top")
+//
+//                case "left":
+//                    self.model.moveBall(ball: ball, startSide: "right")
+//
+//                case "right":
+//                    self.model.moveBall(ball: ball, startSide: "left")
+//
+//                default:
+//                    break
+//                }
             }
                         
         case "bottom":
@@ -834,8 +850,14 @@ extension ViewController: ModelDelegate {
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                   
                 
-                self.changePieceAfterBallMoves(piece: piece, ball: ball)
+                
+//                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
+                self.animateMove(ball: ball, endSide: endSide)
+
+                self.model.checkIfBallExited(ball: ball)
+
+                self.model.check4Winner(piece: piece)
                 
 //                if piece.shape != .cross {
 //
@@ -878,23 +900,23 @@ extension ViewController: ModelDelegate {
 //                    }
 //                }
                 
-                switch endSide {
-                
-                case "top":
-                    self.model.moveBall(ball: ball, startSide: "bottom")
-                    
-                case "bottom":
-                    self.model.moveBall(ball: ball, startSide: "top")
-                    
-                case "left":
-                    self.model.moveBall(ball: ball, startSide: "right")
-                    
-                case "right":
-                    self.model.moveBall(ball: ball, startSide: "left")
-                    
-                default:
-                    break
-                }
+//                switch endSide {
+//
+//                case "top":
+//                    self.model.moveBall(ball: ball, startSide: "bottom")
+//
+//                case "bottom":
+//                    self.model.moveBall(ball: ball, startSide: "top")
+//
+//                case "left":
+//                    self.model.moveBall(ball: ball, startSide: "right")
+//
+//                case "right":
+//                    self.model.moveBall(ball: ball, startSide: "left")
+//
+//                default:
+//                    break
+//                }
             }
 
         case "left":
@@ -928,9 +950,13 @@ extension ViewController: ModelDelegate {
             
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                          
-                self.changePieceAfterBallMoves(piece: piece, ball: ball)
+//                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
-                
+                self.animateMove(ball: ball, endSide: endSide)
+
+                self.model.checkIfBallExited(ball: ball)
+
+                self.model.check4Winner(piece: piece)
                 
 //                if piece.shape != .cross {
 //
@@ -973,23 +999,23 @@ extension ViewController: ModelDelegate {
 //                    }
 //                }
                 
-                switch endSide {
-                
-                case "top":
-                    self.model.moveBall(ball: ball, startSide: "bottom")
-                    
-                case "bottom":
-                    self.model.moveBall(ball: ball, startSide: "top")
-                    
-                case "left":
-                    self.model.moveBall(ball: ball, startSide: "right")
-                    
-                case "right":
-                    self.model.moveBall(ball: ball, startSide: "left")
-                    
-                default:
-                    break
-                }
+//                switch endSide {
+//
+//                case "top":
+//                    self.model.moveBall(ball: ball, startSide: "bottom")
+//
+//                case "bottom":
+//                    self.model.moveBall(ball: ball, startSide: "top")
+//
+//                case "left":
+//                    self.model.moveBall(ball: ball, startSide: "right")
+//
+//                case "right":
+//                    self.model.moveBall(ball: ball, startSide: "left")
+//
+//                default:
+//                    break
+//                }
             }
             
         case "right":
@@ -1024,9 +1050,13 @@ extension ViewController: ModelDelegate {
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                        
                 
-                self.changePieceAfterBallMoves(piece: piece, ball: ball)
+//                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
-                
+                self.animateMove(ball: ball, endSide: endSide)
+
+                self.model.checkIfBallExited(ball: ball)
+
+                self.model.check4Winner(piece: piece)
                 
 //                if piece.shape != .cross {
 //
@@ -1069,23 +1099,27 @@ extension ViewController: ModelDelegate {
 //                    }
 //                }
                 
-                switch endSide {
+//                switch endSide {
+//
+//                case "top":
+//                    self.model.moveBall(ball: ball, startSide: "bottom")
+//
+//                case "bottom":
+//                    self.model.moveBall(ball: ball, startSide: "top")
+//
+//                case "left":
+//                    self.model.moveBall(ball: ball, startSide: "right")
+//
+//                case "right":
+//                    self.model.moveBall(ball: ball, startSide: "left")
+//
+//                default:
+//                    break
+//                }
                 
-                case "top":
-                    self.model.moveBall(ball: ball, startSide: "bottom")
-                    
-                case "bottom":
-                    self.model.moveBall(ball: ball, startSide: "top")
-                    
-                case "left":
-                    self.model.moveBall(ball: ball, startSide: "right")
-                    
-                case "right":
-                    self.model.moveBall(ball: ball, startSide: "left")
-                    
-                default:
-                    break
-                }
+                
+                
+                
             }
         default:
             break
@@ -1233,7 +1267,7 @@ extension ViewController: ModelDelegate {
                 }
                 
                 self.ballPath = UIBezierPath()
-                self.piecesCrossed = 0.0
+//                self.piecesCrossed = 0.0
                 
                 self.model.resetGame()
                 
@@ -1261,18 +1295,18 @@ extension ViewController: ModelDelegate {
         alert.addAction(action)
         alert.addAction(cancelAction)
         
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+//        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 
             self.present(alert, animated: true) {
                 //completion here
-                self.piecesCrossed = 0
+//                self.piecesCrossed = 0
                 
             }
-            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                //Add code here if you want something to happen after the first wait
-            }
-        }
+//            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+//                //Add code here if you want something to happen after the first wait
+//            }
+//        }
     }
     
     func setUpGame(board: Board) {
@@ -1313,18 +1347,62 @@ extension ViewController: ModelDelegate {
 //        piece.view.setNeedsDisplay()
 //    }
     
-    func animateMove(ball: Ball) {
+    func animateMove(ball: Ball, endSide: String) {
         
         print("Animate ball called")
 
+        CATransaction.begin()
+        
+        CATransaction.setCompletionBlock {
+            
+            self.ballPath = UIBezierPath()
+            
+            ball.view.center = self.ballEndingPoint
+            
+                switch endSide {
+
+                case "top":
+                    self.model.moveBall(ball: ball, startSide: "bottom")
+
+                case "bottom":
+                    self.model.moveBall(ball: ball, startSide: "top")
+
+                case "left":
+                    self.model.moveBall(ball: ball, startSide: "right")
+
+                case "right":
+                    self.model.moveBall(ball: ball, startSide: "left")
+
+                default:
+                    break
+                }
+            
+            
+            
+            
+            
+            //UP TO HERE!!!!
+            print("PUT MOVE BALL HERE")
+            
+            
+        }
+        
+        
+        
         
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = ballPath.cgPath
         animation.repeatCount = 0
-        animation.duration = piecesCrossed
+        animation.duration = 0.25
         ball.view.layer.add(animation, forKey: "animate along path")
-        ball.view.center = ballEndingPoint
-//        ballPath = UIBezierPath()
+        
+        
+        
+       
+        
+        CATransaction.commit()
+        
+        
         
     }
 }
