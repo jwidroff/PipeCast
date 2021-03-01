@@ -1438,7 +1438,7 @@ extension ViewController: ModelDelegate {
                         
                         if pieceX.shape == .cross {
                             
-                            self.model.switchCross(piece: pieceX)
+                            self.model.switchCross(piece: pieceX, ball: ball)
                             self.model.board.view.bringSubviewToFront(ball.view)
 
                         }
@@ -1463,7 +1463,8 @@ extension ViewController: ModelDelegate {
                         
                         if pieceX.shape == .cross {
                             
-                            self.model.switchCross(piece: pieceX)
+                            self.model.switchCross(piece: pieceX, ball: ball)
+                            
                             self.model.board.view.bringSubviewToFront(ball.view)
 
                         }
@@ -1487,7 +1488,7 @@ extension ViewController: ModelDelegate {
                         
                         if pieceX.shape == .cross {
                             
-                            self.model.switchCross(piece: pieceX)
+                            self.model.switchCross(piece: pieceX, ball: ball)
                             self.model.board.view.bringSubviewToFront(ball.view)
 
                         }
@@ -1509,7 +1510,7 @@ extension ViewController: ModelDelegate {
                         
                         if pieceX.shape == .cross {
                             
-                            self.model.switchCross(piece: pieceX)
+                            self.model.switchCross(piece: pieceX, ball: ball)
                             self.model.board.view.bringSubviewToFront(ball.view)
 
                         }

@@ -63,8 +63,6 @@ import UIKit
 
 //TODO: Make a variable on the ball piece called pieces that ball passed through and use it instead of the model var
 
-//TODO: Need to have a delay on the popup. It comes up too fast
-
 //TODO: Test doubleElbow and make sure that it was made correctly
 
 
@@ -91,7 +89,7 @@ class Model {
     var board = Board()
     var level = Level()
     var delegate: ModelDelegate?
-    var piecesThatBallPassedThrough = [Piece]() //MARK: Make this a property of the ball
+//    var piecesThatBallPassedThrough = [Piece]() //MARK: Make this a property of the ball
     var gameOver = false
     
     init(){
@@ -1175,7 +1173,7 @@ class Model {
                 break
             }
             
-            piecesThatBallPassedThrough.append(piece)
+            ball.piecesPassed.append(piece)
 
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
@@ -1210,8 +1208,8 @@ class Model {
                             return
                         }
                     }
-                    piecesThatBallPassedThrough.append(piece)
-
+                    ball.piecesPassed.append(piece)
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
                 }
@@ -1252,8 +1250,7 @@ class Model {
                             return
                         }
                     }
-                    piecesThatBallPassedThrough.append(piece)
-
+                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     
                 }
@@ -1295,8 +1292,7 @@ class Model {
                             return
                         }
                     }
-                    piecesThatBallPassedThrough.append(piece)
-
+                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
                 }
@@ -1336,8 +1332,7 @@ class Model {
                             return
                         }
                     }
-                    piecesThatBallPassedThrough.append(piece)
-
+                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
                 }
@@ -1389,7 +1384,7 @@ class Model {
 
                     ball.exited = true
 
-                    for piece in piecesThatBallPassedThrough {
+                    for piece in ball.piecesPassed {
 
                         delegate?.removePieceAfterBall(piece: piece)
                         
@@ -1451,7 +1446,7 @@ class Model {
     
 
     
-    func switchCross(piece: Piece) {
+    func switchCross(piece: Piece, ball: Ball) {
         
         
         print("switchCross")
@@ -1470,7 +1465,7 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        piecesThatBallPassedThrough.append(piece)
+        ball.piecesPassed.append(piece)
         
         delegate?.replacePiece(piece: piece)
     }
@@ -1880,6 +1875,7 @@ class Model {
         
         for ball in board.balls {
             
+            ball.piecesPassed = [Piece]()
             delegate?.clearPiecesAnimation(view: ball.view)
         }
         
@@ -1892,7 +1888,7 @@ class Model {
         }
         board.balls.removeAll()
         
-        piecesThatBallPassedThrough = [Piece]()
+        
         
         gameOver = false
         

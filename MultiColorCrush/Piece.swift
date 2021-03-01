@@ -696,6 +696,7 @@ class Ball {
     var startSide = "unmoved"
     var onColor = UIColor()
     var exited = Bool()
+    var piecesPassed = [Piece]()
 }
 
 enum Direction {
