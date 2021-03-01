@@ -57,6 +57,16 @@ import UIKit
 //TODO: See if you can get rid of all the "opening" properties for all piece shapes except for the cross
 
 
+//TODO: Latest issue is that switching of the piece after the ball moves 
+
+//TODO: Fix the ball popping in and out on when its moving
+
+//TODO: Make a variable on the ball piece called pieces that ball passed through and use it instead of the model var
+
+//TODO: Need to have a delay on the popup. It comes up too fast
+
+//TODO: Test doubleElbow and make sure that it was made correctly
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -73,6 +83,7 @@ protocol ModelDelegate {
     func clearPiecesAnimation(view: UIView)
 //    func animateMove(ball: Ball)
     func removePieceAfterBall(piece: Piece)
+    func replacePiece(piece: Piece)
 }
 
 class Model {
@@ -80,6 +91,8 @@ class Model {
     var board = Board()
     var level = Level()
     var delegate: ModelDelegate?
+    var piecesThatBallPassedThrough = [Piece]() //MARK: Make this a property of the ball
+
     
     init(){
         
@@ -1121,6 +1134,7 @@ class Model {
         if gameIsOver {
 
             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+            return
         }
     }
     
@@ -1134,7 +1148,6 @@ class Model {
         return bool
     }
     
-    var piecesThatBallPassedThrough = [Piece]()
             
     func moveBall(ball: Ball, startSide: String) {
         
@@ -1162,9 +1175,10 @@ class Model {
                 break
             }
             
+            piecesThatBallPassedThrough.append(piece)
+
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
-            piecesThatBallPassedThrough.append(piece)
             
         case "top":
             
@@ -1196,14 +1210,16 @@ class Model {
                             return
                         }
                     }
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     piecesThatBallPassedThrough.append(piece)
+
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
                 }
             } else {
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
+                return
             }
             
             
@@ -1236,15 +1252,18 @@ class Model {
                             return
                         }
                     }
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     piecesThatBallPassedThrough.append(piece)
 
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                 }
                 
             } else {
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                
                 print("crashed into a wall, or no track in place")
+                return
             }
             
             
@@ -1276,14 +1295,16 @@ class Model {
                             return
                         }
                     }
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     piecesThatBallPassedThrough.append(piece)
+
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
                 }
                 
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
+                return
             }
             
         case "right":
@@ -1315,13 +1336,16 @@ class Model {
                             return
                         }
                     }
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     piecesThatBallPassedThrough.append(piece)
+
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                
                 }
                 
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
+                return
             }
         default:
             break
@@ -1371,22 +1395,10 @@ class Model {
                             pieceX.indexes == piece.indexes
                         }
                         
-//                        board.balls.removeAll { (ballX) -> Bool in
-//                            ballX.indexes == piece.indexes
-//                        }
-                        
-                        
-                        
-                        
-                        
-                        
-                        //Just set up the func above. Need to do the same for the ball because the ball gets removed before the ball moves
-                        
-//                        ball.view.removeFromSuperview()
                     }
                     
+                    check4Winner(piece: getPieceInfo(index: ball.indexes))
                     
-
                 }
             }
         }
@@ -1404,6 +1416,7 @@ class Model {
         else {
             
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+            return
         }
     }
     
@@ -1424,43 +1437,41 @@ class Model {
                         
                         moveBall(ball: ball, startSide: "unmoved")
                         
+                        
+                        
                     }
                 }
             }
         }
     }
     
-//    func animateMove(ball: Ball, completion: @escaping (Bool) -> Void) {
-//    
-//        
-////        delegate!.animateMove(ball: ball)
-//        
-//        completion(true)
-//        
-//    }
-    
-    func changePieceAfterBallMoves(piece: Piece, ball: Ball) -> Piece {
-        
-        let pieceX = Piece()
-        
-        for pieceXX in board.pieces {
-            
-            if pieceXX.indexes == piece.indexes {
-                
-                if pieceXX.shape == .cross {
 
-                    switch4Tap(piece: pieceXX) { (false) in
-                        pieceXX.isLocked = true
-                    }
-                }
-                
-                pieceXX.isLocked = true
-                
-                return pieceXX
-            }
+    
+    func switchCross(piece: Piece) {
+        
+        
+        print("switchCross")
+        
+        //PICK UP HERE - NEED TO FIX THE SWITCH FOR AFTER THE BALL GOES ACROSS THE CROSS PIECE
+        
+        
+        piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+        piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+        piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+        piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+        
+        if piece.currentSwitch == 1 {
+            piece.currentSwitch = 2
+        } else {
+            piece.currentSwitch = 1
         }
-        return pieceX
+        
+        piecesThatBallPassedThrough.append(piece)
+        
+        delegate?.replacePiece(piece: piece)
     }
+    
+    
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
                 

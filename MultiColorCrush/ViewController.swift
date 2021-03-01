@@ -479,6 +479,29 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
 
+    func replacePiece(piece: Piece) {
+        
+        
+        let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+        
+        
+        
+        
+        let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (pieceHeight / 2), width: pieceWidth, height: pieceHeight)
+        let shapeView = ShapeView(frame: frame, piece: newPiece)
+        
+        piece.view.removeFromSuperview()
+        
+        piece.view = shapeView
+        
+        
+        
+        self.model.board.view.addSubview(piece.view)
+        
+    }
+    
+    
+    
     func ballCrashInCross(piece: Piece, ball: Ball) {
         
         let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.view.center.y
@@ -688,6 +711,8 @@ extension ViewController: ModelDelegate {
                                 
                 self.animateMove(ball: ball, endSide: endSide)
                 
+//                ball.view.center = self.ballEndingPoint
+                
 //                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
@@ -746,6 +771,8 @@ extension ViewController: ModelDelegate {
                 
                 self.animateMove(ball: ball, endSide: endSide)
 
+//                ball.view.center = self.ballEndingPoint
+                
 //                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
@@ -855,6 +882,8 @@ extension ViewController: ModelDelegate {
 
                 self.animateMove(ball: ball, endSide: endSide)
 
+                
+//                ball.view.center = self.ballEndingPoint
 //                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
@@ -954,6 +983,8 @@ extension ViewController: ModelDelegate {
 
                 self.animateMove(ball: ball, endSide: endSide)
 
+//                ball.view.center = self.ballEndingPoint
+                
 //                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
@@ -1053,6 +1084,8 @@ extension ViewController: ModelDelegate {
 //                self.changePieceAfterBallMoves(piece: piece, ball: ball)
 
                 self.animateMove(ball: ball, endSide: endSide)
+                
+//                ball.view.center = self.ballEndingPoint
 
 //                self.model.checkIfBallExited(ball: ball)
 
@@ -1132,16 +1165,21 @@ extension ViewController: ModelDelegate {
 //            runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
 //            return
 //        }
+        
+        
+//        ball.view.center = ballEndingPoint
+        
     }
     
     func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
         
-        let pieceX = self.model.changePieceAfterBallMoves(piece: piece, ball: ball)
+        let pieceX = self.model.getPieceInfo(index: ball.indexes)
         
+        pieceX.isLocked = true
         
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
-        
-        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+//        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+//
+//        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
             
             let view = ShapeView(frame: pieceX.view.frame, piece: pieceX)
             
@@ -1155,11 +1193,11 @@ extension ViewController: ModelDelegate {
             
             self.model.board.view.bringSubviewToFront(ball.view)
             
-            self.ballPath = UIBezierPath()
+//            self.ballPath = UIBezierPath()
             
-            self.piecesCrossed = 0
+//            self.piecesCrossed = 0
             
-        }
+//        }
         
     }
     
@@ -1258,55 +1296,66 @@ extension ViewController: ModelDelegate {
     
     func runPopUpView(title: String, message: String) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default) { (action) in
-            alert.dismiss(animated: true) {
-                
-                if title == "YOU WIN" {
-                    self.model.level.number += 1
-                }
-                
-                self.ballPath = UIBezierPath()
-//                self.piecesCrossed = 0.0
-                
-                self.model.resetGame()
-                
-                let delayedTime = DispatchTime.now() + .milliseconds(Int(25))
-                DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+        print("Popup called \(title)")
+        
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(1000))
+        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+        
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+                alert.dismiss(animated: true) {
+                    
+                    if title == "YOU WIN" {
+                        self.model.level.number += 1
+                    }
+                    
+                    self.ballPath = UIBezierPath()
+    //                self.piecesCrossed = 0.0
+                    
+                    self.model.resetGame()
+                    
+                    let delayedTime = DispatchTime.now() + .milliseconds(Int(25))
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 
-                    
-                    self.boardView.removeFromSuperview()
-                    self.retryButton.removeFromSuperview()
-                    self.menuButton.removeFromSuperview()
-                    self.model.setUpGame()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-                        //Add code here if you want something to happen after the first wait
+                        
+                        self.boardView.removeFromSuperview()
+                        self.retryButton.removeFromSuperview()
+                        self.menuButton.removeFromSuperview()
+                        self.model.setUpGame()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+                            //Add code here if you want something to happen after the first wait
+                        }
                     }
                 }
             }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
-            alert.dismiss(animated: true) {
-                print()
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
+                alert.dismiss(animated: true) {
+                    print()
+                }
             }
-        }
-        alert.addAction(action)
-        alert.addAction(cancelAction)
-        
-//        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
-//        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+            alert.addAction(action)
+            alert.addAction(cancelAction)
+            
+    //        let delayedTime = DispatchTime.now() + .milliseconds(Int(self.piecesCrossed * 1000))
+    //        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
 
-            self.present(alert, animated: true) {
-                //completion here
-//                self.piecesCrossed = 0
-                
-            }
-//            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
-//                //Add code here if you want something to happen after the first wait
-//            }
-//        }
+                self.present(alert, animated: true) {
+                    //completion here
+    //                self.piecesCrossed = 0
+                    
+                }
+    //            DispatchQueue.main.asyncAfter(deadline: delayedTime + 0.25) {
+    //                //Add code here if you want something to happen after the first wait
+    //            }
+    //        }
+            
+            
+        
+        }
+
     }
     
     func setUpGame(board: Board) {
@@ -1347,50 +1396,128 @@ extension ViewController: ModelDelegate {
 //        piece.view.setNeedsDisplay()
 //    }
     
+    
+    
     func animateMove(ball: Ball, endSide: String) {
         
         print("Animate ball called")
 
+        print(ball.indexes)
+        
+        let pieceX = self.model.getPieceInfo(index: ball.indexes)
+        
+        
         CATransaction.begin()
         
         CATransaction.setCompletionBlock {
             
             
-            
-            //MARK: The func below causes errors. FIX
-//            self.changePieceAfterBallMoves(piece: self.model.getPieceInfo(index: ball.indexes), ball: ball)
+//            ball.view.center = self.ballEndingPoint
             
             
-            ball.view.center = self.ballEndingPoint
-            
-            
-            self.model.checkIfBallExited(ball: ball)
-
-            self.model.check4Winner(piece: self.model.getPieceInfo(index: ball.indexes))
+           
             
             self.ballPath = UIBezierPath()
-            
-            
-            
             
             
                 switch endSide {
 
                 case "top":
+                    
+                    
+                    
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        
+                        if pieceX.shape == .cross {
+                            
+                            self.model.switchCross(piece: pieceX)
+                            self.model.board.view.bringSubviewToFront(ball.view)
+
+                        }
+                        
+                        
+                    }
                     self.model.moveBall(ball: ball, startSide: "bottom")
 
+                    CATransaction.commit()
+  
+                    
+
                 case "bottom":
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        
+                        if pieceX.shape == .cross {
+                            
+                            self.model.switchCross(piece: pieceX)
+                            self.model.board.view.bringSubviewToFront(ball.view)
+
+                        }
+                        
+                        
+                    }
                     self.model.moveBall(ball: ball, startSide: "top")
 
+                    CATransaction.commit()
+                    
+
+                    
+                    
                 case "left":
+                    
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        
+                        if pieceX.shape == .cross {
+                            
+                            self.model.switchCross(piece: pieceX)
+                            self.model.board.view.bringSubviewToFront(ball.view)
+
+                        }
+                        
+                        
+                    }
                     self.model.moveBall(ball: ball, startSide: "right")
 
+                    CATransaction.commit()
+                    
+                    
                 case "right":
+                    
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        
+                        if pieceX.shape == .cross {
+                            
+                            self.model.switchCross(piece: pieceX)
+                            self.model.board.view.bringSubviewToFront(ball.view)
+
+                        }
+                        
+                        
+                    }
                     self.model.moveBall(ball: ball, startSide: "left")
+
+                    CATransaction.commit()
+                    
+                    
 
                 default:
                     break
                 }
+            
+            
+            ball.view.center = self.ballEndingPoint
+            self.model.checkIfBallExited(ball: ball)
+
+            
+            
+//            self.model.check4Winner(piece: self.model.getPieceInfo(index: ball.indexes))
             
             
             
@@ -1398,14 +1525,9 @@ extension ViewController: ModelDelegate {
             
             
             
-            //UP TO HERE!!!!
-            print("PUT MOVE BALL HERE")
             
             
         }
-        
-        
-        
         
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = ballPath.cgPath
@@ -1413,15 +1535,12 @@ extension ViewController: ModelDelegate {
         animation.duration = 0.25
         ball.view.layer.add(animation, forKey: "animate along path")
         
-        
-        
-       
-        
         CATransaction.commit()
         
-        
+//        ball.view.center = ballEndingPoint
         
     }
+    
 }
 
 
