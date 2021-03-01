@@ -713,7 +713,7 @@ extension ViewController: ModelDelegate {
                 
 //                ball.view.center = self.ballEndingPoint
                 
-//                self.model.checkIfBallExited(ball: ball)
+                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
                 
@@ -773,7 +773,7 @@ extension ViewController: ModelDelegate {
 
 //                ball.view.center = self.ballEndingPoint
                 
-//                self.model.checkIfBallExited(ball: ball)
+                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
 //
@@ -884,7 +884,7 @@ extension ViewController: ModelDelegate {
 
                 
 //                ball.view.center = self.ballEndingPoint
-//                self.model.checkIfBallExited(ball: ball)
+                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
 //
@@ -985,7 +985,7 @@ extension ViewController: ModelDelegate {
 
 //                ball.view.center = self.ballEndingPoint
                 
-//                self.model.checkIfBallExited(ball: ball)
+                self.model.checkIfBallExited(ball: ball)
 //
 //                self.model.check4Winner(piece: piece)
 //
@@ -1087,7 +1087,9 @@ extension ViewController: ModelDelegate {
                 
 //                ball.view.center = self.ballEndingPoint
 
-//                self.model.checkIfBallExited(ball: ball)
+                self.model.checkIfBallExited(ball: ball)
+                
+                
 
 //                self.model.check4Winner(piece: piece)
                 
@@ -1154,6 +1156,7 @@ extension ViewController: ModelDelegate {
                 
                 
             }
+                        
         default:
             break
         }
@@ -1295,6 +1298,9 @@ extension ViewController: ModelDelegate {
     }
     
     func runPopUpView(title: String, message: String) {
+        
+        if model.gameOver == true { return }
+        
         
         print("Popup called \(title)")
         
@@ -1439,7 +1445,12 @@ extension ViewController: ModelDelegate {
                         
                         
                     }
-                    self.model.moveBall(ball: ball, startSide: "bottom")
+                    
+//                    if self.model.gameOver == false {
+                        self.model.moveBall(ball: ball, startSide: "bottom")
+
+//                    }
+                    
 
                     CATransaction.commit()
   
@@ -1459,8 +1470,10 @@ extension ViewController: ModelDelegate {
                         
                         
                     }
-                    self.model.moveBall(ball: ball, startSide: "top")
+//                    if self.model.gameOver == false {
+                        self.model.moveBall(ball: ball, startSide: "top")
 
+//                    }
                     CATransaction.commit()
                     
 
@@ -1481,8 +1494,10 @@ extension ViewController: ModelDelegate {
                         
                         
                     }
-                    self.model.moveBall(ball: ball, startSide: "right")
+//                    if self.model.gameOver == false {
+                        self.model.moveBall(ball: ball, startSide: "right")
 
+//                    }
                     CATransaction.commit()
                     
                     
@@ -1501,8 +1516,10 @@ extension ViewController: ModelDelegate {
                         
                         
                     }
-                    self.model.moveBall(ball: ball, startSide: "left")
+//                    if self.model.gameOver == false {
+                        self.model.moveBall(ball: ball, startSide: "left")
 
+//                    }
                     CATransaction.commit()
                     
                     
@@ -1513,7 +1530,7 @@ extension ViewController: ModelDelegate {
             
             
             ball.view.center = self.ballEndingPoint
-            self.model.checkIfBallExited(ball: ball)
+//            self.model.checkIfBallExited(ball: ball)
 
             
             

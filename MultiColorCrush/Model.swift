@@ -92,7 +92,7 @@ class Model {
     var level = Level()
     var delegate: ModelDelegate?
     var piecesThatBallPassedThrough = [Piece]() //MARK: Make this a property of the ball
-
+    var gameOver = false
     
     init(){
         
@@ -1350,6 +1350,8 @@ class Model {
         default:
             break
         }
+        
+       
 //        checkIfBallExited(piece: piece, ball: ball)
     }
     
@@ -1416,6 +1418,8 @@ class Model {
         else {
             
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+            
+            gameOver = true
             return
         }
     }
@@ -1889,6 +1893,8 @@ class Model {
         board.balls.removeAll()
         
         piecesThatBallPassedThrough = [Piece]()
+        
+        gameOver = false
         
     }
 }
