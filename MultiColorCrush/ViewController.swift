@@ -711,7 +711,7 @@ extension ViewController: ModelDelegate {
                                 
                 self.animateMove(ball: ball, endSide: endSide)
                 
-//                ball.view.center = self.ballEndingPoint
+                ball.view.center = self.ballEndingPoint
                 
                 self.model.checkIfBallExited(ball: ball)
 //

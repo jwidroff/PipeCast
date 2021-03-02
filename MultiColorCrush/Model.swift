@@ -65,6 +65,7 @@ import UIKit
 
 //TODO: Test doubleElbow and make sure that it was made correctly
 
+//TODO: Fix initial animation. Seems to be choppy right at the start
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
