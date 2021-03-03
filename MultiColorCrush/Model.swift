@@ -44,11 +44,6 @@ import UIKit
 
 //TODO: Make the buttons show that theyre being pressed
 
-
-
-//TODO: CREATE DOUBLE ELBOW PIECE
-
-
 //TODO: Need to make the entrance tile look locked after the button is pressed
 
 //TODO: May need to utilize the closing property for the doubleElbow when is comes in from a side but the pivot is the other way
@@ -1084,6 +1079,19 @@ class Model {
         return bool
     }
     
+    func addToPiecesPassed(ball: Ball, piece: Piece) {
+        
+        if !ball.piecesPassed.contains(where: { (pieceX) -> Bool in
+            piece.indexes == pieceX.indexes
+        }) {
+            
+            ball.piecesPassed.append(piece)
+            
+        }
+        
+        
+    }
+    
             
     func moveBall(ball: Ball, startSide: String) {
         
@@ -1111,7 +1119,9 @@ class Model {
                 break
             }
             
-            ball.piecesPassed.append(piece)
+//            ball.piecesPassed.append(piece)
+            
+            addToPiecesPassed(ball: ball, piece: piece)
 
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
@@ -1145,7 +1155,12 @@ class Model {
                         }
                     }
                     
-                    ball.piecesPassed.append(piece)
+//                    ball.piecesPassed.append(piece)
+                    
+                    addToPiecesPassed(ball: ball, piece: piece)
+                    
+                    
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
                 }
@@ -1186,7 +1201,10 @@ class Model {
                             break
                         }
                     }
-                    ball.piecesPassed.append(piece)
+                    
+                    addToPiecesPassed(ball: ball, piece: piece)
+                    
+//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 }
                 
@@ -1225,7 +1243,10 @@ class Model {
                             break
                         }
                     }
-                    ball.piecesPassed.append(piece)
+                    
+                    addToPiecesPassed(ball: ball, piece: piece)
+                    
+//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 }
                 
@@ -1264,7 +1285,10 @@ class Model {
                             break
                         }
                     }
-                    ball.piecesPassed.append(piece)
+                    
+                    addToPiecesPassed(ball: ball, piece: piece)
+                    
+//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 }
                 
@@ -1297,6 +1321,7 @@ class Model {
                         }
                     }
                     check4Winner(piece: getPieceInfo(index: ball.indexes))
+                    return
                 }
             }
         }
@@ -1352,7 +1377,7 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        ball.piecesPassed.append(piece)
+//        ball.piecesPassed.append(piece)
         
         delegate?.replacePiece(piece: piece)
     }
