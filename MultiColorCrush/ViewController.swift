@@ -503,6 +503,9 @@ extension ViewController: ModelDelegate {
         
         let ballIsLeftOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) > ball.view.center.x
         
+        var startPoint = CGPoint()
+        var endPoint = CGPoint()
+
 //        print("yAxisIsAligned \(yAxisIsAligned)")
 //        print("xAxisIsAligned \(xAxisIsAligned)")
 //        print("ballIsLowerTanPieceCenter \(ballIsLowerTanPieceCenter)")
@@ -514,48 +517,73 @@ extension ViewController: ModelDelegate {
             
             //Moves the piece up
             
-            let startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceWidth / 2))
+             startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceWidth / 2))
             
-            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 3))
+             endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 3))
             
-            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
-            }
+//            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
+//
+//                self.animateMove(ball: ball, endSide: "center")
+//
+//            }
             
         } else if xAxisIsAligned && ballIsHigherThanPieceCenter {
             
             //Moves the piece down
             
-            let startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceWidth / 2))
+             startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceWidth / 2))
             
-            let endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 3))
+             endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 3))
             
-            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
-            }
+//            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
+//
+//                self.animateMove(ball: ball, endSide: "center")
+//            }
             
         } else if yAxisIsAligned && ballIsRightOfPieceCenter {
             
             //Moves the piece left
             
-            let startPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 2), y: ball.view.center.y)
+             startPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 2), y: ball.view.center.y)
             
-            let endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 3), y: ball.view.center.y)
+             endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 3), y: ball.view.center.y)
             
-            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
-            }
+//            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
+//                self.animateMove(ball: ball, endSide: "center")
+//            }
             
         } else if yAxisIsAligned && ballIsLeftOfPieceCenter {
             
             //Moves the ball right
             
-            let startPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 2), y: ball.view.center.y)
+             startPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 2), y: ball.view.center.y)
             
-            let endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 3), y: ball.view.center.y)
+             endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 3), y: ball.view.center.y)
             
-            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (false) in
-            }
+//            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
+//
+//                self.animateMove(ball: ball, endSide: "center")
+//            }
         }
         
-        runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+        UIView.animate(withDuration: 0.125) {
+            
+            print("ball.center \(ball.view.center)")
+            print("startPoint \(startPoint)")
+            print("endPoint \(endPoint)")
+
+            let transform = CGAffineTransform(translationX: (startPoint.x - endPoint.x) * 2, y: (startPoint.y - endPoint.y) * 2)
+            
+            
+            ball.view.transform = transform
+            
+        } completion: { (true) in
+            self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+        }
+
+        
+        
+       
     }
     
     func removePieceAfterBall(piece: Piece) {

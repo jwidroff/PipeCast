@@ -1137,6 +1137,16 @@ class Model {
                     return
                 }
                 
+                if piece.shape == .cross {
+
+                    if piece.side.top.closing.isOpen == false {
+
+                        
+                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+                        break
+                    }
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1145,17 +1155,6 @@ class Model {
                         
                         ball.onColor = piece.side.bottom.color!
                     }
-                    
-                    if piece.shape == .cross {
-                        
-                        if piece.side.top.closing.isOpen == false {
-                            
-                            delegate?.ballCrashInCross(piece: piece, ball: ball)
-                            break
-                        }
-                    }
-                    
-//                    ball.piecesPassed.append(piece)
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
@@ -1184,6 +1183,15 @@ class Model {
                     return
                 }
                 
+                if piece.shape == .cross {
+
+                    if piece.side.bottom.closing.isOpen == false {
+                        
+                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+                        break
+                    }
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1193,14 +1201,7 @@ class Model {
                         ball.onColor = piece.side.top.color!
                     }
                     
-                    if piece.shape == .cross {
-                        
-                        if piece.side.bottom.closing.isOpen == false {
-                            
-                            delegate?.ballCrashInCross(piece: piece, ball: ball)
-                            break
-                        }
-                    }
+                    
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
@@ -1226,6 +1227,15 @@ class Model {
                     return
                 }
                 
+                if piece.shape == .cross {
+
+                    if piece.side.left.closing.isOpen == false {
+                        
+                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+                        break
+                    }
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1235,14 +1245,7 @@ class Model {
                         ball.onColor = piece.side.right.color!
                     }
                     
-                    if piece.shape == .cross {
-                        
-                        if piece.side.left.closing.isOpen == false {
-                            
-                            delegate?.ballCrashInCross(piece: piece, ball: ball)
-                            break
-                        }
-                    }
+                    
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
@@ -1268,6 +1271,15 @@ class Model {
                     return
                 }
                 
+                if piece.shape == .cross {
+
+                    if piece.side.right.closing.isOpen == false {
+                        
+                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+                        break
+                    }
+                }
+                
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
@@ -1277,14 +1289,7 @@ class Model {
                         ball.onColor = piece.side.left.color!
                     }
                     
-                    if piece.shape == .cross {
-                        
-                        if piece.side.right.closing.isOpen == false {
-                            
-                            delegate?.ballCrashInCross(piece: piece, ball: ball)
-                            break
-                        }
-                    }
+                    
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
