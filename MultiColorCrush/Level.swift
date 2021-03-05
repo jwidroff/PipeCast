@@ -21,7 +21,22 @@ class LevelModel {
     
     let board = Board()
     
-    let levelNames = ["basic", "walls intro", "new connection", "intro to lock", "no lock", "look away", "piecey", "try to guess", "lucky guess", "infinite", "you tell me", "test1", "test2", "test3", "test4", "test5"]
+    let levelNames = ["basic",
+                      "walls intro",
+                      "new connection",
+                      "intro to lock",
+                      "no lock",
+                      "look away",
+                      "piecey",
+                      "try to guess",
+                      "lucky guess",
+                      "infinite",
+                      "you tell me",
+                      "test1",
+                      "test2",
+                      "test3",
+                      "test4",
+                      "test5"]
         
     func returnBoard(levelNumber: Int) -> Board {
         

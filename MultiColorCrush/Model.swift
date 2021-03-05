@@ -1137,30 +1137,40 @@ class Model {
                     return
                 }
                 
-                if piece.shape == .cross {
-
-                    if piece.side.top.closing.isOpen == false {
-
-                        
-                        delegate?.ballCrashInCross(piece: piece, ball: ball)
-                        break
-                    }
+//                if piece.shape == .cross {
+//
+//                    if piece.side.top.closing.isOpen == false {
+//
+//                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+//                        break
+//                    }
+//                }
+                
+                if piece.shape == .colorChanger {
+                    
+                    ball.onColor = piece.side.bottom.color!
                 }
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.shape == .colorChanger {
-                        
-                        ball.onColor = piece.side.bottom.color!
-                    }
+                    
+                    //UPTO HERE: See if we can move this func up out of the block for all directions
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
                     
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    return
 
                 }
             } else {
@@ -1183,30 +1193,32 @@ class Model {
                     return
                 }
                 
-                if piece.shape == .cross {
-
-                    if piece.side.bottom.closing.isOpen == false {
-                        
-                        delegate?.ballCrashInCross(piece: piece, ball: ball)
-                        break
-                    }
+//                if piece.shape == .cross {
+//
+//                    if piece.side.bottom.closing.isOpen == false {
+//
+//                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+//                        break
+//                    }
+//                }
+                
+                if piece.shape == .colorChanger {
+                    
+                    ball.onColor = piece.side.top.color!
                 }
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.shape == .colorChanger {
-                        
-                        ball.onColor = piece.side.top.color!
-                    }
+                   
                     
                     
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    return
                 }
                 
             } else {
@@ -1227,30 +1239,32 @@ class Model {
                     return
                 }
                 
-                if piece.shape == .cross {
-
-                    if piece.side.left.closing.isOpen == false {
-                        
-                        delegate?.ballCrashInCross(piece: piece, ball: ball)
-                        break
-                    }
+//                if piece.shape == .cross {
+//
+//                    if piece.side.left.closing.isOpen == false {
+//
+//                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+//                        break
+//                    }
+//                }
+                
+                if piece.shape == .colorChanger {
+                    
+                    ball.onColor = piece.side.right.color!
                 }
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.shape == .colorChanger {
-                        
-                        ball.onColor = piece.side.right.color!
-                    }
+                    
                     
                     
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    return
                 }
                 
             } else {
@@ -1271,30 +1285,30 @@ class Model {
                     return
                 }
                 
-                if piece.shape == .cross {
-
-                    if piece.side.right.closing.isOpen == false {
-                        
-                        delegate?.ballCrashInCross(piece: piece, ball: ball)
-                        break
-                    }
+//                if piece.shape == .cross {
+//
+//                    if piece.side.right.closing.isOpen == false {
+//
+//                        delegate?.ballCrashInCross(piece: piece, ball: ball)
+//                        break
+//                    }
+//                }
+                
+                if piece.shape == .colorChanger {
+                    
+                    ball.onColor = piece.side.left.color!
                 }
+                
                 
                 if board.pieces.contains(where: { (piece) -> Bool in
                     piece.indexes == ball.indexes
                 }) {
                     
-                    if piece.shape == .colorChanger {
-                        
-                        ball.onColor = piece.side.left.color!
-                    }
-                    
-                    
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    ball.piecesPassed.append(piece)
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    return
                 }
                 
             } else {
@@ -1305,6 +1319,7 @@ class Model {
         default:
             break
         }
+        return
     }
     
     func checkIfBallExited(ball: Ball) {
@@ -1317,6 +1332,16 @@ class Model {
 
                     ball.exited = true
 
+                    CATransaction.begin()
+                    
+                    CATransaction.setCompletionBlock {
+                        
+                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                        return
+                        
+                    }
+                    
+                    
                     for piece in ball.piecesPassed {
 
                         delegate?.removePieceAfterBall(piece: piece)
@@ -1325,8 +1350,9 @@ class Model {
                             pieceX.indexes == piece.indexes
                         }
                     }
-                    check4Winner(piece: getPieceInfo(index: ball.indexes))
-                    return
+                    CATransaction.commit()
+
+                   
                 }
             }
         }

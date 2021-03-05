@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     var colorTheme = ColorTheme()
     var boardView = UIView()
     var ballEndingPoint = CGPoint()
+    var duration4Animation = 0.25
+//    let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
     
     override func viewDidLoad() {
         
@@ -399,13 +401,13 @@ class ViewController: UIViewController {
             self.ballPath = UIBezierPath()
             
             switch endSide {
-            
+
             case "top":
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.shape == .cross {
+                    if pieceX.shape == .cross && pieceX.side.top.closing.isOpen != false {
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
@@ -419,7 +421,7 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.shape == .cross {
+                    if pieceX.shape == .cross && pieceX.side.bottom.closing.isOpen != false{
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
@@ -433,7 +435,7 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.shape == .cross {
+                    if pieceX.shape == .cross && pieceX.side.left.closing.isOpen != false {
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
@@ -447,7 +449,7 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.shape == .cross {
+                    if pieceX.shape == .cross && pieceX.side.right.closing.isOpen != false {
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
@@ -565,7 +567,7 @@ extension ViewController: ModelDelegate {
 //                self.animateMove(ball: ball, endSide: "center")
 //            }
         }
-        
+//        self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
         UIView.animate(withDuration: 0.125) {
             
             print("ball.center \(ball.view.center)")
@@ -577,8 +579,10 @@ extension ViewController: ModelDelegate {
             
             ball.view.transform = transform
             
+
         } completion: { (true) in
-            self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+            print()
+//            return
         }
 
         
@@ -586,17 +590,19 @@ extension ViewController: ModelDelegate {
        
     }
     
+    
+    
     func removePieceAfterBall(piece: Piece) {
         
         let scale = CGAffineTransform(scaleX: 0.01, y: 0.01)
         
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
         
         var tempBall = Ball()
         
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
             
-            UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
+            UIView.animate(withDuration: self.duration4Animation, delay: 0.10, options: .curveEaseInOut) {
                 
                 piece.view.transform = scale
                 
@@ -620,7 +626,7 @@ extension ViewController: ModelDelegate {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
-        UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
+        UIView.animate(withDuration: duration4Animation, delay: 0.10, options: .curveEaseInOut) {
             piece.view.transform = scale
 
         } completion: { (true) in
@@ -633,7 +639,7 @@ extension ViewController: ModelDelegate {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
-        UIView.animate(withDuration: 0.5, delay: 0.10, options: .curveEaseInOut) {
+        UIView.animate(withDuration: duration4Animation, delay: 0.10, options: .curveEaseInOut) {
             ball.view.transform = scale
 
         } completion: { (true) in
@@ -661,7 +667,63 @@ extension ViewController: ModelDelegate {
         }
     }
     
+    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool {
+        
+        var bool = false
+        
+        switch startSide {
+        
+        case "top":
+            if piece.side.top.closing.isOpen == false {
+
+                ballCrashInCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "bottom":
+            if piece.side.bottom.closing.isOpen == false {
+
+                ballCrashInCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "left":
+            if piece.side.left.closing.isOpen == false {
+
+                ballCrashInCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "right":
+            if piece.side.right.closing.isOpen == false {
+
+                ballCrashInCross(piece: piece, ball: ball)
+                bool = true
+            }
+        default:
+            break
+            
+        }
+        
+        
+        return bool
+        
+    }
+    
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
+        
+        
+        print("piece shape \(piece.shape)")
+        
+        if piece.shape == .cross {
+            
+            if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                
+                self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                return
+                
+            }
+            
+        }
+       
+        print("this shouldnt have printed")
         
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
@@ -672,25 +734,20 @@ extension ViewController: ModelDelegate {
         
         case "center":
             
-            //            print("start side = center")
             
             if endSide == "left" {
-                //                print("end side = left")
                 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                //                print("end side = right")
                 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "top"{
-                //                print("end side = top")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "bottom" {
-                //                print("end side = bottom")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
@@ -702,33 +759,25 @@ extension ViewController: ModelDelegate {
             self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
                 
                 self.animateMove(ball: ball, endSide: endSide)
-                
-//                ball.view.center = self.ballEndingPoint
-                
+                                
                 self.model.checkIfBallExited(ball: ball)
             }
             
         case "top":
             
-            //            print("start side = top")
-            
             if endSide == "left" {
-                //                print("end side = left")
                 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                //                print("end side = right")
                 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "bottom" {
-                //                print("end side = bottom")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "center" {
-                //                print("end side = center")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -746,25 +795,20 @@ extension ViewController: ModelDelegate {
             
         case "bottom":
             
-            //            print("start side = bottom")
             
             if endSide == "left" {
-                //                print("end side = left")
                 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "right" {
-                //                print("end side = right")
                 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "top" {
-                //                print("end side = top")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "center" {
-                //                print("end side = center")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -781,25 +825,20 @@ extension ViewController: ModelDelegate {
             
         case "left":
             
-            //            print("start side = left")
             
             if endSide == "bottom" {
-                //                print("end side = bottom")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "top" {
-                //                print("end side = top")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "right" {
-                //                print("end side = right")
                 
                 endPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! + 1, y: ball.indexes.y!)
             } else if endSide == "center" {
-                //                print("end side = center")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -815,26 +854,20 @@ extension ViewController: ModelDelegate {
             }
             
         case "right":
-            
-            //            print("start side = right")
-            
+                        
             if endSide == "bottom" {
-                //                print("end side = bottom")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             } else if endSide == "top" {
-                //                print("end side = top")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! - 1)
             } else if endSide == "left" {
-                //                print("end side = left")
                 
                 endPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x! - 1, y: ball.indexes.y!)
             } else if endSide == "center" {
-                //                print("end side = center")
                 
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
@@ -945,7 +978,8 @@ extension ViewController: ModelDelegate {
         
         if model.gameOver == true { return }
                 
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(750))
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+        
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
         
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
