@@ -976,8 +976,13 @@ extension ViewController: ModelDelegate {
     
     func runPopUpView(title: String, message: String) {
         
-        if model.gameOver == true { return }
+        if model.gameOver == true {
+            model.gameOver = false
+            return
+            
+        }
                 
+        
         let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
         
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {

@@ -1065,6 +1065,7 @@ class Model {
         if gameIsOver {
 
             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+            gameOver = false
             return
         }
     }
