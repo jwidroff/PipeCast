@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 9
+    var number = 16
 
     var board = Board()
 }
@@ -36,7 +36,8 @@ class LevelModel {
                       "test2",
                       "test3",
                       "test4",
-                      "test5"]
+                      "test5",
+                      "test6"]
         
     func returnBoard(levelNumber: Int) -> Board {
         
@@ -532,7 +533,11 @@ class LevelModel {
             board.heightSpaces = 12
             board.widthSpaces = 6
 
+            board.amountOfRandomPieces = 20
+            
+            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
 
+            board.randomPieceShapes = [.doubleElbow, .cross]
 
             let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
             board.pieces.append(entrance1)
@@ -554,6 +559,56 @@ class LevelModel {
             board.pieces.append(testPiece)
 
 
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+
+            
+        case "test6":
+
+
+            board.heightSpaces = 14
+            board.widthSpaces = 7
+
+            board.amountOfRandomPieces = 30
+
+            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
+
+            board.randomPieceShapes = [.doubleElbow]
+
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance1)
+
+//            let piece1 = Piece(indexes: Indexes(x: 5, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece1)
+            
+            let entrance2 = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
+            board.pieces.append(entrance2)
+            
+//            let piece2 = Piece(indexes: Indexes(x: 1, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece2)
+
+            let entrance3 = Piece(indexes: Indexes(x: 3, y: 4), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "top", doesPivot: nil)
+            board.pieces.append(entrance3)
+
+//            let piece3 = Piece(indexes: Indexes(x: 3, y: 3), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 3, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece3)
+
+            
+            
+            let entrance4 = Piece(indexes: Indexes(x: 3, y: 6), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom", doesPivot: nil)
+            board.pieces.append(entrance4)
+
+
+           
+
+            
+
+           
+//            let piece4 = Piece(indexes: Indexes(x: 3, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece4)
+//            
+            
+            
+            
             addBorderAroundBoardOf(.wall, exceptionIndexes: [])
 
 
@@ -708,9 +763,9 @@ class LevelModel {
                 
             case .doubleElbow:
                 
-                piece.doesPivot = false
-                piece.switches = 1
-                piece.currentSwitch = 1
+//                piece.doesPivot = false
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
                 
             case .cross:
                 
@@ -973,10 +1028,6 @@ class LevelModel {
 //                    piece.side.bottom.color = piece.colors[1]
                     
                     
-                    if piece.doesPivot {
-                        piece.currentSwitch = 2
-                    }
-                    
                 } else if piece.currentSwitch == 2 {
                     
                     
@@ -993,9 +1044,6 @@ class LevelModel {
                     piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
                     
-                    if piece.doesPivot {
-                        piece.currentSwitch = 1
-                    }
                  }
                 
             case 2:
@@ -1055,9 +1103,6 @@ class LevelModel {
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[0]
 
-                    if piece.doesPivot {
-                        piece.currentSwitch = 2
-                    }
                     
                 } else if piece.currentSwitch == 2 {
                     
@@ -1075,9 +1120,6 @@ class LevelModel {
                     piece.side.left.color = piece.colors[0]
                     piece.side.bottom.color = piece.colors[1]
 
-                    if piece.doesPivot {
-                        piece.currentSwitch = 1
-                    }
                     
                  }
                 

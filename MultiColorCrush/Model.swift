@@ -52,20 +52,9 @@ import UIKit
 //TODO: See if you can get rid of all the "opening" properties for all piece shapes except for the cross
 
 
-//TODO: Latest issue is that switching of the piece after the ball moves 
-
-//TODO: Fix the ball popping in and out on when its moving
-
-//TODO: Make a variable on the ball piece called pieces that ball passed through and use it instead of the model var
-
 //TODO: Test doubleElbow and make sure that it was made correctly
 
-//TODO: Fix initial animation. Seems to be choppy right at the start. This was fixed but causing errors
-
-//TODO: Restart button doesnt work when you hit cancel to advancing to next level. Fix.
-
-//TODO: Animation for when ball hits cross the wrong way's animation is screwed up. It goes too fast or maybe not even animating. Fix.
-
+//TODO: Random ColorChanger needs work
 
 
 protocol ModelDelegate {
@@ -566,7 +555,7 @@ class Model {
             }
             
         case .doubleElbow:
-            
+
             piece.switches = 2
             piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
             
