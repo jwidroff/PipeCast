@@ -283,6 +283,7 @@ class ViewController: UIViewController {
                         
         print("Handling Tap 4 retry")
         runPopUpView(title: "", message: "Are you sure you want to restart?")
+        
     }
     
     @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
@@ -709,9 +710,6 @@ extension ViewController: ModelDelegate {
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
-        
-        print("piece shape \(piece.shape)")
-        
         if piece.shape == .cross {
             
             if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
@@ -722,9 +720,7 @@ extension ViewController: ModelDelegate {
             }
             
         }
-       
-        print("this shouldnt have printed")
-        
+               
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
@@ -948,7 +944,8 @@ extension ViewController: ModelDelegate {
                         self.model.deleteBall(ball: ball)
                         
                     } completion: { (true) in
-                        print("Check if there are any balls still left in the game")
+//                        print("Check if there are any balls still left in the game")
+                        print()
                     }
                 }
             }

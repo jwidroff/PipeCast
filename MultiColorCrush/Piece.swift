@@ -697,6 +697,8 @@ class Ball {
     var onColor = UIColor()
     var exited = Bool()
     var piecesPassed = [Piece]()
+    var possibleLoopedIndexes = [Indexes]()
+    var loopedIndexes = [Indexes : Int]()
 }
 
 enum Direction {

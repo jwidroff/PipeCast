@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 16
+    var number = 18
 
     var board = Board()
 }
@@ -37,7 +37,9 @@ class LevelModel {
                       "test3",
                       "test4",
                       "test5",
-                      "test6"]
+                      "test6",
+                      "test7",
+                      "test8"]
         
     func returnBoard(levelNumber: Int) -> Board {
         
@@ -612,6 +614,98 @@ class LevelModel {
             addBorderAroundBoardOf(.wall, exceptionIndexes: [])
 
 
+        case "test7":
+
+
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+
+            board.amountOfRandomPieces = 25
+
+            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
+
+            board.randomPieceShapes = [.doubleElbow]//, .cross, .diagElbow, .elbow]
+
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance1)
+
+//            let piece1 = Piece(indexes: Indexes(x: 5, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece1)
+            
+            let entrance2 = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "left", doesPivot: nil)
+            board.pieces.append(entrance2)
+            
+//            let piece2 = Piece(indexes: Indexes(x: 1, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece2)
+
+            let entrance3 = Piece(indexes: Indexes(x: 3, y: 4), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "top", doesPivot: nil)
+            board.pieces.append(entrance3)
+
+//            let piece3 = Piece(indexes: Indexes(x: 3, y: 3), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 3, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece3)
+
+            
+            
+            let entrance4 = Piece(indexes: Indexes(x: 3, y: 6), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom", doesPivot: nil)
+            board.pieces.append(entrance4)
+
+
+           
+
+            
+
+           
+//            let piece4 = Piece(indexes: Indexes(x: 3, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+//            board.pieces.append(piece4)
+//
+            
+            
+            
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+
+
+            
+        case "test8":
+
+
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+
+            let entrance1 = Piece(indexes: Indexes(x: 3, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "bottom", doesPivot: nil)
+            board.pieces.append(entrance1)
+
+            let piece1 = Piece(indexes: Indexes(x: 4, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece1)
+            
+            let piece2 = Piece(indexes: Indexes(x: 3, y: 6), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece2)
+
+            let piece3 = Piece(indexes: Indexes(x: 4, y: 6), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece3)
+
+           
+            let piece4 = Piece(indexes: Indexes(x: 3, y: 7), shape: .stick, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece4)
+//
+            let piece5 = Piece(indexes: Indexes(x: 4, y: 7), shape: .stick, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece5)
+            
+            let piece6 = Piece(indexes: Indexes(x: 3, y: 8), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece6)
+            
+            let piece7 = Piece(indexes: Indexes(x: 4, y: 8), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece7)
+            
+            let piece8 = Piece(indexes: Indexes(x: 3, y: 9), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece8)
+            
+            let piece9 = Piece(indexes: Indexes(x: 4, y: 9), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(piece9)
+            
+            
+            addBorderAroundBoardOf(.wall, exceptionIndexes: [])
+
+
 
 
         default:
@@ -1006,7 +1100,6 @@ class LevelModel {
             
         case .doubleElbow:
             
-            //MARK: Finish this off (but not tested yet, even for version 1)
             
             switch piece.version {
             

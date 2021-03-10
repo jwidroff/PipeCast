@@ -44,15 +44,10 @@ import UIKit
 
 //TODO: Make the buttons show that theyre being pressed
 
-//TODO: Need to make the entrance tile look locked after the button is pressed
-
 //TODO: May need to utilize the closing property for the doubleElbow when is comes in from a side but the pivot is the other way
 
 
 //TODO: See if you can get rid of all the "opening" properties for all piece shapes except for the cross
-
-
-//TODO: Test doubleElbow and make sure that it was made correctly
 
 //TODO: Random ColorChanger needs work
 
@@ -81,6 +76,7 @@ class Model {
     var level = Level()
     var delegate: ModelDelegate?
     var gameOver = false
+    var possibleLoopPieces = [Piece]()
     
     init(){
         
@@ -1069,6 +1065,10 @@ class Model {
         return bool
     }
     
+//    var possibleLoopedIndexes = [Indexes]()
+//    var loopedIndexes = [Indexes : Int]()
+
+    
     func addToPiecesPassed(ball: Ball, piece: Piece) {
         
         if !ball.piecesPassed.contains(where: { (pieceX) -> Bool in
@@ -1078,9 +1078,101 @@ class Model {
             ball.piecesPassed.append(piece)
             
         }
+        else {
+            
+            ball.possibleLoopedIndexes.append(piece.indexes)
+            
+        
+//            let oldNumber = loopedIndexes[piece.indexes]
+//            print(oldNumber)
+            
+            if ball.loopedIndexes[piece.indexes] != nil {
+                
+                ball.loopedIndexes[piece.indexes]! += 1
+                
+            } else {
+                
+                ball.loopedIndexes[piece.indexes] = 1
+                
+            }
+            
+            //UP TO HERE - Just added this
+            
+            //MARK: COME BACK TO THIS AND DO SOMETHING ABOUT ALL THE LOOPED PIECES
+            print("loopedIndexes \(ball.loopedIndexes)")
+
+        }
         
         
     }
+    
+//    var count = 1
+//
+//    func check4EndlessLoop() {
+//
+//        var originalIndexes = Indexes()
+//        var nextIndexes = Indexes()
+//        var loopedPieces = [Piece]()
+//
+//
+//        for piece in possibleLoopPieces {
+//
+//            print("piece\(count)")
+//
+//            nextIndexes = originalIndexes
+//            originalIndexes = piece.indexes
+//
+//            print("lets check nextIndexes to see if there was a previous piece in this array to compare it to")
+//            if nextIndexes != Indexes() {
+//
+//                print("nextIndexes arent blank so lets make sure that the pieces are next to eachother")
+//
+//                if nextIndexes.x! == originalIndexes.x! + 1 && nextIndexes.y! == originalIndexes.y! || nextIndexes.x! == originalIndexes.x! - 1 && nextIndexes.y! == originalIndexes.y! || nextIndexes.y! == originalIndexes.y! + 1 && nextIndexes.x! == originalIndexes.x! || nextIndexes.y! == originalIndexes.y! - 1 && nextIndexes.x! == originalIndexes.x! {
+//
+//                    loopedPieces.append(piece)
+//                    print("They're next to eachother so add the piece to looped pieces. now looped pieces has \(loopedPieces.count) pieces")
+//
+//
+//
+//
+//
+//                } else {
+//
+//
+//
+//                    if loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! + 1 || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! - 1 || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! + 1 && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! - 1 && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! {
+//
+//                        print("THIS IS AN ACTUAL LOOP")
+//
+//                        for pieceX in loopedPieces {
+//                            print("piece \(piece.indexes)")
+//                        }
+//
+//
+//                    } else {
+//                        print("Deleted all looped pieces bec the first and last didnt match up")
+//                        loopedPieces = [Piece]()
+//                    }
+//
+//
+//                    //Kill the animation
+//                    break
+//                }
+//
+//
+//            } else {
+//
+//                print("next index is blank so we are adding this piece which is located at \(piece.indexes)")
+//
+//                loopedPieces.append(piece)
+//            }
+//
+//            count += 1
+//        }
+//
+//
+//
+//    }
     
             
     func moveBall(ball: Ball, startSide: String) {
@@ -1112,6 +1204,9 @@ class Model {
 //            ball.piecesPassed.append(piece)
             
             addToPiecesPassed(ball: ball, piece: piece)
+            
+//            check4EndlessLoop()
+            
 
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
@@ -1157,7 +1252,8 @@ class Model {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-                    
+//                    check4EndlessLoop()
+
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
@@ -1207,6 +1303,9 @@ class Model {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
+//                    check4EndlessLoop()
+
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
                 }
@@ -1253,6 +1352,9 @@ class Model {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
+//                    check4EndlessLoop()
+
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
                 }
@@ -1296,6 +1398,9 @@ class Model {
                     
                     
                     addToPiecesPassed(ball: ball, piece: piece)
+                    
+//                    check4EndlessLoop()
+
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
