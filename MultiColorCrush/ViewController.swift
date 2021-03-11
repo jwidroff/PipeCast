@@ -391,9 +391,9 @@ class ViewController: UIViewController {
         
     }
     
-    func animateMove(ball: Ball, endSide: String) {
+    func animateMove(ball: Ball, endSide: String, lastPiece: Piece) {
         
-        let pieceX = self.model.getPieceInfo(index: ball.indexes)
+//        let pieceX = self.model.getPieceInfo(index: ball.indexes)
         
         CATransaction.begin()
         
@@ -409,29 +409,30 @@ class ViewController: UIViewController {
                 CATransaction.setCompletionBlock {
                     
                     
-                    if pieceX.doesPivot && pieceX.isLocked == false {
-                        self.model.switchPivot(piece: pieceX)
+                    if lastPiece.doesPivot && lastPiece.isLocked == false {
+                        self.model.switchPivot(piece: lastPiece)
                     }
                     
                   
                     
                     
-                    if pieceX.shape == .cross && pieceX.side.top.closing.isOpen != false {
+                    if lastPiece.shape == .cross && lastPiece.side.top.closing.isOpen != false {
                         
-                        self.model.switchCross(piece: pieceX, ball: ball)
+                        self.model.switchCross(piece: lastPiece, ball: ball)
                         
                         
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
+                    
                 }
                 
                 //MARK: Before we do this, lets make sure that there is another piece that theres a piece that the ball will move to
                 
 //                let nextPiece = self.model.getPieceInfo(index: ball.indexes)
-//                
+//
 //                if let endSide = nextPiece.side.top.exitSide  {
-//                    
-//                    
+//
+//
 //                }
                 
                 self.model.moveBall(ball: ball, startSide: "bottom")
@@ -444,14 +445,14 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.doesPivot && pieceX.isLocked == false {
-                        self.model.switchPivot(piece: pieceX)
+                    if lastPiece.doesPivot && lastPiece.isLocked == false {
+                        self.model.switchPivot(piece: lastPiece)
                     }
 
                     
-                    if pieceX.shape == .cross && pieceX.side.bottom.closing.isOpen != false{
+                    if lastPiece.shape == .cross && lastPiece.side.bottom.closing.isOpen != false{
                         
-                        self.model.switchCross(piece: pieceX, ball: ball)
+                        self.model.switchCross(piece: lastPiece, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
                 }
@@ -464,14 +465,14 @@ class ViewController: UIViewController {
                 CATransaction.setCompletionBlock {
                     
                     
-                    if pieceX.doesPivot && pieceX.isLocked == false {
-                        self.model.switchPivot(piece: pieceX)
+                    if lastPiece.doesPivot && lastPiece.isLocked == false {
+                        self.model.switchPivot(piece: lastPiece)
                     }
 
                     
-                    if pieceX.shape == .cross && pieceX.side.left.closing.isOpen != false {
+                    if lastPiece.shape == .cross && lastPiece.side.left.closing.isOpen != false {
                         
-                        self.model.switchCross(piece: pieceX, ball: ball)
+                        self.model.switchCross(piece: lastPiece, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
                 }
@@ -483,15 +484,15 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if pieceX.doesPivot && pieceX.isLocked == false {
-                        self.model.switchPivot(piece: pieceX)
+                    if lastPiece.doesPivot && lastPiece.isLocked == false {
+                        self.model.switchPivot(piece: lastPiece)
                     }
 
                     
                     
-                    if pieceX.shape == .cross && pieceX.side.right.closing.isOpen != false {
+                    if lastPiece.shape == .cross && lastPiece.side.right.closing.isOpen != false {
                         
-                        self.model.switchCross(piece: pieceX, ball: ball)
+                        self.model.switchCross(piece: lastPiece, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
                 }
@@ -790,13 +791,17 @@ extension ViewController: ModelDelegate {
             
             beginPoint = ball.view.center
             controlPoint = piece.view.center
+ 
+            ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+            ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            ballEndingPoint = endPoint
             
-            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-                self.animateMove(ball: ball, endSide: endSide)
-                                
-                self.model.checkIfBallExited(ball: ball)
-            }
+            animateMove(ball: ball, endSide: endSide, lastPiece: piece)
+            
+            return
+            
+//            model.checkIfBallExited(ball: ball)
+
             
         case "top":
             
@@ -820,13 +825,17 @@ extension ViewController: ModelDelegate {
             
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y - self.distanceFromPieceCenter)
             controlPoint = piece.view.center
+
+                
             
-            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+            ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+            ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            ballEndingPoint = endPoint
+            animateMove(ball: ball, endSide: endSide, lastPiece: piece)
                 
-                self.animateMove(ball: ball, endSide: endSide)
-                
-                self.model.checkIfBallExited(ball: ball)
-            }
+            return
+            
+//            model.checkIfBallExited(ball: ball)
             
         case "bottom":
             
@@ -852,11 +861,18 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
             controlPoint = piece.view.center
             
-            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+
                 
-                self.animateMove(ball: ball, endSide: endSide)
-                self.model.checkIfBallExited(ball: ball)
-            }
+            ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+            ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            ballEndingPoint = endPoint
+            
+            
+            animateMove(ball: ball, endSide: endSide, lastPiece: piece)
+            
+            return
+//            model.checkIfBallExited(ball: ball)
+
             
         case "left":
             
@@ -882,11 +898,15 @@ extension ViewController: ModelDelegate {
             beginPoint = CGPoint(x: piece.view.center.x - self.distanceFromPieceCenter, y: piece.view.center.y)
             controlPoint = piece.view.center
             
-            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
-                
-                self.animateMove(ball: ball, endSide: endSide)
-                self.model.checkIfBallExited(ball: ball)
-            }
+
+            ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+            ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            ballEndingPoint = endPoint
+            
+            animateMove(ball: ball, endSide: endSide, lastPiece: piece)
+            return
+//            model.checkIfBallExited(ball: ball)
+
             
         case "right":
                         
@@ -910,12 +930,16 @@ extension ViewController: ModelDelegate {
             
             beginPoint = CGPoint(x: piece.view.center.x + self.distanceFromPieceCenter, y: piece.view.center.y)
             controlPoint = piece.view.center
-            
-            self.calculateAnimation(view: ball.view, beginPoint: beginPoint, endPoint: endPoint, controlPoint: controlPoint) { (true) in
+ 
                 
-                self.animateMove(ball: ball, endSide: endSide)
-                self.model.checkIfBallExited(ball: ball)
-            }
+            ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+            ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            ballEndingPoint = endPoint
+            
+            
+            animateMove(ball: ball, endSide: endSide, lastPiece: piece)
+            return
+//            model.checkIfBallExited(ball: ball)
             
         default:
             break

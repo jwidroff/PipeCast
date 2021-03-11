@@ -1412,6 +1412,7 @@ class Model {
                     if board.grid[ball.indexes] == center {
                         
                         moveBall(ball: ball, startSide: "unmoved")
+                        checkIfBallExited(ball: ball)
                     }
                 }
             }
