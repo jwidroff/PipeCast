@@ -1082,9 +1082,6 @@ class Model {
             
             ball.possibleLoopedIndexes.append(piece.indexes)
             
-        
-//            let oldNumber = loopedIndexes[piece.indexes]
-//            print(oldNumber)
             
             if ball.loopedIndexes[piece.indexes] != nil {
                 
@@ -1106,75 +1103,6 @@ class Model {
         
     }
     
-//    var count = 1
-//
-//    func check4EndlessLoop() {
-//
-//        var originalIndexes = Indexes()
-//        var nextIndexes = Indexes()
-//        var loopedPieces = [Piece]()
-//
-//
-//        for piece in possibleLoopPieces {
-//
-//            print("piece\(count)")
-//
-//            nextIndexes = originalIndexes
-//            originalIndexes = piece.indexes
-//
-//            print("lets check nextIndexes to see if there was a previous piece in this array to compare it to")
-//            if nextIndexes != Indexes() {
-//
-//                print("nextIndexes arent blank so lets make sure that the pieces are next to eachother")
-//
-//                if nextIndexes.x! == originalIndexes.x! + 1 && nextIndexes.y! == originalIndexes.y! || nextIndexes.x! == originalIndexes.x! - 1 && nextIndexes.y! == originalIndexes.y! || nextIndexes.y! == originalIndexes.y! + 1 && nextIndexes.x! == originalIndexes.x! || nextIndexes.y! == originalIndexes.y! - 1 && nextIndexes.x! == originalIndexes.x! {
-//
-//                    loopedPieces.append(piece)
-//                    print("They're next to eachother so add the piece to looped pieces. now looped pieces has \(loopedPieces.count) pieces")
-//
-//
-//
-//
-//
-//                } else {
-//
-//
-//
-//                    if loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! + 1 || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! - 1 || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! + 1 && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! || loopedPieces.first?.indexes.x == (loopedPieces.last?.indexes.x)! - 1 && loopedPieces.first?.indexes.y == (loopedPieces.last?.indexes.y)! {
-//
-//                        print("THIS IS AN ACTUAL LOOP")
-//
-//                        for pieceX in loopedPieces {
-//                            print("piece \(piece.indexes)")
-//                        }
-//
-//
-//                    } else {
-//                        print("Deleted all looped pieces bec the first and last didnt match up")
-//                        loopedPieces = [Piece]()
-//                    }
-//
-//
-//                    //Kill the animation
-//                    break
-//                }
-//
-//
-//            } else {
-//
-//                print("next index is blank so we are adding this piece which is located at \(piece.indexes)")
-//
-//                loopedPieces.append(piece)
-//            }
-//
-//            count += 1
-//        }
-//
-//
-//
-//    }
-    
-            
     func moveBall(ball: Ball, startSide: String) {
         
         let piece = getPieceInfo(index: ball.indexes)
@@ -1502,6 +1430,32 @@ class Model {
         } else {
             piece.currentSwitch = 1
         }
+        
+//        ball.piecesPassed.append(piece)
+        
+        delegate?.replacePiece(piece: piece)
+    }
+    
+    func switchPivot(piece: Piece) {
+        
+//        piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
+//        piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
+//        piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
+//        piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
+        
+        
+        
+        
+        
+        
+        if piece.currentSwitch == 1 {
+            piece.currentSwitch = 2
+        } else {
+            piece.currentSwitch = 1
+        }
+        
+        setPieceSides(piece: piece)
+        
         
 //        ball.piecesPassed.append(piece)
         

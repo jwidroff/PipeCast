@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 18
+    var number = 11
 
     var board = Board()
 }
@@ -362,7 +362,7 @@ class LevelModel {
             board.amountOfRandomPieces = 16
 
 
-            let entrance1 = Piece(indexes: Indexes(x: 4, y: 3), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 3), shape: .entrance, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
             board.pieces.append(entrance1)
 
 
@@ -374,7 +374,7 @@ class LevelModel {
             board.pieces.append(entrance2)
 
 
-            let exit2 = Piece(indexes: Indexes(x: 0, y: 5), shape: .exit, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            let exit2 = Piece(indexes: Indexes(x: 0, y: 5), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
             board.pieces.append(exit2)
 
 
@@ -395,15 +395,15 @@ class LevelModel {
 
         case "test1":
 
-            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red, UIColor.blue]
-            board.randomPieceShapes = [.diagElbow]//, .cross]//, .stick, .elbow]
-            board.amountOfRandomPieces = 20
+            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
+            board.randomPieceShapes = [.diagElbow, .cross, .doubleElbow]
+            board.amountOfRandomPieces = 30
 //            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
 //            board.holeLocations = [Indexes(x: 0, y: 1)]
 
-            board.heightSpaces = 10
+            board.heightSpaces = 12
 
-            board.widthSpaces = 5
+            board.widthSpaces = 6
 
 //            board.wallLocations = [Indexes(x: -1, y: -1)]
 

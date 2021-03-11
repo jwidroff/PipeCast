@@ -408,19 +408,46 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
+                    
+                    if pieceX.doesPivot && pieceX.isLocked == false {
+                        self.model.switchPivot(piece: pieceX)
+                    }
+                    
+                  
+                    
+                    
                     if pieceX.shape == .cross && pieceX.side.top.closing.isOpen != false {
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
+                        
+                        
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
                 }
+                
+                //MARK: Before we do this, lets make sure that there is another piece that theres a piece that the ball will move to
+                
+//                let nextPiece = self.model.getPieceInfo(index: ball.indexes)
+//                
+//                if let endSide = nextPiece.side.top.exitSide  {
+//                    
+//                    
+//                }
+                
                 self.model.moveBall(ball: ball, startSide: "bottom")
+                
+                
                 CATransaction.commit()
                 
             case "bottom":
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
+                    
+                    if pieceX.doesPivot && pieceX.isLocked == false {
+                        self.model.switchPivot(piece: pieceX)
+                    }
+
                     
                     if pieceX.shape == .cross && pieceX.side.bottom.closing.isOpen != false{
                         
@@ -436,6 +463,12 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
+                    
+                    if pieceX.doesPivot && pieceX.isLocked == false {
+                        self.model.switchPivot(piece: pieceX)
+                    }
+
+                    
                     if pieceX.shape == .cross && pieceX.side.left.closing.isOpen != false {
                         
                         self.model.switchCross(piece: pieceX, ball: ball)
@@ -449,6 +482,12 @@ class ViewController: UIViewController {
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
+                    
+                    if pieceX.doesPivot && pieceX.isLocked == false {
+                        self.model.switchPivot(piece: pieceX)
+                    }
+
+                    
                     
                     if pieceX.shape == .cross && pieceX.side.right.closing.isOpen != false {
                         
