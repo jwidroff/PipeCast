@@ -1347,6 +1347,8 @@ class Model {
     
     func checkIfBallExited(ball: Ball) {
         
+        print("Check if ball exited called")
+        
         for piece in board.pieces {
 
             if piece.indexes == ball.indexes {
@@ -1366,6 +1368,8 @@ class Model {
                     
                     
                     for piece in ball.piecesPassed {
+                        
+                        
 
                         delegate?.removePieceAfterBall(piece: piece)
                         
@@ -1411,8 +1415,21 @@ class Model {
                                 
                     if board.grid[ball.indexes] == center {
                         
+//                        CATransaction.begin()
+//
+//                        CATransaction.setCompletionBlock {
+//
+//
+//                            self.checkIfBallExited(ball: ball)
+//                            return
+//
+//                        }
+//
+//                        CATransaction.commit()
+                                                
                         moveBall(ball: ball, startSide: "unmoved")
-                        checkIfBallExited(ball: ball)
+//                        checkIfBallExited(ball: ball)
+                        
                     }
                 }
             }
@@ -1438,14 +1455,6 @@ class Model {
     }
     
     func switchPivot(piece: Piece) {
-        
-//        piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
-//        piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
-//        piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
-//        piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
-        
-        
-        
         
         
         

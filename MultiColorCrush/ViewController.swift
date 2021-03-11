@@ -408,10 +408,12 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    
-                    if lastPiece.doesPivot && lastPiece.isLocked == false {
-                        self.model.switchPivot(piece: lastPiece)
+                    if lastPiece.shape == .doubleElbow {
+                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+                            self.model.switchPivot(piece: lastPiece)
+                        }
                     }
+                    
                     
                   
                     
@@ -445,8 +447,10 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if lastPiece.doesPivot && lastPiece.isLocked == false {
-                        self.model.switchPivot(piece: lastPiece)
+                    if lastPiece.shape == .doubleElbow {
+                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+                            self.model.switchPivot(piece: lastPiece)
+                        }
                     }
 
                     
@@ -465,8 +469,10 @@ class ViewController: UIViewController {
                 CATransaction.setCompletionBlock {
                     
                     
-                    if lastPiece.doesPivot && lastPiece.isLocked == false {
-                        self.model.switchPivot(piece: lastPiece)
+                    if lastPiece.shape == .doubleElbow {
+                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+                            self.model.switchPivot(piece: lastPiece)
+                        }
                     }
 
                     
@@ -484,10 +490,11 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    if lastPiece.doesPivot && lastPiece.isLocked == false {
-                        self.model.switchPivot(piece: lastPiece)
+                    if lastPiece.shape == .doubleElbow {
+                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+                            self.model.switchPivot(piece: lastPiece)
+                        }
                     }
-
                     
                     
                     if lastPiece.shape == .cross && lastPiece.side.right.closing.isOpen != false {
@@ -798,7 +805,7 @@ extension ViewController: ModelDelegate {
             
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
-            return
+            
             
 //            model.checkIfBallExited(ball: ball)
 
@@ -833,7 +840,7 @@ extension ViewController: ModelDelegate {
             ballEndingPoint = endPoint
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
                 
-            return
+            
             
 //            model.checkIfBallExited(ball: ball)
             
@@ -870,7 +877,7 @@ extension ViewController: ModelDelegate {
             
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
-            return
+            
 //            model.checkIfBallExited(ball: ball)
 
             
@@ -904,7 +911,7 @@ extension ViewController: ModelDelegate {
             ballEndingPoint = endPoint
             
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            return
+            
 //            model.checkIfBallExited(ball: ball)
 
             
@@ -938,12 +945,13 @@ extension ViewController: ModelDelegate {
             
             
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            return
 //            model.checkIfBallExited(ball: ball)
             
         default:
             break
         }
+        model.checkIfBallExited(ball: ball)
+        return
     }
     
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
