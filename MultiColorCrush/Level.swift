@@ -396,7 +396,7 @@ class LevelModel {
         case "test1":
 
             board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
-            board.randomPieceShapes = [.diagElbow]//, .cross, .doubleElbow]
+            board.randomPieceShapes = [.doubleElbow]//, .cross, .doubleElbow]
             board.amountOfRandomPieces = 20
 //            board.iceLocations = [Indexes(x: 3, y: 7), Indexes(x: 3, y: 9)]
 //            board.holeLocations = [Indexes(x: 0, y: 1)]

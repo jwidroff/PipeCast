@@ -414,10 +414,6 @@ class ViewController: UIViewController {
                         }
                     }
                     
-                    
-                  
-                    
-                    
                     if lastPiece.shape == .cross && lastPiece.side.top.closing.isOpen != false {
                         
                         self.model.switchCross(piece: lastPiece, ball: ball)
@@ -427,15 +423,6 @@ class ViewController: UIViewController {
                     }
                     
                 }
-                
-                //MARK: Before we do this, lets make sure that there is another piece that theres a piece that the ball will move to
-                
-//                let nextPiece = self.model.getPieceInfo(index: ball.indexes)
-//
-//                if let endSide = nextPiece.side.top.exitSide  {
-//
-//
-//                }
                 
                 self.model.moveBall(ball: ball, startSide: "bottom")
                 
@@ -527,16 +514,24 @@ class ViewController: UIViewController {
 extension ViewController: ModelDelegate {
     
     func replacePiece(piece: Piece) {
+//        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn) {
+            
+            let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+            
+            let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
+            let shapeView = ShapeView(frame: frame, piece: newPiece)
+            
+            piece.view.removeFromSuperview()
+            piece.view = shapeView
+            
+            self.model.board.view.addSubview(piece.view)
+            
+            
+//        } completion: { (false) in
+//            print()
+//        }
+
         
-        let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
-        
-        let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (pieceHeight / 2), width: pieceWidth, height: pieceHeight)
-        let shapeView = ShapeView(frame: frame, piece: newPiece)
-        
-        piece.view.removeFromSuperview()
-        piece.view = shapeView
-        
-        self.model.board.view.addSubview(piece.view)
     }
     
     func ballCrashInCross(piece: Piece, ball: Ball) {

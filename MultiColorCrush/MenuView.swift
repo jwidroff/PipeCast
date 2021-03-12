@@ -20,7 +20,7 @@ class MenuView: UIView {
 
         backgroundColor = .cyan
 
-        let navigationBar = UINavigationBar()
+//        let navigationBar = UINavigationBar()
 
 
 

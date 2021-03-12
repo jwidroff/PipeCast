@@ -1414,22 +1414,9 @@ class Model {
                 for ball in board.balls {
                                 
                     if board.grid[ball.indexes] == center {
-                        
-//                        CATransaction.begin()
-//
-//                        CATransaction.setCompletionBlock {
-//
-//
-//                            self.checkIfBallExited(ball: ball)
-//                            return
-//
-//                        }
-//
-//                        CATransaction.commit()
-                                                
+                              
                         moveBall(ball: ball, startSide: "unmoved")
-//                        checkIfBallExited(ball: ball)
-                        
+                        return
                     }
                 }
             }
@@ -1464,12 +1451,35 @@ class Model {
             piece.currentSwitch = 1
         }
         
+        
+        
+        
         setPieceSides(piece: piece)
         
         
-//        ball.piecesPassed.append(piece)
+        self.delegate?.replacePiece(piece: piece)
         
-        delegate?.replacePiece(piece: piece)
+//        CATransaction.begin()
+//
+//        CATransaction.setCompletionBlock {
+//
+//            self.delegate?.replacePiece(piece: piece)
+//        }
+//
+//        UIView.animate(withDuration: 0.25) {
+//
+//            piece.view.backgroundColor = .yellow
+//
+//
+//        } completion: { (true) in
+//            CATransaction.commit()
+//
+//        }
+
+        
+        
+        
+        
     }
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
