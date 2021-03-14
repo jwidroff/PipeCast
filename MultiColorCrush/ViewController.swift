@@ -406,10 +406,15 @@ class ViewController: UIViewController {
             case "top":
                 
                 CATransaction.begin()
+            
                 CATransaction.setCompletionBlock {
                     
                     if lastPiece.shape == .doubleElbow {
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
+                            
+//                            lastPiece.view.backgroundColor = UIColor.yellow
+
+                            
                             self.model.switchPivot(piece: lastPiece)
                         }
                     }
@@ -435,6 +440,9 @@ class ViewController: UIViewController {
                 CATransaction.setCompletionBlock {
                     
                     if lastPiece.shape == .doubleElbow {
+                        
+//                        lastPiece.view.backgroundColor = UIColor.yellow
+
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
                             self.model.switchPivot(piece: lastPiece)
                         }
@@ -457,6 +465,9 @@ class ViewController: UIViewController {
                     
                     
                     if lastPiece.shape == .doubleElbow {
+                        
+//                        lastPiece.view.backgroundColor = UIColor.yellow
+
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
                             self.model.switchPivot(piece: lastPiece)
                         }
@@ -477,7 +488,12 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
+//                    lastPiece.view.backgroundColor = UIColor.yellow
+
+                    
                     if lastPiece.shape == .doubleElbow {
+                        
+
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
                             self.model.switchPivot(piece: lastPiece)
                         }
@@ -491,6 +507,7 @@ class ViewController: UIViewController {
                     }
                 }
                 self.model.moveBall(ball: ball, startSide: "left")
+                
                 CATransaction.commit()
                 
             default:
@@ -514,22 +531,28 @@ class ViewController: UIViewController {
 extension ViewController: ModelDelegate {
     
     func replacePiece(piece: Piece) {
-//        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn) {
+        
+        let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+        
+        let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
+        let shapeView = ShapeView(frame: frame, piece: newPiece)
+        
+        shapeView.backgroundColor = UIColor.yellow
+        
+        UIView.animate(withDuration: 0.25) {
             
-            let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
-            
-            let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
-            let shapeView = ShapeView(frame: frame, piece: newPiece)
             
             piece.view.removeFromSuperview()
             piece.view = shapeView
-            
+
             self.model.board.view.addSubview(piece.view)
             
             
-//        } completion: { (false) in
-//            print()
-//        }
+        } completion: { (true) in
+            
+            
+            print()
+        }
 
         
     }
@@ -642,6 +665,7 @@ extension ViewController: ModelDelegate {
         let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
         
         var tempBall = Ball()
+        
         
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
             
@@ -1020,7 +1044,7 @@ extension ViewController: ModelDelegate {
     
     func setUpPiecesView() {
         
-        UIView.animate(withDuration: 0.25, delay: 0.5, options: .curveEaseInOut) {  [self] in
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut) {  [self] in
             
             for piece in model.board.pieces {
             

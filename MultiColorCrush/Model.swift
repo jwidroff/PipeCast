@@ -1436,14 +1436,10 @@ class Model {
             piece.currentSwitch = 1
         }
         
-//        ball.piecesPassed.append(piece)
-        
         delegate?.replacePiece(piece: piece)
     }
     
     func switchPivot(piece: Piece) {
-        
-        
         
         if piece.currentSwitch == 1 {
             piece.currentSwitch = 2
@@ -1451,34 +1447,9 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        
-        
-        
         setPieceSides(piece: piece)
         
-        
-        self.delegate?.replacePiece(piece: piece)
-        
-//        CATransaction.begin()
-//
-//        CATransaction.setCompletionBlock {
-//
-//            self.delegate?.replacePiece(piece: piece)
-//        }
-//
-//        UIView.animate(withDuration: 0.25) {
-//
-//            piece.view.backgroundColor = .yellow
-//
-//
-//        } completion: { (true) in
-//            CATransaction.commit()
-//
-//        }
-
-        
-        
-        
+            self.delegate?.replacePiece(piece: piece)        
         
     }
     
