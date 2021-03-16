@@ -655,13 +655,17 @@ class LevelModel {
             let doubleElbow2 = Piece(indexes: Indexes(x: 4, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(doubleElbow2)
             
-            let doubleElbow3 = Piece(indexes: Indexes(x: 3, y: 6), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            let doubleElbow3 = Piece(indexes: Indexes(x: 3, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(doubleElbow3)
             
-            let doubleElbow4 = Piece(indexes: Indexes(x: 4, y: 6), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            let doubleElbow4 = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
             board.pieces.append(doubleElbow4)
             
+            let stick1 = Piece(indexes: Indexes(x: 3, y: 6), shape: .stick, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(stick1)
             
+            let stick2 = Piece(indexes: Indexes(x: 4, y: 6), shape: .stick, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(stick2)
             
             
 

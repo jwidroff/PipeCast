@@ -68,6 +68,7 @@ protocol ModelDelegate {
 //    func animateMove(ball: Ball)
     func removePieceAfterBall(piece: Piece)
     func replacePiece(piece: Piece, ball: Ball)
+    func changeColor(piece: Piece, ball: Ball)
 }
 
 class Model {
@@ -1082,6 +1083,8 @@ class Model {
             
             ball.possibleLoopedIndexes.append(piece.indexes)
             
+            delegate?.changeColor(piece: piece, ball: ball)
+            
             
             if ball.loopedIndexes[piece.indexes] != nil {
                 
@@ -1092,15 +1095,7 @@ class Model {
                 ball.loopedIndexes[piece.indexes] = 1
                 
             }
-            
-            //UP TO HERE - Just added this
-            
-            //MARK: COME BACK TO THIS AND DO SOMETHING ABOUT ALL THE LOOPED PIECES
-            print("loopedIndexes \(ball.loopedIndexes)")
-
         }
-        
-        
     }
     
     func check4EndlessLoop(ball: Ball) -> Bool {
@@ -1113,6 +1108,7 @@ class Model {
                 
                 let piece = getPieceInfo(index: index.key)
                 ball.loopedPieces.append(piece)
+//                delegate?.changeColor(piece: piece, ball: ball)
                                 
             }
         }
