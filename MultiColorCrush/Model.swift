@@ -67,7 +67,7 @@ protocol ModelDelegate {
     func clearPiecesAnimation(view: UIView)
 //    func animateMove(ball: Ball)
     func removePieceAfterBall(piece: Piece)
-    func replacePiece(piece: Piece)
+    func replacePiece(piece: Piece, ball: Ball)
 }
 
 class Model {
@@ -1103,6 +1103,33 @@ class Model {
         
     }
     
+    func check4EndlessLoop(ball: Ball) -> Bool {
+        
+        var bool = false
+        
+        for index in ball.loopedIndexes {
+            
+            if index.value >= 4 {
+                
+                let piece = getPieceInfo(index: index.key)
+                ball.loopedPieces.append(piece)
+                                
+            }
+        }
+
+        if ball.loopedPieces.count >= 4 {
+
+            if !ball.loopedIndexes.contains(where: { (key, value) -> Bool in
+                value == 3
+            }) {
+                bool = true
+            }
+            
+        }
+        return bool
+    }
+    
+    
     func moveBall(ball: Ball, startSide: String) {
         
         let piece = getPieceInfo(index: ball.indexes)
@@ -1133,7 +1160,36 @@ class Model {
             
             addToPiecesPassed(ball: ball, piece: piece)
             
-//            check4EndlessLoop()
+//            print("Check4EndlessLoop \(check4EndlessLoop(ball: ball))")
+            
+            if check4EndlessLoop(ball: ball) == true {
+                
+                //Speed up the ball
+                
+                //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
+                
+                
+                
+                for piece in ball.loopedPieces {
+                    
+                    
+                    print("PIECE")
+                    
+                    
+//                    delegate?.removePiece(piece: piece)
+
+                    
+                    
+                    board.pieces.removeAll { (pieceX) -> Bool in
+                        pieceX.indexes == piece.indexes
+                    }
+                    
+                    
+                }
+                
+                break
+            }
+            
             
 
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
@@ -1168,19 +1224,24 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                    
-                    //UPTO HERE: See if we can move this func up out of the block for all directions
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     addToPiecesPassed(ball: ball, piece: piece)
-                    
-//                    check4EndlessLoop()
+                                        
+                    if check4EndlessLoop(ball: ball) == true {
+                        
+                        //Speed up the ball
+                        
+                        //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
+                        
+                        for piece in ball.loopedPieces {
+                            
+                            delegate?.removePiece(piece: piece)
+                            
+                            board.pieces.removeAll { (pieceX) -> Bool in
+                                pieceX.indexes == piece.indexes
+                            }
+                        }
+                        break
+                    }
 
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
@@ -1225,14 +1286,24 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                   
-                    
-                    
-                    
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    check4EndlessLoop()
+                    if check4EndlessLoop(ball: ball) == true {
+                        
+                        //Speed up the ball
+                        
+                        //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
+                        
+                        for piece in ball.loopedPieces {
+                            
+                            delegate?.removePiece(piece: piece)
 
+                            board.pieces.removeAll { (pieceX) -> Bool in
+                                pieceX.indexes == piece.indexes
+                            }
+                        }
+                        break
+                    }
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
@@ -1274,14 +1345,24 @@ class Model {
                     piece.indexes == ball.indexes
                 }) {
                     
-                    
-                    
-                    
-                    
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    check4EndlessLoop()
+                    if check4EndlessLoop(ball: ball) == true {
+                        
+                        //Speed up the ball
+                        
+                        //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
+                        
+                        for piece in ball.loopedPieces {
+                            
+                            delegate?.removePiece(piece: piece)
 
+                            board.pieces.removeAll { (pieceX) -> Bool in
+                                pieceX.indexes == piece.indexes
+                            }
+                        }
+                        break
+                    }
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
@@ -1327,8 +1408,24 @@ class Model {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
-//                    check4EndlessLoop()
+                    print("Check4EndlessLoop \(check4EndlessLoop(ball: ball))")
 
+                    if check4EndlessLoop(ball: ball) == true {
+                        
+                        //Speed up the ball
+                        
+                        //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
+                        
+                        for piece in ball.loopedPieces {
+                            
+                            delegate?.removePiece(piece: piece)
+
+                            board.pieces.removeAll { (pieceX) -> Bool in
+                                pieceX.indexes == piece.indexes
+                            }
+                        }
+                        break
+                    }
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                     return
@@ -1436,10 +1533,10 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        delegate?.replacePiece(piece: piece)
+        delegate?.replacePiece(piece: piece, ball: ball)
     }
     
-    func switchPivot(piece: Piece) {
+    func switchPivot(piece: Piece, ball: Ball) {
         
         if piece.currentSwitch == 1 {
             piece.currentSwitch = 2
@@ -1449,7 +1546,7 @@ class Model {
         
         setPieceSides(piece: piece)
         
-            self.delegate?.replacePiece(piece: piece)        
+        self.delegate?.replacePiece(piece: piece, ball: ball)
         
     }
     

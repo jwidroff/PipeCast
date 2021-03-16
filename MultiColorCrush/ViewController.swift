@@ -415,7 +415,7 @@ class ViewController: UIViewController {
 //                            lastPiece.view.backgroundColor = UIColor.yellow
 
                             
-                            self.model.switchPivot(piece: lastPiece)
+                            self.model.switchPivot(piece: lastPiece, ball: ball)
                         }
                     }
                     
@@ -444,7 +444,7 @@ class ViewController: UIViewController {
 //                        lastPiece.view.backgroundColor = UIColor.yellow
 
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece)
+                            self.model.switchPivot(piece: lastPiece, ball: ball)
                         }
                     }
 
@@ -469,7 +469,7 @@ class ViewController: UIViewController {
 //                        lastPiece.view.backgroundColor = UIColor.yellow
 
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece)
+                            self.model.switchPivot(piece: lastPiece, ball: ball)
                         }
                     }
 
@@ -495,7 +495,7 @@ class ViewController: UIViewController {
                         
 
                         if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece)
+                            self.model.switchPivot(piece: lastPiece, ball: ball)
                         }
                     }
                     
@@ -529,18 +529,38 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ModelDelegate {
+
     
-    func replacePiece(piece: Piece) {
+    
+    func replacePiece(piece: Piece, ball: Ball) {
         
         let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
         
         let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
         let shapeView = ShapeView(frame: frame, piece: newPiece)
         
-        shapeView.backgroundColor = UIColor.yellow
+//        shapeView.backgroundColor = UIColor.yellow
         
+        
+        var backgroundColor = UIColor.systemYellow
+        
+        
+        if ball.loopedIndexes[piece.indexes] == 1 {
+            backgroundColor = UIColor.orange
+        } else if ball.loopedIndexes[piece.indexes] == 2 {
+            backgroundColor = UIColor.red
+
+        } else if ball.loopedIndexes[piece.indexes] == 3 {
+            backgroundColor = UIColor.purple
+
+        } else if ball.loopedIndexes[piece.indexes] == 4 {
+            backgroundColor = UIColor.systemIndigo
+
+        }
+        
+        shapeView.backgroundColor = backgroundColor
+
         UIView.animate(withDuration: 0.25) {
-            
             
             piece.view.removeFromSuperview()
             piece.view = shapeView

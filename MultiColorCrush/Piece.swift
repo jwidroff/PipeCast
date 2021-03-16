@@ -699,6 +699,7 @@ class Ball {
     var piecesPassed = [Piece]()
     var possibleLoopedIndexes = [Indexes]()
     var loopedIndexes = [Indexes : Int]()
+    var loopedPieces = [Piece]()
 }
 
 enum Direction {
