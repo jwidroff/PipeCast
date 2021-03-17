@@ -1170,16 +1170,16 @@ class Model {
                 
                 //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
                 
+                print("check4EndlessLoop = true")
                 
                 
-                for piece in ball.loopedPieces {
+                for piece in ball.piecesPassed {
                     
-                    
-                    print("PIECE")
-                    
+
                     
 //                    delegate?.removePiece(piece: piece)
 
+                    
                     
                     
                     board.pieces.removeAll { (pieceX) -> Bool in
@@ -1188,6 +1188,21 @@ class Model {
                     
                     
                 }
+                
+                
+//                print("ball indexes \(board.balls.map({($0.indexes)}))")
+                
+                
+                
+                board.balls.removeAll { (ballX) -> Bool in
+                    ball.indexes == ballX.indexes
+                }
+                
+                delegate?.removeBall(ball: ball)
+                
+               
+               
+                
                 
                 break
             }
@@ -1234,7 +1249,7 @@ class Model {
                         
                         //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
                         
-                        for piece in ball.loopedPieces {
+                        for piece in ball.piecesPassed {
                             
                             delegate?.removePiece(piece: piece)
                             
@@ -1242,6 +1257,13 @@ class Model {
                                 pieceX.indexes == piece.indexes
                             }
                         }
+                        
+                        board.balls.removeAll { (ballX) -> Bool in
+                            ball.indexes == ballX.indexes
+                        }
+                        
+                        delegate?.removeBall(ball: ball)
+                        
                         break
                     }
 
@@ -1296,7 +1318,7 @@ class Model {
                         
                         //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
                         
-                        for piece in ball.loopedPieces {
+                        for piece in ball.piecesPassed {
                             
                             delegate?.removePiece(piece: piece)
 
@@ -1304,6 +1326,13 @@ class Model {
                                 pieceX.indexes == piece.indexes
                             }
                         }
+                        
+                        board.balls.removeAll { (ballX) -> Bool in
+                            ball.indexes == ballX.indexes
+                        }
+                        
+                        delegate?.removeBall(ball: ball)
+                        
                         break
                     }
                     
@@ -1355,7 +1384,7 @@ class Model {
                         
                         //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
                         
-                        for piece in ball.loopedPieces {
+                        for piece in ball.piecesPassed {
                             
                             delegate?.removePiece(piece: piece)
 
@@ -1363,6 +1392,13 @@ class Model {
                                 pieceX.indexes == piece.indexes
                             }
                         }
+                        
+                        board.balls.removeAll { (ballX) -> Bool in
+                            ball.indexes == ballX.indexes
+                        }
+                        
+                        delegate?.removeBall(ball: ball)
+                        
                         break
                     }
                     
@@ -1418,7 +1454,7 @@ class Model {
                         
                         //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
                         
-                        for piece in ball.loopedPieces {
+                        for piece in ball.piecesPassed {
                             
                             delegate?.removePiece(piece: piece)
 
@@ -1426,6 +1462,13 @@ class Model {
                                 pieceX.indexes == piece.indexes
                             }
                         }
+                        
+                        board.balls.removeAll { (ballX) -> Bool in
+                            ball.indexes == ballX.indexes
+                        }
+                        
+                        delegate?.removeBall(ball: ball)
+                        
                         break
                     }
                     

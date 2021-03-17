@@ -567,7 +567,10 @@ extension ViewController: ModelDelegate {
         switch slowerOrFaster {
         case "faster":
             
-            duration4Animation -= 0.01
+            if duration4Animation > 0.03 {
+                duration4Animation -= 0.03
+
+            }
             
             print("duration \(duration4Animation)")
             
