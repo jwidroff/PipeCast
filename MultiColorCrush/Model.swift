@@ -69,6 +69,7 @@ protocol ModelDelegate {
     func removePieceAfterBall(piece: Piece)
     func replacePiece(piece: Piece, ball: Ball)
     func changeColor(piece: Piece, ball: Ball)
+    func changeAnimation(slowerOrFaster: String)
 }
 
 class Model {
@@ -1084,15 +1085,18 @@ class Model {
             ball.possibleLoopedIndexes.append(piece.indexes)
             
             delegate?.changeColor(piece: piece, ball: ball)
-            
+            delegate?.changeAnimation(slowerOrFaster: "faster")
+
             
             if ball.loopedIndexes[piece.indexes] != nil {
                 
                 ball.loopedIndexes[piece.indexes]! += 1
                 
+                
             } else {
                 
                 ball.loopedIndexes[piece.indexes] = 1
+                delegate?.changeAnimation(slowerOrFaster: "slower")
                 
             }
         }
@@ -1119,6 +1123,8 @@ class Model {
                 value == 3
             }) {
                 bool = true
+//                delegate?.changeAnimation(slowerOrFaster: "slower")
+
             }
             
         }

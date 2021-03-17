@@ -551,7 +551,7 @@ class ViewController: UIViewController {
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = ballPath.cgPath
         animation.repeatCount = 0
-        animation.duration = 0.25
+        animation.duration = duration4Animation
         ball.view.layer.add(animation, forKey: "animate along path")
         
         CATransaction.commit()
@@ -561,12 +561,43 @@ class ViewController: UIViewController {
 extension ViewController: ModelDelegate {
 
     
+    func changeAnimation(slowerOrFaster: String) {
+        
+        
+        switch slowerOrFaster {
+        case "faster":
+            
+            duration4Animation -= 0.01
+            
+            print("duration \(duration4Animation)")
+            
+        case "slower":
+            
+            
+            duration4Animation = 0.25
+            
+            
+        default:
+            break
+        }
+        
+       
+        
+        
+        
+    }
+    
+    
+    
     func changeColor(piece: Piece, ball: Ball) {
         
         var backgroundColor = UIColor.systemYellow
         
         
         if ball.loopedIndexes[piece.indexes] == 1 {
+            
+            
+            
             backgroundColor = UIColor.orange
         } else if ball.loopedIndexes[piece.indexes] == 2 {
             backgroundColor = UIColor.red
