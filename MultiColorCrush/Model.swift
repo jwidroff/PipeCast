@@ -51,6 +51,10 @@ import UIKit
 
 //TODO: Random ColorChanger needs work
 
+//TODO: May want to consider putting in a special piece (possibly one that changes shape/color every time its tapped) when a loop is made or when a line is complete. Whichever is harder
+
+//TODO: May want to consider saving pieces from a level and using all those pieces for the bonus level
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
