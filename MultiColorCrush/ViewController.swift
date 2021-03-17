@@ -399,7 +399,11 @@ class ViewController: UIViewController {
             
             self.ballPath = UIBezierPath()
             
+            print("Endside \(endSide)")
+
+            
             switch endSide {
+            
 
             case "top":
                 
@@ -587,45 +591,38 @@ extension ViewController: ModelDelegate {
     
     func replacePiece(piece: Piece, ball: Ball) {
         
-        let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+//        print("board.pieces \(model.board.pieces.filter({$0.shape != .wall}))")
         
-        let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
-        let shapeView = ShapeView(frame: frame, piece: newPiece)
-        
-//        shapeView.backgroundColor = UIColor.yellow
-        
-        
-//        var backgroundColor = UIColor.systemYellow
-//
-//
-//        if ball.loopedIndexes[piece.indexes] == 1 {
-//            backgroundColor = UIColor.orange
-//        } else if ball.loopedIndexes[piece.indexes] == 2 {
-//            backgroundColor = UIColor.red
-//
-//        } else if ball.loopedIndexes[piece.indexes] == 3 {
-//            backgroundColor = UIColor.purple
-//
-//        } else if ball.loopedIndexes[piece.indexes] == 4 {
-//            backgroundColor = UIColor.systemIndigo
-//
-//        }
-//
-//        shapeView.backgroundColor = backgroundColor
+        if model.board.pieces.contains(where: { (pieceX) -> Bool in
+            pieceX.indexes == piece.indexes
+        }) {
+            
+            let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+            
+            let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
+            
+            let shapeView = ShapeView(frame: frame, piece: newPiece)
 
-        UIView.animate(withDuration: 0.25) {
-            
-            piece.view.removeFromSuperview()
-            piece.view = shapeView
+            UIView.animate(withDuration: 0.25) {
+                
+                piece.view.removeFromSuperview()
+                piece.view = shapeView
 
-            self.model.board.view.addSubview(piece.view)
+                self.model.board.view.addSubview(piece.view)
+                
+                
+            } completion: { (true) in
+                
+                
+                print()
+            }
             
             
-        } completion: { (true) in
             
-            
-            print()
         }
+        
+        
+        
 
         
     }
