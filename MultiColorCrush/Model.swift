@@ -1205,7 +1205,9 @@ class Model {
                 delegate?.removeBall(ball: ball)
                 
                
-               
+                //MARK: Need to check for winner here
+                
+                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
                 
                 
                 break
@@ -1267,6 +1269,8 @@ class Model {
                         }
                         
                         delegate?.removeBall(ball: ball)
+                        
+                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
                         
                         break
                     }
@@ -1337,6 +1341,8 @@ class Model {
                         
                         delegate?.removeBall(ball: ball)
                         
+                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                        
                         break
                     }
                     
@@ -1402,6 +1408,8 @@ class Model {
                         }
                         
                         delegate?.removeBall(ball: ball)
+                        
+                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
                         
                         break
                     }
@@ -1472,6 +1480,9 @@ class Model {
                         }
                         
                         delegate?.removeBall(ball: ball)
+                        
+                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+
                         
                         break
                     }
