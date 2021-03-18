@@ -55,6 +55,9 @@ import UIKit
 
 //TODO: May want to consider saving pieces from a level and using all those pieces for the bonus level
 
+//TODO: Need to fix the fact that the win popup comes up more than once
+
+
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
@@ -1600,8 +1603,9 @@ class Model {
         
         else {
             
+            //gameOver = false //Doesnt work
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-//            gameOver = true //MARK: THIS WAS TAKEN OUT IN ORDER FOR THE USER TO HIT CANCEL INSTEAD OF ADVANCING TO THE NEXT LEVEL. BEFORE IT WAS TAKEN OUT, THE POPUP WOULDNT COME UNTIL THE 2nd TAP
+            gameOver = true //MARK: THIS WAS TAKEN OUT IN ORDER FOR THE USER TO HIT CANCEL INSTEAD OF ADVANCING TO THE NEXT LEVEL. BEFORE IT WAS TAKEN OUT, THE POPUP WOULDNT COME UNTIL THE 2nd TAP
             return
         }
     }

@@ -1212,7 +1212,9 @@ extension ViewController: ModelDelegate {
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (cancelAction) in
                 alert.dismiss(animated: true) {
-                    print()
+//                    print()
+                    
+                    self.model.gameOver = false
                 }
             }
             alert.addAction(action)
