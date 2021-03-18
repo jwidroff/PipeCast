@@ -597,6 +597,7 @@ extension ViewController: ModelDelegate {
         var backgroundColor = UIColor.systemYellow
         
         
+        
         if ball.loopedIndexes[piece.indexes] == 1 {
             
             
@@ -880,16 +881,18 @@ extension ViewController: ModelDelegate {
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
-        if piece.shape == .cross {
-            
-            if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-                
-                self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                return
-                
-            }
-            
-        }
+        
+        //TODO: CONSIDER MOVING THIS TO THE MODEL
+//        if piece.shape == .cross {
+//            
+//            if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+//                
+//                self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                return
+//                
+//            }
+//            
+//        }
                
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
@@ -1166,6 +1169,9 @@ extension ViewController: ModelDelegate {
     }
     
     func runPopUpView(title: String, message: String) {
+        
+        
+        print("model.gameover \(model.gameOver)")
         
         if model.gameOver == true {
             model.gameOver = false

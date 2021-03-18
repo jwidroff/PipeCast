@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 17
+    var number = 8
 
     var board = Board()
 }
@@ -382,7 +382,7 @@ class LevelModel {
             board.amountOfRandomPieces = 16
 
 
-            let entrance1 = Piece(indexes: Indexes(x: 4, y: 3), shape: .entrance, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
+            let entrance1 = Piece(indexes: Indexes(x: 4, y: 3), shape: .exit, colors: [UIColor.blue], version: 1, currentSwitch: 1, isLocked: true, opening: "left", doesPivot: nil)
             board.pieces.append(entrance1)
 
 
@@ -394,7 +394,7 @@ class LevelModel {
             board.pieces.append(entrance2)
 
 
-            let exit2 = Piece(indexes: Indexes(x: 0, y: 5), shape: .exit, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
+            let exit2 = Piece(indexes: Indexes(x: 0, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: true, opening: "right", doesPivot: nil)
             board.pieces.append(exit2)
 
 

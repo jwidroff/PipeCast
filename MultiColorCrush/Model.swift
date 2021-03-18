@@ -74,6 +74,7 @@ protocol ModelDelegate {
     func replacePiece(piece: Piece, ball: Ball)
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
+    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
 }
 
 class Model {
@@ -1161,51 +1162,23 @@ class Model {
             default:
                 break
             }
-            
-//            ball.piecesPassed.append(piece)
-            
+                        
             addToPiecesPassed(ball: ball, piece: piece)
-            
-//            print("Check4EndlessLoop \(check4EndlessLoop(ball: ball))")
-            
+                        
             if check4EndlessLoop(ball: ball) == true {
                 
-                //Speed up the ball
-                
-                //Get rid of all pieces on the path and all pieces that are in the parameter of the ball
-                
-                print("check4EndlessLoop = true")
-                
-                
                 for piece in ball.piecesPassed {
-                    
-
-                    
-//                    delegate?.removePiece(piece: piece)
-
-                    
-                    
                     
                     board.pieces.removeAll { (pieceX) -> Bool in
                         pieceX.indexes == piece.indexes
                     }
-                    
-                    
                 }
-                
-                
-//                print("ball indexes \(board.balls.map({($0.indexes)}))")
-                
-                
                 
                 board.balls.removeAll { (ballX) -> Bool in
                     ball.indexes == ballX.indexes
                 }
                 
                 delegate?.removeBall(ball: ball)
-                
-               
-                //MARK: Need to check for winner here
                 
                 delegate?.changeAnimation(slowerOrFaster: "slower")
                 
@@ -1216,8 +1189,23 @@ class Model {
             }
             
             
+            if piece.shape == .cross {
+                
+                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                } else {
+                    delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                    break
+                }
+                
+            } else {
+                
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 
-            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+            }
+           
+            
+            
             
         case "top":
             
@@ -1280,8 +1268,20 @@ class Model {
                     }
 
                     
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    return
+                    if piece.shape == .cross {
+                        
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        } else {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
+                        }
+                        
+                    } else {
+                        
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+                    }
 
                 }
             } else {
@@ -1352,8 +1352,19 @@ class Model {
                         break
                     }
                     
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    return
+                    if piece.shape == .cross {
+                        
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        } else {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
+                        }
+                        
+                    } else {
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+
+                    }
                 }
                 
             } else {
@@ -1422,8 +1433,20 @@ class Model {
                         break
                     }
                     
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    return
+                    if piece.shape == .cross {
+                        
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        } else {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
+                        }
+                        
+                    } else {
+                        
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+
+                    }
                 }
                 
             } else {
@@ -1497,8 +1520,24 @@ class Model {
                         break
                     }
                     
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    return
+                    
+                    if piece.shape == .cross {
+                        
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        } else {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
+                        }
+                        
+                    } else {
+                        
+                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+
+                    }
+                    
+                   
+                    
                 }
                 
             } else {
@@ -1562,7 +1601,7 @@ class Model {
         else {
             
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-            gameOver = true
+//            gameOver = true //MARK: THIS WAS TAKEN OUT IN ORDER FOR THE USER TO HIT CANCEL INSTEAD OF ADVANCING TO THE NEXT LEVEL. BEFORE IT WAS TAKEN OUT, THE POPUP WOULDNT COME UNTIL THE 2nd TAP
             return
         }
     }
