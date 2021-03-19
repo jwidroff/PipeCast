@@ -77,6 +77,8 @@ protocol ModelDelegate {
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
     func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
+    
+    func placeBallCenter(ball: Ball)
 //    func placeBallCenter(ball:Ball)
     
 }
@@ -1145,13 +1147,7 @@ class Model {
         
         let piece = getPieceInfo(index: ball.indexes)
                 
-        
-        
-        
-        
-        
         //MARK: MAJOR GLITCH - USER WINS BY JUST HITTING AN EXIT EVEN IF THE OPENING TO THE EXIT IS THE WRONG WAY (AT LEAST IT SEEMS TO BE THIS WAY WITH RANDOM PIECES _ TRY TO SET IT UP AND SEE WHAT HAPPENS
-        print("PIECE SHAPE \(piece.shape)")
         
         switch startSide {
         
@@ -1203,15 +1199,12 @@ class Model {
             
             if piece.shape == .cross {
                 
-                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
                     
-                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    
-//                    checkIfBallExited(ball: ball)
-                    
-                } else {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     break
+//                    checkIfBallExited(ball: ball)
+                    
                 }
                 
             } else {
@@ -1288,14 +1281,12 @@ class Model {
                     
                     if piece.shape == .cross {
                         
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
                             
 //                            checkIfBallExited(ball: ball)
 
-                        } else {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
                         }
                         
                     } else {
@@ -1378,14 +1369,12 @@ class Model {
                     
                     if piece.shape == .cross {
                         
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
                             
 //                            checkIfBallExited(ball: ball)
 
-                        } else {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
                         }
                         
                     } else {
@@ -1466,13 +1455,10 @@ class Model {
                     if piece.shape == .cross {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                            
-//                            checkIfBallExited(ball: ball)
-
-                        } else {
                             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                             break
+//                            checkIfBallExited(ball: ball)
+
                         }
                         
                     } else {
@@ -1560,13 +1546,11 @@ class Model {
                     if piece.shape == .cross {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                            break
                             
 //                            checkIfBallExited(ball: ball)
 
-                        } else {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
                         }
                         
                     } else {
@@ -1593,56 +1577,60 @@ class Model {
         
 //        delegate?.placeBallCenter(ball: ball)
         //Place ball in center here
+//        ball.view.center = self.ballEndingPoint
         
-        
+//        delegate?.placeBallCenter(ball: ball)
+//        checkIfBallExited(ball: ball)
         return
     }
     
-    func checkIfBallExited(ball: Ball) {
+    func checkIfBallExited(ball: Ball, endSide: String) {
         
-        print("Check if ball exited called")
+//        print("Check if ball exited called")
         
-        for piece in board.pieces {
+        if endSide == "center" {
+            
+//            for piece in board.pieces {
+//
+//                if piece.indexes == ball.indexes {
+//
+//                    if piece.shape == .exit {
 
-            if piece.indexes == ball.indexes {
+                        
+                            ball.exited = true
 
-                if piece.shape == .exit {
-
-                    
-                    print("piece center \(piece.view.center) Ball center \(ball.view.center)")
-                    
-                    if piece.view.center == ball.view.center {
-                        
-                        print("BALL HAS EXITED")
-                        
-                        ball.exited = true
-
-                        CATransaction.begin()
-                        
-                        CATransaction.setCompletionBlock {
+                            CATransaction.begin()
                             
-                            self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
-                            return
-                            
-                        }
-                        
-                        
-                        for piece in ball.piecesPassed {
-                            
-                            
-
-                            delegate?.removePieceAfterBall(piece: piece)
-                            
-                            board.pieces.removeAll { (pieceX) -> Bool in
-                                pieceX.indexes == piece.indexes
+                            CATransaction.setCompletionBlock {
+                                
+                                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                                return
+                                
                             }
-                        }
-                        CATransaction.commit()
-                        
-                    }
-                }
-            }
+                            
+                            
+                            for piece in ball.piecesPassed {
+                                
+                                
+
+                                delegate?.removePieceAfterBall(piece: piece)
+                                
+                                board.pieces.removeAll { (pieceX) -> Bool in
+                                    pieceX.indexes == piece.indexes
+                                }
+                            }
+                            CATransaction.commit()
+                            
+    //                    }
+//                    }
+//                }
+//            }
+            
+            
+            
         }
+        
+
     }
     
     func check4Winner(piece: Piece){
@@ -1675,8 +1663,30 @@ class Model {
                                 
                     if board.grid[ball.indexes] == center {
                               
+                        CATransaction.begin()
+                        
+                        CATransaction.setCompletionBlock {
+                            
+                            print("placeBall Center called")
+
+                            
+//                            self.delegate?.placeBallCenter(ball: ball)
+//                            self.checkIfBallExited(ball: ball)
+//                            return
+                            
+                            
+                        }
+                        
+                        print("moveball called")
+                        
                         moveBall(ball: ball, startSide: "unmoved")
-                        return
+
+                        
+                        CATransaction.commit()
+                        
+                        
+                       
+                        
                     }
                 }
             }

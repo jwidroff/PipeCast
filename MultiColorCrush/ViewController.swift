@@ -363,13 +363,13 @@ class ViewController: UIViewController {
         return bool
     }
     
-    func calculateAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
-
-        ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
-        ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
-        ballEndingPoint = endPoint
-        completion(true)
-    }
+//    func calculateAnimation(view: UIView, beginPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint, completion: @escaping (Bool) -> Void) {
+//
+//        ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
+//        ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+//        ballEndingPoint = endPoint
+//        completion(true)
+//    }
     
     func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
         
@@ -399,7 +399,7 @@ class ViewController: UIViewController {
             
             self.ballPath = UIBezierPath()
             
-            print("Endside \(endSide)")
+//            print("Endside \(endSide)")
 
             
             switch endSide {
@@ -556,12 +556,26 @@ class ViewController: UIViewController {
         
         CATransaction.commit()
         
-        ball.view.center = self.ballEndingPoint
+        
+        //MARK: 123
+//        ball.view.center = self.ballEndingPoint
     }
 }
 
 extension ViewController: ModelDelegate {
 
+    
+    func placeBallCenter(ball: Ball) {
+        
+        //UP TO HERE - SEE WHAT HAPPENS WHEN YOU PRINT - ITS NOT PUTTING THE BALL IN THE CORRECT ENDING PLACE
+        
+        
+        print("BALL ENDING POINT IS \(ballEndingPoint)")
+        
+//        ball.view.center = self.ballEndingPoint
+        
+        
+    }
     
     func changeAnimation(slowerOrFaster: String) {
         
@@ -573,9 +587,7 @@ extension ViewController: ModelDelegate {
                 duration4Animation -= 0.03
 
             }
-            
-            print("duration \(duration4Animation)")
-            
+                        
         case "slower":
             
             
@@ -923,10 +935,13 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
+            print("ball ending point is \(ballEndingPoint)")
+            
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
+            ball.view.center = ballEndingPoint
             
-//            model.checkIfBallExited(ball: ball)
+            model.checkIfBallExited(ball: ball, endSide: endSide)
 
             
         case "top":
@@ -957,12 +972,15 @@ extension ViewController: ModelDelegate {
             ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
+            
+            print("ball ending point is \(ballEndingPoint)")
+
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
                 
+            ball.view.center = ballEndingPoint
             
-            
-//            model.checkIfBallExited(ball: ball)
-            
+            model.checkIfBallExited(ball: ball, endSide: endSide)
+
         case "bottom":
             
             
@@ -993,11 +1011,13 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            
+            print("ball ending point is \(ballEndingPoint)")
+
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
+            ball.view.center = ballEndingPoint
             
-//            model.checkIfBallExited(ball: ball)
+            model.checkIfBallExited(ball: ball, endSide: endSide)
 
             
         case "left":
@@ -1029,9 +1049,13 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
+            print("ball ending point is \(ballEndingPoint)")
+
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
-//            model.checkIfBallExited(ball: ball)
+            ball.view.center = ballEndingPoint
+            
+            model.checkIfBallExited(ball: ball, endSide: endSide)
 
             
         case "right":
@@ -1062,15 +1086,19 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            
+            print("ball ending point is \(ballEndingPoint)")
+
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-//            model.checkIfBallExited(ball: ball)
             
+            ball.view.center = ballEndingPoint
+            
+            model.checkIfBallExited(ball: ball, endSide: endSide)
+
         default:
             break
         }
-        model.checkIfBallExited(ball: ball)
-        return
+        
+        
     }
     
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
@@ -1164,7 +1192,7 @@ extension ViewController: ModelDelegate {
     func runPopUpView(title: String, message: String) {
         
         
-        print("model.gameover \(model.gameOver)")
+//        print("model.gameover \(model.gameOver)")
         
         if model.gameOver == true {
             model.gameOver = false
