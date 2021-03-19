@@ -544,7 +544,7 @@ class ViewController: UIViewController {
                 break
             }
             
-            ball.view.center = self.ballEndingPoint
+//            ball.view.center = self.ballEndingPoint
             return
         }
         
@@ -555,6 +555,8 @@ class ViewController: UIViewController {
         ball.view.layer.add(animation, forKey: "animate along path")
         
         CATransaction.commit()
+        
+        ball.view.center = self.ballEndingPoint
     }
 }
 
@@ -590,7 +592,12 @@ extension ViewController: ModelDelegate {
         
     }
     
-    
+//    func placeBallCenter(ball: Ball) {
+//        
+//        ball.view.center = ballEndingPoint
+//        
+//        
+//    }
     
     func changeColor(piece: Piece, ball: Ball) {
         
@@ -880,20 +887,7 @@ extension ViewController: ModelDelegate {
     }
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
-        
-        
-        //TODO: CONSIDER MOVING THIS TO THE MODEL
-//        if piece.shape == .cross {
-//            
-//            if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-//                
-//                self.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-//                return
-//                
-//            }
-//            
-//        }
-               
+          
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
@@ -930,7 +924,6 @@ extension ViewController: ModelDelegate {
             ballEndingPoint = endPoint
             
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            
             
             
 //            model.checkIfBallExited(ball: ball)

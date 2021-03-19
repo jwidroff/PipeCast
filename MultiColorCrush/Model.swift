@@ -55,8 +55,7 @@ import UIKit
 
 //TODO: May want to consider saving pieces from a level and using all those pieces for the bonus level
 
-//TODO: Need to fix the fact that the win popup comes up more than once
-
+//TODO: May want to consider giving the randomColorChanger a power, like the ability to flip horitontally or vertically
 
 
 protocol ModelDelegate {
@@ -78,6 +77,8 @@ protocol ModelDelegate {
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
     func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
+//    func placeBallCenter(ball:Ball)
+    
 }
 
 class Model {
@@ -1144,6 +1145,14 @@ class Model {
         
         let piece = getPieceInfo(index: ball.indexes)
                 
+        
+        
+        
+        
+        
+        //MARK: MAJOR GLITCH - USER WINS BY JUST HITTING AN EXIT EVEN IF THE OPENING TO THE EXIT IS THE WRONG WAY (AT LEAST IT SEEMS TO BE THIS WAY WITH RANDOM PIECES _ TRY TO SET IT UP AND SEE WHAT HAPPENS
+        print("PIECE SHAPE \(piece.shape)")
+        
         switch startSide {
         
         case "unmoved":
@@ -1195,7 +1204,11 @@ class Model {
             if piece.shape == .cross {
                 
                 if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+                    
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
+//                    checkIfBallExited(ball: ball)
+                    
                 } else {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     break
@@ -1204,6 +1217,8 @@ class Model {
             } else {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+//                checkIfBallExited(ball: ball)
+
 
             }
            
@@ -1275,6 +1290,9 @@ class Model {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                            
+//                            checkIfBallExited(ball: ball)
+
                         } else {
                             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                             break
@@ -1283,6 +1301,9 @@ class Model {
                     } else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+//                        checkIfBallExited(ball: ball)
+
                         
                     }
 
@@ -1359,6 +1380,9 @@ class Model {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                            
+//                            checkIfBallExited(ball: ball)
+
                         } else {
                             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                             break
@@ -1366,6 +1390,9 @@ class Model {
                         
                     } else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+//                        checkIfBallExited(ball: ball)
+
 
                     }
                 }
@@ -1440,6 +1467,9 @@ class Model {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                            
+//                            checkIfBallExited(ball: ball)
+
                         } else {
                             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                             break
@@ -1448,6 +1478,9 @@ class Model {
                     } else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+//                        checkIfBallExited(ball: ball)
+
 
                     }
                 }
@@ -1528,6 +1561,9 @@ class Model {
                         
                         if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
                             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                            
+//                            checkIfBallExited(ball: ball)
+
                         } else {
                             delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                             break
@@ -1536,6 +1572,9 @@ class Model {
                     } else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                        
+//                        checkIfBallExited(ball: ball)
+
 
                     }
                     
@@ -1551,6 +1590,11 @@ class Model {
         default:
             break
         }
+        
+//        delegate?.placeBallCenter(ball: ball)
+        //Place ball in center here
+        
+        
         return
     }
     
@@ -1564,31 +1608,38 @@ class Model {
 
                 if piece.shape == .exit {
 
-                    ball.exited = true
+                    
+                    print("piece center \(piece.view.center) Ball center \(ball.view.center)")
+                    
+                    if piece.view.center == ball.view.center {
+                        
+                        print("BALL HAS EXITED")
+                        
+                        ball.exited = true
 
-                    CATransaction.begin()
-                    
-                    CATransaction.setCompletionBlock {
+                        CATransaction.begin()
                         
-                        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
-                        return
-                        
-                    }
-                    
-                    
-                    for piece in ball.piecesPassed {
-                        
-                        
-
-                        delegate?.removePieceAfterBall(piece: piece)
-                        
-                        board.pieces.removeAll { (pieceX) -> Bool in
-                            pieceX.indexes == piece.indexes
+                        CATransaction.setCompletionBlock {
+                            
+                            self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                            return
+                            
                         }
-                    }
-                    CATransaction.commit()
+                        
+                        
+                        for piece in ball.piecesPassed {
+                            
+                            
 
-                   
+                            delegate?.removePieceAfterBall(piece: piece)
+                            
+                            board.pieces.removeAll { (pieceX) -> Bool in
+                                pieceX.indexes == piece.indexes
+                            }
+                        }
+                        CATransaction.commit()
+                        
+                    }
                 }
             }
         }
@@ -1603,9 +1654,8 @@ class Model {
         
         else {
             
-            //gameOver = false //Doesnt work
             delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-            gameOver = true //MARK: THIS WAS TAKEN OUT IN ORDER FOR THE USER TO HIT CANCEL INSTEAD OF ADVANCING TO THE NEXT LEVEL. BEFORE IT WAS TAKEN OUT, THE POPUP WOULDNT COME UNTIL THE 2nd TAP
+            gameOver = true
             return
         }
     }

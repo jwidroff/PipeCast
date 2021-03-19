@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 11
+    var number = 4
 
     var board = Board()
 }
@@ -40,7 +40,8 @@ class LevelModel {
                       "test6",
                       "test7",
                       "test8",
-                      "test9"]
+                      "test9",
+                      "everything"]
         
     func returnBoard(levelNumber: Int) -> Board {
         
@@ -787,6 +788,30 @@ class LevelModel {
             addBorderAroundBoardOf(.wall, exceptionIndexes: [])
 
 
+        case "everything":
+
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+
+            board.amountOfRandomPieces = 10
+
+            board.randomPieceColors = [UIColor.red, UIColor.green, UIColor.blue]
+
+            board.randomPieceShapes = [.doubleElbow, .cross, .diagElbow, .elbow, .stick, .colorChanger]
+
+            let entrance = Piece(indexes: Indexes(x: 2, y: 5), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance)
+            
+            let exit = Piece(indexes: Indexes(x: 3, y: 5), shape: .exit, colors: [UIColor.red, UIColor.red], version: 3, currentSwitch: 1, isLocked: false, opening: "top", doesPivot: true)
+            board.pieces.append(exit)
+
+            
+            addBorderAroundBoardOf(.pieceMaker, exceptionIndexes: [Indexes(x: 0, y: 1), Indexes(x: 0, y: 11), Indexes(x: 6, y: 1), Indexes(x: 6, y: 11)])
+
+            setupRowOrColumnOf(.pieceMaker, rowOrColumn: "row", index: 3, exception: [4,5], pieceMakerOpening: "top")
+            
+            
+            
         default:
             break
             
@@ -1412,10 +1437,10 @@ class LevelModel {
     
     private func addBorderAroundBoardOf(_ shape: Shape, exceptionIndexes: [Indexes]) {
 
-        let corner1 = Piece(indexes: Indexes(x: 0, y: 0), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-        let corner2 = Piece(indexes: Indexes(x: 0, y: board.heightSpaces - 1), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-        let corner3 = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: board.heightSpaces - 1), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
-        let corner4 = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: 0), shape: .wall, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+        let corner1 = Piece(indexes: Indexes(x: 0, y: 0), shape: .wall, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+        let corner2 = Piece(indexes: Indexes(x: 0, y: board.heightSpaces - 1), shape: .wall, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+        let corner3 = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: board.heightSpaces - 1), shape: .wall, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+        let corner4 = Piece(indexes: Indexes(x: board.widthSpaces - 1, y: 0), shape: .wall, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
 
         board.pieces.append(contentsOf: [corner1, corner2, corner3, corner4])
         
@@ -1461,7 +1486,7 @@ class LevelModel {
                         if !exception.contains(where: { (index) -> Bool in
                             index == xIndex
                         }) {
-                            let wall = Piece(indexes: Indexes(x: xIndex, y: index), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            let wall = Piece(indexes: Indexes(x: xIndex, y: index), shape: shape, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
                             board.pieces.append(wall)
                         }
                     }
@@ -1527,7 +1552,7 @@ class LevelModel {
                             index == yIndex
                         }) {
 
-                            let piece = Piece(indexes: Indexes(x: index, y: yIndex), shape: shape, colors: [UIColor.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+                            let piece = Piece(indexes: Indexes(x: index, y: yIndex), shape: shape, colors: [UIColor.gray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
                             board.pieces.append(piece)
                         }
                     }
