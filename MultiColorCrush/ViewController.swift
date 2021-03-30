@@ -421,7 +421,7 @@ class ViewController: UIViewController {
                     case .cross:
                         if lastPiece.side.top.closing.isOpen != false {
                             
-                            self.model.switchCross(piece: lastPiece, ball: ball)
+//                            self.model.switchCross(piece: lastPiece, ball: ball)
                             
                             
                             self.model.board.view.bringSubviewToFront(ball.view)
@@ -455,7 +455,7 @@ class ViewController: UIViewController {
                     case .cross:
                     if lastPiece.side.bottom.closing.isOpen != false{
                         
-                        self.model.switchCross(piece: lastPiece, ball: ball)
+//                        self.model.switchCross(piece: lastPiece, ball: ball)
                         self.model.board.view.bringSubviewToFront(ball.view)
                     }
                     default:
@@ -486,7 +486,7 @@ class ViewController: UIViewController {
                     case .cross:
                         if lastPiece.side.left.closing.isOpen != false {
                             
-                            self.model.switchCross(piece: lastPiece, ball: ball)
+//                            self.model.switchCross(piece: lastPiece, ball: ball)
                             self.model.board.view.bringSubviewToFront(ball.view)
                         }
                         
@@ -524,7 +524,7 @@ class ViewController: UIViewController {
                         
                         if lastPiece.side.right.closing.isOpen != false {
                             
-                            self.model.switchCross(piece: lastPiece, ball: ball)
+//                            self.model.switchCross(piece: lastPiece, ball: ball)
                             self.model.board.view.bringSubviewToFront(ball.view)
                         }
                         

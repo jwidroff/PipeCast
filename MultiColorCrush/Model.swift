@@ -58,6 +58,9 @@ import UIKit
 //TODO: May want to consider giving the randomColorChanger a power, like the ability to flip horitontally or vertically
 
 
+//TODO: NEW ISSUE - Cross piece doesnt work properly
+
+
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
@@ -1197,23 +1200,28 @@ class Model {
             }
             
             
-            if piece.shape == .cross {
-                
-                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-                    
-                    delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                    break
-//                    checkIfBallExited(ball: ball)
-                    
-                }
-                
-            } else {
+//            if piece.shape == .cross {
+//
+//                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+//
+//                    delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                    break
+////                    checkIfBallExited(ball: ball)
+//
+//                }
+////                else {
+////                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+////                    break
+////                }
+//
+//            }
+//            else {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
 //                checkIfBallExited(ball: ball)
 
 
-            }
+//            }
            
             
             
@@ -1244,9 +1252,9 @@ class Model {
                     ball.onColor = piece.side.bottom.color!
                 }
                 
-                if board.pieces.contains(where: { (piece) -> Bool in
-                    piece.indexes == ball.indexes
-                }) {
+//                if board.pieces.contains(where: { (piece) -> Bool in
+//                    piece.indexes == ball.indexes
+//                }) {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                                         
@@ -1279,26 +1287,32 @@ class Model {
                     }
 
                     
-                    if piece.shape == .cross {
-                        
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
-                            
-//                            checkIfBallExited(ball: ball)
-
-                        }
-                        
-                    } else {
+//                    if piece.shape == .cross {
+//
+//                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+//                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                            break
+//
+////                            checkIfBallExited(ball: ball)
+//
+//                        }
+////                        else {
+////                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+////                            break
+////                        }
+//
+//                    }
+                    
+//                    else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
 //                        checkIfBallExited(ball: ball)
 
                         
-                    }
+//                    }
 
-                }
+//                }
             } else {
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
@@ -1333,9 +1347,9 @@ class Model {
                     ball.onColor = piece.side.top.color!
                 }
                 
-                if board.pieces.contains(where: { (piece) -> Bool in
-                    piece.indexes == ball.indexes
-                }) {
+//                if board.pieces.contains(where: { (piece) -> Bool in
+//                    piece.indexes == ball.indexes
+//                }) {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
@@ -1367,24 +1381,30 @@ class Model {
                         break
                     }
                     
-                    if piece.shape == .cross {
-                        
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
-                            
-//                            checkIfBallExited(ball: ball)
-
-                        }
-                        
-                    } else {
+//                    if piece.shape == .cross {
+//
+//                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+//                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                            break
+//
+////                            checkIfBallExited(ball: ball)
+//
+//                        }
+////                        else {
+////                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+////                            break
+////                        }
+//
+//                    }
+                    
+//                    else {
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
 //                        checkIfBallExited(ball: ball)
 
 
-                    }
-                }
+//                    }
+//                }
                 
             } else {
                 
@@ -1418,9 +1438,9 @@ class Model {
                     ball.onColor = piece.side.right.color!
                 }
                 
-                if board.pieces.contains(where: { (piece) -> Bool in
-                    piece.indexes == ball.indexes
-                }) {
+//                if board.pieces.contains(where: { (piece) -> Bool in
+//                    piece.indexes == ball.indexes
+//                }) {
                     
                     addToPiecesPassed(ball: ball, piece: piece)
                     
@@ -1452,24 +1472,29 @@ class Model {
                         break
                     }
                     
-                    if piece.shape == .cross {
-                        
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
-//                            checkIfBallExited(ball: ball)
-
-                        }
-                        
-                    } else {
+//                    if piece.shape == .cross {
+//
+//                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+//                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                            break
+////                            checkIfBallExited(ball: ball)
+//
+//                        }
+////                        else {
+////                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+////                            break
+////                        }
+//
+//                    }
+//                    else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
 //                        checkIfBallExited(ball: ball)
 
 
-                    }
-                }
+//                    }
+//                }
                 
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
@@ -1504,9 +1529,9 @@ class Model {
                 }
                 
                 
-                if board.pieces.contains(where: { (piece) -> Bool in
-                    piece.indexes == ball.indexes
-                }) {
+//                if board.pieces.contains(where: { (piece) -> Bool in
+//                    piece.indexes == ball.indexes
+//                }) {
                     
                     
                     addToPiecesPassed(ball: ball, piece: piece)
@@ -1543,28 +1568,34 @@ class Model {
                     }
                     
                     
-                    if piece.shape == .cross {
-                        
-                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
-                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
-                            break
-                            
-//                            checkIfBallExited(ball: ball)
-
-                        }
-                        
-                    } else {
+//                    if piece.shape == .cross {
+//
+//                        if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == false {
+//                            delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+//                            break
+//
+////                            checkIfBallExited(ball: ball)
+//
+//                        }
+////                        else {
+////
+////                            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+////                            break
+////                        }
+//
+//                    }
+//                    else {
                         
                         delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
 //                        checkIfBallExited(ball: ball)
 
 
-                    }
+//                    }
                     
                    
                     
-                }
+//                }
                 
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
