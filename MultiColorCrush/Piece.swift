@@ -700,6 +700,8 @@ class Ball {
     var possibleLoopedIndexes = [Indexes]()
     var loopedIndexes = [Indexes : Int]()
     var loopedPieces = [Piece]()
+    var center = CGPoint()
+    
 }
 
 enum Direction {

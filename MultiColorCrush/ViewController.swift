@@ -55,7 +55,8 @@ class ViewController: UIViewController {
             
             let frame = CGRect(x: 0, y: 0, width: pieceWidth, height: pieceHeight)
             ball.view = BallView(frame: frame)
-            ball.view.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
+            ball.center = CGPoint(x: model.board.grid[ball.indexes]?.x ?? ball.view.center.x, y: model.board.grid[ball.indexes]?.y ?? ball.view.center.y)
+            ball.view.center = ball.center
             addTapGestureRecognizer(view: ball.view)
             self.model.board.view.addSubview(ball.view)
         }
@@ -541,10 +542,12 @@ class ViewController: UIViewController {
                 CATransaction.commit()
                 
             default:
+                                
                 break
             }
+            ball.center = self.ballEndingPoint
+            ball.view.center = ball.center
             
-//            ball.view.center = self.ballEndingPoint
             return
         }
         
@@ -554,11 +557,9 @@ class ViewController: UIViewController {
         animation.duration = duration4Animation
         ball.view.layer.add(animation, forKey: "animate along path")
         
+        
         CATransaction.commit()
         
-        
-        //MARK: 123
-//        ball.view.center = self.ballEndingPoint
     }
 }
 
@@ -683,17 +684,17 @@ extension ViewController: ModelDelegate {
     
     func ballCrashInCross(piece: Piece, ball: Ball) {
         
-        let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.view.center.y
+        let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.center.y
         
-        let xAxisIsAligned:Bool = piece.view.frame.minX + (piece.view.frame.width / 2) == ball.view.center.x
+        let xAxisIsAligned:Bool = piece.view.frame.minX + (piece.view.frame.width / 2) == ball.center.x
         
-        let ballIsLowerTanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) < ball.view.center.y
+        let ballIsLowerTanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) < ball.center.y
         
-        let ballIsHigherThanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) > ball.view.center.y
+        let ballIsHigherThanPieceCenter:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) > ball.center.y
         
-        let ballIsRightOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) < ball.view.center.x
+        let ballIsRightOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) < ball.center.x
         
-        let ballIsLeftOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) > ball.view.center.x
+        let ballIsLeftOfPieceCenter = piece.view.frame.minX + (piece.view.frame.width / 2) > ball.center.x
         
         var startPoint = CGPoint()
         var endPoint = CGPoint()
@@ -709,9 +710,9 @@ extension ViewController: ModelDelegate {
             
             //Moves the piece up
             
-             startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceWidth / 2))
+             startPoint = CGPoint(x: ball.center.x, y: ball.center.y - (self.pieceWidth / 2))
             
-             endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y - (self.pieceHeight / 3))
+             endPoint = CGPoint(x: ball.center.x, y: ball.center.y - (self.pieceHeight / 3))
             
 //            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
 //
@@ -723,9 +724,9 @@ extension ViewController: ModelDelegate {
             
             //Moves the piece down
             
-             startPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceWidth / 2))
+             startPoint = CGPoint(x: ball.center.x, y: ball.center.y + (self.pieceWidth / 2))
             
-             endPoint = CGPoint(x: ball.view.center.x, y: ball.view.center.y + (self.pieceHeight / 3))
+             endPoint = CGPoint(x: ball.center.x, y: ball.center.y + (self.pieceHeight / 3))
             
 //            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
 //
@@ -736,9 +737,9 @@ extension ViewController: ModelDelegate {
             
             //Moves the piece left
             
-             startPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 2), y: ball.view.center.y)
+             startPoint = CGPoint(x: ball.center.x - (self.pieceWidth / 2), y: ball.center.y)
             
-             endPoint = CGPoint(x: ball.view.center.x - (self.pieceWidth / 3), y: ball.view.center.y)
+             endPoint = CGPoint(x: ball.center.x - (self.pieceWidth / 3), y: ball.center.y)
             
 //            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
 //                self.animateMove(ball: ball, endSide: "center")
@@ -748,9 +749,9 @@ extension ViewController: ModelDelegate {
             
             //Moves the ball right
             
-             startPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 2), y: ball.view.center.y)
+             startPoint = CGPoint(x: ball.center.x + (self.pieceWidth / 2), y: ball.center.y)
             
-             endPoint = CGPoint(x: ball.view.center.x + (self.pieceWidth / 3), y: ball.view.center.y)
+             endPoint = CGPoint(x: ball.center.x + (self.pieceWidth / 3), y: ball.center.y)
             
 //            calculateAnimation(view: ball.view, beginPoint: startPoint, endPoint: endPoint, controlPoint: endPoint) { (true) in
 //
@@ -928,7 +929,7 @@ extension ViewController: ModelDelegate {
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y! + 1)
             }
             
-            beginPoint = ball.view.center
+            beginPoint = ball.center
             controlPoint = piece.view.center
  
             ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
@@ -937,12 +938,8 @@ extension ViewController: ModelDelegate {
             
             print("ball ending point is \(ballEndingPoint)")
             
+            ball.center = ballEndingPoint
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            
-            ball.view.center = ballEndingPoint
-            
-            model.checkIfBallExited(ball: ball, endSide: endSide)
-
             
         case "top":
             
@@ -975,12 +972,9 @@ extension ViewController: ModelDelegate {
             
             print("ball ending point is \(ballEndingPoint)")
 
+            ball.center = ballEndingPoint
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
                 
-            ball.view.center = ballEndingPoint
-            
-            model.checkIfBallExited(ball: ball, endSide: endSide)
-
         case "bottom":
             
             
@@ -1001,11 +995,12 @@ extension ViewController: ModelDelegate {
                 endPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y)
                 ball.indexes = Indexes(x: ball.indexes.x!, y: ball.indexes.y!)
             }
-            
+                        
             beginPoint = CGPoint(x: piece.view.center.x, y: piece.view.center.y + self.distanceFromPieceCenter)
             controlPoint = piece.view.center
             
 
+            
                 
             ballPath.move(to: CGPoint(x: beginPoint.x, y: beginPoint.y))
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
@@ -1013,12 +1008,9 @@ extension ViewController: ModelDelegate {
             
             print("ball ending point is \(ballEndingPoint)")
 
+            ball.center = ballEndingPoint
+            
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            
-            ball.view.center = ballEndingPoint
-            
-            model.checkIfBallExited(ball: ball, endSide: endSide)
-
             
         case "left":
             
@@ -1051,12 +1043,9 @@ extension ViewController: ModelDelegate {
             
             print("ball ending point is \(ballEndingPoint)")
 
+            ball.center = ballEndingPoint
+            
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
-            
-            ball.view.center = ballEndingPoint
-            
-            model.checkIfBallExited(ball: ball, endSide: endSide)
-
             
         case "right":
                         
@@ -1088,12 +1077,10 @@ extension ViewController: ModelDelegate {
             
             print("ball ending point is \(ballEndingPoint)")
 
+            ball.center = ballEndingPoint
+            
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
             
-            ball.view.center = ballEndingPoint
-            
-            model.checkIfBallExited(ball: ball, endSide: endSide)
-
         default:
             break
         }

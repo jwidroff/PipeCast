@@ -1174,50 +1174,65 @@ class Model {
                 break
             }
                         
-            addToPiecesPassed(ball: ball, piece: piece)
-                        
-            if check4EndlessLoop(ball: ball) == true {
-                
-                for piece in ball.piecesPassed {
-                    
-                    board.pieces.removeAll { (pieceX) -> Bool in
-                        pieceX.indexes == piece.indexes
-                    }
-                }
-                
-                board.balls.removeAll { (ballX) -> Bool in
-                    ball.indexes == ballX.indexes
-                }
-                
-                delegate?.removeBall(ball: ball)
-                
-                delegate?.changeAnimation(slowerOrFaster: "slower")
-                
-                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
-                
-                
-                break
-            }
-            
-            
 //            if piece.shape == .cross {
 //
+//                print("First piece is a cross")
+////
 //                if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
-//
+////
 //                    delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
 //                    break
-////                    checkIfBallExited(ball: ball)
+//
+//                } else {
+//
+//                    //Switch cross
+//
+//                    switch4Tap(piece: piece) { (true) in
+//                        print("SWITCHING CROSS")
+//                    }
 //
 //                }
-////                else {
-////                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-////                    break
-////                }
 //
 //            }
-//            else {
-                
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+            
+            
+            addToPiecesPassed(ball: ball, piece: piece)
+                        
+//            if check4EndlessLoop(ball: ball) == true {
+//
+//                for piece in ball.piecesPassed {
+//
+//                    board.pieces.removeAll { (pieceX) -> Bool in
+//                        pieceX.indexes == piece.indexes
+//                    }
+//                }
+//
+//                board.balls.removeAll { (ballX) -> Bool in
+//                    ball.indexes == ballX.indexes
+//                }
+//
+//                delegate?.removeBall(ball: ball)
+//
+//                delegate?.changeAnimation(slowerOrFaster: "slower")
+//
+//                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+//
+//
+//                break
+//            }
+            
+            
+           
+            
+            
+            
+            delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
+//            checkIfBallExited(ball: ball, endSide: endSide)
+            
+//            print("endSide = \(endSide)")
+            
+            
 //                checkIfBallExited(ball: ball)
 
 
@@ -1237,6 +1252,34 @@ class Model {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     return
                 }
+                
+                
+                
+               
+                
+                
+                
+                
+                
+                if piece.shape == .cross {
+    //
+                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+    //
+                        delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                        break
+
+                    } else {
+                        
+                        //Switch cross
+                        
+                        switch4Tap(piece: piece) { (true) in
+                            print("SWITCHING CROSS")
+                        }
+                        
+                    }
+                    
+                }
+                
                 
 //                if piece.shape == .cross {
 //
@@ -1305,9 +1348,12 @@ class Model {
                     
 //                    else {
                         
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
+                checkIfBallExited(ball: ball, endSide: endSide)
 //                        checkIfBallExited(ball: ball)
+
+                print("endSide = \(endSide)")
 
                         
 //                    }
@@ -1332,6 +1378,25 @@ class Model {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     return
                 }
+                
+                if piece.shape == .cross {
+    //
+                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+    //
+                        delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                        break
+
+                    } else {
+                        
+                        //Switch cross
+                        
+                        switch4Tap(piece: piece) { (true) in
+                            print("SWITCHING CROSS")
+                        }
+                    }
+                    
+                }
+                
                 
 //                if piece.shape == .cross {
 //
@@ -1398,8 +1463,13 @@ class Model {
 //                    }
                     
 //                    else {
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
+                checkIfBallExited(ball: ball, endSide: endSide)
+                        
+                
+                print("endSide = \(endSide)")
+
 //                        checkIfBallExited(ball: ball)
 
 
@@ -1423,6 +1493,24 @@ class Model {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     return
                 }
+                
+                if piece.shape == .cross {
+    //
+                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+    //
+                        delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                        break
+
+                    } else {
+                        
+                        //Switch cross
+                        switch4Tap(piece: piece) { (true) in
+                            print("SWITCHING CROSS")
+                        }
+                    }
+                    
+                }
+                
                 
 //                if piece.shape == .cross {
 //
@@ -1488,8 +1576,12 @@ class Model {
 //                    }
 //                    else {
                         
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
+                checkIfBallExited(ball: ball, endSide: endSide)
+                
+                print("endSide = \(endSide)")
+
 //                        checkIfBallExited(ball: ball)
 
 
@@ -1513,6 +1605,24 @@ class Model {
                     delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                     return
                 }
+                
+                if piece.shape == .cross {
+    //
+                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+    //
+                        delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
+                        break
+
+                    } else {
+                        
+                        //Switch cross
+                        switch4Tap(piece: piece) { (true) in
+                            print("SWITCHING CROSS")
+                        }
+                    }
+                }
+                
+                
                 
 //                if piece.shape == .cross {
 //
@@ -1586,9 +1696,12 @@ class Model {
 //                    }
 //                    else {
                         
-                        delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                         
-//                        checkIfBallExited(ball: ball)
+                checkIfBallExited(ball: ball, endSide: endSide)
+                
+                print("endSide = \(endSide)")
+
 
 
 //                    }
