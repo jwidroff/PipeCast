@@ -80,10 +80,7 @@ protocol ModelDelegate {
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
     func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
-    
-    func placeBallCenter(ball: Ball)
-//    func placeBallCenter(ball:Ball)
-    
+        
 }
 
 class Model {

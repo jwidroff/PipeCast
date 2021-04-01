@@ -566,18 +566,6 @@ class ViewController: UIViewController {
 extension ViewController: ModelDelegate {
 
     
-    func placeBallCenter(ball: Ball) {
-        
-        //UP TO HERE - SEE WHAT HAPPENS WHEN YOU PRINT - ITS NOT PUTTING THE BALL IN THE CORRECT ENDING PLACE
-        
-        
-        print("BALL ENDING POINT IS \(ballEndingPoint)")
-        
-//        ball.view.center = self.ballEndingPoint
-        
-        
-    }
-    
     func changeAnimation(slowerOrFaster: String) {
         
         
@@ -605,12 +593,6 @@ extension ViewController: ModelDelegate {
         
     }
     
-//    func placeBallCenter(ball: Ball) {
-//        
-//        ball.view.center = ballEndingPoint
-//        
-//        
-//    }
     
     func changeColor(piece: Piece, ball: Ball) {
         
@@ -1144,8 +1126,9 @@ extension ViewController: ModelDelegate {
                     
                     UIView.animate(withDuration: 0.25) {
                         
-                        ball.view.center = piece.view.center
                         
+                        ball.center = piece.view.center
+                        ball.view.center = ball.center
                         self.model.deleteBall(ball: ball)
                         
                     } completion: { (true) in
