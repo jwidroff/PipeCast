@@ -611,11 +611,7 @@ extension ViewController: ModelDelegate {
         
         var backgroundColor = UIColor.systemYellow
         
-        
-        
         if ball.loopedIndexes[piece.indexes] == 1 {
-            
-            
             
             backgroundColor = UIColor.orange
         } else if ball.loopedIndexes[piece.indexes] == 2 {
@@ -630,6 +626,17 @@ extension ViewController: ModelDelegate {
         }
         
         piece.view.backgroundColor = backgroundColor
+        
+        
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+        
+            
+         
+        DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+            
+            piece.view.backgroundColor = .clear
+        }
+        
         
         
         

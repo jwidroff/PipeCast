@@ -1194,10 +1194,11 @@ class Model {
                 break
             }
 
+            addToPiecesPassed(ball: ball, piece: piece)
             
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
             
-            addToPiecesPassed(ball: ball, piece: piece)
+            
             
         case "top":
             
@@ -1221,7 +1222,7 @@ class Model {
                     } else {
                         
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
                         
                         switch4Tap(piece: piece) { (true) in
                             
@@ -1244,9 +1245,10 @@ class Model {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
+                addToPiecesPassed(ball: ball, piece: piece)
+                
                 checkIfBallExited(ball: ball, endSide: endSide)
 
-                addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1282,7 +1284,7 @@ class Model {
                         
                     } else {
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
                         
                         switch4Tap(piece: piece) { (true) in
                             
@@ -1304,9 +1306,11 @@ class Model {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
+                addToPiecesPassed(ball: ball, piece: piece)
+
+                
                 checkIfBallExited(ball: ball, endSide: endSide)
                 
-                addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1342,7 +1346,7 @@ class Model {
                         
                     } else {
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
                         
                         switch4Tap(piece: piece) { (true) in
                             
@@ -1365,10 +1369,12 @@ class Model {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
+                addToPiecesPassed(ball: ball, piece: piece)
+
+                
                 checkIfBallExited(ball: ball, endSide: endSide)
 
 
-                addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1403,7 +1409,7 @@ class Model {
                         
                     } else {
                         
-                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
                         
                         switch4Tap(piece: piece) { (true) in
                             
@@ -1423,10 +1429,12 @@ class Model {
                 
                 delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
+                addToPiecesPassed(ball: ball, piece: piece)
+
+                
                 checkIfBallExited(ball: ball, endSide: endSide)
                 
                 
-                addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
