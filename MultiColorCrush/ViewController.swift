@@ -282,14 +282,14 @@ class ViewController: UIViewController {
     
     @objc func handleTap4Retry(sender: UITapGestureRecognizer) {
                         
-        print("Handling Tap 4 retry")
+//        print("Handling Tap 4 retry")
         runPopUpView(title: "", message: "Are you sure you want to restart?")
         
     }
     
     @objc func handleTap4Menu(sender: UITapGestureRecognizer) {
         
-        print("Handling Tap 4 menu")
+//        print("Handling Tap 4 menu")
         runMenuView()
     }
     
@@ -372,25 +372,25 @@ class ViewController: UIViewController {
 //        completion(true)
 //    }
     
-    func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
-        
-        let pieceX = self.model.getPieceInfo(index: ball.indexes)
-        
-        pieceX.isLocked = true
-        
-        let view = ShapeView(frame: pieceX.view.frame, piece: pieceX)
-        
-        piece.view.removeFromSuperview()
-        
-        piece.view = view
-        
-        self.model.board.view.addSubview(piece.view)
-        
-        piece.view.setNeedsDisplay()
-        
-        self.model.board.view.bringSubviewToFront(ball.view)
-        
-    }
+//    func changePieceAfterBallMoves(piece: Piece, ball: Ball) {
+//
+//        let pieceX = self.model.getPieceInfo(index: ball.indexes)
+//
+//        pieceX.isLocked = true
+//
+//        let view = ShapeView(frame: pieceX.view.frame, piece: pieceX)
+//
+//        piece.view.removeFromSuperview()
+//
+//        piece.view = view
+//
+//        self.model.board.view.addSubview(piece.view)
+//
+//        piece.view.setNeedsDisplay()
+//
+//        self.model.board.view.bringSubviewToFront(ball.view)
+//
+//    }
     
     func animateMove(ball: Ball, endSide: String, lastPiece: Piece) {
                 
@@ -412,32 +412,35 @@ class ViewController: UIViewController {
             
                 CATransaction.setCompletionBlock {
                     
-                    switch lastPiece.shape {
-                    
-                    case .doubleElbow:
-                        if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            
-                            self.model.switchPivot(piece: lastPiece, ball: ball)
-                        }
-                    case .cross:
-                        if lastPiece.side.top.closing.isOpen != false {
-                            
-//                            self.model.switchCross(piece: lastPiece, ball: ball)
-                            
-                            
-                            self.model.board.view.bringSubviewToFront(ball.view)
-                        }
-                    default:
-                        
-                        self.replacePiece(piece: lastPiece, ball: ball)
-                        
-//                        break
-                    
-                    
-                    }
+//                    switch lastPiece.shape {
+//
+//                    case .doubleElbow:
+//                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+//
+//                            self.model.switchPivot(piece: lastPiece, ball: ball)
+//                        }
+//                    case .cross:
+//                        if lastPiece.side.top.closing.isOpen != false {
+//
+//
+//                            self.replacePiece(piece: lastPiece)
+////                            self.model.switchCross(piece: lastPiece, ball: ball)
+//
+//
+//                            self.model.board.view.bringSubviewToFront(ball.view)
+//                        }
+//                    default:
+//
+//                        self.replacePiece(piece: lastPiece)
+//
+////                        break
+//
+//
+//                    }
                 }
                 
                 self.model.moveBall(ball: ball, startSide: "bottom")
+                
                 
                 
                 CATransaction.commit()
@@ -447,25 +450,27 @@ class ViewController: UIViewController {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     
-                    switch lastPiece.shape {
-                    
-                    case .doubleElbow:
-                        if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece, ball: ball)
-                        }
-                    case .cross:
-                    if lastPiece.side.bottom.closing.isOpen != false{
-                        
-//                        self.model.switchCross(piece: lastPiece, ball: ball)
-                        self.model.board.view.bringSubviewToFront(ball.view)
-                    }
-                    default:
-                        
-                        self.replacePiece(piece: lastPiece, ball: ball)
-
-//                        break
-                    
-                    }
+//                    switch lastPiece.shape {
+//
+//                    case .doubleElbow:
+//                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+//                            self.model.switchPivot(piece: lastPiece, ball: ball)
+//                        }
+//                    case .cross:
+//                    if lastPiece.side.bottom.closing.isOpen != false{
+//
+//                        self.replacePiece(piece: lastPiece)
+//
+////                        self.model.switchCross(piece: lastPiece, ball: ball)
+//                        self.model.board.view.bringSubviewToFront(ball.view)
+//                    }
+//                    default:
+//
+//                        self.replacePiece(piece: lastPiece)
+//
+////                        break
+//
+//                    }
   
                 }
                 self.model.moveBall(ball: ball, startSide: "top")
@@ -477,29 +482,31 @@ class ViewController: UIViewController {
                 CATransaction.setCompletionBlock {
                     
                     
-                    switch lastPiece.shape {
-                    
-                    case .doubleElbow:
-                        if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece, ball: ball)
-                        }
-                        
-                    case .cross:
-                        if lastPiece.side.left.closing.isOpen != false {
-                            
-//                            self.model.switchCross(piece: lastPiece, ball: ball)
-                            self.model.board.view.bringSubviewToFront(ball.view)
-                        }
-                        
-                    default:
-                        
-                        self.replacePiece(piece: lastPiece, ball: ball)
-
-//                        break
-                    
-                    
-                    
-                    }
+//                    switch lastPiece.shape {
+//
+//                    case .doubleElbow:
+//                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+//                            self.model.switchPivot(piece: lastPiece, ball: ball)
+//                        }
+//
+//                    case .cross:
+//                        if lastPiece.side.left.closing.isOpen != false {
+//
+//                            self.replacePiece(piece: lastPiece)
+//
+////                            self.model.switchCross(piece: lastPiece, ball: ball)
+//                            self.model.board.view.bringSubviewToFront(ball.view)
+//                        }
+//
+//                    default:
+//
+//                        self.replacePiece(piece: lastPiece)
+//
+////                        break
+//
+//
+//
+//                    }
                     
 
                 }
@@ -514,28 +521,30 @@ class ViewController: UIViewController {
 //                    lastPiece.view.backgroundColor = UIColor.yellow
 
                     
-                    switch lastPiece.shape {
-                    
-                    case .doubleElbow:
-                        if lastPiece.doesPivot && lastPiece.isLocked == false {
-                            self.model.switchPivot(piece: lastPiece, ball: ball)
-                        }
-                        
-                    case .cross:
-                        
-                        if lastPiece.side.right.closing.isOpen != false {
-                            
-//                            self.model.switchCross(piece: lastPiece, ball: ball)
-                            self.model.board.view.bringSubviewToFront(ball.view)
-                        }
-                        
-                    default:
-                        
-                        self.replacePiece(piece: lastPiece, ball: ball)
-
-//                        break
-                    
-                    }
+//                    switch lastPiece.shape {
+//
+//                    case .doubleElbow:
+//                        if lastPiece.doesPivot && lastPiece.isLocked == false {
+//                            self.model.switchPivot(piece: lastPiece, ball: ball)
+//                        }
+//
+//                    case .cross:
+//
+//                        if lastPiece.side.right.closing.isOpen != false {
+//
+//                            self.replacePiece(piece: lastPiece)
+//
+////                            self.model.switchCross(piece: lastPiece, ball: ball)
+//                            self.model.board.view.bringSubviewToFront(ball.view)
+//                        }
+//
+//                    default:
+//
+//                        self.replacePiece(piece: lastPiece)
+//
+////                        break
+//
+//                    }
                 }
                 self.model.moveBall(ball: ball, startSide: "left")
                 
@@ -545,8 +554,8 @@ class ViewController: UIViewController {
                                 
                 break
             }
-            ball.center = self.ballEndingPoint
-            ball.view.center = ball.center
+//            ball.center = self.ballEndingPoint
+//            ball.view.center = ball.center
             
             return
         }
@@ -557,6 +566,10 @@ class ViewController: UIViewController {
         animation.duration = duration4Animation
         ball.view.layer.add(animation, forKey: "animate along path")
         
+        ball.center = self.ballEndingPoint
+        ball.view.center = ball.center
+        
+//        replacePiece(piece: lastPiece)
         
         CATransaction.commit()
         
@@ -626,42 +639,42 @@ extension ViewController: ModelDelegate {
     
     
     
-    func replacePiece(piece: Piece, ball: Ball) {
+    func replacePiece(piece: Piece) {
         
-//        print("board.pieces \(model.board.pieces.filter({$0.shape != .wall}))")
-        
-        if model.board.pieces.contains(where: { (pieceX) -> Bool in
-            pieceX.indexes == piece.indexes
-        }) {
-            
-            let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
-            
-            let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
-            
-            let shapeView = ShapeView(frame: frame, piece: newPiece)
-
-            UIView.animate(withDuration: 0.25) {
+        print(piece.currentSwitch)
                 
+
+        
+            
+            if self.model.board.pieces.contains(where: { (pieceX) -> Bool in
+                pieceX.indexes == piece.indexes
+            }) {
+
+                print("this is true")
+
+                let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
+
+                let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
+
+                let shapeView = ShapeView(frame: frame, piece: newPiece)
                 piece.view.removeFromSuperview()
                 piece.view = shapeView
-
+                self.addTapGestureRecognizer(view: piece.view)
                 self.model.board.view.addSubview(piece.view)
-                
-                
-            } completion: { (true) in
-                
-                
-                print()
-            }
-            
-            
-            
-        }
-        
-        
-        
 
-        
+                for ball in self.model.board.balls {
+
+                    self.model.board.view.bringSubviewToFront(ball.view)
+
+
+
+                }
+
+            }
+
+            
+            
+
     }
     
     func ballCrashInCross(piece: Piece, ball: Ball) {
@@ -883,6 +896,10 @@ extension ViewController: ModelDelegate {
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
           
+        
+        print(piece.indexes)
+        
+        
         var beginPoint = CGPoint()
         var endPoint = CGPoint()
         var controlPoint = CGPoint()
@@ -918,7 +935,7 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            print("ball ending point is \(ballEndingPoint)")
+//            print("ball ending point is \(ballEndingPoint)")
             
             ball.center = ballEndingPoint
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
@@ -952,7 +969,7 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            print("ball ending point is \(ballEndingPoint)")
+//            print("ball ending point is \(ballEndingPoint)")
 
             ball.center = ballEndingPoint
             animateMove(ball: ball, endSide: endSide, lastPiece: piece)
@@ -988,7 +1005,7 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            print("ball ending point is \(ballEndingPoint)")
+//            print("ball ending point is \(ballEndingPoint)")
 
             ball.center = ballEndingPoint
             
@@ -1023,7 +1040,7 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            print("ball ending point is \(ballEndingPoint)")
+//            print("ball ending point is \(ballEndingPoint)")
 
             ball.center = ballEndingPoint
             
@@ -1057,7 +1074,7 @@ extension ViewController: ModelDelegate {
             ballPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             ballEndingPoint = endPoint
             
-            print("ball ending point is \(ballEndingPoint)")
+//            print("ball ending point is \(ballEndingPoint)")
 
             ball.center = ballEndingPoint
             
@@ -1066,6 +1083,8 @@ extension ViewController: ModelDelegate {
         default:
             break
         }
+        
+        
         
         
     }

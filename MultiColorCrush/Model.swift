@@ -76,7 +76,7 @@ protocol ModelDelegate {
     func clearPiecesAnimation(view: UIView)
 //    func animateMove(ball: Ball)
     func removePieceAfterBall(piece: Piece)
-    func replacePiece(piece: Piece, ball: Ball)
+    func replacePiece(piece: Piece)
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
     func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
@@ -1194,8 +1194,10 @@ class Model {
                 break
             }
 
-            addToPiecesPassed(ball: ball, piece: piece)
+            
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+            
+            addToPiecesPassed(ball: ball, piece: piece)
             
         case "top":
             
@@ -1218,8 +1220,16 @@ class Model {
                         
                     } else {
                         
+                        
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        
                         switch4Tap(piece: piece) { (true) in
-                            print("SWITCHING CROSS")
+                            
+                         
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            
+                                self.delegate?.replacePiece(piece: piece)
+                            }
                         }
                         
                     }
@@ -1231,6 +1241,11 @@ class Model {
                     ball.onColor = piece.side.bottom.color!
                 }
                 
+                
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                
+                checkIfBallExited(ball: ball, endSide: endSide)
+
                 addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
@@ -1239,10 +1254,6 @@ class Model {
                     break
                 }
 
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                
-                checkIfBallExited(ball: ball, endSide: endSide)
-                
             } else {
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
@@ -1271,8 +1282,15 @@ class Model {
                         
                     } else {
                         
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        
                         switch4Tap(piece: piece) { (true) in
-                            print("SWITCHING CROSS")
+                            
+                         
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            
+                                self.delegate?.replacePiece(piece: piece)
+                            }
                         }
                     }
                 }
@@ -1282,17 +1300,21 @@ class Model {
                     ball.onColor = piece.side.top.color!
                 }
                 
+                
+                
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                
+                checkIfBallExited(ball: ball, endSide: endSide)
+                
                 addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
-                  
+                    
                     removePiecesInPath(ball: ball)
                     break
                 }
-                
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                checkIfBallExited(ball: ball, endSide: endSide)
-                
+
+               
             } else {
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
@@ -1320,8 +1342,15 @@ class Model {
                         
                     } else {
                         
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        
                         switch4Tap(piece: piece) { (true) in
-                            print("SWITCHING CROSS")
+                            
+                         
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            
+                                self.delegate?.replacePiece(piece: piece)
+                            }
                         }
                     }
                     
@@ -1332,16 +1361,20 @@ class Model {
                     ball.onColor = piece.side.right.color!
                 }
                 
+                
+                
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                
+                checkIfBallExited(ball: ball, endSide: endSide)
+
+
                 addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
-
+                    
                     removePiecesInPath(ball: ball)
                     break
                 }
-                
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                checkIfBallExited(ball: ball, endSide: endSide)
                 
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
@@ -1370,8 +1403,15 @@ class Model {
                         
                     } else {
                         
+                        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+                        
                         switch4Tap(piece: piece) { (true) in
-                            print("SWITCHING CROSS")
+                            
+                         
+                            DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                            
+                                self.delegate?.replacePiece(piece: piece)
+                            }
                         }
                     }
                 }
@@ -1381,19 +1421,19 @@ class Model {
                     ball.onColor = piece.side.left.color!
                 }
                 
-                addToPiecesPassed(ball: ball, piece: piece)
+                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
-                print("Check4EndlessLoop \(check4EndlessLoop(ball: ball))")
+                checkIfBallExited(ball: ball, endSide: endSide)
+                
+                
+                addToPiecesPassed(ball: ball, piece: piece)
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
                     removePiecesInPath(ball: ball)
                     break
                 }
-                
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                checkIfBallExited(ball: ball, endSide: endSide)
-                
+
             } else {
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1407,48 +1447,32 @@ class Model {
     }
     
     func checkIfBallExited(ball: Ball, endSide: String) {
-        
-//        print("Check if ball exited called")
-        
+                
         if endSide == "center" {
             
-//            for piece in board.pieces {
-//
-//                if piece.indexes == ball.indexes {
-//
-//                    if piece.shape == .exit {
-
-                        
-                            ball.exited = true
-
-                            CATransaction.begin()
-                            
-                            CATransaction.setCompletionBlock {
-                                
-                                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
-                                return
-                                
-                            }
-                            
-                            
-                            for piece in ball.piecesPassed {
-                                
-                                
-
-                                delegate?.removePieceAfterBall(piece: piece)
-                                
-                                board.pieces.removeAll { (pieceX) -> Bool in
-                                    pieceX.indexes == piece.indexes
-                                }
-                            }
-                            CATransaction.commit()
-                            
-    //                    }
-//                    }
-//                }
-//            }
+            ball.exited = true
+            
+            CATransaction.begin()
+            
+            CATransaction.setCompletionBlock {
+                
+                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                return
+                
+            }
             
             
+            for piece in ball.piecesPassed {
+                
+                
+                
+                delegate?.removePieceAfterBall(piece: piece)
+                
+                board.pieces.removeAll { (pieceX) -> Bool in
+                    pieceX.indexes == piece.indexes
+                }
+            }
+            CATransaction.commit()
             
         }
         
@@ -1471,40 +1495,43 @@ class Model {
     }
     
     func handleTap(center: CGPoint) {
+        
+//        print("Handling Tap")
                 
         for piece in board.pieces {
             
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
-                
-                switch4Tap(piece: piece) { (true) in
-                    piece.view.setNeedsDisplay()
-                }
+                                switch4Tap(piece: piece) { (true) in
+                                    
+                                    
+                                    self.delegate?.replacePiece(piece: piece)
+                                }
             } else if board.grid[piece.indexes] == center && piece.shape == .entrance {
                 
                 for ball in board.balls {
                                 
                     if board.grid[ball.indexes] == center {
                               
-                        CATransaction.begin()
-                        
-                        CATransaction.setCompletionBlock {
-                            
-                            print("placeBall Center called")
-
-                            
-//                            self.delegate?.placeBallCenter(ball: ball)
-//                            self.checkIfBallExited(ball: ball)
-//                            return
-                            
-                            
-                        }
-                        
-                        print("moveball called")
+//                        CATransaction.begin()
+//
+//                        CATransaction.setCompletionBlock {
+//
+//                            print("placeBall Center called")
+//
+//
+////                            self.delegate?.placeBallCenter(ball: ball)
+////                            self.checkIfBallExited(ball: ball)
+////                            return
+//
+//
+//                        }
+//
+//                        print("moveball called")
                         
                         moveBall(ball: ball, startSide: "unmoved")
 
                         
-                        CATransaction.commit()
+//                        CATransaction.commit()
                         
                         
                        
@@ -1528,7 +1555,7 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        delegate?.replacePiece(piece: piece, ball: ball)
+        self.delegate?.replacePiece(piece: piece)
     }
     
     func switchPivot(piece: Piece, ball: Ball) {
@@ -1541,12 +1568,15 @@ class Model {
         
         setPieceSides(piece: piece)
         
-        self.delegate?.replacePiece(piece: piece, ball: ball)
-        
+        self.delegate?.replacePiece(piece: piece)
+
     }
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
                 
+//        print("piece current switch = \(piece.currentSwitch)")
+        
+        
         if piece.isLocked || piece.doesPivot == false { return }
         if piece.currentSwitch != piece.switches {
             
