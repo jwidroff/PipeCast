@@ -398,6 +398,9 @@ class ViewController: UIViewController {
         
         CATransaction.setCompletionBlock {
             
+            ball.center = self.ballEndingPoint
+            ball.view.center = ball.center
+            
             self.ballPath = UIBezierPath()
             
 //            print("Endside \(endSide)")
@@ -566,8 +569,8 @@ class ViewController: UIViewController {
         animation.duration = duration4Animation
         ball.view.layer.add(animation, forKey: "animate along path")
         
-        ball.center = self.ballEndingPoint
-        ball.view.center = ball.center
+//        ball.center = self.ballEndingPoint
+//        ball.view.center = ball.center
         
 //        replacePiece(piece: lastPiece)
         

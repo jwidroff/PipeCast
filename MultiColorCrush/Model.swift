@@ -1162,7 +1162,7 @@ class Model {
         delegate?.removeBall(ball: ball)
         delegate?.changeAnimation(slowerOrFaster: "slower")
         
-        self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+        self.check4Winner(ball: ball)
         
         
     }
@@ -1464,7 +1464,7 @@ class Model {
             
             CATransaction.setCompletionBlock {
                 
-                self.check4Winner(piece: self.getPieceInfo(index: ball.indexes))
+                self.check4Winner(ball: ball)
                 return
                 
             }
@@ -1487,19 +1487,39 @@ class Model {
 
     }
     
-    func check4Winner(piece: Piece){
+    func check4Winner(ball: Ball){
+                
         
-        if board.balls.contains(where: { (ball) -> Bool in
-            ball.exited == false
-        })
-        { return }
-        
-        else {
+        for ball in board.balls {
             
-            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-            gameOver = true
-            return
+            if ball.exited == false {
+                
+                return
+                
+            } else {
+                
+                self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+                self.gameOver = true
+                return
+                
+            }
+            
+            
+            
         }
+        
+        
+        
+//        if ball.exited == false {
+//            return
+//        } else {
+//
+//
+//
+//            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+//            gameOver = true
+//            return
+//        }
     }
     
     func handleTap(center: CGPoint) {
