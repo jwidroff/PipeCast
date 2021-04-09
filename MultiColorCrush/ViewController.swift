@@ -410,7 +410,7 @@ class ViewController: UIViewController {
 
 extension ViewController: ModelDelegate {
 
-    func changeAnimation(slowerOrFaster: String) {
+    func changeAnimationSpeed(slowerOrFaster: String) {
         
         switch slowerOrFaster {
         
@@ -430,7 +430,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func changeColor(piece: Piece, ball: Ball) {
+    func changeViewColor(piece: Piece, ball: Ball) {
         
         var backgroundColor = UIColor.systemYellow
         
@@ -449,7 +449,6 @@ extension ViewController: ModelDelegate {
         } else if ball.loopedIndexes[piece.indexes] == 4 {
             
             backgroundColor = UIColor.systemIndigo
-
         }
         
         piece.view.backgroundColor = backgroundColor
@@ -462,7 +461,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func replacePiece(piece: Piece) {
+    func replacePieceView(piece: Piece) {
         
         if self.model.board.pieces.contains(where: { (pieceX) -> Bool in
             pieceX.indexes == piece.indexes
@@ -485,7 +484,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func ballCrashInCross(piece: Piece, ball: Ball) {
+    func crashBallViewIntoCross(piece: Piece, ball: Ball) {
         
         let yAxisIsAligned:Bool = piece.view.frame.minY + (piece.view.frame.height / 2) == ball.center.y
         let xAxisIsAligned:Bool = piece.view.frame.minX + (piece.view.frame.width / 2) == ball.center.x
@@ -561,7 +560,7 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func resetPieceMaker(piece: Piece) {
+    func resetPieceMakerView(piece: Piece) {
  
         let frame = piece.view.subviews.first!.frame
         let nextPieceView = ShapeView(frame: frame, piece: piece.nextPiece!)
@@ -581,44 +580,44 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool {
-        
-        //TODO: Move this to the Model
-        
-        var bool = false
-        
-        switch startSide {
-        
-        case "top":
-            if piece.side.top.closing.isOpen == false {
-
-                ballCrashInCross(piece: piece, ball: ball)
-                bool = true
-            }
-        case "bottom":
-            if piece.side.bottom.closing.isOpen == false {
-
-                ballCrashInCross(piece: piece, ball: ball)
-                bool = true
-            }
-        case "left":
-            if piece.side.left.closing.isOpen == false {
-
-                ballCrashInCross(piece: piece, ball: ball)
-                bool = true
-            }
-        case "right":
-            if piece.side.right.closing.isOpen == false {
-
-                ballCrashInCross(piece: piece, ball: ball)
-                bool = true
-            }
-        default:
-            break
-            
-        }
-        return bool
-    }
+//    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool {
+//
+//        //TODO: Move this to the Model
+//
+//        var bool = false
+//
+//        switch startSide {
+//
+//        case "top":
+//            if piece.side.top.closing.isOpen == false {
+//
+//                ballCrashInCross(piece: piece, ball: ball)
+//                bool = true
+//            }
+//        case "bottom":
+//            if piece.side.bottom.closing.isOpen == false {
+//
+//                ballCrashInCross(piece: piece, ball: ball)
+//                bool = true
+//            }
+//        case "left":
+//            if piece.side.left.closing.isOpen == false {
+//
+//                ballCrashInCross(piece: piece, ball: ball)
+//                bool = true
+//            }
+//        case "right":
+//            if piece.side.right.closing.isOpen == false {
+//
+//                ballCrashInCross(piece: piece, ball: ball)
+//                bool = true
+//            }
+//        default:
+//            break
+//
+//        }
+//        return bool
+//    }
     
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String) {
         
@@ -766,7 +765,7 @@ extension ViewController: ModelDelegate {
         animateMove(ball: ball, endSide: endSide)
     }
     
-    func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
+    func movePieceView(piece: Piece) {
         
         if piece.indexes.x! < 0{
             

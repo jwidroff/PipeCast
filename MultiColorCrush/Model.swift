@@ -58,26 +58,22 @@ import UIKit
 //TODO: May want to consider giving the randomColorChanger a power, like the ability to flip horitontally or vertically
 
 
-//TODO: NEW ISSUE - Cross piece doesnt work properly
-
 
 protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
-    func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction)
+    func movePieceView(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
-    func resetPieceMaker(piece: Piece)
+    func resetPieceMakerView(piece: Piece)
     func removeView(view: UIView)
-    func ballCrashInCross(piece: Piece, ball: Ball)
-    func removeBall(ball: Ball)
+    func removeBall(ball: Ball) //Consider getting rid of this and making it into the replaceView
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
-    func replacePiece(piece: Piece)
-    func changeColor(piece: Piece, ball: Ball)
-    func changeAnimation(slowerOrFaster: String)
-    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool //TODO: Make sure this only handles the view
-    
+    func replacePieceView(piece: Piece)
+    func changeViewColor(piece: Piece, ball: Ball)
+    func changeAnimationSpeed(slowerOrFaster: String)
+    func crashBallViewIntoCross(piece: Piece, ball: Ball)
 }
 
 class Model {
@@ -681,7 +677,7 @@ class Model {
         setPieceSwitches(piece: nextPiece)
         setPieceSides(piece: nextPiece)
         piece.nextPiece = nextPiece
-        delegate?.resetPieceMaker(piece: piece)
+        delegate?.resetPieceMakerView(piece: piece)
     }
     
     func movePiecesHelper(piece: Piece, direction: UISwipeGestureRecognizer.Direction) {
@@ -712,7 +708,7 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                delegate?.movePieces(piece: piece, direction: direction)
+                                delegate?.movePieceView(piece: piece)
                                 movePiecesHelper(piece: piece, direction: direction)
                                 return
                             }
@@ -739,7 +735,7 @@ class Model {
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! - 1
                                 
-                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                delegate?.movePieceView(piece: newPiece)
                                 
                                 if checkForIce(piece: newPiece) == true {
                                     movePiecesHelper(piece: newPiece, direction: direction)
@@ -781,7 +777,7 @@ class Model {
                             
                             if checkForIce(piece: piece) == true {
                                 
-                                delegate?.movePieces(piece: piece, direction: direction)
+                                delegate?.movePieceView(piece: piece)
                                 movePiecesHelper(piece: piece, direction: direction)
                                 return
                             }
@@ -808,7 +804,7 @@ class Model {
                                 
                                 newPiece.indexes.y = newPiece.indexes.y! + 1
                                 
-                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                delegate?.movePieceView(piece: newPiece)
                                 
                                 if checkForIce(piece: newPiece) == true {
                                     
@@ -850,7 +846,7 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                delegate?.movePieces(piece: piece, direction: direction)
+                                delegate?.movePieceView(piece: piece)
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
@@ -876,7 +872,7 @@ class Model {
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! - 1
                                 
-                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                delegate?.movePieceView(piece: newPiece)
 
                                 if checkForIce(piece: newPiece) == true {
                                     movePiecesHelper(piece: newPiece, direction: direction)
@@ -916,7 +912,7 @@ class Model {
                             }
                             
                             if checkForIce(piece: piece) == true {
-                                delegate?.movePieces(piece: piece, direction: direction)
+                                delegate?.movePieceView(piece: piece)
                                 movePiecesHelper(piece: piece, direction: direction)
                             }
                             
@@ -942,7 +938,7 @@ class Model {
                                 
                                 newPiece.indexes.x = newPiece.indexes.x! + 1
                                 
-                                delegate?.movePieces(piece: newPiece, direction: direction)
+                                delegate?.movePieceView(piece: newPiece)
 
                                 if checkForIce(piece: newPiece) == true {
                                     movePiecesHelper(piece: newPiece, direction: direction)
@@ -1053,7 +1049,7 @@ class Model {
         for piece in board.pieces {
             
             movePiecesHelper(piece: piece, direction: direction)
-            delegate?.movePieces(piece: piece, direction: direction)
+            delegate?.movePieceView(piece: piece)
         }
         
         let gameIsOver = check4GameOver()
@@ -1090,8 +1086,8 @@ class Model {
             
             ball.possibleLoopedIndexes.append(piece.indexes)
             
-            delegate?.changeColor(piece: piece, ball: ball)
-            delegate?.changeAnimation(slowerOrFaster: "faster")
+            delegate?.changeViewColor(piece: piece, ball: ball)
+            delegate?.changeAnimationSpeed(slowerOrFaster: "faster")
 
             
             if ball.loopedIndexes[piece.indexes] != nil {
@@ -1102,7 +1098,7 @@ class Model {
             } else {
                 
                 ball.loopedIndexes[piece.indexes] = 1
-                delegate?.changeAnimation(slowerOrFaster: "slower")
+                delegate?.changeAnimationSpeed(slowerOrFaster: "slower")
                 
             }
         }
@@ -1147,7 +1143,7 @@ class Model {
         }
         
         delegate?.removeBall(ball: ball)
-        delegate?.changeAnimation(slowerOrFaster: "slower")
+        delegate?.changeAnimationSpeed(slowerOrFaster: "slower")
         check4Winner()
     }
     
@@ -1195,7 +1191,7 @@ class Model {
                 
                 if piece.shape == .cross {
                     
-                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                    if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
                         
                         delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                         break
@@ -1208,7 +1204,7 @@ class Model {
                             
                             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                             
-                                self.delegate?.replacePiece(piece: piece)
+                                self.delegate?.replacePieceView(piece: piece)
                             }
                         }
                     }
@@ -1252,7 +1248,7 @@ class Model {
                 
                 if piece.shape == .cross {
                     
-                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                    if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
                         
                         delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                         break
@@ -1266,7 +1262,7 @@ class Model {
                          
                             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                             
-                                self.delegate?.replacePiece(piece: piece)
+                                self.delegate?.replacePieceView(piece: piece)
                             }
                         }
                     }
@@ -1309,7 +1305,7 @@ class Model {
                 
                 if piece.shape == .cross {
                     
-                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                    if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
                         
                         delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                         break
@@ -1323,7 +1319,7 @@ class Model {
                          
                             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                             
-                                self.delegate?.replacePiece(piece: piece)
+                                self.delegate?.replacePieceView(piece: piece)
                             }
                         }
                     }
@@ -1367,7 +1363,7 @@ class Model {
                 
                 if piece.shape == .cross {
                     
-                    if delegate?.check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
+                    if check4CrossCrash(piece: piece, ball: ball, startSide: startSide) == true {
                         
                         delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                         break
@@ -1381,7 +1377,7 @@ class Model {
                          
                             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                             
-                                self.delegate?.replacePiece(piece: piece)
+                                self.delegate?.replacePieceView(piece: piece)
                             }
                         }
                     }
@@ -1468,7 +1464,7 @@ class Model {
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
                 switch4Tap(piece: piece) { (true) in
                     
-                    self.delegate?.replacePiece(piece: piece)
+                    self.delegate?.replacePieceView(piece: piece)
                 }
             } else if board.grid[piece.indexes] == center && piece.shape == .entrance {
                 
@@ -1496,7 +1492,46 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        delegate?.replacePiece(piece: piece)
+        delegate?.replacePieceView(piece: piece)
+    }
+    
+    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool {
+        
+        //TODO: Move this to the Model
+        
+        var bool = false
+        
+        switch startSide {
+        
+        case "top":
+            if piece.side.top.closing.isOpen == false {
+
+                delegate?.crashBallViewIntoCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "bottom":
+            if piece.side.bottom.closing.isOpen == false {
+
+                delegate?.crashBallViewIntoCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "left":
+            if piece.side.left.closing.isOpen == false {
+
+                delegate?.crashBallViewIntoCross(piece: piece, ball: ball)
+                bool = true
+            }
+        case "right":
+            if piece.side.right.closing.isOpen == false {
+
+                delegate?.crashBallViewIntoCross(piece: piece, ball: ball)
+                bool = true
+            }
+        default:
+            break
+            
+        }
+        return bool
     }
     
     func switchPivot(piece: Piece, ball: Ball) {
@@ -1508,7 +1543,7 @@ class Model {
         }
         
         setPieceSides(piece: piece)
-        delegate?.replacePiece(piece: piece)
+        delegate?.replacePieceView(piece: piece)
     }
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
