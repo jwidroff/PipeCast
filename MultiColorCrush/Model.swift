@@ -69,7 +69,7 @@ protocol ModelDelegate {
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
-    func removePiece(piece: Piece)
+    func removeView(view: UIView)
     func ballCrashInCross(piece: Piece, ball: Ball)
     func removeBall(ball: Ball)
     func runPopUpView(title: String, message: String)
@@ -81,6 +81,8 @@ protocol ModelDelegate {
     func changeAnimation(slowerOrFaster: String)
     func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
         
+//    func remove
+    
 }
 
 class Model {
@@ -972,7 +974,7 @@ class Model {
             
             if piece.indexes.x! < 0 || piece.indexes.x! > board.widthSpaces - 1 || piece.indexes.y! < 0 || piece.indexes.y! > board.heightSpaces - 1 {
                 
-                delegate?.removePiece(piece: piece)
+                delegate?.removeView(view: piece.view)
                 
                 return true
             }
@@ -985,8 +987,8 @@ class Model {
 
                 if holeLocation == piece.indexes {
 
-                    delegate?.removePiece(piece: piece)
-                    
+                    delegate?.removeView(view: piece.view)
+
                     print("deleted piece - Need to animate this in the VC")
                     return true
                 }
@@ -1073,6 +1075,8 @@ class Model {
         var bool = false
         if board.balls.count == 0 {
             
+            
+            
             bool = true
         }
         return bool
@@ -1148,7 +1152,7 @@ class Model {
         
         for piece in ball.piecesPassed {
             
-            delegate?.removePiece(piece: piece)
+            delegate?.removeView(view: piece.view)
             
             board.pieces.removeAll { (pieceX) -> Bool in
                 pieceX.indexes == piece.indexes
@@ -1162,7 +1166,14 @@ class Model {
         delegate?.removeBall(ball: ball)
         delegate?.changeAnimation(slowerOrFaster: "slower")
         
-        self.check4Winner(ball: ball)
+        
+        //UP TO HERE. FIX THIS. GAME THINKS ITS OVER AFTER LOOP
+        
+        check4Winner()
+        
+//        self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+//        self.gameOver = true
+//        return
         
         
     }
@@ -1243,7 +1254,7 @@ class Model {
                 }
                 
                 
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
                 addToPiecesPassed(ball: ball, piece: piece)
                 
@@ -1254,9 +1265,18 @@ class Model {
                     
                     removePiecesInPath(ball: ball)
                     break
+                } else {
+                    
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                 }
+                
+                
 
             } else {
+                
+                print("ball index \(ball.indexes)")
+
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1304,7 +1324,7 @@ class Model {
                 
                 
                 
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
                 addToPiecesPassed(ball: ball, piece: piece)
 
@@ -1316,10 +1336,17 @@ class Model {
                     
                     removePiecesInPath(ball: ball)
                     break
+                } else {
+                    
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                 }
 
                
             } else {
+                
+                print("ball index \(ball.indexes)")
+
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1367,7 +1394,7 @@ class Model {
                 
                 
                 
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
                 addToPiecesPassed(ball: ball, piece: piece)
 
@@ -1380,9 +1407,17 @@ class Model {
                     
                     removePiecesInPath(ball: ball)
                     break
+                } else {
+                    
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                 }
                 
             } else {
+                
+                print("ball index \(ball.indexes)")
+
+                
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
                 return
@@ -1427,7 +1462,7 @@ class Model {
                     ball.onColor = piece.side.left.color!
                 }
                 
-                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
                 
                 addToPiecesPassed(ball: ball, piece: piece)
 
@@ -1440,9 +1475,17 @@ class Model {
                     
                     removePiecesInPath(ball: ball)
                     break
+                } else {
+                    
+                    delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
+                    
                 }
 
             } else {
+                
+                
+                print("ball index \(ball.indexes)")
+                
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
                 return
@@ -1458,28 +1501,74 @@ class Model {
                 
         if endSide == "center" {
             
-            ball.exited = true
+//            ball.exited = true
+            
+//            board.balls.removeAll { (ballX) -> Bool in
+//
+//                ballX.indexes == ball.indexes
+//
+//
+//
+//            }
+            
+//            ball.view.removeFromSuperview()
             
             CATransaction.begin()
             
             CATransaction.setCompletionBlock {
                 
-                self.check4Winner(ball: ball)
+                
+                
+                self.delegate?.removeView(view: ball.view)
+                
+                
+                self.check4Winner()
                 return
                 
             }
             
             
+//            for piece in ball.piecesPassed {
+//
+//
+//
+//                delegate?.removePieceAfterBall(piece: piece)
+//
+////                board.pieces.removeAll { (pieceX) -> Bool in
+////                    pieceX.indexes == piece.indexes
+////                }
+//            }
+            
+            print("ball.piecespassed \(ball.piecesPassed.count)")
+
+            
             for piece in ball.piecesPassed {
                 
                 
                 
-                delegate?.removePieceAfterBall(piece: piece)
+                
+                self.delegate?.removePieceAfterBall(piece: piece)
                 
                 board.pieces.removeAll { (pieceX) -> Bool in
                     pieceX.indexes == piece.indexes
                 }
+                
+//                self.delegate?.removeView(view: piece.view)
+//                board.pieces.removeAll { (pieceX) -> Bool in
+//                    pieceX.indexes == piece.indexes
+//                }
             }
+            
+            self.board.balls.removeAll { (ballX) -> Bool in
+                
+                ballX.indexes == ball.indexes
+                
+            }
+            
+            
+            
+
+            
             CATransaction.commit()
             
         }
@@ -1487,39 +1576,42 @@ class Model {
 
     }
     
-    func check4Winner(ball: Ball){
-                
+    func check4Winner(){
         
-        for ball in board.balls {
+        print("check4Winner called")
+                
+        print(board.balls.count)
+        
+        
+        
+        if board.balls.isEmpty {
             
-            if ball.exited == false {
-                
-                return
-                
-            } else {
-                
-                self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-                self.gameOver = true
-                return
-                
-            }
+            self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+            self.gameOver = true
+            return
             
+        } else {
             
+            return
             
         }
         
-        
-        
-//        if ball.exited == false {
-//            return
-//        } else {
+//        for ball in board.balls {
 //
+//            if ball.exited == false {
 //
+//                return
 //
-//            delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-//            gameOver = true
-//            return
+//            } else {
+//
+//                self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
+//                self.gameOver = true
+//                return
+//
+//            }
+//
 //        }
+        
     }
     
     func handleTap(center: CGPoint) {

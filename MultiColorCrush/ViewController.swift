@@ -660,8 +660,6 @@ extension ViewController: ModelDelegate {
                 pieceX.indexes == piece.indexes
             }) {
 
-                print("this is true")
-
                 let newPiece = Piece(indexes: piece.indexes, shape: piece.shape, colors: piece.colors, version: piece.version, currentSwitch: piece.currentSwitch, isLocked: piece.isLocked, opening: piece.opening, doesPivot: piece.doesPivot)
 
                 let frame = CGRect(x: self.model.board.grid[piece.indexes]!.x - (self.pieceWidth / 2), y:  self.model.board.grid[piece.indexes]!.y - (self.pieceHeight / 2), width: self.pieceWidth, height: self.pieceHeight)
@@ -672,6 +670,19 @@ extension ViewController: ModelDelegate {
                 self.addTapGestureRecognizer(view: piece.view)
                 self.model.board.view.addSubview(piece.view)
 
+//                for ball in self.model.board.balls {
+//
+//                    if ball.indexes == piece.indexes {
+//
+//                        ball.piecesPassed.append(piece)
+//
+//                    }
+//
+//
+//                }
+                
+                
+                
                 for ball in self.model.board.balls {
 
                     self.model.board.view.bringSubviewToFront(ball.view)
@@ -794,7 +805,7 @@ extension ViewController: ModelDelegate {
         
         let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
         
-        var tempBall = Ball()
+//        var tempBall = Ball()
         
         
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
@@ -803,32 +814,46 @@ extension ViewController: ModelDelegate {
                 
                 piece.view.transform = scale
                 
-                for ball in self.model.board.balls {
-                    
-                    if ball.indexes == piece.indexes {
-                        ball.view.transform = scale
-                        tempBall = ball
-                    }
-                }
+//                for ball in self.model.board.balls {
+//
+//                    if ball.indexes == piece.indexes {
+//                        ball.view.transform = scale
+//                        tempBall = ball
+//                    }
+//                }
+                
+//                tempBall.view.removeFromSuperview()
+                
+                
+                
+
+//                piece.view.removeFromSuperview()
+                
+                
             } completion: { (true) in
                 
-                tempBall.view.removeFromSuperview()
+//                tempBall.view.removeFromSuperview()
+//
+//
+//
+//
                 piece.view.removeFromSuperview()
-                piece.view.removeFromSuperview()
+                
+//                piece.view.removeFromSuperview()
             }
         }
     }
     
-    func removePiece(piece: Piece) {
+    func removeView(view: UIView) {
         
         let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
         UIView.animate(withDuration: duration4Animation, delay: 0.10, options: .curveEaseInOut) {
-            piece.view.transform = scale
+            view.transform = scale
 
         } completion: { (true) in
             
-            piece.view.removeFromSuperview()
+            view.removeFromSuperview()
         }
     }
     
