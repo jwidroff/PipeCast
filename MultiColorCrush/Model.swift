@@ -65,7 +65,6 @@ protocol ModelDelegate {
     func setUpGame(board: Board)
     func setUpPiecesView()
     func movePieces(piece: Piece, direction: UISwipeGestureRecognizer.Direction)
-//    func pieceWasTapped(piece: Piece)
     func moveBallView(ball: Ball, piece: Piece, startSide: String, endSide: String)
     func addPieceView(piece: Piece)
     func resetPieceMaker(piece: Piece)
@@ -74,14 +73,10 @@ protocol ModelDelegate {
     func removeBall(ball: Ball)
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
-//    func animateMove(ball: Ball)
-    func removePieceAfterBall(piece: Piece)
     func replacePiece(piece: Piece)
     func changeColor(piece: Piece, ball: Ball)
     func changeAnimation(slowerOrFaster: String)
-    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool
-        
-//    func remove
+    func check4CrossCrash(piece: Piece, ball: Ball, startSide: String) -> Bool //TODO: Make sure this only handles the view
     
 }
 
@@ -1082,10 +1077,6 @@ class Model {
         return bool
     }
     
-//    var possibleLoopedIndexes = [Indexes]()
-//    var loopedIndexes = [Indexes : Int]()
-
-    
     func addToPiecesPassed(ball: Ball, piece: Piece) {
         
         if !ball.piecesPassed.contains(where: { (pieceX) -> Bool in
@@ -1127,24 +1118,16 @@ class Model {
                 
                 let piece = getPieceInfo(index: index.key)
                 ball.loopedPieces.append(piece)
-//                delegate?.changeColor(piece: piece, ball: ball)
-                                
             }
         }
-
         if ball.loopedPieces.count >= 4 {
 
             if !ball.loopedIndexes.contains(where: { (key, value) -> Bool in
                 value == 3
             }) {
                 bool = true
-//                delegate?.changeAnimation(slowerOrFaster: "slower")
-
             }
-            
         }
-        
-        
         return bool
     }
     
@@ -1165,17 +1148,7 @@ class Model {
         
         delegate?.removeBall(ball: ball)
         delegate?.changeAnimation(slowerOrFaster: "slower")
-        
-        
-        //UP TO HERE. FIX THIS. GAME THINKS ITS OVER AFTER LOOP
-        
         check4Winner()
-        
-//        self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-//        self.gameOver = true
-//        return
-        
-        
     }
     
     
@@ -1206,10 +1179,7 @@ class Model {
             }
 
             addToPiecesPassed(ball: ball, piece: piece)
-            
             delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-            
-            
             
         case "top":
             
@@ -1232,20 +1202,16 @@ class Model {
                         
                     } else {
                         
-                        
                         let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
                         
                         switch4Tap(piece: piece) { (true) in
                             
-                         
                             DispatchQueue.main.asyncAfter(deadline: delayedTime) {
                             
                                 self.delegate?.replacePiece(piece: piece)
                             }
                         }
-                        
                     }
-                    
                 }
                 
                 if piece.shape == .colorChanger {
@@ -1253,13 +1219,8 @@ class Model {
                     ball.onColor = piece.side.bottom.color!
                 }
                 
-                
-//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                
                 addToPiecesPassed(ball: ball, piece: piece)
-                
                 checkIfBallExited(ball: ball, endSide: endSide)
-
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1268,15 +1229,9 @@ class Model {
                 } else {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    
                 }
                 
-                
-
             } else {
-                
-                print("ball index \(ball.indexes)")
-
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1322,15 +1277,8 @@ class Model {
                     ball.onColor = piece.side.top.color!
                 }
                 
-                
-                
-//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                
                 addToPiecesPassed(ball: ball, piece: piece)
-
-                
                 checkIfBallExited(ball: ball, endSide: endSide)
-                
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1339,14 +1287,9 @@ class Model {
                 } else {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    
                 }
 
-               
             } else {
-                
-                print("ball index \(ball.indexes)")
-
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1384,7 +1327,6 @@ class Model {
                             }
                         }
                     }
-                    
                 }
                 
                 if piece.shape == .colorChanger {
@@ -1392,16 +1334,8 @@ class Model {
                     ball.onColor = piece.side.right.color!
                 }
                 
-                
-                
-//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                
                 addToPiecesPassed(ball: ball, piece: piece)
-
-                
                 checkIfBallExited(ball: ball, endSide: endSide)
-
-
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1410,13 +1344,9 @@ class Model {
                 } else {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    
                 }
                 
             } else {
-                
-                print("ball index \(ball.indexes)")
-
                 
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
@@ -1462,14 +1392,8 @@ class Model {
                     ball.onColor = piece.side.left.color!
                 }
                 
-//                delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                
                 addToPiecesPassed(ball: ball, piece: piece)
-
-                
                 checkIfBallExited(ball: ball, endSide: endSide)
-                
-                
                 
                 if check4EndlessLoop(ball: ball) == true {
                     
@@ -1478,14 +1402,10 @@ class Model {
                 } else {
                     
                     delegate?.moveBallView(ball: ball, piece: piece, startSide: startSide, endSide: endSide)
-                    
                 }
-
+                
             } else {
-                
-                
-                print("ball index \(ball.indexes)")
-                
+                                
                 delegate?.runPopUpView(title: "YOU LOSE", message: "TRY AGAIN?")
                 print("crashed into a wall, or no track in place")
                 return
@@ -1501,88 +1421,33 @@ class Model {
                 
         if endSide == "center" {
             
-//            ball.exited = true
-            
-//            board.balls.removeAll { (ballX) -> Bool in
-//
-//                ballX.indexes == ball.indexes
-//
-//
-//
-//            }
-            
-//            ball.view.removeFromSuperview()
-            
             CATransaction.begin()
             
             CATransaction.setCompletionBlock {
                 
-                
-                
-                self.delegate?.removeView(view: ball.view)
-                
-                
                 self.check4Winner()
                 return
-                
             }
-            
-            
-//            for piece in ball.piecesPassed {
-//
-//
-//
-//                delegate?.removePieceAfterBall(piece: piece)
-//
-////                board.pieces.removeAll { (pieceX) -> Bool in
-////                    pieceX.indexes == piece.indexes
-////                }
-//            }
-            
-            print("ball.piecespassed \(ball.piecesPassed.count)")
-
-            
+                
             for piece in ball.piecesPassed {
                 
-                
-                
-                
-                self.delegate?.removePieceAfterBall(piece: piece)
-                
+                self.delegate?.removeView(view: piece.view)
                 board.pieces.removeAll { (pieceX) -> Bool in
                     pieceX.indexes == piece.indexes
                 }
-                
-//                self.delegate?.removeView(view: piece.view)
-//                board.pieces.removeAll { (pieceX) -> Bool in
-//                    pieceX.indexes == piece.indexes
-//                }
             }
             
             self.board.balls.removeAll { (ballX) -> Bool in
                 
                 ballX.indexes == ball.indexes
-                
             }
             
-            
-            
-
-            
+            self.delegate?.removeView(view: ball.view)
             CATransaction.commit()
-            
         }
-        
-
     }
     
     func check4Winner(){
-        
-        print("check4Winner called")
-                
-        print(board.balls.count)
-        
-        
         
         if board.balls.isEmpty {
             
@@ -1593,69 +1458,25 @@ class Model {
         } else {
             
             return
-            
         }
-        
-//        for ball in board.balls {
-//
-//            if ball.exited == false {
-//
-//                return
-//
-//            } else {
-//
-//                self.delegate?.runPopUpView(title: "YOU WIN", message: "Great Job - Next Level?")
-//                self.gameOver = true
-//                return
-//
-//            }
-//
-//        }
-        
     }
     
     func handleTap(center: CGPoint) {
         
-//        print("Handling Tap")
-                
         for piece in board.pieces {
             
             if board.grid[piece.indexes] == center && piece.shape != .entrance {
-                                switch4Tap(piece: piece) { (true) in
-                                    
-                                    
-                                    self.delegate?.replacePiece(piece: piece)
-                                }
+                switch4Tap(piece: piece) { (true) in
+                    
+                    self.delegate?.replacePiece(piece: piece)
+                }
             } else if board.grid[piece.indexes] == center && piece.shape == .entrance {
                 
                 for ball in board.balls {
                                 
                     if board.grid[ball.indexes] == center {
-                              
-//                        CATransaction.begin()
-//
-//                        CATransaction.setCompletionBlock {
-//
-//                            print("placeBall Center called")
-//
-//
-////                            self.delegate?.placeBallCenter(ball: ball)
-////                            self.checkIfBallExited(ball: ball)
-////                            return
-//
-//
-//                        }
-//
-//                        print("moveball called")
-                        
+                            
                         moveBall(ball: ball, startSide: "unmoved")
-
-                        
-//                        CATransaction.commit()
-                        
-                        
-                       
-                        
                     }
                 }
             }
@@ -1675,7 +1496,7 @@ class Model {
             piece.currentSwitch = 1
         }
         
-        self.delegate?.replacePiece(piece: piece)
+        delegate?.replacePiece(piece: piece)
     }
     
     func switchPivot(piece: Piece, ball: Ball) {
@@ -1687,16 +1508,11 @@ class Model {
         }
         
         setPieceSides(piece: piece)
-        
-        self.delegate?.replacePiece(piece: piece)
-
+        delegate?.replacePiece(piece: piece)
     }
     
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
                 
-//        print("piece current switch = \(piece.currentSwitch)")
-        
-        
         if piece.isLocked || piece.doesPivot == false { return }
         if piece.currentSwitch != piece.switches {
             

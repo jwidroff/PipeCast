@@ -13,21 +13,13 @@ import UIKit
 class ShapeView : UIView {
     
     var shape:Shape = .regular
-    
     var version = Int()
-    
     var colors = [CGColor]()
-    
     var switches = Int()
-    
     var currentSwitch = Int()
-    
     var isLocked = false
-    
     var opening = String()
-    
     var doesPivot = true
-    
     var nextPiece: Piece?
     
     private var colorTheme = ColorTheme()
@@ -194,20 +186,11 @@ class ShapeView : UIView {
                     // TOP PIVOT TO LEFT SIDE
                     drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
-                    
                 } else if currentSwitch == 2 {
                     
                     // TOP PIVOT TO RIGHT SIDE
                     drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                     
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
                 if isLocked == false && doesPivot == true {
@@ -223,18 +206,11 @@ class ShapeView : UIView {
                     //LEFT PIVOT TO BOTTOM
                     drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //LEFT PIVOT TO TOP
                     drawPath(path: path, context: context, pivotPoint: leftCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                     
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
                 if isLocked == false && doesPivot == true {
@@ -250,20 +226,11 @@ class ShapeView : UIView {
                     //BOTTOM PIVOT TO RIGHT
                     drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: rightCenterPoint, color: colors[0])
                     
-                    
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2  {
                     
                     //BOTTOM PIVOT TO LEFT
                     drawPath(path: path, context: context, pivotPoint: bottomCenterPoint, center: center, endPoint: leftCenterPoint, color: colors[0])
                     
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
                 if isLocked == false && doesPivot == true {
@@ -279,18 +246,11 @@ class ShapeView : UIView {
                     //RIGHT PIVOT TO TOP
                     drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: topCenterPoint, color: colors[0])
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2  {
                     
                     //RIGHT PIVOT TO BOTTOM
                     drawPath(path: path, context: context, pivotPoint: rightCenterPoint, center: center, endPoint: bottomCenterPoint, color: colors[0])
                     
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
                 if isLocked == false && doesPivot == true {
@@ -331,10 +291,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context, side: "top", color: colors[0])
                     }
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //TOP PIVOT TO LEFT SIDE
@@ -356,10 +312,6 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "top", color: colors[1])
                     }
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
             case 2:
@@ -385,10 +337,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context, side: "left", color: colors[0])
                     }
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //LEFT PIVOT TO BOTTOM SIDE
@@ -409,12 +357,7 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "left", color: colors[1])
                     }
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
-                
                 
             case 3:
                 
@@ -440,10 +383,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context, side: "bottom", color: colors[0])
                     }
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //BOTTOM PIVOT TO LEFT SIDE
@@ -464,10 +403,6 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "bottom", color: colors[1])
                     }
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
             case 4:
@@ -491,10 +426,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context, side: "right", color: colors[0])
                     }
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //LEFT PIVOT TO TOP SIDE
@@ -514,10 +445,6 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "right", color: colors[1])
                     }
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
             default:
@@ -549,11 +476,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context2, side: "left", color: colors[1])
                     }
                     
-//                    if doesPivot {
-//
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //LEFT PIVOT TO TOP SIDE
@@ -573,10 +495,6 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "right", color: colors[0])
                     }
-                    
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
             case 2, 4:
@@ -601,10 +519,6 @@ class ShapeView : UIView {
                         addPivotRect(context: context2, side: "bottom", color: colors[1])
                     }
                     
-//                    if doesPivot {
-//                        currentSwitch = 2
-//                    }
-                    
                 } else if currentSwitch == 2 {
                     
                     //BOTTOM PIVOT TO LEFT SIDE
@@ -624,9 +538,6 @@ class ShapeView : UIView {
                         
                         addPivotRect(context: context2, side: "top", color: colors[0])
                     }
-//                    if doesPivot {
-//                        currentSwitch = 1
-//                    }
                 }
                 
             default:
@@ -643,15 +554,11 @@ class ShapeView : UIView {
                 
                 drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[1])
                 
-//                currentSwitch = 2
-                
             case 2:
                 
                 drawPath(path: path2, context: context2, pivotPoint: leftCenterPoint, center: centerPoint, endPoint: rightCenterPoint, color: colors[1])
                 
                 drawPath(path: path, context: context, pivotPoint: topCenterPoint, center: centerPoint, endPoint: bottomCenterPoint, color: colors[0])
-                
-//                currentSwitch = 1
                 
             default:
                 break
@@ -1104,7 +1011,6 @@ enum Shape {
     case colorChanger
     case doubleElbow
     //    case ballStopper
-    
     case entrance
     case exit
     case wall
