@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 8
+    var number = 10
 
     var board = Board()
 }
@@ -379,7 +379,7 @@ class LevelModel {
             board.heightSpaces = 10
             board.widthSpaces = 5
             board.randomPieceColors = [.red, .blue]
-            board.randomPieceShapes = [.stick]//.cross, .elbow, .stick, .diagElbow]
+            board.randomPieceShapes = [.stick, .colorChanger]//.cross, .elbow, .stick, .diagElbow]
             board.amountOfRandomPieces = 16
 
 
@@ -483,7 +483,7 @@ class LevelModel {
 //            let wall = Piece(indexes: Indexes(x: 3, y: 4), shape: .wall, colors: [.darkGray], version: 1, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
 //            board.pieces.append(wall)
 
-            let colorChanger = Piece(indexes: Indexes(x: 2, y: 3), shape: .colorChanger, colors: [UIColor.red, UIColor.blue], version: 2, currentSwitch: 1, isLocked: true, opening: nil, doesPivot: nil)
+            let colorChanger = Piece(indexes: Indexes(x: 2, y: 3), shape: .colorChanger, colors: [UIColor.red, UIColor.blue], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: nil)
             board.pieces.append(colorChanger)
 
             let pieceMaker = Piece(indexes: Indexes(x: 1, y: 4), shape: .pieceMaker, colors: [.black], version: 1, currentSwitch: 1, isLocked: true, opening: "bottom", doesPivot: nil)
@@ -959,6 +959,11 @@ class LevelModel {
                 piece.switches = 1
                 piece.currentSwitch = 1
                 
+            case .colorChanger:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
+                
             default:
                 break
             }
@@ -994,6 +999,11 @@ class LevelModel {
                 
                 piece.switches = 1
                 piece.currentSwitch = 1
+                
+            case .colorChanger:
+                
+                piece.switches = 2
+                piece.currentSwitch = Int(arc4random_uniform(UInt32(2))) + 1
                 
             default:
                 break
@@ -1381,6 +1391,58 @@ class LevelModel {
             }
             
             
+        case .colorChanger:
+            
+            
+            switch piece.version {
+            
+            case 1, 3:
+                
+                //Horizontal Line
+                if piece.currentSwitch == 1 {
+
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                }
+                
+            case 2, 4:
+                
+                //Vertical Line
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                }
+                    
+            default:
+                break
+            }
             
             
             

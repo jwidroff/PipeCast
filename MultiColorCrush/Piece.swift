@@ -84,7 +84,8 @@ class Piece {
                 
             case .colorChanger:
                 
-                switches = 1
+                //MARK: CHANGES MADE HERE
+                switches = 2
                 
             default:
                 break
@@ -105,22 +106,48 @@ class Piece {
             switch version {
             case 1, 3: //Horizontal
                 
-                side.left.color = colors[0]
-                side.right.color = colors[1]
-                side.left.exitSide = "right"
-                side.right.exitSide = "left"
-                side.left.opening.isOpen = true
-                side.right.opening.isOpen = true
+                if currentSwitch == 1 {
                 
                 
+                    side.left.color = colors[0]
+                    side.right.color = colors[1]
+                    side.left.exitSide = "right"
+                    side.right.exitSide = "left"
+                    side.left.opening.isOpen = true
+                    side.right.opening.isOpen = true
+                
+                } else if currentSwitch == 2 {
+                
+                    side.left.color = colors[1]
+                    side.right.color = colors[0]
+                    side.left.exitSide = "right"
+                    side.right.exitSide = "left"
+                    side.left.opening.isOpen = true
+                    side.right.opening.isOpen = true
+                }
             case 2, 4: //Vertical
                 
-                side.top.color = colors[0]
-                side.bottom.color = colors[1]
-                side.top.exitSide = "bottom"
-                side.bottom.exitSide = "top"
-                side.top.opening.isOpen = true
-                side.bottom.opening.isOpen = true
+                if currentSwitch == 1 {
+                    
+                    side.top.color = colors[0]
+                    side.bottom.color = colors[1]
+                    side.top.exitSide = "bottom"
+                    side.bottom.exitSide = "top"
+                    side.top.opening.isOpen = true
+                    side.bottom.opening.isOpen = true
+                    
+                } else if currentSwitch == 2 {
+                    
+                    side.top.color = colors[1]
+                    side.bottom.color = colors[0]
+                    side.top.exitSide = "bottom"
+                    side.bottom.exitSide = "top"
+                    side.top.opening.isOpen = true
+                    side.bottom.opening.isOpen = true
+                    
+                }
+                
+                
                 
             default:
                 break

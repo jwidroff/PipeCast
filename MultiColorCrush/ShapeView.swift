@@ -657,86 +657,186 @@ class ShapeView : UIView {
             case 1, 3:
                 
                 //Horizontal Line
-                let width = frame.width / 2
-                let height = frame.height / 4
-                let x:CGFloat = 0.0
-                let y = ((frame.height - height) / 2)
                 
-                let rect1 = CGRect(x: x, y: y, width: width, height: height)
-                context.setFillColor(colors[0])
-                context.addRects([rect1])
-                context.fill(rect1)
+                if currentSwitch == 1 {
+                    
+                    let width = frame.width / 2
+                    let height = frame.height / 4
+                    let x:CGFloat = 0.0
+                    let y = ((frame.height - height) / 2)
+                    
+                    let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                    context.setFillColor(colors[0])
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    let rect2 = CGRect(x: width, y: y, width: width, height: height)
+                    context.setFillColor(colors[1])
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    
+                    let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
+                    let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
+                    let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
+                    
+                    let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
+                    let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
+                    let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
+                    
+                    let path = UIBezierPath()
+                    path.move(to: topCenter)
+                    path.addCurve(to: bottomCenter, controlPoint1: topLeft, controlPoint2: bottomLeft)
+                    context.setFillColor(colors[0])
+                    context.addPath(path.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    let path2 = UIBezierPath()
+                    path2.move(to: topCenter)
+                    path2.addCurve(to: bottomCenter, controlPoint1: topRight, controlPoint2: bottomRight)
+                    context.setFillColor(colors[1])
+                    context.addPath(path2.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                } else if currentSwitch == 2 {
+                    
+                    let width = frame.width / 2
+                    let height = frame.height / 4
+                    let x:CGFloat = 0.0
+                    let y = ((frame.height - height) / 2)
+                    
+                    let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                    context.setFillColor(colors[1])
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    let rect2 = CGRect(x: width, y: y, width: width, height: height)
+                    context.setFillColor(colors[0])
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    
+                    let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
+                    let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
+                    let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
+                    
+                    let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
+                    let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
+                    let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
+                    
+                    let path = UIBezierPath()
+                    path.move(to: topCenter)
+                    path.addCurve(to: bottomCenter, controlPoint1: topLeft, controlPoint2: bottomLeft)
+                    context.setFillColor(colors[1])
+                    context.addPath(path.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    let path2 = UIBezierPath()
+                    path2.move(to: topCenter)
+                    path2.addCurve(to: bottomCenter, controlPoint1: topRight, controlPoint2: bottomRight)
+                    context.setFillColor(colors[0])
+                    context.addPath(path2.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    
+                }
                 
-                let rect2 = CGRect(x: width, y: y, width: width, height: height)
-                context.setFillColor(colors[1])
-                context.addRects([rect2])
-                context.fill(rect2)
-                
-                let bottomLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4 * 3)
-                let bottomCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4 * 3)
-                let bottomRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4 * 3)
-                
-                let topLeft = CGPoint(x: (self.frame.width / 8), y: self.frame.height / 4)
-                let topCenter = CGPoint(x: (self.frame.width / 4 * 2), y: self.frame.height / 4)
-                let topRight = CGPoint(x: (self.frame.width - (self.frame.width / 8)), y: self.frame.height / 4)
-                
-                let path = UIBezierPath()
-                path.move(to: topCenter)
-                path.addCurve(to: bottomCenter, controlPoint1: topLeft, controlPoint2: bottomLeft)
-                context.setFillColor(colors[0])
-                context.addPath(path.cgPath)
-                context.closePath()
-                context.fillPath()
-                
-                let path2 = UIBezierPath()
-                path2.move(to: topCenter)
-                path2.addCurve(to: bottomCenter, controlPoint1: topRight, controlPoint2: bottomRight)
-                context.setFillColor(colors[1])
-                context.addPath(path2.cgPath)
-                context.closePath()
-                context.fillPath()
+               
                 
             case 2, 4:
                 
                 //Vertical Line
-                let width = frame.width / 4
-                let height = frame.height / 2
-                let y:CGFloat = 0.0
-                let x = ((frame.width - width) / 2)
                 
-                let rect1 = CGRect(x: x, y: y, width: width, height: height)
-                context.setFillColor(colors[0])
-                context.addRects([rect1])
-                context.fill(rect1)
                 
-                let rect2 = CGRect(x: x, y: height, width: width, height: height)
-                context.setFillColor(colors[1])
-                context.addRects([rect2])
-                context.fill(rect2)
+                if currentSwitch == 1 {
+                    
+                    let width = frame.width / 4
+                    let height = frame.height / 2
+                    let y:CGFloat = 0.0
+                    let x = ((frame.width - width) / 2)
+                    
+                    let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                    context.setFillColor(colors[0])
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    let rect2 = CGRect(x: x, y: height, width: width, height: height)
+                    context.setFillColor(colors[1])
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    
+                    let leftTop = CGPoint(x: self.frame.width / 4, y: self.frame.height / 8)
+                    let leftCenter = CGPoint(x: self.frame.width / 4, y: self.frame.height / 4 * 2)
+                    let leftBottom = CGPoint(x: self.frame.width / 4, y: self.frame.height - (self.frame.height / 8))
+                    
+                    let rightTop = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 8)
+                    let rightCenter = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 4 * 2)
+                    let rightBottom = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height - (self.frame.height / 8))
+                    
+                    let path = UIBezierPath()
+                    path.move(to: leftCenter)
+                    path.addCurve(to: rightCenter, controlPoint1: leftTop, controlPoint2: rightTop)
+                    context.setFillColor(colors[0])
+                    context.addPath(path.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    let path2 = UIBezierPath()
+                    path2.move(to: leftCenter)
+                    path2.addCurve(to: rightCenter, controlPoint1: leftBottom, controlPoint2: rightBottom)
+                    context.setFillColor(colors[1])
+                    context.addPath(path2.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                } else if  currentSwitch == 2 {
+                    
+                    let width = frame.width / 4
+                    let height = frame.height / 2
+                    let y:CGFloat = 0.0
+                    let x = ((frame.width - width) / 2)
+                    
+                    let rect1 = CGRect(x: x, y: y, width: width, height: height)
+                    context.setFillColor(colors[1])
+                    context.addRects([rect1])
+                    context.fill(rect1)
+                    
+                    let rect2 = CGRect(x: x, y: height, width: width, height: height)
+                    context.setFillColor(colors[0])
+                    context.addRects([rect2])
+                    context.fill(rect2)
+                    
+                    let leftTop = CGPoint(x: self.frame.width / 4, y: self.frame.height / 8)
+                    let leftCenter = CGPoint(x: self.frame.width / 4, y: self.frame.height / 4 * 2)
+                    let leftBottom = CGPoint(x: self.frame.width / 4, y: self.frame.height - (self.frame.height / 8))
+                    
+                    let rightTop = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 8)
+                    let rightCenter = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 4 * 2)
+                    let rightBottom = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height - (self.frame.height / 8))
+                    
+                    let path = UIBezierPath()
+                    path.move(to: leftCenter)
+                    path.addCurve(to: rightCenter, controlPoint1: leftTop, controlPoint2: rightTop)
+                    context.setFillColor(colors[1])
+                    context.addPath(path.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    let path2 = UIBezierPath()
+                    path2.move(to: leftCenter)
+                    path2.addCurve(to: rightCenter, controlPoint1: leftBottom, controlPoint2: rightBottom)
+                    context.setFillColor(colors[0])
+                    context.addPath(path2.cgPath)
+                    context.closePath()
+                    context.fillPath()
+                    
+                    
+                }
                 
-                let leftTop = CGPoint(x: self.frame.width / 4, y: self.frame.height / 8)
-                let leftCenter = CGPoint(x: self.frame.width / 4, y: self.frame.height / 4 * 2)
-                let leftBottom = CGPoint(x: self.frame.width / 4, y: self.frame.height - (self.frame.height / 8))
                 
-                let rightTop = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 8)
-                let rightCenter = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height / 4 * 2)
-                let rightBottom = CGPoint(x: self.frame.width / 4 * 3, y: self.frame.height - (self.frame.height / 8))
                 
-                let path = UIBezierPath()
-                path.move(to: leftCenter)
-                path.addCurve(to: rightCenter, controlPoint1: leftTop, controlPoint2: rightTop)
-                context.setFillColor(colors[0])
-                context.addPath(path.cgPath)
-                context.closePath()
-                context.fillPath()
-                
-                let path2 = UIBezierPath()
-                path2.move(to: leftCenter)
-                path2.addCurve(to: rightCenter, controlPoint1: leftBottom, controlPoint2: rightBottom)
-                context.setFillColor(colors[1])
-                context.addPath(path2.cgPath)
-                context.closePath()
-                context.fillPath()
                 
             default:
                 break

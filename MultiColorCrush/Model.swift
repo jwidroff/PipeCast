@@ -55,7 +55,7 @@ import UIKit
 
 //TODO: May want to consider saving pieces from a level and using all those pieces for the bonus level
 
-//TODO: May want to consider giving the randomColorChanger a power, like the ability to flip horitontally or vertically
+//TODO: May want to consider giving the random ColorChanger a power, like the ability to flip horitontally or vertically
 
 
 
@@ -528,6 +528,63 @@ class Model {
             default:
                 break
             }
+            
+            
+        case .colorChanger:
+            
+            switch piece.version {
+            
+            case 1, 3:
+                
+                //Horizontal Line
+                if piece.currentSwitch == 1 {
+
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                }
+                
+            case 2, 4:
+                
+                //Vertical Line
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                }
+                    
+            default:
+                break
+            }
+            
+            
+            
+            
             
         default:
             break
@@ -1552,6 +1609,13 @@ class Model {
         delegate?.replacePieceView(piece: piece)
     }
     
+//    func switchSwitches(piece: Piece) {
+//
+//
+//
+//
+//    }
+    
     func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
                 
         if piece.isLocked || piece.doesPivot == false { return }
@@ -1832,6 +1896,60 @@ class Model {
             default:
                 break
             }
+            
+        case .colorChanger:
+            
+            switch piece.version {
+            
+            case 1, 3:
+                
+                //Horizontal Line
+                if piece.currentSwitch == 1 {
+
+                    piece.side.left.color = piece.colors[0]
+                    piece.side.right.color = piece.colors[1]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                    
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.left.color = piece.colors[1]
+                    piece.side.right.color = piece.colors[0]
+                    piece.side.left.exitSide = "right"
+                    piece.side.right.exitSide = "left"
+                    piece.side.left.opening.isOpen = true
+                    piece.side.right.opening.isOpen = true
+                }
+                
+            case 2, 4:
+                
+                //Vertical Line
+                if piece.currentSwitch == 1 {
+                    
+                    piece.side.top.color = piece.colors[0]
+                    piece.side.bottom.color = piece.colors[1]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                
+                } else if piece.currentSwitch == 2 {
+
+                    piece.side.top.color = piece.colors[1]
+                    piece.side.bottom.color = piece.colors[0]
+                    piece.side.top.exitSide = "bottom"
+                    piece.side.bottom.exitSide = "top"
+                    piece.side.top.opening.isOpen = true
+                    piece.side.bottom.opening.isOpen = true
+                }
+                    
+            default:
+                break
+            }
+            
+            
             
         case .diagElbow:
             
