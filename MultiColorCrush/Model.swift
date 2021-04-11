@@ -1276,6 +1276,21 @@ class Model {
                     }
                 }
                 
+                if piece.shape == .doubleElbow || piece.shape == .elbow {
+                    
+                    let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+                    
+                    
+                    switchSwitches(piece: piece)
+                    
+                    setPieceSides(piece: piece)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                        
+                        self.delegate?.replacePieceView(piece: piece)
+                    }
+                }
+                
                 if piece.shape == .colorChanger {
                     
                     ball.onColor = piece.side.bottom.color!
@@ -1333,6 +1348,21 @@ class Model {
 
                             self.delegate?.replacePieceView(piece: piece)
                         }
+                    }
+                }
+                
+                if piece.shape == .doubleElbow || piece.shape == .elbow {
+                    
+                    let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+                    
+                    
+                    switchSwitches(piece: piece)
+                    
+                    setPieceSides(piece: piece)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                        
+                        self.delegate?.replacePieceView(piece: piece)
                     }
                 }
                 
@@ -1395,6 +1425,21 @@ class Model {
                     }
                 }
                 
+                if piece.shape == .doubleElbow || piece.shape == .elbow {
+                    
+                    let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+                    
+                    
+                    switchSwitches(piece: piece)
+                    
+                    setPieceSides(piece: piece)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                        
+                        self.delegate?.replacePieceView(piece: piece)
+                    }
+                }
+                
                 if piece.shape == .colorChanger {
                     
                     ball.onColor = piece.side.right.color!
@@ -1452,6 +1497,21 @@ class Model {
                             self.delegate?.replacePieceView(piece: piece)
                         }
                         
+                    }
+                }
+                
+                if piece.shape == .doubleElbow || piece.shape == .elbow {
+                    
+                    let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
+                    
+                    
+                    switchSwitches(piece: piece)
+                    
+                    setPieceSides(piece: piece)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayedTime) {
+                        
+                        self.delegate?.replacePieceView(piece: piece)
                     }
                 }
                 
@@ -1640,34 +1700,34 @@ class Model {
     }
     
 //    func switch4Tap(piece: Piece,  completion: @escaping (Bool) -> Void) {
-//                
+//
 //        if piece.isLocked || piece.doesPivot == false { return }
 //        if piece.currentSwitch != piece.switches {
-//            
+//
 //            piece.currentSwitch += 1
-//            
+//
 //        } else {
-//            
+//
 //            piece.currentSwitch = 1
 //        }
-//        
+//
 //        switch piece.shape {
-//        
+//
 //        case .cross:
-//            
+//
 //            piece.side.left.closing.isOpen = !piece.side.left.closing.isOpen
 //            piece.side.right.closing.isOpen = !piece.side.right.closing.isOpen
 //            piece.side.top.closing.isOpen = !piece.side.top.closing.isOpen
 //            piece.side.bottom.closing.isOpen = !piece.side.bottom.closing.isOpen
 //
 //        case .doubleElbow:
-//                        
+//
 //            switch piece.version {
-//            
+//
 //            case 1:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    //Top Left
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = false
@@ -1682,7 +1742,7 @@ class Model {
 //                    piece.side.left.color = piece.colors[0]
 //
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    //Top Right
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = false
@@ -1696,11 +1756,11 @@ class Model {
 //                    piece.side.top.color = piece.colors[1]
 //                    piece.side.left.color = piece.colors[0]
 //                 }
-//                
+//
 //            case 2:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    //left bottom
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
@@ -1713,9 +1773,9 @@ class Model {
 //                    piece.side.top.color = piece.colors[1]
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[0]
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    //left top
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
@@ -1729,11 +1789,11 @@ class Model {
 //                    piece.side.left.color = piece.colors[1]
 //                    piece.side.bottom.color = piece.colors[0]
 //                }
-//                
+//
 //            case 3:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                                        
+//
 //                    //Bottom Left
 //                    piece.side.top.opening.isOpen = false
 //                    piece.side.bottom.opening.isOpen = true
@@ -1746,9 +1806,9 @@ class Model {
 //                    piece.side.right.color = piece.colors[1]
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[0]
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    //Bottom right
 //                    piece.side.top.opening.isOpen = false
 //                    piece.side.bottom.opening.isOpen = true
@@ -1762,11 +1822,11 @@ class Model {
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
 //                }
-//                
+//
 //            case 4:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    //Right Top
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
@@ -1779,9 +1839,9 @@ class Model {
 //                    piece.side.right.color = piece.colors[0]
 //                    piece.side.top.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    //Right bottom
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
@@ -1795,19 +1855,19 @@ class Model {
 //                    piece.side.top.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
 //                 }
-//                
+//
 //            default:
 //                break
 //            }
-//            
+//
 //        case .elbow:
-//            
+//
 //            switch piece.version {
-//            
+//
 //            case 1:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    piece.side.top.exitSide = "left"
 //                    piece.side.left.exitSide = "top"
 //                    piece.side.right.exitSide = nil
@@ -1816,7 +1876,7 @@ class Model {
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.right.color = nil
 //                    piece.side.bottom.color = nil
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.top.exitSide = "right"
@@ -1828,14 +1888,14 @@ class Model {
 //                    piece.side.left.color = nil
 //                    piece.side.bottom.color = nil
 //                }
-//                
+//
 //                piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
 //                piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
 //
 //            case 2:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    piece.side.left.exitSide = "bottom"
 //                    piece.side.bottom.exitSide = "left"
 //                    piece.side.top.exitSide = nil
@@ -1844,7 +1904,7 @@ class Model {
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.right.color = nil
 //                    piece.side.top.color = nil
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.left.exitSide = "top"
@@ -1856,14 +1916,14 @@ class Model {
 //                    piece.side.right.color = nil
 //                    piece.side.bottom.color = nil
 //                }
-//                
+//
 //                piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
 //                piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-//                
+//
 //            case 3:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    piece.side.bottom.exitSide = "right"
 //                    piece.side.right.exitSide = "bottom"
 //                    piece.side.left.exitSide = nil
@@ -1872,7 +1932,7 @@ class Model {
 //                    piece.side.bottom.color = piece.colors[0]
 //                    piece.side.left.color = nil
 //                    piece.side.top.color = nil
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.bottom.exitSide = "left"
@@ -1884,14 +1944,14 @@ class Model {
 //                    piece.side.right.color = nil
 //                    piece.side.top.color = nil
 //                }
-//                
+//
 //                piece.side.left.opening.isOpen = !piece.side.left.opening.isOpen
 //                piece.side.right.opening.isOpen = !piece.side.right.opening.isOpen
-//                
+//
 //            case 4:
-//                
+//
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    piece.side.right.exitSide = "top"
 //                    piece.side.top.exitSide = "right"
 //                    piece.side.bottom.exitSide = nil
@@ -1900,7 +1960,7 @@ class Model {
 //                    piece.side.right.color = piece.colors[0]
 //                    piece.side.left.color = nil
 //                    piece.side.bottom.color = nil
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.right.exitSide = "bottom"
@@ -1912,20 +1972,20 @@ class Model {
 //                    piece.side.top.color = nil
 //                    piece.side.left.color = nil
 //                }
-//                
+//
 //                piece.side.top.opening.isOpen = !piece.side.top.opening.isOpen
 //                piece.side.bottom.opening.isOpen = !piece.side.bottom.opening.isOpen
-//                
+//
 //            default:
 //                break
 //            }
-//            
+//
 //        case .colorChanger:
-//            
+//
 //            switch piece.version {
-//            
+//
 //            case 1, 3:
-//                
+//
 //                //Horizontal Line
 //                if piece.currentSwitch == 1 {
 //
@@ -1935,7 +1995,7 @@ class Model {
 //                    piece.side.right.exitSide = "left"
 //                    piece.side.left.opening.isOpen = true
 //                    piece.side.right.opening.isOpen = true
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.left.color = piece.colors[1]
@@ -1945,19 +2005,19 @@ class Model {
 //                    piece.side.left.opening.isOpen = true
 //                    piece.side.right.opening.isOpen = true
 //                }
-//                
+//
 //            case 2, 4:
-//                
+//
 //                //Vertical Line
 //                if piece.currentSwitch == 1 {
-//                    
+//
 //                    piece.side.top.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
 //                    piece.side.top.exitSide = "bottom"
 //                    piece.side.bottom.exitSide = "top"
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
-//                
+//
 //                } else if piece.currentSwitch == 2 {
 //
 //                    piece.side.top.color = piece.colors[1]
@@ -1967,22 +2027,22 @@ class Model {
 //                    piece.side.top.opening.isOpen = true
 //                    piece.side.bottom.opening.isOpen = true
 //                }
-//                    
+//
 //            default:
 //                break
 //            }
-//            
-//            
-//            
+//
+//
+//
 //        case .diagElbow:
-//            
+//
 //            switch piece.version {
-//            
+//
 //            case 1, 3:
-//                
+//
 //                //Pivots on right and left
 //                if piece.currentSwitch == 1 {
-//                
+//
 //                    piece.side.right.exitSide = "top"
 //                    piece.side.left.exitSide = "bottom"
 //                    piece.side.top.exitSide = "right"
@@ -1991,9 +2051,9 @@ class Model {
 //                    piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[1]
 //                    piece.side.bottom.color = piece.colors[1]
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    piece.side.top.exitSide = "left"
 //                    piece.side.left.exitSide = "top"
 //                    piece.side.bottom.exitSide = "right"
@@ -2003,12 +2063,12 @@ class Model {
 //                    piece.side.left.color = piece.colors[1]
 //                    piece.side.bottom.color = piece.colors[0]
 //                }
-//                
+//
 //            case 2, 4:
-//                
+//
 //                //Pivots on top and bottom
 //                if piece.currentSwitch == 1 {
-//                
+//
 //                    piece.side.top.exitSide = "left"
 //                    piece.side.left.exitSide = "top"
 //                    piece.side.bottom.exitSide = "right"
@@ -2017,9 +2077,9 @@ class Model {
 //                    piece.side.top.color = piece.colors[0]
 //                    piece.side.left.color = piece.colors[0]
 //                    piece.side.bottom.color = piece.colors[1]
-//                    
+//
 //                } else if piece.currentSwitch == 2 {
-//                    
+//
 //                    piece.side.right.exitSide = "top"
 //                    piece.side.left.exitSide = "bottom"
 //                    piece.side.top.exitSide = "right"
@@ -2029,15 +2089,15 @@ class Model {
 //                    piece.side.left.color = piece.colors[1]
 //                    piece.side.bottom.color = piece.colors[1]
 //                }
-//            
+//
 //            default:
 //                break
 //            }
-//            
+//
 //        default:
 //            break
 //        }
-//        
+//
 //        completion(true)
 //    }
     
