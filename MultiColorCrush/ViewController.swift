@@ -533,7 +533,7 @@ extension ViewController: ModelDelegate {
     func removeView(view: UIView) {
         
         let scale = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        let delayedTime = DispatchTime.now() + .milliseconds(Int(500))
+        let delayedTime = DispatchTime.now() + .milliseconds(Int(250))
 
         DispatchQueue.main.asyncAfter(deadline: delayedTime) {
             
@@ -548,17 +548,17 @@ extension ViewController: ModelDelegate {
         }
     }
     
-    func removeBall(ball: Ball) {
-        
-        let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        
-        UIView.animate(withDuration: duration4Animation, delay: 0.10, options: .curveEaseInOut) {
-            ball.view.transform = scale
-
-        } completion: { (true) in
-            ball.view.removeFromSuperview()
-        }
-    }
+//    func removeBall(ball: Ball) {
+//        
+//        let scale = CGAffineTransform(scaleX: 0.1, y: 0.1)
+//        
+//        UIView.animate(withDuration: duration4Animation, delay: 0.10, options: .curveEaseInOut) {
+//            ball.view.transform = scale
+//
+//        } completion: { (true) in
+//            ball.view.removeFromSuperview()
+//        }
+//    }
     
     func resetPieceMakerView(piece: Piece) {
  

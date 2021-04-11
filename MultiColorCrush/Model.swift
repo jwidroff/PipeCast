@@ -67,7 +67,7 @@ protocol ModelDelegate {
     func addPieceView(piece: Piece)
     func resetPieceMakerView(piece: Piece)
     func removeView(view: UIView)
-    func removeBall(ball: Ball) //Consider getting rid of this and making it into the replaceView
+//    func removeBall(ball: Ball) //Consider getting rid of this and making it into the replaceView
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
     func replacePieceView(piece: Piece)
@@ -994,7 +994,9 @@ class Model {
             
             if ball.indexes.x! < 0 || ball.indexes.x! > board.widthSpaces - 1 || ball.indexes.y! < 0 || ball.indexes.y! > board.heightSpaces - 1 {
                 
-                delegate?.removeBall(ball: ball)
+                
+                delegate?.removeView(view: ball.view)
+//                delegate?.removeBall(ball: ball)
                 return true
             }
             return false
@@ -1006,7 +1008,9 @@ class Model {
 
                 if holeLocation == ball.indexes {
 
-                    delegate?.removeBall(ball: ball)
+                    delegate?.removeView(view: ball.view)
+
+//                    delegate?.removeBall(ball: ball)
                     return true
                 }
             }
@@ -1142,7 +1146,9 @@ class Model {
             ball.indexes == ballX.indexes
         }
         
-        delegate?.removeBall(ball: ball)
+        delegate?.removeView(view: ball.view)
+
+//        delegate?.removeBall(ball: ball)
         delegate?.changeAnimationSpeed(slowerOrFaster: "slower")
         check4Winner()
     }
@@ -1911,7 +1917,9 @@ class Model {
         
         for ball in board.balls {
             
-            delegate?.removeBall(ball: ball)
+            delegate?.removeView(view: ball.view)
+
+//            delegate?.removeBall(ball: ball)
         }
         
         board.balls.removeAll()
