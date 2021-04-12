@@ -27,6 +27,9 @@ class ViewController: UIViewController {
     var boardView = UIView()
     var ballEndingPoint = CGPoint()
     var duration4Animation = 0.25
+    var swipesLeftLabel = UILabel()
+    var levelNameLabel = UILabel()
+    var levelObjectiveLabel = UILabel()
     
     override func viewDidLoad() {
         
@@ -40,10 +43,28 @@ class ViewController: UIViewController {
     //MARK: Initial Setup
     func setupGrid() {
 
-        let frameX = (self.model.board.view.frame.width - boardWidth) / 2
-        let frameY = (self.model.board.view.frame.height - boardHeight) / 2
-        let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
-        self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
+//        if deviceIsNarrow {
+//
+//
+//            let frameX = (self.model.board.view.frame.width - boardWidth) / 2
+//            let frameY = (self.model.board.view.frame.height - boardHeight) / 2
+//            let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
+//            self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
+//
+//
+//        } else {
+            
+            
+            let frameX = (self.model.board.view.frame.width - boardWidth) / 2
+            let frameY = (self.model.board.view.frame.height - boardHeight) / 2
+            let frame = CGRect(x: frameX, y: frameY, width: boardWidth, height: boardHeight)
+            self.model.board.grid = GridPoints(frame: frame, height: self.model.board.heightSpaces, width: self.model.board.widthSpaces).getGrid()
+            
+            
+//        }
+        
+        
+       
     }
     
     func setupBalls() {
@@ -64,7 +85,9 @@ class ViewController: UIViewController {
         var frameY = CGFloat()
         
         if deviceIsNarrow {
-            frameY = self.view.frame.midY - (boardHeight / 2) - (heightCushion / 4)
+
+            frameY = self.view.frame.midY - (boardHeight / 2) //- (heightCushion / 4)
+            
         } else {
             frameY = self.view.frame.midY - (boardHeight / 2)
         }
@@ -109,16 +132,16 @@ class ViewController: UIViewController {
         
         if self.view.frame.width > (self.view.frame.height / 2) {
             
-            boardWidth = (self.view.frame.height - heightCushion) / 2
-            boardHeight = (self.view.frame.height - heightCushion)
+            boardWidth = (self.view.frame.height - (heightCushion / 2)) / 2
+            boardHeight = (self.view.frame.height - (heightCushion / 2))
             
             print("Wide Device")
             deviceIsNarrow = false
 
         } else if self.view.frame.width < (self.view.frame.height / 2) {
         
-            boardHeight = (self.view.frame.width - widthCushion) * 2
-            boardWidth = self.view.frame.width - widthCushion
+            boardHeight = (self.view.frame.width - (widthCushion * 2)) * 2
+            boardWidth = self.view.frame.width - (widthCushion * 2)
             
             print("Narrow Device")
             deviceIsNarrow = true
@@ -133,6 +156,9 @@ class ViewController: UIViewController {
         
         var retryButtonFrame = CGRect()
         var menuButtonFrame = CGRect()
+        
+        
+        
 
         if deviceIsNarrow == true {
                         

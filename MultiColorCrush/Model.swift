@@ -47,15 +47,12 @@ import UIKit
 //TODO: May need to utilize the closing property for the doubleElbow when is comes in from a side but the pivot is the other way
 
 
-//TODO: See if you can get rid of all the "opening" properties for all piece shapes except for the cross
-
 //TODO: Random ColorChanger needs work
 
 //TODO: May want to consider putting in a special piece (possibly one that changes shape/color every time its tapped) when a loop is made or when a line is complete. Whichever is harder
 
 //TODO: May want to consider saving pieces from a level and using all those pieces for the bonus level
 
-//TODO: May want to consider giving the random ColorChanger a power, like the ability to flip horitontally or vertically
 
 
 
