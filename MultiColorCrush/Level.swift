@@ -12,7 +12,7 @@ import UIKit
 
 class Level {
     
-    var number = 19
+    var number = 21
 
     var board = Board()
 }
@@ -41,7 +41,8 @@ class LevelModel {
                       "test7",
                       "test8",
                       "test9",
-                      "everything"]
+                      "everything",
+                      "Around and back"]
         
     func returnBoard(levelNumber: Int) -> Board {
         
@@ -832,6 +833,46 @@ class LevelModel {
             
             
             
+        case "Around and back":
+            
+            board.heightSpaces = 12
+            board.widthSpaces = 6
+
+            board.amountOfRandomPieces = 0
+
+            board.randomPieceColors = [UIColor.red, UIColor.red, UIColor.red]
+
+            board.randomPieceShapes = [.doubleElbow]//, .cross, .diagElbow, .elbow]
+
+            let entrance = Piece(indexes: Indexes(x: 2, y: 6), shape: .entrance, colors: [UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: "right", doesPivot: nil)
+            board.pieces.append(entrance)
+            
+            let doubleElbow1 = Piece(indexes: Indexes(x: 3, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 3, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(doubleElbow1)
+
+            let doubleElbow2 = Piece(indexes: Indexes(x: 4, y: 5), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(doubleElbow2)
+            
+            let doubleElbow3 = Piece(indexes: Indexes(x: 3, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(doubleElbow3)
+            
+            let doubleElbow4 = Piece(indexes: Indexes(x: 4, y: 7), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 1, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(doubleElbow4)
+            
+            let doubleElbow5 = Piece(indexes: Indexes(x: 3, y: 6), shape: .doubleElbow, colors: [UIColor.red, UIColor.red], version: 2, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(doubleElbow5)
+            
+            let stick2 = Piece(indexes: Indexes(x: 4, y: 6), shape: .stick, colors: [UIColor.red, UIColor.red], version: 4, currentSwitch: 1, isLocked: false, opening: nil, doesPivot: true)
+            board.pieces.append(stick2)
+            
+            
+            
+        
+        
+        
+        
+        
+        
         default:
             break
             

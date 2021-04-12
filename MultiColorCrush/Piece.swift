@@ -160,18 +160,26 @@ class Piece {
             case "top":
                 
                 side.top.color = colors[0]
+                side.top.exitSide = "center"
+                side.top.opening.isOpen = true
 
             case "bottom":
                 
                 side.bottom.color = colors[0]
+                side.bottom.exitSide = "center"
+                side.bottom.opening.isOpen = true
 
             case "left":
                 
                 side.left.color = colors[0]
+                side.left.exitSide = "center"
+                side.left.opening.isOpen = true
 
             case "right":
                 
                 side.right.color = colors[0]
+                side.right.exitSide = "center"
+                side.right.opening.isOpen = true
 
             default:
                 break
