@@ -89,7 +89,7 @@ class ViewController: UIViewController {
             frameY = self.view.frame.midY - (boardHeight / 2) + (heightCushion / 4)
             
         } else {
-            frameY = self.view.frame.midY - (boardHeight / 2)
+            frameY = self.view.frame.midY - (boardHeight / 2)// + (heightCushion)
         }
         
         let frameX = self.view.frame.midX - (boardWidth / 2)
@@ -119,33 +119,52 @@ class ViewController: UIViewController {
     
     func setSizes() {
         
-        widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
-        heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces))
+//        widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
+//
+//        print("width = \(self.view.frame.width - widthCushion)")
+//        print("height = \(self.view.frame.height)")
+//
+//        //Iphone8 plus
+//        //W = 414.0
+//        //H = 736
+//
+//        //TODO: Make it that this changes the calculation if the widthCusion is too small (iPhone 7, 8)
+//
+//        if self.view.frame.width > (self.view.frame.height / 2) {
+//
+//            heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces)) * 4
+//
+//            boardWidth = (self.view.frame.height - (heightCushion / 2)) / 2
+//            boardHeight = (self.view.frame.height - (heightCushion / 2))
+//
+//            print("Wide Device")
+//            deviceIsNarrow = false
+//
+//        } else if self.view.frame.width < (self.view.frame.height / 2) {
+//
+//            heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces)) * 2
+//
+//            boardHeight = (self.view.frame.width - (widthCushion * 2)) * 2
+//            boardWidth = self.view.frame.width - (widthCushion * 2)
+//
+//            print("Narrow Device")
+//            deviceIsNarrow = true
+//        }
+        
+        //Height cushion
+        //Width cushion
+        //Board width
+        //Board height
+        
         print("width = \(self.view.frame.width - widthCushion)")
         print("height = \(self.view.frame.height)")
         
-        //Iphone8 plus
-        //W = 414.0
-        //H = 736
         
-        //TODO: Make it that this changes the calculation if the widthCusion is too small (iPhone 7, 8)
+        heightCushion = self.view.frame.height / 5
+        boardHeight = self.view.frame.height - heightCushion
+        boardWidth = boardHeight / 2
         
-        if self.view.frame.width > (self.view.frame.height / 2) {
-            
-            boardWidth = (self.view.frame.height - (heightCushion / 2)) / 2
-            boardHeight = (self.view.frame.height - (heightCushion / 2))
-            
-            print("Wide Device")
-            deviceIsNarrow = false
-
-        } else if self.view.frame.width < (self.view.frame.height / 2) {
         
-            boardHeight = (self.view.frame.width - (widthCushion * 2)) * 2
-            boardWidth = self.view.frame.width - (widthCushion * 2)
-            
-            print("Narrow Device")
-            deviceIsNarrow = true
-        }
         
         pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9.5
         pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9.5
@@ -154,134 +173,15 @@ class ViewController: UIViewController {
     
     func setupControls() {
         
-        var retryButtonFrame = CGRect()
-        var menuButtonFrame = CGRect()
-        var swipesLeftLabelFrame = CGRect()
-        var levelNameLabelFrame = CGRect()
-        var levelObjectiveLabelFrame = CGRect()
+        let controlHeight = pieceHeight / 2
+        let buttonWidth = (boardWidth / 2) - 10
+        let buttonHeight = controlHeight
         
-        
-
-        if deviceIsNarrow == true {
-                        
-            let buttonWidth = (boardWidth / 2) - 10
-            let buttonHeight = heightCushion / 2
-            let retryButtonYFloat = model.board.view.frame.maxY + 10
-            let retryButtonXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
-            let menuButtonYFloat = model.board.view.frame.maxY + 10
-            let menuButtonXFloat = model.board.view.frame.minX
-            retryButtonFrame = CGRect(x: retryButtonXFloat, y: retryButtonYFloat, width: buttonWidth, height: buttonHeight)
-            retryButton = UIButton(frame: retryButtonFrame)
-            retryButton.layer.cornerRadius = retryButton.frame.height / 2
-
-            menuButtonFrame = CGRect(x: menuButtonXFloat, y: menuButtonYFloat, width: buttonWidth, height: buttonHeight)
-            menuButton = UIButton(frame: menuButtonFrame)
-            menuButton.layer.cornerRadius = menuButton.frame.height / 2
-            
-            
-            let swipesLeftLabelHeight = heightCushion / 4
-            let swipesLeftLabelWidth = (boardWidth / 2) - 10
-            let swipesLeftYFloat = model.board.view.frame.minY - swipesLeftLabelHeight - 10
-            let swipesLeftXFloat = model.board.view.frame.minX
-            let swipesLeftLabelFrame = CGRect(x: swipesLeftXFloat, y: swipesLeftYFloat, width: swipesLeftLabelWidth, height: swipesLeftLabelHeight)
-            
-            swipesLeftLabel.frame = swipesLeftLabelFrame
-            swipesLeftLabel.backgroundColor = .clear
-            swipesLeftLabel.textAlignment = .left
-            swipesLeftLabel.text = "SWIPES LEFT: "
-            view.addSubview(swipesLeftLabel)
-            
-            
-            let levelObjectiveLabelHeight = heightCushion / 4
-            let levelObjectiveLabelWidth = (boardWidth / 2) - 10
-            let levelObjectiveYFloat = model.board.view.frame.minY - swipesLeftLabelHeight - 10
-            let levelObjectiveXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
-            let levelObjectiveLabelFrame = CGRect(x: levelObjectiveXFloat, y: levelObjectiveYFloat, width: levelObjectiveLabelWidth, height: levelObjectiveLabelHeight)
-            
-            levelObjectiveLabel.frame = levelObjectiveLabelFrame
-            levelObjectiveLabel.backgroundColor = .clear
-            levelObjectiveLabel.textAlignment = .right
-            levelObjectiveLabel.text = "[LEVEL OBJECTIVE]"
-            view.addSubview(levelObjectiveLabel)
-            
-            
-            let levelNameLabelHeight = heightCushion / 2
-            let levelNameLabelWidth = boardWidth
-            let levelNameYFloat = model.board.view.frame.minY - swipesLeftLabelHeight - levelNameLabelHeight - 20
-            let levelNameXFloat = model.board.view.frame.minX
-            let levelNameLabelFrame = CGRect(x: levelNameXFloat, y: levelNameYFloat, width: levelNameLabelWidth, height: levelNameLabelHeight)
-            levelNameLabel.frame = levelNameLabelFrame
-            levelNameLabel.backgroundColor = .blue
-            levelNameLabel.textAlignment = .center
-            levelNameLabel.text = "[LEVEL NAME HERE]"
-            view.addSubview(levelNameLabel)
-            
-            
-            
-        } else if deviceIsNarrow == false {
-                 
-            let buttonWidth = model.board.view.frame.minX / 4 * 3
-            let buttonHeight = buttonWidth
-            let buttonYFloat = model.board.view.frame.maxY - buttonHeight
-            let buttonXFloat = model.board.view.frame.maxX + (model.board.view.frame.minX / 8)
-            let menuButtonXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
-            
-            retryButtonFrame = CGRect(x: buttonXFloat, y: buttonYFloat, width: buttonWidth , height: buttonHeight)
-            retryButton = UIButton(frame: retryButtonFrame)
-            retryButton.layer.cornerRadius = retryButton.frame.width / 2
-
-            menuButtonFrame = CGRect(x: menuButtonXFloat, y: buttonYFloat, width: buttonWidth, height: buttonHeight)
-            menuButton = UIButton(frame: menuButtonFrame)
-            menuButton.layer.cornerRadius = menuButton.frame.height / 2
-            
-            
-            //UP TO HERE. JUST FINISHED THE SWIPES LEFT LABEL
-            
-            let levelNameLabelWidth = model.board.view.frame.minX / 4 * 3
-            let levelNameLabelHeight = levelNameLabelWidth * 2
-
-            let levelNameYFloat = model.board.view.frame.minY
-            let levelNameXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
-            let levelNameLabelFrame = CGRect(x: levelNameXFloat, y: levelNameYFloat, width: levelNameLabelWidth, height: levelNameLabelHeight)
-            
-            levelNameLabel.frame = levelNameLabelFrame
-            levelNameLabel.backgroundColor = .blue
-            levelNameLabel.textAlignment = .left
-            levelNameLabel.text = "[LEVEL NAME]"
-            view.addSubview(levelNameLabel)
-            
-            let swipesLeftLabelWidth = model.board.view.frame.minX / 4 * 3
-            let swipesLeftLabelHeight = swipesLeftLabelWidth * 2
-
-            let swipesLeftYFloat = model.board.view.frame.minY + levelNameLabelHeight + 10
-            let swipesLeftXFloat = model.board.view.frame.minX - (model.board.view.frame.minX / 8) - buttonWidth
-            let swipesLeftLabelFrame = CGRect(x: swipesLeftXFloat, y: swipesLeftYFloat, width: swipesLeftLabelWidth, height: swipesLeftLabelHeight)
-
-            swipesLeftLabel.frame = swipesLeftLabelFrame
-            swipesLeftLabel.backgroundColor = .blue
-            swipesLeftLabel.textAlignment = .left
-            swipesLeftLabel.text = "SWIPES LEFT: "
-            view.addSubview(swipesLeftLabel)
-            
-  
-            let levelObjectiveLabelWidth = model.board.view.frame.minX / 4 * 3
-            let levelObjectiveLabelHeight = ((levelObjectiveLabelWidth * 2) * 2) + 10
-
-            let levelObjectiveYFloat = model.board.view.frame.minY
-            let levelObjectiveXFloat = model.board.view.frame.maxX + (model.board.view.frame.minX / 8)
-            let levelObjectiveLabelFrame = CGRect(x: levelObjectiveXFloat, y: levelObjectiveYFloat, width: levelObjectiveLabelWidth, height: levelObjectiveLabelHeight)
-
-            levelObjectiveLabel.frame = levelObjectiveLabelFrame
-            levelObjectiveLabel.backgroundColor = .green
-            levelObjectiveLabel.textAlignment = .left
-            levelObjectiveLabel.text = "[GAME OBJECTIVE]"
-            view.addSubview(levelObjectiveLabel)
-            
-            
-            
-            
-        }
-        
+        let retryButtonYFloat = model.board.view.frame.maxY + (controlHeight / 2)
+        let retryButtonXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
+        let retryButtonFrame = CGRect(x: retryButtonXFloat, y: retryButtonYFloat, width: buttonWidth, height: buttonHeight)
+        retryButton = UIButton(frame: retryButtonFrame)
+        retryButton.layer.cornerRadius = retryButton.frame.height / 2
         retryButton.backgroundColor = colorTheme.buttonColors
         retryButton.setTitle("RETRY", for: .normal)
         retryButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -289,17 +189,57 @@ class ViewController: UIViewController {
         retryButton.addTarget(self, action: #selector(handleTap4Retry(sender:)), for: .touchUpInside)
         
         retryButton.showsTouchWhenHighlighted = true
-//        makeViewSoft(view: retryButton)
+        //        makeViewSoft(view: retryButton)
         view.addSubview(retryButton)
-
+        
+        let menuButtonYFloat = model.board.view.frame.maxY + (controlHeight / 2)
+        let menuButtonXFloat = model.board.view.frame.minX
+        let menuButtonFrame = CGRect(x: menuButtonXFloat, y: menuButtonYFloat, width: buttonWidth, height: buttonHeight)
+        menuButton = UIButton(frame: menuButtonFrame)
+        menuButton.layer.cornerRadius = menuButton.frame.height / 2
+        
         menuButton.backgroundColor = colorTheme.buttonColors
         menuButton.setTitle("MENU", for: .normal)
         menuButton.titleLabel?.adjustsFontSizeToFitWidth = true
         menuButton.setTitleColor(colorTheme.buttonTextColor, for: .normal)
         menuButton.addTarget(self, action: #selector(handleTap4Menu(sender:)), for: .touchUpInside)
         menuButton.showsTouchWhenHighlighted = true
-//        makeViewSoft(view: menuButton)
+        //        makeViewSoft(view: menuButton)
         view.addSubview(menuButton)
+                
+        let swipesLeftLabelHeight = controlHeight
+        let swipesLeftLabelWidth = (boardWidth / 2) - 10
+        let swipesLeftYFloat = model.board.view.frame.minY - swipesLeftLabelHeight
+        let swipesLeftXFloat = model.board.view.frame.minX
+        let swipesLeftLabelFrame = CGRect(x: swipesLeftXFloat, y: swipesLeftYFloat, width: swipesLeftLabelWidth, height: swipesLeftLabelHeight)
+        swipesLeftLabel.frame = swipesLeftLabelFrame
+        swipesLeftLabel.backgroundColor = .clear
+        swipesLeftLabel.textAlignment = .left
+        swipesLeftLabel.text = "SWIPES LEFT: "
+        view.addSubview(swipesLeftLabel)
+        
+        let levelObjectiveLabelHeight = controlHeight
+        let levelObjectiveLabelWidth = (boardWidth / 2) - (controlHeight / 2)
+        let levelObjectiveYFloat = model.board.view.frame.minY - swipesLeftLabelHeight
+        let levelObjectiveXFloat = model.board.view.frame.minX + (boardWidth / 2) + 10
+        let levelObjectiveLabelFrame = CGRect(x: levelObjectiveXFloat, y: levelObjectiveYFloat, width: levelObjectiveLabelWidth, height: levelObjectiveLabelHeight)
+        levelObjectiveLabel.frame = levelObjectiveLabelFrame
+        levelObjectiveLabel.backgroundColor = .clear
+        levelObjectiveLabel.textAlignment = .right
+        levelObjectiveLabel.text = "[LEVEL OBJECTIVE]"
+        view.addSubview(levelObjectiveLabel)
+        
+        let levelNameLabelHeight = controlHeight
+        let levelNameLabelWidth = boardWidth
+        let levelNameYFloat = model.board.view.frame.minY - swipesLeftLabelHeight - levelNameLabelHeight
+        let levelNameXFloat = model.board.view.frame.minX
+        let levelNameLabelFrame = CGRect(x: levelNameXFloat, y: levelNameYFloat, width: levelNameLabelWidth, height: levelNameLabelHeight)
+        levelNameLabel.frame = levelNameLabelFrame
+        levelNameLabel.backgroundColor = .clear
+        levelNameLabel.textAlignment = .center
+        levelNameLabel.text = "[LEVEL NAME HERE]"
+        view.addSubview(levelNameLabel)
+        
     }
     
     func makeViewSoft(view: UIView) {
