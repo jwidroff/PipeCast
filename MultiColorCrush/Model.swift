@@ -64,7 +64,6 @@ protocol ModelDelegate {
     func addPieceView(piece: Piece)
     func resetPieceMakerView(piece: Piece)
     func removeView(view: UIView)
-//    func removeBall(ball: Ball) //Consider getting rid of this and making it into the replaceView
     func runPopUpView(title: String, message: String)
     func clearPiecesAnimation(view: UIView)
     func replacePieceView(piece: Piece)

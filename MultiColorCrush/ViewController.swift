@@ -21,7 +21,6 @@ class ViewController: UIViewController {
     var deviceIsNarrow = Bool()
     var retryButton = UIButton()
     var menuButton = UIButton()
-    var widthCushion = CGFloat()
     var heightCushion = CGFloat()
     var colorTheme = ColorTheme()
     var boardView = UIView()
@@ -118,54 +117,10 @@ class ViewController: UIViewController {
     }
     
     func setSizes() {
-        
-//        widthCushion = (self.view.frame.width / CGFloat(model.board.widthSpaces * 2))
-//
-//        print("width = \(self.view.frame.width - widthCushion)")
-//        print("height = \(self.view.frame.height)")
-//
-//        //Iphone8 plus
-//        //W = 414.0
-//        //H = 736
-//
-//        //TODO: Make it that this changes the calculation if the widthCusion is too small (iPhone 7, 8)
-//
-//        if self.view.frame.width > (self.view.frame.height / 2) {
-//
-//            heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces)) * 4
-//
-//            boardWidth = (self.view.frame.height - (heightCushion / 2)) / 2
-//            boardHeight = (self.view.frame.height - (heightCushion / 2))
-//
-//            print("Wide Device")
-//            deviceIsNarrow = false
-//
-//        } else if self.view.frame.width < (self.view.frame.height / 2) {
-//
-//            heightCushion = (self.view.frame.height / CGFloat(model.board.heightSpaces)) * 2
-//
-//            boardHeight = (self.view.frame.width - (widthCushion * 2)) * 2
-//            boardWidth = self.view.frame.width - (widthCushion * 2)
-//
-//            print("Narrow Device")
-//            deviceIsNarrow = true
-//        }
-        
-        //Height cushion
-        //Width cushion
-        //Board width
-        //Board height
-        
-        print("width = \(self.view.frame.width - widthCushion)")
-        print("height = \(self.view.frame.height)")
-        
-        
+
         heightCushion = self.view.frame.height / 5
         boardHeight = self.view.frame.height - heightCushion
         boardWidth = boardHeight / 2
-        
-        
-        
         pieceWidth = boardWidth / CGFloat(model.board.widthSpaces) / 10 * 9.5
         pieceHeight = boardHeight / CGFloat(model.board.heightSpaces) / 10 * 9.5
         distanceFromPieceCenter = (pieceWidth / 9 * 10) / 2
